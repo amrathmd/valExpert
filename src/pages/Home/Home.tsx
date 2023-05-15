@@ -4,8 +4,7 @@ import { ErrorBoundary } from '../../components';
 const Home = () => {
     return (
         <ErrorBoundary>
-            <h1>React Redux Boilerplate</h1>
-            <p>You can put the components of your app here</p>
+            <h1>Welcome to valExpert, We can start now</h1>
         </ErrorBoundary>
     );
 };
