@@ -8,7 +8,7 @@ import configureAppStore, { getPreloadedState } from './store/configureStore';
 
 import AppContextProvider from './contexts/AppContextProvider';
 
-import { Demo } from './pages';
+import { Home } from './pages';
 
 (async () => {
     const preloadedState = getPreloadedState();
@@ -19,7 +19,7 @@ import { Demo } from './pages';
         <React.StrictMode>
             <ReduxProvider store={configureAppStore(preloadedState)}>
                 <AppContextProvider>
-                    <Demo />
+                    <Home />
                 </AppContextProvider>
             </ReduxProvider>
         </React.StrictMode>
