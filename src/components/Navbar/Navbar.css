@@ -1,0 +1,54 @@
+.navbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+/* Style for the navbar */
+.Navbar-left {
+    display: inline;
+    position: fixed;
+    left: 0;
+    width: 60px;
+    height: 100%;
+    background-color: #003059;
+}
+
+/* Style for the navbar links */
+.Navbar-left a {
+    display: block; /* Display each link as a block element */
+    padding: 12px 16px; /* Add some padding */
+    text-decoration: none; /* Remove underline */
+    color: #333; /* Set link color */
+}
+
+.nav-item {
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: white;
+}
+.logo {
+    filter: invert(100%);
+    height: 70%;
+    width: 70%;
+}
+.navlink {
+    display: block;
+    padding: 0.2rem 0.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.navlink:hover {
+    background-color: #c3c1c1;
+}
