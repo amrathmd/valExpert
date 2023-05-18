@@ -83,12 +83,14 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
     "axios": "^0.21.2",
+    "bootstrap": "^4.1.1",
     "classnames": "^2.2.6",
     "esri-loader": "^3.5.0",
     "helper-toolkit-ts": "^1.1.13",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.2",
+    "react-router-dom": "^6.11.1",
     "redux": "^4.1.0"
   },
   "browserslist": [
