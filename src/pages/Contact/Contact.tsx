@@ -1,6 +1,7 @@
 import React from 'react';
+import './Contact.css';
 
 const Contact = () => {
-    return <h1 style={{ marginLeft: 100 }}>Contactus page</h1>;
+    return <div className="contactus"></div>;
 };
 export default Contact;
