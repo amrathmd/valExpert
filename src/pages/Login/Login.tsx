@@ -20,7 +20,7 @@ const Login = () => {
             admin: true,
         });
     };
-    const handleChange = () => {};
+    // const handleChange = () => {};
     return (
         <div className="container">
             <form>
@@ -81,7 +81,7 @@ const Login = () => {
                         Login
                     </button>
                     <div className="message">
-                        Don't have a account &nbsp;
+                        Don&apos;t have a account &nbsp;
                         <NavLink to="/register">
                             <a>Register here!</a>
                         </NavLink>
