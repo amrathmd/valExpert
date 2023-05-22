@@ -1,12 +1,10 @@
 import React from 'react';
 import { ErrorBoundary, Navbar } from '../../components';
-
+import './Home.css';
 const Home = () => {
     return (
         <ErrorBoundary>
-            <h1 style={{ marginLeft: 100 }}>
-                Welcome to valExpert, We can start now
-            </h1>
+            <div className="home">This is home page</div>
         </ErrorBoundary>
     );
 };

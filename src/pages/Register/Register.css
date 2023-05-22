@@ -1,0 +1,54 @@
+.register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../../public/Home-2.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+}
+.register-form {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+
+.input-elements {
+    display: flex;
+    flex-direction: column;
+}
+.register-button {
+    background-color: #4caf50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 50%;
+    max-width: 50%;
+    align-self: center;
+    padding: 5px;
+    margin-top: 5px;
+}
+.email {
+    padding: 8px;
+    margin-bottom: 8px;
+}
+.username {
+    padding: 8px;
+    margin-bottom: 8px;
+}
+.password {
+    padding: 8px;
+    margin-bottom: 8px;
+}
+.register form h2 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: large;
+}
