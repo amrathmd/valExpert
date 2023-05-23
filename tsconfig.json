@@ -1,5 +1,8 @@
 {
     "compilerOptions": {
+        "paths": {
+            "@/*":["./src/*"]
+        },
         "allowSyntheticDefaultImports": true,
         "allowJs": false,
         "jsx": "react",
