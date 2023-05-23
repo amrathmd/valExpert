@@ -6,7 +6,7 @@ import {
     Navigate,
 } from 'react-router-dom';
 import { ErrorBoundary, Navbar } from '../../components';
-import { Home, Login, Contact, Register } from '../index';
+import { Home, Login, Contact, RegistrationPage } from '../index';
 import './Homepage.css';
 const Homepage = () => {
     return (
@@ -27,7 +27,7 @@ const Homepage = () => {
                             ></Route>
                             <Route
                                 path="/register"
-                                element={<Register />}
+                                element={<RegistrationPage />}
                             ></Route>
                         </Routes>
                     </div>
