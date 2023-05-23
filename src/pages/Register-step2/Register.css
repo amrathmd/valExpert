@@ -1,0 +1,33 @@
+.register2-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../../public/Home.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+}
+.input-elements {
+    display: flex;
+    flex-direction: column;
+}
+.input-elements > label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.input-elements > input {
+    border-radius: 10px;
+}
+.company-name,
+.company-state,
+.company-city,
+.company-postalcode,
+.company-country,
+.company-phone,
+.company-email {
+    padding: 8px;
+    margin-bottom: 8px;
+}
