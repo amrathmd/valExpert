@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
 import Link from './Link';
-import { Bars3Icon } from '@heroicons/react/24/solid';
 type Props = {
     isTopOfPage: boolean;
     selectedPage: string;
