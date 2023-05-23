@@ -15,7 +15,7 @@ const Navbar = () => {
         <ErrorBoundary>
             <div>
                 <div className="Navbar-left">
-                    <ul className="nav flex-column">
+                    <ul className="nav">
                         <li className="nav-item">
                             <NavLink
                                 to="/"

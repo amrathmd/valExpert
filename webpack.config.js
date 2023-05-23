@@ -6,6 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (env, options) => {
@@ -34,7 +35,7 @@ module.exports = (env, options) => {
                     loader: 'babel-loader',
                 },
                 {
-                    test: /\.css$/i,
+                    test: /\.(css|scss)$/i,
                     include: path.resolve(__dirname, 'src'),
                     use: [
                         MiniCssExtractPlugin.loader,
@@ -63,6 +64,11 @@ module.exports = (env, options) => {
                         name: '[name].[contenthash].[ext]',
                     },
                 },
+                {
+                    test: /\.css$/,
+                    include: /node_modules/,
+                    use: ['style-loader', 'css-loader'],
+                },
             ],
         },
         devServer: {
@@ -71,6 +77,7 @@ module.exports = (env, options) => {
         plugins: [
             // need to use ForkTsCheckerWebpackPlugin because Babel loader ignores the compilation errors for Typescript
             new ForkTsCheckerWebpackPlugin(),
+            new Dotenv(),
             new MiniCssExtractPlugin({
                 // Options similar to the same options in webpackOptions.output
                 // both options are optional
@@ -91,7 +98,6 @@ module.exports = (env, options) => {
                 ],
             }),
             new HtmlWebpackPlugin({
-                publicPath: '/',
                 template: './public/index.html',
                 filename: 'index.html',
                 title: package.name,

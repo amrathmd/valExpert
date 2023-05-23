@@ -1,4 +1,11 @@
-.flex-container {
-    display: flex;
-    flex-direction: row;
+.navbar {
+    display: inline;
+    float: left;
+}
+.routes {
+    display: inline;
+}
+.container {
+    display: grid;
+    grid-template-columns: auto auto;
 }
