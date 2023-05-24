@@ -10,8 +10,8 @@ const ActionButton = ({ children, setSelectedPage }: Props) => {
     return (
         <AnchorLink
             className="rounded-md bg-secondary-500  px-10 py-2 hover:bg-primary-300 hover:text-slate-300"
-            onClick={() => setSelectedPage('ContactUs')}
-            href={`#${'ContactUs'}`}
+            onClick={() => setSelectedPage('Login')}
+            href={`#${'Login'}`}
         >
             {children}
         </AnchorLink>
