@@ -9,7 +9,6 @@ const Home = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            //we are at top of page
             if (window.scrollY === 0) {
                 setIsTopOfPage(true);
                 setSelectedPage('Home');
@@ -23,11 +22,7 @@ const Home = () => {
     }, []);
     return (
         <ErrorBoundary>
-            <Homenav
-                isTopOfPage={isTopOfPage}
-                selectedPage={selectedPage}
-                setSelectedPage={setSelectedPage}
-            />
+            <Homenav />
             <Homeindex setSelectedPage={setSelectedPage} />
         </ErrorBoundary>
     );
