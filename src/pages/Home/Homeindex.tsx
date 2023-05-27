@@ -11,7 +11,7 @@ type Props = {
 const Homeindex = ({ setSelectedPage }: Props) => {
     return (
         <section id="Home" className="home">
-            <div className="container">
+            <div className="home-container">
                 <div className="header">
                     <div className="left-column">
                         <div>

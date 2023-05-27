@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Register.css';
 import Joi, { ValidationError } from 'joi-browser';
+import axios from 'axios';
 
 interface Account {
     username: string;
@@ -58,14 +59,19 @@ const Register: React.FC<Step1Props> = ({ onSubmit }) => {
             .label('Confirm Password'),
     };
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const validationErrors = validate();
 
         if (validationErrors) {
             setErrors(validationErrors);
         } else {
-            onSubmit(account);
+            const response = await axios.post(
+                'http://localhost:3000/v1/admin',
+                account
+            );
+            console.log(response);
+            onSubmit(response.data);
             console.log('Form submitted successfully!');
         }
     };

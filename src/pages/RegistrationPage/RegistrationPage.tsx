@@ -2,6 +2,7 @@ import React from 'react';
 import { Register, Register2 } from '../index';
 
 interface Admin {
+    _id: string;
     username: string;
     email: string;
     password: string;
@@ -11,6 +12,7 @@ interface Admin {
 const RegistrationPage = () => {
     const [step, setStep] = React.useState(1);
     const [formData, setFormData] = React.useState<Admin>({
+        _id: '',
         username: '',
         email: '',
         password: '',

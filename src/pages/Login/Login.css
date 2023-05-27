@@ -5,7 +5,7 @@
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    background-image: url('../../../public/Home-2.png');
+    background-image: url('../../../public/Home.png');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -46,7 +46,7 @@ label {
     margin-bottom: 8px;
     font-size: medium;
     font-weight: 500;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .text {
@@ -85,4 +85,8 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.login-error {
+    text-align: center;
+    color: red;
 }
