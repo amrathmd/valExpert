@@ -19,6 +19,10 @@
     list-style-type: none;
     margin-bottom: 10px;
 }
+.nav {
+    display: flex;
+    flex-direction: column;
+}
 
 .logo {
     filter: invert(100%);
@@ -26,7 +30,6 @@
     width: 70%;
 }
 .navlink {
-    display: block;
     padding: 0.2rem 0.5rem;
     text-decoration: none;
     border-radius: 10px;
@@ -35,4 +38,8 @@
 
 .navlink:hover {
     background-color: #c3c1c1;
+}
+.nav-item-log {
+    align-self: flex-end;
+    justify-self: flex-end;
 }

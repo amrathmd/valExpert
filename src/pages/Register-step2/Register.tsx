@@ -1,27 +1,24 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import './Register.css';
 import { NavLink } from 'react-router-dom';
-interface Account {
-    Admin: {
-        username: string;
-        email: string;
-        password: string;
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+interface Company {
+    adminId: string;
+    companyName: string;
+    Address: {
+        city: string;
+        state: string;
+        country: string;
+        postalCode: string;
     };
-    Company: {
-        companyName: string;
-        Address: {
-            city: string;
-            state: string;
-            country: string;
-            postalCode: string;
-        };
-        contact: {
-            phone: string;
-            companyEmail: string;
-        };
+    contact: {
+        phone: string;
+        companyEmail: string;
     };
 }
 interface Admin {
+    _id: string;
     username: string;
     email: string;
     password: string;
@@ -30,8 +27,12 @@ interface Admin {
 interface props {
     step1Data: Admin;
 }
+
 const Register2: React.FC<props> = ({ step1Data }) => {
-    const [data, setData] = React.useState<Account['Company']>({
+    const [submitStatus, setSubmitStatus] = React.useState(false);
+    const History = useNavigate();
+    const [data, setData] = React.useState<Company>({
+        adminId: '',
         companyName: '',
         Address: {
             city: '',
@@ -44,28 +45,49 @@ const Register2: React.FC<props> = ({ step1Data }) => {
             companyEmail: '',
         },
     });
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmissionFailure = async () => {
+        try {
+            await axios.delete(
+                `http://localhost:3000/v1/admin/${step1Data._id}`
+            );
+
+            await axios.delete(
+                `http://localhost:3000/v1/company/YOUR_COMPANY_ID`
+            );
+
+            prompt('Registration was unsuccessful');
+            History('/');
+        } catch (error) {
+            console.error('Error deleting step 1 data:', error);
+        }
+    };
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const body = {
-            Admin: {
-                username: step1Data.username,
-                email: step1Data.email,
-                password: step1Data.password,
+            adminId: step1Data._id,
+
+            companyName: data.companyName,
+            Address: {
+                city: data.Address.city,
+                state: data.Address.state,
+                country: data.Address.country,
+                postalCode: data.Address.postalCode,
             },
-            Company: {
-                companyName: data.companyName,
-                Address: {
-                    city: data.Address.city,
-                    state: data.Address.state,
-                    country: data.Address.country,
-                    postalCode: data.Address.postalCode,
-                },
-                contact: {
-                    phone: data.contact.phone,
-                    companyEmail: data.contact.companyEmail,
-                },
+            contact: {
+                phone: data.contact.phone,
+                companyEmail: data.contact.companyEmail,
             },
         };
+        const response = await axios.post(
+            'http://localhost:3000/v1/company',
+            body
+        );
+        if (response.status === 201) {
+            alert('Registration successful');
+            History('/');
+        } else {
+            handleSubmissionFailure();
+        }
     };
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;

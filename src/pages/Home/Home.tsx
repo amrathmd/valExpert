@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { ErrorBoundary, Navbar } from '../../components';
-import Homenav from './Homenav';
 import Homeindex from './Homeindex';
 
 const Home = () => {
@@ -22,7 +21,6 @@ const Home = () => {
     }, []);
     return (
         <ErrorBoundary>
-            <Homenav />
             <Homeindex setSelectedPage={setSelectedPage} />
         </ErrorBoundary>
     );

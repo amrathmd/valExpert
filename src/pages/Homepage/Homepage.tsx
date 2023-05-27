@@ -8,7 +8,9 @@ import {
 import { ErrorBoundary, Navbar } from '../../components';
 import { Home, Login, Contact, RegistrationPage } from '../index';
 import './Homepage.css';
+import AuthContext from '../../contexts/AuthContext';
 const Homepage = () => {
+    const { loggedIn, getLoggedIn } = React.useContext(AuthContext);
     return (
         <ErrorBoundary>
             <Router>
@@ -20,15 +22,22 @@ const Homepage = () => {
                     <div className="routes">
                         <Routes>
                             <Route path="/" element={<Home />}></Route>
-                            <Route path="/login" element={<Login />}></Route>
+                            {!loggedIn && (
+                                <Route
+                                    path="/login"
+                                    element={<Login />}
+                                ></Route>
+                            )}
                             <Route
                                 path="/contactus"
                                 element={<Contact />}
                             ></Route>
-                            <Route
-                                path="/register"
-                                element={<RegistrationPage />}
-                            ></Route>
+                            {!loggedIn && (
+                                <Route
+                                    path="/register"
+                                    element={<RegistrationPage />}
+                                ></Route>
+                            )}
                         </Routes>
                     </div>
                 </div>
