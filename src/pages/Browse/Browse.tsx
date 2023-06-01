@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Select from 'react-select';
 import './Browse.css';
 interface BrowseItem {
     id: number;
