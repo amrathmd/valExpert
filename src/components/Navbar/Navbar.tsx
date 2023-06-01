@@ -68,6 +68,20 @@ const Navbar = () => {
                                 ></img>
                             </NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/browse"
+                                style={{
+                                    backgroundColor: getColor('/browse'),
+                                }}
+                                className="navlink"
+                            >
+                                <img
+                                    src={'../../../public/search.png'}
+                                    className="logo"
+                                ></img>
+                            </NavLink>
+                        </li>
                         <button onClick={handleLogOut}>logout</button>
                     </ul>
                 </div>
