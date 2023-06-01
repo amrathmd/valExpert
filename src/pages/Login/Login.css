@@ -1,6 +1,6 @@
 .container {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     width: 100vw;
@@ -18,10 +18,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 .check-boxes label {
-    margin: 10px;
+    margin-left: 10px;
 }
 
 .container form h2 {
@@ -31,12 +32,15 @@
     font-size: large;
 }
 
+.conditional-message{
+    text-align: center;
+}
 .inputform {
     display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 20px;
 }
-form {
+.login-form {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     width: 30vw;
@@ -47,6 +51,10 @@ label {
     font-size: medium;
     font-weight: 500;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.inputform>input{
+    border-radius: 10px;
 }
 
 .text {
@@ -75,9 +83,22 @@ label {
 .button:active {
     background-color: #3e8e41;
 }
-@media (min-width: 768px) {
+@media (min-width:768px){
+    .container{
+        max-width: 100%;
+    }
+    /* .login-form{
+        margin-top: 80px;
+        width: 300px;
+    } */
+}
+@media  (max-width: 768px) {
     .container {
         max-width: 100%;
+    }
+    .login-form{
+        margin-top: 80px;
+        width: 300px;
     }
 }
 .message {
@@ -85,6 +106,7 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 .login-error {
     text-align: center;

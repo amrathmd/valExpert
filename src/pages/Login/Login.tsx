@@ -56,7 +56,7 @@ const Login = () => {
     };
     return (
         <div className="container">
-            <form onSubmit={handleSubmit}>
+            <form className="login-form" onSubmit={handleSubmit}>
                 <h2>Login form</h2>
                 <div className="check-boxes">
                     <div>
@@ -66,7 +66,7 @@ const Login = () => {
                             name="usertype"
                             onChange={handleUser}
                         />
-                        <label htmlFor="normal-user">Normal user &nbsp;</label>
+                        <label htmlFor="normal-user">Normal User</label>
                     </div>
                     <div>
                         <input
@@ -75,21 +75,21 @@ const Login = () => {
                             name="usertype"
                             onChange={handleAdmin}
                         />
-                        <label htmlFor="admin-user">Admin User</label>
+                        <label htmlFor="admin-user">Admin User&nbsp;</label>
                     </div>
                 </div>
                 {!type.user && !type.admin && (
-                    <div className="message">
+                    <div className="conditional-message">
                         Select the type of user before login
                     </div>
                 )}
                 {type.user && (
-                    <div className="message">
+                    <div className="conditional-message">
                         <h3>Note: You are logging in as a Created user</h3>
                     </div>
                 )}
                 {type.admin && (
-                    <div className="message">
+                    <div className="conditional-message">
                         <h3>Note: You are logging as an Admin</h3>
                     </div>
                 )}
