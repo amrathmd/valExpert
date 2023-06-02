@@ -68,7 +68,9 @@ const Navbar = () => {
                                 ></img>
                             </NavLink>
                         </li>
-                        <button onClick={handleLogOut}>logout</button>
+                        {loggedIn && (
+                            <button onClick={handleLogOut}>logout</button>
+                        )}
                     </ul>
                 </div>
             </div>
