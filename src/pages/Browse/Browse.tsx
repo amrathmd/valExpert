@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Browse.css';
+
 interface BrowseItem {
     id: number;
     image: string;
@@ -41,15 +42,15 @@ const Browse: React.FC = () => {
     const browseItems: BrowseItem[] = [
         {
             id: 1,
-            image: '../../../public/stack-of-sheets.png',
-            label: 'Sheets',
-            content: 'Content for Sheets',
+            image: '../../../public/users.png',
+            label: 'Users',
+            content: 'Content for Users',
         },
         {
             id: 2,
-            image: '../../../public/coworking.png',
-            label: 'Workspaces',
-            content: 'Content for Workspaces',
+            image: '../../../public/projects.png',
+            label: 'Projects',
+            content: 'Content for Projects',
         },
         {
             id: 3,

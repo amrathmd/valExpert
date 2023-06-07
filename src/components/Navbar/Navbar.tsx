@@ -20,6 +20,7 @@ const Navbar = () => {
         History('/');
     };
     const { loggedIn, getLoggedIn } = React.useContext(AuthContext);
+
     return (
         <ErrorBoundary>
             <div>
@@ -34,7 +35,9 @@ const Navbar = () => {
                                 <img
                                     src={'../../../public/house.png'}
                                     className="logo"
+                                    alt="Home"
                                 ></img>
+                                <span className="icon-name">Home</span>
                             </NavLink>
                         </li>
 
@@ -50,7 +53,9 @@ const Navbar = () => {
                                     <img
                                         src={'../../../public/login.png'}
                                         className="logo"
+                                        alt="Login"
                                     ></img>
+                                    <span className="icon-name">Login</span>
                                 </NavLink>
                             </li>
                         )}
@@ -65,21 +70,23 @@ const Navbar = () => {
                                 <img
                                     src={'../../../public/paper-plane.png'}
                                     className="logo"
+                                    alt="Contact Us"
                                 ></img>
+                                <span className="icon-name">ContactUs</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink
                                 to="/browse"
-                                style={{
-                                    backgroundColor: getColor('/browse'),
-                                }}
+                                style={{ backgroundColor: getColor('/browse') }}
                                 className="navlink"
                             >
                                 <img
                                     src={'../../../public/search.png'}
                                     className="logo"
+                                    alt="Browse"
                                 ></img>
+                                <span className="icon-name">Browse</span>
                             </NavLink>
                         </li>
                         <button onClick={handleLogOut}>logout</button>
@@ -89,4 +96,5 @@ const Navbar = () => {
         </ErrorBoundary>
     );
 };
+
 export default Navbar;

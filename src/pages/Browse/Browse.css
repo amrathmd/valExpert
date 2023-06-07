@@ -1,7 +1,5 @@
 .browse {
   display: flex;
-   position: absolute;
-  top: 60px; 
   left:0;
   right: 0;
   bottom: 0;
@@ -15,6 +13,7 @@
    border-right: 1px solid grey;
    resize: horizontal; 
   overflow: auto; 
+  height: 100vh;
 }
 
 .browse-sidebar ul {
@@ -29,16 +28,20 @@
   align-items: center;
   gap: 8px;
   padding: 10px 0;
+  padding-left: 5px;
 }
 .browse-sidebar li:hover {
-  background-color: #ccc;
+  background-color: #A5C0DD;
+  border-radius: 15px;
 }
 
 .item-image {
-  width: 24px; 
-  height: 24px; }
+  width: 20px; 
+  height: 20px; 
+}
 
 .item-label {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 14px; 
 }
 
