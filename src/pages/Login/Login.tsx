@@ -2,7 +2,6 @@ import React, { ButtonHTMLAttributes, FormEvent, useContext } from 'react';
 import './Login.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import DirectionsViewModel from 'esri/widgets/Directions/DirectionsViewModel';
 import AuthContext from '../../contexts/AuthContext';
 
 const Login = () => {
