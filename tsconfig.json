@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "paths": {
-            "@/*":["./src/*"]
+            "@/*": ["./src/*"]
         },
         "allowSyntheticDefaultImports": true,
         "allowJs": false,
@@ -13,19 +13,11 @@
         "sourceMap": false,
         "target": "es5",
         "resolveJsonModule": true,
-        "esModuleInterop": true ,
+        "esModuleInterop": true,
         "suppressImplicitAnyIndexErrors": true,
-        "typeRoots": [  
-            "./src/types", 
-            "./node_modules/@types"
-        ],
-        "lib": [ "es2015", "dom" ],
+        "typeRoots": ["./src/types", "./node_modules/@types"],
+        "lib": ["es2015", "dom"]
     },
-    "exclude": [
-        "**/node_modules", 
-        "**/.*/"
-    ],
-    "include": [
-        "./src/**/**/*"
-    ]
+    "exclude": ["**/node_modules", "**/.*/"],
+    "include": ["./src/**/**/*"]
 }

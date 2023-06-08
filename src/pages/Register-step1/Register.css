@@ -1,4 +1,4 @@
-.register {
+.register2-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +15,6 @@
     display: flex;
     flex-direction: column;
     padding: 50px;
-    height: 100%;
 }
 
 .input-elements {
@@ -28,54 +27,19 @@
 .input-elements > input {
     border-radius: 10px;
 }
-.register-button {
-    background-color: #4caf50;
-    color: white;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    width: 50%;
-    max-width: 50%;
-    align-self: center;
-    padding: 5px;
-    margin-top: 5px;
-}
-.email {
+.company-name,
+.company-state,
+.company-city,
+.company-postalcode,
+.company-country,
+.company-phone,
+.company-email {
     padding: 8px;
     margin-bottom: 8px;
-}
-.username {
-    padding: 8px;
-    margin-bottom: 8px;
-}
-.password {
-    padding: 8px;
-    margin-bottom: 8px;
-}
-.confirm-password {
-    padding: 8px;
-    margin-bottom: 8px;
-}
-.register-form h2 {
-    text-align: center;
-    font-weight: 600;
-    margin-bottom: 10px;
-    font-size: 25px;
-}
-.info {
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 500;
-}
-.error {
-    font-size: 1em;
-    font-style: italic;
-    font-weight: 500;
 }
 
-@media (max-width:768px){
-    .register-form{
+@media (max-width: 768px) {
+    .register-form {
         margin-top: 80px;
     }
 }

@@ -1,173 +1,187 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { ChangeEvent, FormEvent } from 'react';
 import './Register.css';
-import Joi, { ValidationError } from 'joi-browser';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-
-interface Account {
+import { useNavigate } from 'react-router-dom';
+interface Company {
+    companyName: string;
+    Address: {
+        city: string;
+        state: string;
+        country: string;
+        postalCode: string;
+    };
+    contact: {
+        phone: string;
+        companyEmail: string;
+    };
+}
+interface Admin {
+    _id: string;
     username: string;
     email: string;
     password: string;
     confirmPassword: string;
 }
 
-interface Errors {
-    [key: string]: string;
-}
 interface Step1Props {
-    onSubmit: (account: Account) => void;
+    onSubmit: (company: Company) => void;
 }
 
-const Register: React.FC<Step1Props> = ({ onSubmit }) => {
-    const [account, setAccount] = useState<Account>({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
+const Register1: React.FC<Step1Props> = ({ onSubmit }) => {
+    const [submitStatus, setSubmitStatus] = React.useState(false);
+    const History = useNavigate();
+    const [data, setData] = React.useState<Company>({
+        companyName: '',
+        Address: {
+            city: '',
+            state: '',
+            country: '',
+            postalCode: '',
+        },
+        contact: {
+            phone: '',
+            companyEmail: '',
+        },
     });
-    const [errors, setErrors] = useState<Errors>({});
-
-    const schema = {
-        username: Joi.string()
-            .alphanum()
-            .min(3)
-            .max(30)
-            .required()
-            .label('Username'),
-        email: Joi.string().email().required().label('Email'),
-        password: Joi.string()
-            .min(8)
-            .regex(/^(?=.*[!@#$%^&*])/)
-            .regex(/^(?=.*[A-Z])/)
-            .regex(/^(?=.*[a-z])(?=.*\d)/)
-            .error((_errors: any) => {
-                return {
-                    message:
-                        'Password must be at least 8 characters long and contain at least one special character, one lowercase letter, and one numeric character',
-                };
-            })
-            .required()
-            .label('Password'),
-        confirmPassword: Joi.string()
-            .valid(Joi.ref('password'))
-            .error((_errors: any) => {
-                return {
-                    message: 'Passwords do not match',
-                };
-            })
-            .required()
-            .label('Confirm Password'),
-    };
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const validationErrors = validate();
-
-        if (validationErrors) {
-            setErrors(validationErrors);
+        const body = {
+            companyName: data.companyName,
+            Address: {
+                city: data.Address.city,
+                state: data.Address.state,
+                country: data.Address.country,
+                postalCode: data.Address.postalCode,
+            },
+            contact: {
+                phone: data.contact.phone,
+                companyEmail: data.contact.companyEmail,
+            },
+        };
+        const response = await axios.post(
+            'http://localhost:3000/v1/company',
+            body
+        );
+        if (response.status === 201) {
+            onSubmit(response.data.newcompany);
         } else {
-            const response = await axios.post(
-                'http://localhost:3000/v1/admin',
-                account
-            );
-            console.log(response);
-            onSubmit(response.data);
-            console.log('Form submitted successfully!');
+            alert('Internal server error!');
+            History('/register');
         }
     };
-
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setAccount((prevAccount) => ({
-            ...prevAccount,
-            [name]: value,
-        }));
-    };
+        const keys = name.split('.');
+        const topLevelKey = keys[0];
 
-    const validate = (): Errors | null => {
-        const { error } = Joi.validate(account, schema, {
-            abortEarly: false,
-        });
-
-        if (!error) {
-            setErrors({});
-            return null;
+        if (keys.length === 1) {
+            setData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        } else {
+            setData((prevData) => ({
+                ...prevData,
+                [topLevelKey]: {
+                    ...prevData[topLevelKey],
+                    [keys[1]]: value,
+                },
+            }));
         }
-
-        const validationErrors: Errors = {};
-        for (const item of error.details) {
-            validationErrors[item.path[0]] = item.message;
-        }
-
-        setErrors(validationErrors);
-        return validationErrors;
     };
-
     return (
-        <div className="register">
+        <div className="register2-container">
             <form className="register-form" onSubmit={handleSubmit}>
                 <h2>Register</h2>
-                <p className="info">Note: You will be registered as an Admin</p>
                 <div className="input-elements">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        className="email"
-                        placeholder="Enter your email"
-                        required
-                        name="email"
-                        onChange={handleChange}
-                    ></input>
-                    {errors.email && (
-                        <div className="error">{errors.email}</div>
-                    )}
-                </div>
-                <div className="input-elements">
-                    <label htmlFor="username">Username:</label>
+                    <label htmlFor="company-name">Company name</label>
                     <input
                         type="text"
-                        className="username"
-                        placeholder="Enter your username"
+                        className="company-name"
+                        placeholder="Enter your company name"
                         required
-                        name="username"
-                        onChange={handleChange}
-                    ></input>
-                    {errors.username && (
-                        <div className="error">{errors.username}</div>
-                    )}
-                </div>
-                <div className="input-elements">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        className="password"
-                        value={account.password}
-                        placeholder="Enter a password"
-                        required
-                        name="password"
+                        value={data.companyName}
+                        name="companyName"
                         onChange={handleChange}
                     ></input>
                 </div>
                 <div className="input-elements">
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
+                    <label htmlFor="company-city">City</label>
                     <input
-                        type="password"
-                        className="confirm-password"
-                        placeholder="Confirm your password"
-                        value={account.confirmPassword}
+                        type="text"
+                        className="company-city"
+                        placeholder="Enter the city in which the company located"
+                        required
+                        value={data.Address.city}
+                        name="Address.city"
                         onChange={handleChange}
-                        name="confirmPassword"
+                    ></input>
+                </div>
+                <div className="input-elements">
+                    <label htmlFor="company-state">State</label>
+                    <input
+                        type="text"
+                        className="company-state"
+                        placeholder=""
+                        name="Address.state"
+                        value={data.Address.state}
+                        required
+                        onChange={handleChange}
+                    ></input>
+                </div>
+
+                <div className="input-elements">
+                    <label htmlFor="country">Country</label>
+                    <input
+                        type="text"
+                        className="company-country"
+                        placeholder="Enter your country"
+                        name="Address.country"
+                        value={data.Address.country}
+                        onChange={handleChange}
                         required
                     />
-                    {errors.password && (
-                        <div className="error">{errors.password}</div>
-                    )}
-                    {errors.confirmPassword && !errors.password && (
-                        <div className="error">{errors.confirmPassword}</div>
-                    )}
                 </div>
-                <button className="register-button" type="submit">
-                    Step 1/2
+                <div className="input-elements">
+                    <label htmlFor="company-postalcode">Postal code</label>
+                    <input
+                        type="text"
+                        className="company-postalcode"
+                        placeholder="Enter the postal code"
+                        name="Address.postalCode"
+                        value={data.Address.postalCode}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="input-elements">
+                    <label htmlFor="company-phone">Phone</label>
+                    <input
+                        type="text"
+                        className="company-phone"
+                        placeholder="Enter the mobile number"
+                        name="contact.phone"
+                        value={data.contact.phone}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="input-elements">
+                    <label htmlFor="company-email">Email</label>
+                    <input
+                        type="text"
+                        className="company-email"
+                        placeholder="Enter the Email of your company"
+                        onChange={handleChange}
+                        value={data.contact.companyEmail}
+                        name="contact.companyEmail"
+                        required
+                    />
+                </div>
+                <button type="submit" className="register-button">
+                    Next
                 </button>
                 <div className="message">
                     Already have an account &nbsp;
@@ -179,5 +193,4 @@ const Register: React.FC<Step1Props> = ({ onSubmit }) => {
         </div>
     );
 };
-
-export default Register;
+export default Register1;
