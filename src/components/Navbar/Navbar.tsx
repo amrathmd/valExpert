@@ -28,6 +28,7 @@ const Navbar = () => {
     };
 
     const { loggedIn, getLoggedIn } = React.useContext(AuthContext);
+
     return (
         <ErrorBoundary>
             <div>
@@ -56,6 +57,7 @@ const Navbar = () => {
                                     className="logo"
                                     onClick={toggleNavbar}
                                 ></img>
+                                <span className="icon-name">Home</span>
                             </NavLink>
                         </li>
 
@@ -73,6 +75,7 @@ const Navbar = () => {
                                         className="logo"
                                         onClick={toggleNavbar}
                                     ></img>
+                                    <span className="icon-name">Login</span>
                                 </NavLink>
                             </li>
                         )}
@@ -89,6 +92,7 @@ const Navbar = () => {
                                     className="logo"
                                     onClick={toggleNavbar}
                                 ></img>
+                                <span className="icon-name">Browse</span>
                             </NavLink>
                         </li>
                         {loggedIn && (
@@ -100,4 +104,5 @@ const Navbar = () => {
         </ErrorBoundary>
     );
 };
+
 export default Navbar;

@@ -6,7 +6,7 @@ import {
     Navigate,
 } from 'react-router-dom';
 import { ErrorBoundary, Navbar } from '../../components';
-import { Home, Login, Contact, RegistrationPage } from '../index';
+import { Home, Login, Contact, RegistrationPage, Browse } from '../index';
 import './Homepage.css';
 import AuthContext from '../../contexts/AuthContext';
 const Homepage = () => {
@@ -38,6 +38,7 @@ const Homepage = () => {
                                     element={<RegistrationPage />}
                                 ></Route>
                             )}
+                            <Route path="/browse" element={<Browse />}></Route>
                         </Routes>
                     </div>
                 </div>
