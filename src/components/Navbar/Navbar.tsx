@@ -1,12 +1,15 @@
 import React from 'react';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 import AuthContext from '../../contexts/AuthContext';
 import useCookie from 'react-cookie';
 import axios from 'axios';
 
 const Navbar = () => {
+    const [isActive, setIsActive] = useState(false);
     const location = useLocation();
     const getColor = (curr: string) => {
         if (location.pathname === curr) {
@@ -19,13 +22,30 @@ const Navbar = () => {
         await getLoggedIn();
         History('/');
     };
+
+    const toggleNavbar = () => {
+        setIsActive(!isActive);
+    };
+
     const { loggedIn, getLoggedIn } = React.useContext(AuthContext);
 
     return (
         <ErrorBoundary>
             <div>
-                <div className="Navbar-left">
-                    <ul className="nav">
+                <div className={`Navbar-left ${isActive ? 'active' : ''}`}>
+                    <div
+                        className={`bar ${isActive ? 'active' : ''}`}
+                        onClick={toggleNavbar}
+                    >
+                        <i className="fa-sharp fa-solid fa-bars fa-2xl"></i>
+                    </div>
+                    <div
+                        className={`close ${isActive ? 'active' : ''}`}
+                        onClick={toggleNavbar}
+                    >
+                        <i className="fa-solid fa-xmark fa-2xl"></i>
+                    </div>
+                    <ul className={`nav ${isActive ? 'active' : ''}`}>
                         <li className="nav-item">
                             <NavLink
                                 to="/"
@@ -35,7 +55,7 @@ const Navbar = () => {
                                 <img
                                     src={'../../../public/house.png'}
                                     className="logo"
-                                    alt="Home"
+                                    onClick={toggleNavbar}
                                 ></img>
                                 <span className="icon-name">Home</span>
                             </NavLink>
@@ -53,7 +73,7 @@ const Navbar = () => {
                                     <img
                                         src={'../../../public/login.png'}
                                         className="logo"
-                                        alt="Login"
+                                        onClick={toggleNavbar}
                                     ></img>
                                     <span className="icon-name">Login</span>
                                 </NavLink>
@@ -70,26 +90,14 @@ const Navbar = () => {
                                 <img
                                     src={'../../../public/paper-plane.png'}
                                     className="logo"
-                                    alt="Contact Us"
-                                ></img>
-                                <span className="icon-name">ContactUs</span>
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink
-                                to="/browse"
-                                style={{ backgroundColor: getColor('/browse') }}
-                                className="navlink"
-                            >
-                                <img
-                                    src={'../../../public/search.png'}
-                                    className="logo"
-                                    alt="Browse"
+                                    onClick={toggleNavbar}
                                 ></img>
                                 <span className="icon-name">Browse</span>
                             </NavLink>
                         </li>
-                        <button onClick={handleLogOut}>logout</button>
+                        {loggedIn && (
+                            <button onClick={handleLogOut}>logout</button>
+                        )}
                     </ul>
                 </div>
             </div>
