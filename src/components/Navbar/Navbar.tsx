@@ -92,6 +92,22 @@ const Navbar = () => {
                                     className="logo"
                                     onClick={toggleNavbar}
                                 ></img>
+                                <span className="icon-name">ContactUs</span>
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/browse"
+                                style={{
+                                    backgroundColor: getColor('/browse'),
+                                }}
+                                className="navlink"
+                            >
+                                <img
+                                    src={'../../../public/search.png'}
+                                    className="logo"
+                                    onClick={toggleNavbar}
+                                ></img>
                                 <span className="icon-name">Browse</span>
                             </NavLink>
                         </li>
