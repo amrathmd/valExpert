@@ -11,12 +11,6 @@
     margin: 0;
     padding: 0;
 }
-.register-form {
-    display: flex;
-    flex-direction: column;
-    padding: 50px;
-}
-
 .input-elements {
     display: flex;
     flex-direction: column;
