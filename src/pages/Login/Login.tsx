@@ -42,7 +42,7 @@ const Login = () => {
     };
     return (
         <div className="container">
-            <form onSubmit={handleSubmit}>
+            <form className="login-form" onSubmit={handleSubmit}>
                 <h2>Login form</h2>
                 <div className="message">
                     Welcome to valXert,Please enter your credentials

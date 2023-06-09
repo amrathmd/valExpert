@@ -31,3 +31,9 @@
     padding: 8px;
     margin-bottom: 8px;
 }
+
+@media (max-width: 768px) {
+    .register-form {
+        margin-top: 80px;
+    }
+}
