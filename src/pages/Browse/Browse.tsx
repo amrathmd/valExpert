@@ -72,7 +72,7 @@ const Browse: React.FC = () => {
 
     const handleSave = () => {
         if (isEditMode) {
-            const updatedRows = [...tableRows, newRow]; // Add edited row to tableRows
+            const updatedRows = [...tableRows, newRow];
             setTableRows(updatedRows);
         }
         setNewRow({ id: 0, name: '', password: '', email: '' });
