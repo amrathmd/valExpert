@@ -168,8 +168,29 @@ const Browse: React.FC = () => {
                                         <span onClick={handleCreateProject}>
                                             Create new Project
                                         </span>
+
+                                        <div>
+                                            <form className="forms">
+                                                <label>
+                                                    Name Your Project:
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="name"
+                                                    placeholder="New Project"
+                                                />
+                                                <button>Cancel</button>
+                                                <button
+                                                    className="ok"
+                                                    type="submit"
+                                                >
+                                                    Ok
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div className="example">Hello World</div>
                             </div>
                         ) : (

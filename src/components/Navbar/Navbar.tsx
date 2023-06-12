@@ -16,6 +16,7 @@ const Navbar = () => {
             return '#d3d3d3';
         }
     };
+
     const History = useNavigate();
     const handleLogOut = async () => {
         await axios.get('http://localhost:3000/v1/auth/logout');
@@ -27,7 +28,7 @@ const Navbar = () => {
         setIsActive(!isActive);
     };
 
-    const { loggedIn, getLoggedIn } = React.useContext(AuthContext);
+    const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
 
     return (
         <ErrorBoundary>
@@ -61,7 +62,7 @@ const Navbar = () => {
                             </NavLink>
                         </li>
 
-                        {!loggedIn && (
+                        {!loggedIn && userType == null && (
                             <li className="nav-item">
                                 <NavLink
                                     to="/login"
@@ -76,6 +77,40 @@ const Navbar = () => {
                                         onClick={toggleNavbar}
                                     ></img>
                                     <span className="icon-name">Login</span>
+                                </NavLink>
+                            </li>
+                        )}
+                        {loggedIn && userType === 'valexpertadmin' && (
+                            <li className="nav-item">
+                                <NavLink
+                                    to="/register"
+                                    style={{
+                                        backgroundColor: getColor('/login'),
+                                    }}
+                                    className="navlink"
+                                >
+                                    <img
+                                        src={'../../../public/login.png'}
+                                        className="logo"
+                                        onClick={toggleNavbar}
+                                    ></img>
+                                    <span className="icon-name">Login</span>
+                                </NavLink>
+                            </li>
+                        )}
+                        {loggedIn && userType === 'valexpertadmin' && (
+                            <li className="nav-item">
+                                <NavLink
+                                    to="/register"
+                                    style={{
+                                        backgroundColor: getColor('/login'),
+                                    }}
+                                    className="navlink"
+                                >
+                                    <img
+                                        src={'../../../public/login.png'}
+                                        className="logo"
+                                    ></img>
                                 </NavLink>
                             </li>
                         )}
