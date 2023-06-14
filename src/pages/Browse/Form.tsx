@@ -23,9 +23,22 @@ const Form: React.FC<FormProps> = (props) => {
             className={`forms ${prompt ? 'active' : ''}`}
             onSubmit={handleSubmit}
         >
-            <label htmlFor="name">Name Your Project:</label>
+            <label htmlFor="name">Name Your Project</label>
             <input type="text" name="name" placeholder="New Project" />
-            <button type="button" onClick={handleChangePrompt}>
+            <label>Department</label>
+            <input type="text" placeholder="Department" />
+            <label>Category</label>
+            <input type="text" placeholder="Category" />
+            <label>Project Description</label>
+            <input type="text" placeholder="Project Description" />
+            <label>Estimated Implementation Date </label>
+            <input type="text" placeholder="Estimated Date" />
+
+            <button
+                className="cancel"
+                type="button"
+                onClick={handleChangePrompt}
+            >
                 Cancel
             </button>
             <button className="ok" type="submit">
