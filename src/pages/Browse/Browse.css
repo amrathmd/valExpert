@@ -16,12 +16,24 @@
   height: 100vh;
 }
 .forms{
-  display: block;
+  height: 200px;
+  width: 300px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  position: absolute;
+  left: 50%;
+  top: 250px;
   background-color:#ddd;
   border-radius: 5px 5px 0 0;
   min-width: 20px;
   min-height: 150px;
   padding: 20px;
+  visibility: hidden;
+}
+.forms.active{
+  visibility: visible;
 }
 form label{
   
@@ -240,7 +252,10 @@ NavLink{
   text-align:left;
   font-weight: bold;
 }
-
+.content-table th{
+  color: white;
+  font-weight: 400;
+}
 .content-table th,.content-table td{
      padding: 10px 15px;
 }
@@ -252,4 +267,21 @@ NavLink{
 }
 .content-table tbody tr:last-of-type{
      border-bottom: 2px solid  #526D82
+}
+.create-button{
+  cursor: pointer;
+  color: blue;
+}
+.create-button:hover{
+  text-decoration: underline;
+}
+.create-project{
+  background-color:#0079FF;
+  color: white;
+  display: inline;
+  padding: 8px;
+  width: 100px;
+  height: 20px;
+  border-radius: 10px;
+  cursor: pointer;
 }

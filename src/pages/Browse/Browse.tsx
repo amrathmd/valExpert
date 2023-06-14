@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './Browse.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import Table from './table';
+import Form from './Form';
 
 import { NavLink } from 'react-router-dom';
 
@@ -17,6 +19,7 @@ const Browse: React.FC = () => {
     const [isDragging, setIsDragging] = useState<boolean>(true);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [projects, setProjects] = useState([]);
+    const [prompt, setprompt] = useState(false);
 
     const closeDropdown = () => {
         setIsDropdownOpen(false);
@@ -47,12 +50,17 @@ const Browse: React.FC = () => {
         const obj = {
             name: 'Naveen',
             Department: 'CSE',
-            Category: 'Phc',
+            Category: 'None',
             ProjectDescription: 'Nothing',
             EstimatedDate: 'We will look into it',
         };
         setProjects([...projects, obj]);
+        handlePrompt();
         console.log(projects);
+    };
+
+    const handlePrompt = () => {
+        setprompt(!prompt);
     };
 
     const browseItems: BrowseItem[] = [
@@ -165,81 +173,42 @@ const Browse: React.FC = () => {
                                             src={selectedItem.image}
                                             alt={selectedItem.label}
                                         />
-                                        <span onClick={handleCreateProject}>
+                                        <span
+                                            className="create-button"
+                                            onClick={handlePrompt}
+                                        >
                                             Create new Project
                                         </span>
 
-                                        <div>
-                                            <form className="forms">
-                                                <label>
-                                                    Name Your Project:
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    placeholder="New Project"
-                                                />
-                                                <button>Cancel</button>
-                                                <button
-                                                    className="ok"
-                                                    type="submit"
-                                                >
-                                                    Ok
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <Form
+                                            prompt={prompt}
+                                            handlePrompt={handlePrompt}
+                                            handleCreateProject={
+                                                handleCreateProject
+                                            }
+                                        />
                                     </div>
                                 </div>
-
-                                <div className="example">Hello World</div>
                             </div>
                         ) : (
-                            <table className="content-table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th>Name</th>
-                                        <th>Department</th>
-                                        <th>Category</th>
-                                        <th>Project Description</th>
-                                        <th>Estimated Implementation Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {projects.map((project) => (
-                                        <tr key={project.name}>
-                                            <td>
-                                                <input type="checkbox"></input>
-                                            </td>
-                                            <td></td>
-                                            <td>{project.name}</td>
-                                            <td>{project.Department}</td>
-                                            <td>{project.Category}</td>
-                                            <td>
-                                                {project.ProjectDescription}
-                                            </td>
-                                            <td>{project.EstimatedDate}</td>
-                                        </tr>
-                                    ))}
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox"></input>{' '}
-                                        </td>
-                                        <td>
-                                            <i
-                                                className="fa fa-start-o"
-                                                aria-hidden="true"
-                                            ></i>
-                                        </td>
-                                        <td>Arbaz</td>
-                                        <td>Khan</td>
-                                        <td>Hooda</td>
-                                        <td>Deepak</td>
-                                        <td>Amrath</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            selectedItem.label == 'Projects' && (
+                                <div>
+                                    <div
+                                        onClick={handlePrompt}
+                                        className="create-project"
+                                    >
+                                        Create Project
+                                    </div>
+                                    <Table projects={projects} />
+                                    <Form
+                                        prompt={prompt}
+                                        handlePrompt={handlePrompt}
+                                        handleCreateProject={
+                                            handleCreateProject
+                                        }
+                                    />
+                                </div>
+                            )
                         )}
                     </div>
                 ) : (
