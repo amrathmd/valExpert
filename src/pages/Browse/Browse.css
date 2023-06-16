@@ -205,8 +205,9 @@ button:hover {
 }
 .actions-button {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
   align-items: center;
+
 }
 
 .actions-button button {

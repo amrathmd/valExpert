@@ -206,7 +206,7 @@ const Browse: React.FC = () => {
                                                             }
                                                         >
                                                             Edit
-                                                        </button>
+                                                        </button>{' '}
                                                         <button
                                                             onClick={() =>
                                                                 handleDeleteRow(
@@ -274,7 +274,7 @@ const Browse: React.FC = () => {
                                                             onClick={handleSave}
                                                         >
                                                             Save
-                                                        </button>
+                                                        </button>{' '}
                                                         <button
                                                             onClick={() =>
                                                                 setIsEditMode(
