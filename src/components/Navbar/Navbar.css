@@ -71,8 +71,7 @@
     display: inline-block;
     left: 0;
     bottom: 0;
-    margin-bottom: 30px;
-    margin-left: 10px;
+    margin: 30px 10px;
 }
 
 .avatar {
@@ -85,25 +84,28 @@
 .avatar-options {
     position: absolute;
     top: auto;
-    bottom: 100%;
-    left: calc(100% + 10px);
+    bottom: calc(100% - var(--options-spacing-y, 10px));
+    left: calc(100% + var(--options-spacing-x, 10px));
     background-color: #c3c1c1;
     border-radius: 4px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-    padding: 8px 12px;
-    z-index: 10;
+    padding: 4px 8px;
+    z-index: 100;
     display: none;
+    white-space: nowrap;
 }
 
 .avatar-container:hover .avatar-options {
     display: block;
+    --options-spacing-x: 20px;
+    --options-spacing-y: 20px;
 }
 
 .avatar-option {
     display: block;
     text-decoration: none;
     color: #fff;
-    padding: 4px 8px;
+    padding: 2px 4px;
 }
 
 .profile-info {
