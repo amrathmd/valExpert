@@ -4,24 +4,26 @@ import './Users.css';
 interface TableRow {
     id: number;
     name: string;
-    password: string;
+    mobile: string;
     email: string;
+    active: boolean;
 }
 const Users: React.FC = () => {
     const [tableRows, setTableRows] = useState<TableRow[]>([]);
     const [newRow, setNewRow] = useState<TableRow>({
         id: 0,
         name: '',
-        password: '',
+        mobile: '',
         email: '',
+        active: false,
     });
     const [isEditMode, setIsEditMode] = useState(false);
+    const [isBlinking, setIsBlinking] = useState(false);
 
     const handleDeleteRow = (id: number) => {
         const updatedRows = tableRows.filter((row) => row.id !== id);
         setTableRows(updatedRows);
     };
-
     const handleEditRow = (id: number) => {
         const rowToEdit = tableRows.find((row) => row.id === id);
         if (rowToEdit) {
@@ -36,7 +38,7 @@ const Users: React.FC = () => {
             const updatedRows = [...tableRows, newRow];
             setTableRows(updatedRows);
         }
-        setNewRow({ id: 0, name: '', password: '', email: '' });
+        setNewRow({ id: 0, name: '', mobile: '', email: '', active: false });
         setIsEditMode(false);
     };
 
@@ -50,9 +52,26 @@ const Users: React.FC = () => {
             };
             setTableRows([...tableRows, newRowWithId]);
         }
-        setNewRow({ id: 0, name: '', password: '', email: '' });
+        setNewRow({ id: 0, name: '', mobile: '', email: '', active: false });
         setIsEditMode(false);
     };
+    const handleEditIconClick = (id: number) => {
+        handleEditRow(id);
+        setIsBlinking(true);
+        setTimeout(() => {
+            setIsBlinking(false);
+        }, 1000);
+    };
+    const handleToggleSwitch = (id: number) => {
+        const updatedRows = tableRows.map((row) => {
+            if (row.id === id) {
+                return { ...row, active: !row.active };
+            }
+            return row;
+        });
+        setTableRows(updatedRows);
+    };
+
     return (
         <div>
             <div>
@@ -61,7 +80,7 @@ const Users: React.FC = () => {
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Password</th>
+                            <th>Mobile</th>
                             <th>Email</th>
                             <th>Actions</th>
                         </tr>
@@ -71,19 +90,41 @@ const Users: React.FC = () => {
                             <tr key={row.id}>
                                 <td>{row.id}</td>
                                 <td>{row.name}</td>
-                                <td>{row.password}</td>
+                                <td>{row.mobile}</td>
                                 <td>{row.email}</td>
                                 <td>
-                                    <button
-                                        onClick={() => handleEditRow(row.id)}
-                                    >
-                                        Edit
-                                    </button>{' '}
-                                    <button
-                                        onClick={() => handleDeleteRow(row.id)}
-                                    >
-                                        Delete
-                                    </button>
+                                    <div className="action-icons">
+                                        <button
+                                            className={`edit-button${
+                                                isBlinking ? ' blink' : ''
+                                            }`}
+                                            onClick={() =>
+                                                handleEditIconClick(row.id)
+                                            }
+                                        >
+                                            <img
+                                                src="../../../public/edit.png"
+                                                alt="Edit"
+                                            />
+                                            <span className="tooltip">
+                                                Edit
+                                            </span>
+                                        </button>{' '}
+                                        <label className="switch">
+                                            <input
+                                                type="checkbox"
+                                                checked={row.active}
+                                                onChange={() =>
+                                                    handleToggleSwitch(row.id)
+                                                }
+                                            />
+                                            <span className="slider round">
+                                                {row.active
+                                                    ? 'Deactivate'
+                                                    : 'Activate'}
+                                            </span>
+                                        </label>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
@@ -105,13 +146,13 @@ const Users: React.FC = () => {
                                 </td>
                                 <td>
                                     <input
-                                        type="password"
-                                        placeholder="Password"
-                                        value={newRow.password}
+                                        type="text"
+                                        placeholder="Mobile"
+                                        value={newRow.mobile}
                                         onChange={(e) =>
                                             setNewRow({
                                                 ...newRow,
-                                                password: e.target.value,
+                                                mobile: e.target.value,
                                             })
                                         }
                                     />
