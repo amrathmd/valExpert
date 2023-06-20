@@ -16,7 +16,7 @@
   height: 100vh;
 }
 .forms{
-  height: 450px;
+  height: 500px;
   width: 350px;
   /* display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@ form label{
   margin-top: 10px;
   margin-bottom: 20px;
   flex-direction: column;
-  font-weight: 450;
+  font-weight: 500;
 }
 
 
@@ -64,8 +64,11 @@ form input{
   border: none;
   cursor: pointer;
 }
+.ok:hover{
+  background-color: #0056b3;
+}
 .cancel{
- margin-left: 60px;
+ margin-left: 40px;
  height: 30px;
  width: 65px;
  border-radius: 4px;
@@ -73,6 +76,9 @@ form input{
  color:white;
  border: none;
  cursor: pointer;
+}
+.cancel:hover{
+  background-color:red;
 }
 
 .browse-sidebar ul {
@@ -251,34 +257,31 @@ NavLink{
 .content-table{
      border-collapse: collapse;
      margin: 25px 0;
-     min-width:200px;
+    width: 100%;
      border-radius: 5px 5px 0 0;
      overflow: hidden;
      box-shadow: 0 0 20px rgba(0,0,0,0.15);
      text-align:center;
+     margin-bottom: 20px;
 }
 .content-table thead tr {
-  background-color: #526D82;
+  background-color: #f2f2f2;
   color:#27374D;
   text-align:left;
   font-weight: bold;
 }
 .content-table th{
-  color: white;
-  font-weight: 400;
+  font-weight: 100%;
 }
 .content-table th,.content-table td{
      padding: 10px 15px;
+     text-align: left;
+     border-bottom: 1px solid #ccc;
 }
 .content-table tbody tr{
   border-bottom: 1px solid #dddddd;
 }
-.content-table tbody tr:nth-of-type(even){
-  background-color: #f3f3f3;
-}
-.content-table tbody tr:last-of-type{
-     border-bottom: 2px solid  #526D82
-}
+
 .create-button{
   cursor: pointer;
   color: blue;
@@ -287,12 +290,16 @@ NavLink{
   text-decoration: underline;
 }
 .create-project{
-  background-color:#0079FF;
-  color: white;
+  background-color:#007bff;
+  color: #fff;
   display: inline;
-  padding: 8px;
+  padding: 5px 10px;
   width: 100px;
   height: 20px;
-  border-radius: 10px;
+  border-radius: 3px;
   cursor: pointer;
+  border: none;
+}
+.create-project:hover{
+  background-color: #0056b3;
 }

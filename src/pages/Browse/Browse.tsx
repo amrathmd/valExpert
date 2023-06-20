@@ -52,7 +52,7 @@ const Browse: React.FC = () => {
             Department: 'CSE',
             Category: 'None',
             ProjectDescription: 'Nothing',
-            EstimatedDate: 'We will look into it',
+            EstimatedDate: '12-09-2025',
         };
         setProjects([...projects, obj]);
         handlePrompt();
@@ -173,13 +173,13 @@ const Browse: React.FC = () => {
                                             src={selectedItem.image}
                                             alt={selectedItem.label}
                                         />
+
                                         <span
                                             className="create-button"
                                             onClick={handlePrompt}
                                         >
                                             Create new Project
                                         </span>
-
                                         <Form
                                             prompt={prompt}
                                             handlePrompt={handlePrompt}
@@ -193,12 +193,6 @@ const Browse: React.FC = () => {
                         ) : (
                             selectedItem.label == 'Projects' && (
                                 <div>
-                                    <div
-                                        onClick={handlePrompt}
-                                        className="create-project"
-                                    >
-                                        Create Project
-                                    </div>
                                     <Table projects={projects} />
                                     <Form
                                         prompt={prompt}
@@ -207,6 +201,12 @@ const Browse: React.FC = () => {
                                             handleCreateProject
                                         }
                                     />
+                                    <div
+                                        onClick={handlePrompt}
+                                        className="create-project"
+                                    >
+                                        Create Project
+                                    </div>
                                 </div>
                             )
                         )}

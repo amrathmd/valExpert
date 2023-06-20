@@ -32,7 +32,7 @@ const Form: React.FC<FormProps> = (props) => {
             <label>Project Description</label>
             <input type="text" placeholder="Project Description" />
             <label>Estimated Implementation Date </label>
-            <input type="text" placeholder="Estimated Date" />
+            <input type="date" />
 
             <button
                 className="cancel"

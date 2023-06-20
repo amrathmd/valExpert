@@ -5,7 +5,7 @@ interface Project {
     Department: string;
     Category: string;
     ProjectDescription: string;
-    EstimatedDate: string;
+    EstimatedDate: number;
 }
 
 interface TableProps {
@@ -19,8 +19,6 @@ const Table: React.FC<TableProps> = (props) => {
         <table className="content-table">
             <thead>
                 <tr>
-                    <th> </th>
-                    <th></th>
                     <th>Name</th>
                     <th>Department</th>
                     <th>Category</th>
@@ -31,10 +29,6 @@ const Table: React.FC<TableProps> = (props) => {
             <tbody>
                 {projects.map((project) => (
                     <tr key={project.name}>
-                        <td>
-                            <input type="checkbox"></input>
-                        </td>
-                        <td></td>
                         <td>{project.name}</td>
                         <td>{project.Department}</td>
                         <td>{project.Category}</td>
@@ -43,17 +37,11 @@ const Table: React.FC<TableProps> = (props) => {
                     </tr>
                 ))}
                 <tr>
-                    <td>
-                        <input type="checkbox"></input>{' '}
-                    </td>
-                    <td>
-                        <i className="fa fa-start-o" aria-hidden="true"></i>
-                    </td>
                     <td>Arbaz</td>
                     <td>Khan</td>
                     <td>Hooda</td>
                     <td>Deepak</td>
-                    <td>Amrath</td>
+                    <td>16-02-2024</td>
                 </tr>
             </tbody>
         </table>
