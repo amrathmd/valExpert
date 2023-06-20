@@ -21,18 +21,22 @@ const Users: React.FC = () => {
     const [isBlinking, setIsBlinking] = useState(false);
 
     const handleDeleteRow = (id: number) => {
-        const updatedRows = tableRows.filter((row) => row.id !== id);
-        setTableRows(updatedRows);
-    };
-    const handleEditRow = (id: number) => {
-        const rowToEdit = tableRows.find((row) => row.id === id);
-        if (rowToEdit) {
-            setNewRow(rowToEdit);
-            handleDeleteRow(id);
-            setIsEditMode(true);
-        }
+        setTableRows((prevRows) => prevRows.filter((row) => row.id !== id));
     };
 
+    const handleEditRow = (id: number) => {
+        if (isEditMode && newRow.id !== 0) {
+            handleSave();
+        }
+
+        const rowToEdit = tableRows.find((row) => row.id === id);
+
+        if (rowToEdit) {
+            setNewRow(rowToEdit);
+            setIsEditMode(true);
+            setTableRows((prevRows) => prevRows.filter((row) => row.id !== id));
+        }
+    };
     const handleSave = () => {
         if (isEditMode) {
             const updatedRows = [...tableRows, newRow];
@@ -70,6 +74,17 @@ const Users: React.FC = () => {
             return row;
         });
         setTableRows(updatedRows);
+    };
+    const handleCancelEdit = () => {
+        setIsEditMode(false);
+        setTableRows((prevRows) => [...prevRows, newRow]);
+        setNewRow({
+            id: 0,
+            name: '',
+            mobile: '',
+            email: '',
+            active: false,
+        });
     };
 
     return (
@@ -110,7 +125,11 @@ const Users: React.FC = () => {
                                                 Edit
                                             </span>
                                         </button>{' '}
-                                        <label className="switch">
+                                        <label
+                                            className={`switch ${
+                                                row.active ? 'active' : ''
+                                            }`}
+                                        >
                                             <input
                                                 type="checkbox"
                                                 checked={row.active}
@@ -118,7 +137,14 @@ const Users: React.FC = () => {
                                                     handleToggleSwitch(row.id)
                                                 }
                                             />
-                                            <span className="slider round">
+                                            <span className="slider round"></span>
+                                            <span
+                                                className={`label ${
+                                                    row.active
+                                                        ? 'deactivate'
+                                                        : 'activate'
+                                                }`}
+                                            >
                                                 {row.active
                                                     ? 'Deactivate'
                                                     : 'Activate'}
@@ -172,9 +198,7 @@ const Users: React.FC = () => {
                                 </td>
                                 <td>
                                     <button onClick={handleSave}>Save</button>{' '}
-                                    <button
-                                        onClick={() => setIsEditMode(false)}
-                                    >
+                                    <button onClick={handleCancelEdit}>
                                         Cancel
                                     </button>
                                 </td>
