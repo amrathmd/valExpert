@@ -15,6 +15,71 @@
   overflow: auto; 
   height: 100vh;
 }
+.forms{
+  height: 500px;
+  width: 350px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  position: absolute;
+  left: 45%;
+  top: 120px;
+  background-color:#f2f2f2;
+  border-radius: 5px;
+  border:1px solid lightgray;
+  padding: 20px 20px 20px 20px;
+  visibility: hidden;
+}
+.forms.active{
+  visibility: visible;
+}
+.forms>label{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+
+
+.forms>input{
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  padding: 4px;
+  border-radius: 5px;
+  border:1px solid #ccc;
+}
+.ok{
+  height: 30px;
+  width: 65px;
+  margin-left: 98px;
+  background-color:#4d72ae;
+  color: whitesmoke;
+  border-radius: 4px;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+}
+.ok:hover{
+  background-color: #0056b3;
+}
+.cancel{
+ margin-left: 40px;
+ height: 30px;
+ width: 65px;
+ border-radius: 4px;
+ background-color:rgba(234, 6, 6, 0.762);
+ color:white;
+ border: none;
+ cursor: pointer;
+}
+.cancel:hover{
+  background-color:red;
+}
 
 .browse-sidebar ul {
   list-style-type:none;
@@ -164,4 +229,77 @@
 
 .dropdown-menu a:hover {
   background-color: #f4f4f4;
+}
+
+.projects-empty{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.para{
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.dot-list{
+  list-style-type: disc;
+  margin-bottom: 10px;
+}
+.projects-img{
+  width: 20px;
+  height: 20px;
+  display: inline;
+  margin-right: 10px;
+}
+NavLink{
+  color: blue;
+}
+.content-table{
+     border-collapse: collapse;
+     margin: 25px 0;
+    width: 100%;
+     border-radius: 5px 5px 0 0;
+     overflow: hidden;
+     box-shadow: 0 0 20px rgba(0,0,0,0.15);
+     text-align:center;
+     margin-bottom: 20px;
+}
+.content-table thead tr {
+  background-color: #f2f2f2;
+  color:#27374D;
+  text-align:left;
+  font-weight: bold;
+}
+.content-table th{
+  font-weight: 100%;
+}
+.content-table th,.content-table td{
+     padding: 10px 15px;
+     text-align: left;
+     border-bottom: 1px solid #ccc;
+}
+.content-table tbody tr{
+  border-bottom: 1px solid #dddddd;
+}
+
+.create-button{
+  cursor: pointer;
+  color: blue;
+}
+.create-button:hover{
+  text-decoration: underline;
+}
+.create-project{
+  background-color:#007bff;
+  color: #fff;
+  display: inline;
+  padding: 5px 10px;
+  width: 100px;
+  height: 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: none;
+}
+.create-project:hover{
+  background-color: #0056b3;
 }
