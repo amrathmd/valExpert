@@ -97,7 +97,7 @@ const Navbar = () => {
                 <NavLink
                   to="/register"
                   style={{
-                    backgroundColor: getColor('/login'),
+                    backgroundColor: getColor('/register'),
                   }}
                   className="navlink"
                 >
@@ -106,23 +106,7 @@ const Navbar = () => {
                     className="logo"
                     onClick={toggleNavbar}
                   ></img>
-                  <span className="icon-name">Login</span>
-                </NavLink>
-              </li>
-            )}
-            {loggedIn && userType === 'valexpertadmin' && (
-              <li className="nav-item">
-                <NavLink
-                  to="/register"
-                  style={{
-                    backgroundColor: getColor('/login'),
-                  }}
-                  className="navlink"
-                >
-                  <img
-                    src={'../../../public/login.png'}
-                    className="logo"
-                  ></img>
+                  <span className="icon-name">Register</span>
                 </NavLink>
               </li>
             )}
