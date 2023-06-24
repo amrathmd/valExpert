@@ -16,6 +16,17 @@ const Navbar = () => {
             return '#d3d3d3';
         }
     };
+
+    const [showOptions, setShowOptions] = useState(false);
+
+    const handleAvatarHover = () => {
+        setShowOptions(true);
+    };
+
+    const handleAvatarLeave = () => {
+        setShowOptions(false);
+    };
+
     const History = useNavigate();
     const handleLogOut = async () => {
         await axios.get('http://localhost:3000/v1/auth/logout');
@@ -27,7 +38,8 @@ const Navbar = () => {
         setIsActive(!isActive);
     };
 
-    const { loggedIn, getLoggedIn } = React.useContext(AuthContext);
+    const { loggedIn, getLoggedIn, userType, username } =
+        React.useContext(AuthContext);
 
     return (
         <ErrorBoundary>
@@ -61,7 +73,7 @@ const Navbar = () => {
                             </NavLink>
                         </li>
 
-                        {!loggedIn && (
+                        {!loggedIn && userType == null && (
                             <li className="nav-item">
                                 <NavLink
                                     to="/login"
@@ -76,6 +88,24 @@ const Navbar = () => {
                                         onClick={toggleNavbar}
                                     ></img>
                                     <span className="icon-name">Login</span>
+                                </NavLink>
+                            </li>
+                        )}
+                        {loggedIn && userType === 'valexpertadmin' && (
+                            <li className="nav-item">
+                                <NavLink
+                                    to="/register"
+                                    style={{
+                                        backgroundColor: getColor('/register'),
+                                    }}
+                                    className="navlink"
+                                >
+                                    <img
+                                        src={'../../../public/login.png'}
+                                        className="logo"
+                                        onClick={toggleNavbar}
+                                    ></img>
+                                    <span className="icon-name">Register</span>
                                 </NavLink>
                             </li>
                         )}
@@ -112,7 +142,42 @@ const Navbar = () => {
                             </NavLink>
                         </li>
                         {loggedIn && (
-                            <button onClick={handleLogOut}>logout</button>
+                            <>
+                                <li className="nav-item">
+                                    <div
+                                        className="avatar-container"
+                                        onMouseEnter={handleAvatarHover}
+                                        onMouseLeave={handleAvatarLeave}
+                                    >
+                                        <img
+                                            src={'../../../public/profile.png'}
+                                            className="avatar"
+                                            alt="User Avatar"
+                                        />
+                                        {showOptions && (
+                                            <div className="avatar-options">
+                                                <NavLink
+                                                    to="/mytests"
+                                                    className="avatar-option"
+                                                    onClick={toggleNavbar}
+                                                >
+                                                    My Tests
+                                                </NavLink>
+                                                <NavLink
+                                                    to="/mydashboard"
+                                                    className="avatar-option"
+                                                    onClick={toggleNavbar}
+                                                >
+                                                    My Dashboard
+                                                </NavLink>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <span className="profile-info">
+                                        Sign out {username}
+                                    </span>
+                                </li>
+                            </>
                         )}
                     </ul>
                 </div>

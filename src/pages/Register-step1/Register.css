@@ -11,21 +11,19 @@
     margin: 0;
     padding: 0;
 }
-.register-form {
-    display: flex;
-    flex-direction: column;
-    padding: 50px;
-}
-
 .input-elements {
     display: flex;
     flex-direction: column;
 }
 .input-elements > label {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 450;
 }
 .input-elements > input {
     border-radius: 10px;
+}
+.register-form{
+    width: 420px;
 }
 .company-name,
 .company-state,
@@ -34,8 +32,9 @@
 .company-country,
 .company-phone,
 .company-email {
-    padding: 8px;
+    padding: 4px;
     margin-bottom: 8px;
+    font-size: 14px;
 }
 
 @media (max-width: 768px) {

@@ -45,7 +45,7 @@
     width: 30vw;
 }
 
-label {
+.inputform>label {
     margin-bottom: 8px;
     font-size: medium;
     font-weight: 500;

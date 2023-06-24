@@ -9,8 +9,9 @@ import { ErrorBoundary, Navbar } from '../../components';
 import { Home, Login, Contact, RegistrationPage, Browse } from '../index';
 import './Homepage.css';
 import AuthContext from '../../contexts/AuthContext';
+
 const Homepage = () => {
-    const { loggedIn, getLoggedIn } = React.useContext(AuthContext);
+    const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
     return (
         <ErrorBoundary>
             <Router>
@@ -32,7 +33,7 @@ const Homepage = () => {
                                 path="/contactus"
                                 element={<Contact />}
                             ></Route>
-                            {!loggedIn && (
+                            {loggedIn && userType === 'valexpertadmin' && (
                                 <Route
                                     path="/register"
                                     element={<RegistrationPage />}
