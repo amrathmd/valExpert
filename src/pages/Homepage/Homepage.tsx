@@ -6,14 +6,16 @@ import {
     Navigate,
 } from 'react-router-dom';
 import { ErrorBoundary, Navbar } from '../../components';
-import { Home, Login, Contact, RegistrationPage, Browse } from '../index';
+import { Home, Login, Contact, RegistrationPage, Browse ,Dashboard } from '../index';
 import './Homepage.css';
 import AuthContext from '../../contexts/AuthContext';
+import { DashboardContextProvider } from '../..//contexts/dashboardContext';
 
 const Homepage = () => {
     const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
     return (
         <ErrorBoundary>
+            <DashboardContextProvider>
             <Router>
                 <div className="homeContainer">
                     <div className="navbar">
@@ -39,11 +41,12 @@ const Homepage = () => {
                                     element={<RegistrationPage />}
                                 ></Route>
                             )}
-                            <Route path="/browse" element={<Browse />}></Route>
+                            <Route path="/dashboard" element={<Dashboard />}></Route>
                         </Routes>
                     </div>
                 </div>
             </Router>
+            </DashboardContextProvider>
         </ErrorBoundary>
     );
 };

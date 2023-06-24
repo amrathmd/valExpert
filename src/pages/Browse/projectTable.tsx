@@ -1,6 +1,8 @@
 import React from 'react';
-
+import './project.css'
+import DashboardContext from '../../contexts/dashboardContext';
 interface Project {
+    _id: string,
     name: string;
     Department: string;
     Category: string;
@@ -14,7 +16,10 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = (props) => {
     const { projects } = props;
-
+    const { dashboardState, setDashboardState } = React.useContext(DashboardContext);
+    const handleProject = () => {
+        setDashboardState(1);
+    }
     return (
         <table className="content-table">
             <thead>
@@ -24,25 +29,20 @@ const Table: React.FC<TableProps> = (props) => {
                     <th>Category</th>
                     <th>Project Description</th>
                     <th>Estimated Implementation Date</th>
+                    <th><></></th>
                 </tr>
             </thead>
             <tbody>
                 {projects.map((project) => (
-                    <tr key={project.name}>
+                    <tr key={project._id}>
                         <td>{project.name}</td>
                         <td>{project.Department}</td>
                         <td>{project.Category}</td>
                         <td>{project.ProjectDescription}</td>
                         <td>{project.EstimatedDate}</td>
+                        <td><button className="manage-project" value={project.name} onClick={handleProject}>Manage Project</button></td>
                     </tr>
                 ))}
-                <tr>
-                    <td>Arbaz</td>
-                    <td>Khan</td>
-                    <td>Hooda</td>
-                    <td>Deepak</td>
-                    <td>16-02-2024</td>
-                </tr>
             </tbody>
         </table>
     );
