@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './Browse.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import Table from './table';
-import Form from './Form';
+import ReqForm from './ReqForm';
+import Projects from './projects';
 
 import { NavLink } from 'react-router-dom';
 
@@ -18,8 +18,6 @@ const Browse: React.FC = () => {
     const [sidebarWidth, setSidebarWidth] = useState<number>(200);
     const [isDragging, setIsDragging] = useState<boolean>(true);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [projects, setProjects] = useState([]);
-    const [prompt, setprompt] = useState(false);
 
     const closeDropdown = () => {
         setIsDropdownOpen(false);
@@ -44,23 +42,6 @@ const Browse: React.FC = () => {
             const newSidebarWidth = event.clientX;
             setSidebarWidth(newSidebarWidth);
         }
-    };
-
-    const handleCreateProject = () => {
-        const obj = {
-            name: 'Naveen',
-            Department: 'CSE',
-            Category: 'None',
-            ProjectDescription: 'Nothing',
-            EstimatedDate: '12-09-2025',
-        };
-        setProjects([...projects, obj]);
-        handlePrompt();
-        console.log(projects);
-    };
-
-    const handlePrompt = () => {
-        setprompt(!prompt);
     };
 
     const browseItems: BrowseItem[] = [
@@ -146,70 +127,8 @@ const Browse: React.FC = () => {
                                 )}
                             </div>
                         </div>
-                        {selectedItem.label === 'Projects' &&
-                        projects.length === 0 ? (
-                            <div>
-                                <div className="projects-empty">
-                                    <div>
-                                        <p className="para">
-                                            Have Yout tried our Projects?
-                                        </p>
-                                        <ul className="dot-list">
-                                            <li>
-                                                share multiple sheets and
-                                                folders to workspace members
-                                            </li>
-                                            <li>
-                                                create client workspaces with
-                                                custom colors & logo
-                                            </li>
-                                        </ul>
-                                        <i
-                                            className="fa fa-start-o"
-                                            aria-hidden="true"
-                                        ></i>
-                                        <img
-                                            className="projects-img"
-                                            src={selectedItem.image}
-                                            alt={selectedItem.label}
-                                        />
-
-                                        <span
-                                            className="create-button"
-                                            onClick={handlePrompt}
-                                        >
-                                            Create new Project
-                                        </span>
-                                        <Form
-                                            prompt={prompt}
-                                            handlePrompt={handlePrompt}
-                                            handleCreateProject={
-                                                handleCreateProject
-                                            }
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        ) : (
-                            selectedItem.label == 'Projects' && (
-                                <div>
-                                    <Table projects={projects} />
-                                    <Form
-                                        prompt={prompt}
-                                        handlePrompt={handlePrompt}
-                                        handleCreateProject={
-                                            handleCreateProject
-                                        }
-                                    />
-                                    <div
-                                        onClick={handlePrompt}
-                                        className="create-project"
-                                    >
-                                        Create Project
-                                    </div>
-                                </div>
-                            )
-                        )}
+                        {selectedItem.label === 'Deleted Items' && <ReqForm />}
+                        <Projects selectedItem={selectedItem} />
                     </div>
                 ) : (
                     <div>
