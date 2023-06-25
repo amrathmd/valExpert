@@ -33,7 +33,7 @@ const Navbar = () => {
 
   const { loggedIn, getLoggedIn, userType, username } = React.useContext(
     AuthContext
-  ); //ikkada username osthundha mari okasari AuthContext  chudu 
+  ); 
 
   return (
     <ErrorBoundary>
