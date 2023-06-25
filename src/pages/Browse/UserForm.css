@@ -1,0 +1,84 @@
+.user-form{
+  height: 500px;
+  width: 350px;
+  position: absolute;
+  left: 45%;
+  top: 120px;
+  background-color:#f2f2f2;
+  border-radius: 5px;
+  border:1px solid lightgray;
+  padding: 20px 20px 20px 20px;
+  visibility: hidden;
+}
+.user-form.active{
+  visibility: visible;
+}
+.user-form>label{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  flex-direction: column;
+  font-weight: 500;
+}
+.user-form>input{
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  padding: 4px;
+  border-radius: 5px;
+  border:1px solid #ccc;
+}
+.save{
+  height: 30px;
+  width: 65px;
+  margin-left: 80px;
+  background-color:#4d72ae;
+  color: whitesmoke;
+  border-radius: 4px;
+ 
+  border: none;
+  cursor: pointer;
+}
+.save:hover{
+  background-color: #0056b3;
+}
+.cancel{
+ margin-left: 30px;
+ height: 30px;
+ width: 65px;
+ border-radius: 4px;
+ background-color:rgba(234, 6, 6, 0.762);
+ color:white;
+ border: none;
+ cursor: pointer;
+}
+.cancel:hover{
+  background-color:red;
+}
+
+
+
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
+.user-form .group {
+  display: flex;
+  align-items: center; /* Align items horizontally */
+  margin-top: 5px;
+}
+
+.user-form .group label[for="active"] {
+  margin-top: 0; /* Remove top margin to align with checkbox */
+  margin-right: 30px; /* Add right margin for spacing */
+}
+
+.user-form .group input[type="checkbox"] {
+  margin-top: 0; /* Remove top margin to align with label */
+  
+}
