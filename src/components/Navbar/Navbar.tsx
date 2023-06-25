@@ -33,7 +33,7 @@ const Navbar = () => {
 
   const { loggedIn, getLoggedIn, userType, username } = React.useContext(
     AuthContext
-  );
+  ); //ikkada username osthundha mari okasari AuthContext  chudu 
 
   return (
     <ErrorBoundary>
@@ -90,7 +90,7 @@ const Navbar = () => {
                 <NavLink
                   to="/register"
                   style={{
-                    backgroundColor: getColor('/login'),
+                    backgroundColor: getColor('/register'),
                   }}
                   className="navlink"
                 >
@@ -99,23 +99,7 @@ const Navbar = () => {
                     className="logo"
                     onClick={toggleNavbar}
                   ></img>
-                  <span className="icon-name">Login</span>
-                </NavLink>
-              </li>
-            )}
-            {loggedIn && userType === 'valexpertadmin' && (
-              <li className="nav-item">
-                <NavLink
-                  to="/register"
-                  style={{
-                    backgroundColor: getColor('/login'),
-                  }}
-                  className="navlink"
-                >
-                  <img
-                    src={'../../../public/login.png'}
-                    className="logo"
-                  ></img>
+                  <span className="icon-name">Register</span>
                 </NavLink>
               </li>
             )}
@@ -151,7 +135,7 @@ const Navbar = () => {
                 <span className="icon-name">Browse</span>
               </NavLink>
             </li>
-            {<UserComponent toggleNavbar={toggleNavbar}  handleLogOut={handleLogOut}/>}
+            {<UserComponent toggleNavbar={toggleNavbar}  username={username} userType={userType} handleLogOut={handleLogOut}/>}
           </ul>
         </div>
       </div>

@@ -5,67 +5,40 @@ import AuthContext from '../../contexts/AuthContext';
 interface UserComponentProps {
   toggleNavbar: () => void;
   handleLogOut: () => void; 
+  username:String; 
+  userType:String;
 }
 
-const UserComponent: React.FC<UserComponentProps> = ({ toggleNavbar, handleLogOut }) => {
+const UserComponent= (props:UserComponentProps) => {
+
+  const { toggleNavbar, handleLogOut ,username, userType} = props;// 
   const [showOptions, setShowOptions] = useState(false);
-  const optionsRef = useRef<HTMLDivElement>(null);
-  const { getLoggedIn, userName } = useContext(AuthContext);
 
-  const handleAvatarHover = () => {
-    setShowOptions(true);
-  };
+   const updateOptions =()=>{
+    setShowOptions(!showOptions);
+   }
 
-  const handleOptionsMouseEnter = () => {
-    setShowOptions(true);
-  };
-
-  const handleOptionsMouseLeave = () => {
-    setShowOptions(false);
-  };
-
-  useEffect(() => {
-    const handleDocumentClick = (event: MouseEvent) => {
-      if (
-        optionsRef.current &&
-        !optionsRef.current.contains(event.target as Node)
-      ) {
-        setShowOptions(false);
-      }
-    };
-
-    document.addEventListener('click', handleDocumentClick);
-
-    return () => {
-      document.removeEventListener('click', handleDocumentClick);
-    };
-  }, []);
-
-  const handleLogoutClick = () => {
-    handleLogOut(); 
-    toggleNavbar();
-  };
+ 
 
   return (
-    <li className="nav-item">
+    <li className="nav-item"> 
       <div
         className="avatar-container"
-        onMouseEnter={handleAvatarHover}
-        onMouseLeave={handleOptionsMouseLeave}
+        // onMouseEnter={handleAvatarHover}
+        // onMouseLeave={handleOptionsMouseLeave}
+        onClick={updateOptions}
       >
         <img
           src={'../../../public/profile.png'}
           className="avatar"
           alt="User Avatar"
-          onClick={toggleNavbar}
+          onClick={toggleNavbar} 
         />
-        {showOptions && (
-          <div
+        <span>{showOptions}</span>
+  
+          { showOptions && <div
             className="avatar-options"
-            onMouseEnter={handleOptionsMouseEnter}
-            onMouseLeave={handleOptionsMouseLeave}
-            ref={optionsRef}
-          >
+          > 
             <NavLink
               to="/mytests"
               className="avatar-option"
@@ -80,16 +53,16 @@ const UserComponent: React.FC<UserComponentProps> = ({ toggleNavbar, handleLogOu
             >
               My Dashboard
             </NavLink>
-            <div className="avatar-option username">{userName}</div>
+            <div className="avatar-option username">{username}</div>
             <hr className="avatar-option-divider" />
-            <button className="avatar-option" onClick={handleLogoutClick}>
+            <button className="avatar-option" onClick={handleLogOut}>
               Sign Out
             </button>
-          </div>
-        )}
+          </div> }
       </div>
     </li>
   );
 };
 
 export default UserComponent;
+

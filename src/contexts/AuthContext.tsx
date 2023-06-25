@@ -12,7 +12,7 @@ export const AuthContextProvider = (props: any) => {
         const result = await axios.get(
             'http://localhost:3000/v1/auth/loggedIn'
         );
-        setLoggedIn(result.data);
+        setLoggedIn(result.data);    
     };
 
     const findUserType = async () => {

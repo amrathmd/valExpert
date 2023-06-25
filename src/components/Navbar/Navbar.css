@@ -69,6 +69,7 @@
 .avatar-container {
     position: absolute;
     display: inline-block;
+    background-color: crimson;
     left: 0;
     bottom: 0;
     margin: 30px 10px;
@@ -83,8 +84,7 @@
 
 .avatar-options {
     position: absolute;
-    top: auto;
-    bottom: calc(100% - var(--options-spacing-y, 10px));
+    bottom: 0;
     left: calc(100% + var(--options-spacing-x, 10px));
     background-color: #c3c1c1;
     border-radius: 4px;
@@ -92,10 +92,11 @@
     padding: 4px 8px;
     z-index: 100;
     display: none;
+    margin-top: -4px;
     white-space: nowrap;
 }
 
-.avatar-container:hover .avatar-options {
+.avatar-container .avatar-options {
     display: block;
     --options-spacing-x: 20px;
     --options-spacing-y: 20px;
