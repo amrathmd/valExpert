@@ -37,14 +37,17 @@ const ProjectDashboard = () => {
         {
             id: 1,
             name: 'Requirements',
+            image: '../../../public/requirement.png',
         },
         {
             id: 2,
             name: 'Test sets',
+            image: '../../../public/test.png',
         },
         {
             id: 3,
             name: 'Defects',
+            image: '../../../public/defects.png',
         },
     ];
     // const requirementSets: RequirementSet[] = [
@@ -126,6 +129,8 @@ const ProjectDashboard = () => {
                                     : () => handleSelectedItem(items.id)
                             }
                         >
+                            <img src={items.image} className="icons"></img>
+                            {items.name}
                             <span>
                                 {items.id === 1 && (
                                     <img
@@ -136,7 +141,6 @@ const ProjectDashboard = () => {
                                     ></img>
                                 )}
                             </span>
-                            {items.name}
                         </li>
                         {items.id === 1 && (
                             <ul
@@ -159,7 +163,7 @@ const ProjectDashboard = () => {
                                         key={set._id}
                                         className={`${
                                             selectedRequirementSet === set._id
-                                                ? 'selected'
+                                                ? 'selected-set'
                                                 : ''
                                         }`}
                                         onClick={() =>
