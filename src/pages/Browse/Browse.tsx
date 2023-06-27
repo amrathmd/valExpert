@@ -86,7 +86,6 @@ const Browse: React.FC = () => {
             content: 'Content for Deleted Items',
         },
     ];
-    
 
     return (
         <div className="browse">
