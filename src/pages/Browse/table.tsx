@@ -1,12 +1,5 @@
+import { Project } from '@/components/Models/projerctModel';
 import React from 'react';
-
-interface Project {
-    name: string;
-    Department: string;
-    Category: string;
-    ProjectDescription: string;
-    EstimatedDate: number;
-}
 
 interface TableProps {
     projects: Project[];
@@ -30,19 +23,16 @@ const Table: React.FC<TableProps> = (props) => {
                 {projects.map((project) => (
                     <tr key={project.name}>
                         <td>{project.name}</td>
-                        <td>{project.Department}</td>
-                        <td>{project.Category}</td>
-                        <td>{project.ProjectDescription}</td>
-                        <td>{project.EstimatedDate}</td>
+                        <td>{project.department}</td>
+                        <td>{project.category}</td>
+                        <td>{project.description}</td>
+                        <td>
+                            {project.implementationDate
+                                .toString()
+                                .substring(0, 10)}
+                        </td>
                     </tr>
                 ))}
-                <tr>
-                    <td>Arbaz</td>
-                    <td>Khan</td>
-                    <td>Hooda</td>
-                    <td>Deepak</td>
-                    <td>16-02-2024</td>
-                </tr>
             </tbody>
         </table>
     );

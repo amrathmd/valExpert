@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Browse.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Table from './table';
 import Form from './Form';
 
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 interface BrowseItem {
     id: number;
@@ -19,7 +20,7 @@ const Browse: React.FC = () => {
     const [isDragging, setIsDragging] = useState<boolean>(true);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [projects, setProjects] = useState([]);
-    const [prompt, setprompt] = useState(false);
+    const [prompt, setPrompt] = useState(false);
 
     const closeDropdown = () => {
         setIsDropdownOpen(false);
@@ -46,21 +47,8 @@ const Browse: React.FC = () => {
         }
     };
 
-    const handleCreateProject = () => {
-        const obj = {
-            name: 'Naveen',
-            Department: 'CSE',
-            Category: 'None',
-            ProjectDescription: 'Nothing',
-            EstimatedDate: '12-09-2025',
-        };
-        setProjects([...projects, obj]);
-        handlePrompt();
-        console.log(projects);
-    };
-
     const handlePrompt = () => {
-        setprompt(!prompt);
+        setPrompt(!prompt);
     };
 
     const browseItems: BrowseItem[] = [
@@ -83,7 +71,18 @@ const Browse: React.FC = () => {
             content: 'Content for Deleted Items',
         },
     ];
-
+    const getProjects = async () => {
+        const res = await axios.get('http://localhost:3000/v1/projects');
+        console.log(res);
+        setProjects(res.data);
+    };
+    const refresh = async () => {
+        handlePrompt();
+        await getProjects();
+    };
+    useEffect(() => {
+        getProjects();
+    }, []);
     return (
         <div className="browse">
             <div className="browse-sidebar" style={{ width: sidebarWidth }}>
@@ -183,9 +182,7 @@ const Browse: React.FC = () => {
                                         <Form
                                             prompt={prompt}
                                             handlePrompt={handlePrompt}
-                                            handleCreateProject={
-                                                handleCreateProject
-                                            }
+                                            refresh={refresh}
                                         />
                                     </div>
                                 </div>
@@ -197,9 +194,7 @@ const Browse: React.FC = () => {
                                     <Form
                                         prompt={prompt}
                                         handlePrompt={handlePrompt}
-                                        handleCreateProject={
-                                            handleCreateProject
-                                        }
+                                        refresh={refresh}
                                     />
                                     <div
                                         onClick={handlePrompt}
