@@ -298,3 +298,9 @@ NavLink {
 .create-project:hover {
     background-color: #0056b3;
 }
+ #req-dropdown{
+    border: 1px solid #ccc;
+    width: 100%;
+    border-radius: 5px;
+    padding: 6px;
+}

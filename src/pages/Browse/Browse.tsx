@@ -3,7 +3,8 @@ import './Browse.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Table from './projectTable';
 import Form from './projectForm';
-
+import UserTable from './userTable';
+import UserForm from './userForm';
 import { NavLink } from 'react-router-dom';
 
 interface BrowseItem {
@@ -12,7 +13,13 @@ interface BrowseItem {
     label: string;
     content: string;
 }
-
+interface Users {
+  _idu: string;
+  name: string;
+  mobile: string;
+  email: string;
+  status: string;
+}
 const Browse: React.FC = () => {
     const [selectedItem, setSelectedItem] = useState<BrowseItem | null>(null);
     const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
@@ -21,6 +28,8 @@ const Browse: React.FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [projects, setProjects] = useState([]);
     const [prompt, setprompt] = useState(false);
+     const [users, setUsers] = useState([]);
+    const [userprompt, setuserprompt] = useState(false);
 
     const closeDropdown = () => {
         setIsDropdownOpen(false);
@@ -65,7 +74,28 @@ const Browse: React.FC = () => {
     const handlePrompt = () => {
         setprompt(!prompt);
     };
-
+    const handleCreateUser = () => {
+        const obj = {
+            _idu: '123',
+            name: 'Bruno',
+            mobile: '1234567890',
+            email:'bruno@gmail.com',
+            status:'Active',
+        };
+        setUsers([...users, obj]);
+        handleUserPrompt();
+        console.log(users);
+    };
+     const handleUserPrompt = () => {
+        setuserprompt(!userprompt);
+    };
+     const handleUpdateUsers = (updatedUsers: Users[]) => {
+    setUsers(updatedUsers);
+  };
+    const handleDeleteUser = (userId: string) => {
+    const updatedUsers = users.filter((user: Users) => user._idu !== userId);
+    setUsers(updatedUsers);
+  };
     const browseItems: BrowseItem[] = [
         {
             id: 1,
@@ -150,6 +180,70 @@ const Browse: React.FC = () => {
                                 )}
                             </div>
                         </div>
+                          {selectedItem.label === 'Users' &&
+                        users.length === 0 ? (
+                            <div>
+                                <div className="projects-empty">
+                                    <div>
+                                        <p className="para">
+                                              Welcome to our platform! 
+                                        </p>
+                                        <ul className="dot-list">
+                                             <li>
+                                                You have the power to add users from your company enabling<br/> effective collaboration 
+                                                Enhanced Project Management,Customized User Permissions.
+                                            </li>
+                                            <li>
+                                                We believe that by adding users from your company,<br/>
+                                                 you'll unlock the full potential of our platform .
+                                            </li>
+                                        </ul>
+                                        <i
+                                            className="fa fa-start-o"
+                                            aria-hidden="true"
+                                        ></i>
+                                        <img
+                                            className="projects-img"
+                                            src={selectedItem.image}
+                                            alt={selectedItem.label}
+                                        />
+
+                                        <span
+                                            className="create-button"
+                                            onClick={handleUserPrompt}
+                                        >
+                                            Add Users
+                                        </span>
+                                        <UserForm
+                                            userprompt={userprompt}
+                                            handleUserPrompt={handleUserPrompt}
+                                            handleCreateUser={
+                                                handleCreateUser
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            selectedItem.label == 'Users' && (
+                                <div>
+                                    <UserTable users={users} onUpdateUsers={handleUpdateUsers}  onDeleteUser={handleDeleteUser}/>
+                                    <UserForm
+                                        userprompt={userprompt}
+                                        handleUserPrompt={handleUserPrompt}
+                                        handleCreateUser={
+                                            handleCreateUser
+                                        }
+                                    />
+                                    <div
+                                        onClick={handleUserPrompt}
+                                        className="create-project"
+                                    >
+                                        Add User
+                                    </div>
+                                </div>
+                            )
+                        )}
                         {selectedItem.label === 'Projects' &&
                         projects.length === 0 ? (
                             <div>

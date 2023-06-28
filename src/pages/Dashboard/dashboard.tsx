@@ -9,8 +9,8 @@ const Dashboard = ()=>{
 
     return (
       <>
-      {dashboardState === 0 && <Browse />}
-      {dashboardState ===  1 && <ProjectDashboard/>}
+      {dashboardState === 1 && <Browse />}
+      {dashboardState ===  0 && <ProjectDashboard/>}
       </>
 
     );
