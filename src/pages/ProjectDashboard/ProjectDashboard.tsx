@@ -7,30 +7,46 @@ interface RequirementSet {
     _id: string;
     name: string;
 }
+interface TestSet {
+    _id: string;
+    name: string;
+}
 interface TableColumn {
     key: string;
     label: string;
 }
 
 const ProjectDashboard = () => {
-    const [listState, setListState] = React.useState<boolean>(false);
+    const [reqListState, setReqListState] = React.useState<boolean>(false);
     const requirementsRef = React.useRef<HTMLUListElement>(null);
-    const [selectedItem, setSelectedItem] = React.useState(null);
+    const testsRef = React.useRef<HTMLUListElement>(null);
+    const [selectedItem, setSelectedItem] = React.useState(1);
+    const [testListState, setTestListState] = React.useState(false);
     const [selectedRequirementSet, setSelectedRequirementSet] =
         React.useState(null);
+    const [selectedTestSet, setSelectedtestSet] = React.useState(null);
+
     const [requirementSets, setRequirementSets] = React.useState<
         RequirementSet[]
     >([]);
+
     const [count, setCount] = React.useState<number>(1);
     const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
     const [requirements, setRequirements] = React.useState([]);
     const handleRequirementSet = (id: string) => {
         setSelectedRequirementSet(id);
         setSelectedItem(null);
+        setSelectedtestSet(null);
+    };
+    const handleTestSet = (id: string) => {
+        setSelectedtestSet(id);
+        setSelectedItem(null);
+        setSelectedRequirementSet(null);
     };
     const handleSelectedItem = (id: number) => {
         setSelectedItem(id);
         setSelectedRequirementSet(null);
+        setSelectedtestSet(null);
         console.log(selectedItem);
     };
     const browseItems = [
@@ -50,20 +66,20 @@ const ProjectDashboard = () => {
             image: '../../../public/defects.png',
         },
     ];
-    // const requirementSets: RequirementSet[] = [
-    //     {
-    //         _id: '1',
-    //         name: 'Requirement Set 1',
-    //     },
-    //     {
-    //         _id: '2',
-    //         name: 'Requirement Set 2',
-    //     },
-    //     {
-    //         _id: '3',
-    //         name: 'Requirement Set 3',
-    //     },
-    // ];
+    const testSets: TestSet[] = [
+        {
+            _id: '6',
+            name: 'test Set 1',
+        },
+        {
+            _id: '7',
+            name: 'test Set 2',
+        },
+        {
+            _id: '8',
+            name: 'test Set 3',
+        },
+    ];
 
     const requirementsColumns: TableColumn[] = [
         { key: 'RequirementId', label: 'Requirement Id' },
@@ -74,9 +90,9 @@ const ProjectDashboard = () => {
         { key: 'Verification', label: 'Verification' },
     ];
 
-    const handleListState = () => {
+    const handleRequirementListState = () => {
         if (requirementSets.length != 0) {
-            setListState(!listState);
+            setReqListState(!reqListState);
         }
         setSelectedItem(1);
         setSelectedRequirementSet(null);
@@ -109,6 +125,9 @@ const ProjectDashboard = () => {
     const handleFormActive = () => {
         setReqFormActive(!isReqFormActive);
     };
+    const handleTestListState = () => {
+        setTestListState(!testListState);
+    };
 
     return (
         <div className="project-dashboard">
@@ -119,13 +138,17 @@ const ProjectDashboard = () => {
                             className={`${
                                 items.id === 1
                                     ? 'requirements'
-                                    : selectedItem == items.id
+                                    : items.id == 2
+                                    ? 'tests'
+                                    : selectedItem === items.id
                                     ? 'selected'
                                     : ''
                             }`}
                             onClick={
                                 items.id === 1
-                                    ? handleListState
+                                    ? handleRequirementListState
+                                    : items.id === 2
+                                    ? handleTestListState
                                     : () => handleSelectedItem(items.id)
                             }
                         >
@@ -136,7 +159,21 @@ const ProjectDashboard = () => {
                                     <img
                                         src="../../../public/right-arrow.png"
                                         className={`${
-                                            !listState ? 'arrow' : 'arrow-down'
+                                            !reqListState
+                                                ? 'arrow'
+                                                : 'arrow-down'
+                                        }`}
+                                    ></img>
+                                )}
+                            </span>
+                            <span>
+                                {items.id === 2 && (
+                                    <img
+                                        src="../../../public/right-arrow.png"
+                                        className={`${
+                                            !testListState
+                                                ? 'testArrow'
+                                                : 'testArrow-down'
                                         }`}
                                     ></img>
                                 )}
@@ -146,10 +183,10 @@ const ProjectDashboard = () => {
                             <ul
                                 ref={requirementsRef}
                                 className={`requirements-list ${
-                                    listState ? 'open' : 'closed'
+                                    reqListState ? 'open' : 'closed'
                                 }`}
                                 style={
-                                    listState
+                                    reqListState
                                         ? {
                                               maxHeight:
                                                   requirementsRef.current
@@ -163,12 +200,43 @@ const ProjectDashboard = () => {
                                         key={set._id}
                                         className={`${
                                             selectedRequirementSet === set._id
-                                                ? 'selected-set'
+                                                ? 'selected-req-set'
                                                 : ''
                                         }`}
                                         onClick={() =>
                                             handleRequirementSet(set._id)
                                         }
+                                    >
+                                        {set.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                        {items.id === 2 && (
+                            <ul
+                                ref={testsRef}
+                                className={`test-list ${
+                                    testListState ? 'open' : 'closed'
+                                }`}
+                                style={
+                                    testListState
+                                        ? {
+                                              maxHeight:
+                                                  testsRef.current
+                                                      ?.scrollHeight,
+                                          }
+                                        : {}
+                                }
+                            >
+                                {testSets.map((set) => (
+                                    <li
+                                        key={set._id}
+                                        className={`${
+                                            selectedTestSet === set._id
+                                                ? 'selected-test-set'
+                                                : ''
+                                        }`}
+                                        onClick={() => handleTestSet(set._id)}
                                     >
                                         {set.name}
                                     </li>
