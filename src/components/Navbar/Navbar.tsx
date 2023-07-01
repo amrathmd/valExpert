@@ -117,9 +117,9 @@ const Navbar = () => {
                         </li>
                         <li className="nav-item">
                             <NavLink
-                                to="/browse"
+                                to="/dashboard"
                                 style={{
-                                    backgroundColor: getColor('/browse'),
+                                    backgroundColor: getColor('/dashboard'),
                                 }}
                                 className="navlink"
                             >
@@ -128,7 +128,7 @@ const Navbar = () => {
                                     className="logo"
                                     onClick={toggleNavbar}
                                 ></img>
-                                <span className="icon-name">Browse</span>
+                                <span className="icon-name">Dashboard</span>
                             </NavLink>
                         </li>
                     </ul>

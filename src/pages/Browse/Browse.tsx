@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Browse.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import Table from './table';
-import Form from './Form';
+import Table from './projectTable';
+import Form from './projectForm';
 
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
@@ -16,6 +16,7 @@ interface BrowseItem {
 
 const Browse: React.FC = () => {
     const [selectedItem, setSelectedItem] = useState<BrowseItem | null>(null);
+    const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
     const [sidebarWidth, setSidebarWidth] = useState<number>(200);
     const [isDragging, setIsDragging] = useState<boolean>(true);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -30,6 +31,7 @@ const Browse: React.FC = () => {
     };
     const handleItemClick = (item: BrowseItem) => {
         setSelectedItem(item);
+        setSelectedItemId(item.id);
     };
 
     const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
@@ -45,6 +47,20 @@ const Browse: React.FC = () => {
             const newSidebarWidth = event.clientX;
             setSidebarWidth(newSidebarWidth);
         }
+    };
+
+    const handleCreateProject = () => {
+        const obj = {
+            _id: '1',
+            name: 'Naveen',
+            Department: 'CSE',
+            Category: 'None',
+            ProjectDescription: 'Nothing',
+            EstimatedDate: '12-09-2025',
+        };
+        setProjects([...projects, obj]);
+        handlePrompt();
+        console.log(projects);
     };
 
     const handlePrompt = () => {
@@ -91,7 +107,7 @@ const Browse: React.FC = () => {
                         <li
                             key={item.id}
                             className={`${
-                                selectedItem === item ? 'selected' : ''
+                                selectedItemId === item.id ? 'selected' : ''
                             }`}
                             onClick={() => handleItemClick(item)}
                         >

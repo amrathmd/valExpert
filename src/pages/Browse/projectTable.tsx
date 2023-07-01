@@ -1,5 +1,6 @@
 import { Project } from '@/components/Models/projerctModel';
 import React from 'react';
+import DashboardContext from '@/contexts/dashboardContext';
 
 interface TableProps {
     projects: Project[];
@@ -7,7 +8,11 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = (props) => {
     const { projects } = props;
-
+    const { dashboardState, setDashboardState } =
+        React.useContext(DashboardContext);
+    const handleProject = () => {
+        setDashboardState(1);
+    };
     return (
         <table className="content-table">
             <thead>
@@ -17,11 +22,14 @@ const Table: React.FC<TableProps> = (props) => {
                     <th>Category</th>
                     <th>Project Description</th>
                     <th>Estimated Implementation Date</th>
+                    <th>
+                        <></>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 {projects.map((project) => (
-                    <tr key={project.name}>
+                    <tr key={project._id}>
                         <td>{project.name}</td>
                         <td>{project.department}</td>
                         <td>{project.category}</td>
