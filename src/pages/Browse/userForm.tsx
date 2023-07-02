@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent ,useState,useEffect } from 'react';
+import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 
 interface FormUserProps {
     userprompt: boolean;
@@ -7,12 +7,13 @@ interface FormUserProps {
 }
 
 const UserForm: React.FC<FormUserProps> = (props) => {
-    const { userprompt, handleUserPrompt, handleCreateUser} = props;
+    const { userprompt, handleUserPrompt, handleCreateUser } = props;
     const [userId, setUserId] = useState<string>('');
+    const [selectedOption, setSelectedOption] = useState('Active');
 
-  useEffect(() => {
-    setUserId(generateUniqueId());
-  }, []);
+    useEffect(() => {
+        setUserId(generateUniqueId());
+    }, []);
 
     const handleChangeUserPrompt = () => {
         handleUserPrompt();
@@ -20,25 +21,25 @@ const UserForm: React.FC<FormUserProps> = (props) => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-         handleCreateUser();
+        handleCreateUser();
     };
-     function generateUniqueId() {
-    const randomNum = Math.floor(100000 + Math.random() * 900000);
-    return randomNum.toString().padStart(6, '0');
-  }
-    
+    function generateUniqueId() {
+        const randomNum = Math.floor(100000 + Math.random() * 900000);
+        return randomNum.toString().padStart(6, '0');
+    }
+    const handleOptionChange = (event: {
+        target: { value: React.SetStateAction<string> };
+    }) => {
+        setSelectedOption(event.target.value);
+    };
+
     return (
         <form
             className={`forms ${userprompt ? 'active' : ''}`}
             onSubmit={handleSubmit}
         >
-             <label htmlFor="Id">User ID </label>
-             <input
-                type="text"
-                name="id"
-                defaultValue={userId}
-        readOnly
-            />
+            <label htmlFor="Id">User ID </label>
+            <input type="text" name="id" defaultValue={userId} readOnly />
             <label htmlFor="name">Name </label>
             <input type="text" name="name" placeholder="Name" />
             <label>Email</label>
@@ -46,11 +47,27 @@ const UserForm: React.FC<FormUserProps> = (props) => {
             <label>Mobile</label>
             <input type="text" placeholder="Mobile" />
             <label>Status</label>
-            <select id="req-dropdown">
-                        <option value="">Active</option>
-                        <option value="option1">Active</option>
-                        <option value="option2">Inactive</option>
-            </select>
+            <div className="radioClass">
+                <label>
+                    <input
+                        type="radio"
+                        value="Active"
+                        checked={selectedOption === 'Active'}
+                        onChange={handleOptionChange}
+                    />
+                    Active
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        value="Inactive"
+                        checked={selectedOption === 'Inactive'}
+                        onChange={handleOptionChange}
+                    />
+                    Inactive
+                </label>
+            </div>
             <button
                 className="cancel"
                 type="button"

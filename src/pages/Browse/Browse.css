@@ -304,3 +304,12 @@ NavLink {
     border-radius: 5px;
     padding: 6px;
 }
+.radioClass{
+    align-items: flex-start;
+    min-width: fit-content;
+    margin: 4px;
+  
+}
+.radioClass label{
+      margin-right:10px ;   
+}
