@@ -1,6 +1,6 @@
 import { Project } from '@/components/Models/projerctModel';
 import React from 'react';
-import DashboardContext from '@/contexts/dashboardContext';
+import DashboardContext from '../../contexts/dashboardContext';
 
 interface TableProps {
     projects: Project[];
