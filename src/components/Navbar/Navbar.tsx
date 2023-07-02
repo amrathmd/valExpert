@@ -135,7 +135,7 @@ const Navbar = () => {
                 <span className="icon-name">Browse</span>
               </NavLink>
             </li>
-            {<UserComponent toggleNavbar={toggleNavbar}  username={username} userType={userType} handleLogOut={handleLogOut}/>}
+            {loggedIn && userType === 'valexpertadmin' &&  <UserComponent toggleNavbar={toggleNavbar}  username={username} userType={userType} handleLogOut={handleLogOut}/>}
           </ul>
         </div>
       </div>
