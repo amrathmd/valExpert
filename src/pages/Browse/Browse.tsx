@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Browse.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Table from './table';
 import Form from './Form';
-
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 interface BrowseItem {
     id: number;
@@ -15,6 +15,7 @@ interface BrowseItem {
 
 const Browse: React.FC = () => {
     const [selectedItem, setSelectedItem] = useState<BrowseItem | null>(null);
+    const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
     const [sidebarWidth, setSidebarWidth] = useState<number>(200);
     const [isDragging, setIsDragging] = useState<boolean>(true);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -29,6 +30,7 @@ const Browse: React.FC = () => {
     };
     const handleItemClick = (item: BrowseItem) => {
         setSelectedItem(item);
+        setSelectedItemId(item.id);
     };
 
     const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
@@ -83,7 +85,18 @@ const Browse: React.FC = () => {
             content: 'Content for Deleted Items',
         },
     ];
-
+    const getProjects = async () => {
+        const res = await axios.get('http://localhost:3000/v1/projects');
+        console.log(res);
+        setProjects(res.data);
+    };
+    const refresh = async () => {
+        handlePrompt();
+        await getProjects();
+    };
+    useEffect(() => {
+        getProjects();
+    }, []);
     return (
         <div className="browse">
             <div className="browse-sidebar" style={{ width: sidebarWidth }}>
@@ -92,7 +105,7 @@ const Browse: React.FC = () => {
                         <li
                             key={item.id}
                             className={`${
-                                selectedItem === item ? 'selected' : ''
+                                selectedItemId === item.id ? 'selected' : ''
                             }`}
                             onClick={() => handleItemClick(item)}
                         >
