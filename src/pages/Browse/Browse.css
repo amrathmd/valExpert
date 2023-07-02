@@ -18,10 +18,6 @@
 .forms {
     height: 500px;
     width: 350px;
-    /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
     position: absolute;
     left: 45%;
     top: 120px;
