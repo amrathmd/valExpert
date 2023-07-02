@@ -7,34 +7,46 @@
 }
 .req-form{
     margin-top: -100px;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    padding: 20px;
     width: 350px;
+    background-color: #f2f2f2;
+}
+.heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.heading>h2{
+    font-weight: bold;
+    font-size: 18px;
 }
 .req-item{
     margin: 10px;
 }
 .req-item>input{
     border: 1px solid #ccc;
-    width: 310px;
     border-radius: 5px;
+    width: 100%;
+    padding: 4px;
 }
-#req-dropdown{
+.req-item #req-dropdown{
     border: 1px solid #ccc;
-    width: 310px;
+    width: 100%;
     border-radius: 5px;
-    height: 25px;
+    padding: 6px;
 }
-.req-label{
+.req-item>label{
     display: block;
+    font-weight: 500;
 }
 .req-submit{
     display: flex;
     justify-content: space-around;
 }
 .req-cancel{
-    background-color: grey;
+    background-color: rgba(234, 6, 6, 0.762);
     padding: 4px;
     color: white;
     border-radius: 5px;
