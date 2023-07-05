@@ -109,3 +109,32 @@
     margin-left: 10px;
     max-height: fit-content;
 }
+.testsetdetails {
+    margin-top: 20px;
+    margin-left: 350px;
+  }
+  
+  .testsetdetails table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+  
+  .testsetdetails td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .testsetdetails td:first-child {
+    font-weight: bold;
+    width: 150px;
+  }
+  
+  .testsetdetails td:last-child {
+    text-align: right;
+  }
+  
+  .testsetdetails tr:last-child td {
+    border-bottom: none;
+  }
+  
