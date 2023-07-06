@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProjectDashboard.css';
 import ReqForm from './ReqForm';
 import Table from './Table';
 import TestForm from './TestForm';
 
+import axios from 'axios';
+import { TestSet } from '@/components/Models/testsetsModel';
+
 interface RequirementSet {
-    _id: string;
-    name: string;
-}
-interface TestSet {
     _id: string;
     name: string;
 }
@@ -30,14 +29,14 @@ const ProjectDashboard = () => {
     const [requirementSets, setRequirementSets] = React.useState<
         RequirementSet[]
     >([]);
-    const [testSet, setTestSet] = React.useState<TestSet[]>([]);
+    // const [testSet, setTestSet] = React.useState<TestSet[]>([]);
 
     const [count, setCount] = React.useState<number>(1);
     const [num, setNum] = React.useState<number>(10);
     const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
     const [isTestActive, setTestActive] = React.useState<boolean>(false);
     const [requirements, setRequirements] = React.useState([]);
-    const [testDetails, setTestDetails] = React.useState<any[]>([]);
+    const [testDetails, setTestDetails] = React.useState<TestSet[]>([]);
     const handleRequirementSet = (id: string) => {
         setSelectedRequirementSet(id);
         setSelectedItem(null);
@@ -45,10 +44,10 @@ const ProjectDashboard = () => {
     };
     const handleTestSet = (id: string) => {
         setSelectedtestSetId(id);
-        const selectedTestSet = testDetails.find(
-            (item) => item.TestSetId === id
+        const selectedTestSet = testDetails.filter(
+            (item) => item.testsetId === id
         );
-        setSelectedTestSet(selectedTestSet);
+        setSelectedTestSet(selectedTestSet[0]);
         //console.log(id)
         console.log(selectedTestSet);
         setSelectedItem(null);
@@ -88,13 +87,13 @@ const ProjectDashboard = () => {
     ];
 
     const testSetHeader: TableColumn[] = [
-        { key: 'TestSetName', label: 'TestSet Name' },
-        { key: 'TestSetId', label: 'TestSet Id' },
-        { key: 'ReqSetId', label: 'ReqSet Id' },
-        { key: 'RequirementSetName', label: 'RequirementSet Name' },
-        { key: 'Category', label: 'Category' },
-        { key: 'Description', label: 'Description' },
-        { key: 'Status', label: 'Status' },
+        { key: 'testName', label: 'TestSet Name' },
+        { key: 'testsetId', label: 'TestSet Id' },
+        { key: 'reqsetId', label: 'ReqSet Id' },
+        { key: 'requirementSetName', label: 'RequirementSet Name' },
+        { key: 'category', label: 'Category' },
+        { key: 'description', label: 'Description' },
+        { key: 'status', label: 'Status' },
     ];
 
     const handleRequirementListState = (id: React.SetStateAction<number>) => {
@@ -115,15 +114,6 @@ const ProjectDashboard = () => {
         setRequirementSets([...requirementSets, obj]);
         setCount(count + 1);
     };
-    const createTestSet = () => {
-        const obj = {
-            _id: `${num}`,
-            name: `TestSet ${num}`,
-        };
-        setTestSet([...testSet, obj]);
-        setNum(num + 1);
-        handleTestActive();
-    };
 
     const createRequirements = () => {
         const entry = {
@@ -138,21 +128,24 @@ const ProjectDashboard = () => {
         console.log(requirements);
         handleFormActive();
     };
-    const createTestDetails = () => {
-        const entry2 = {
-            TestSetId: `${num}`,
-            ReqSetId: 26,
-            TestSetName: 'Naveen',
-            RequirementSetName: 'Arbaz',
-            Category: 'IQ',
-            Description: 'BLA BLA BLA',
-            Status: 'Approved',
-        };
-        setTestDetails((prevTestDetails) => [...prevTestDetails, entry2]);
-        handleTestActive();
-        createTestSet();
+    const refreshTestSets = async () => {
+        await getTestSets();
     };
 
+    const getTestSets = async () => {
+        const res = await axios.get<TestSet[]>(
+            'http://localhost:3000/v1/testsets'
+        );
+        console.log(res);
+        if (!res) {
+            window.alert('error');
+        }
+        setTestDetails(res.data);
+        console.log(testDetails);
+    };
+    useEffect(() => {
+        getTestSets();
+    }, []);
     const handleFormActive = () => {
         setReqFormActive(!isReqFormActive);
     };
@@ -206,7 +199,7 @@ const ProjectDashboard = () => {
                             </span>
                             <span>
                                 {items.id === 2 &&
-                                    (testSet.length != 0 ? (
+                                    (testDetails.length != 0 ? (
                                         <img
                                             src="../../../public/right-arrow.png"
                                             className={`${
@@ -271,17 +264,19 @@ const ProjectDashboard = () => {
                                         : {}
                                 }
                             >
-                                {testSet.map((set) => (
+                                {testDetails.map((set) => (
                                     <li
-                                        key={set._id}
+                                        key={set.testsetId}
                                         className={`${
-                                            selectedTestSetId === set._id
+                                            selectedTestSetId === set.testsetId
                                                 ? 'selected-test-set'
                                                 : ''
                                         }`}
-                                        onClick={() => handleTestSet(set._id)}
+                                        onClick={() =>
+                                            handleTestSet(set.testsetId)
+                                        }
                                     >
-                                        {set.name}
+                                        {set.testName}
                                     </li>
                                 ))}
                             </ul>
@@ -309,7 +304,10 @@ const ProjectDashboard = () => {
                             Create Test Set
                         </button>
                         {isTestActive && (
-                            <TestForm createTestDetails={createTestDetails} />
+                            <TestForm
+                                refresh={refreshTestSets}
+                                handleFormActive={handleTestActive}
+                            />
                         )}
                     </div>
                 )}
