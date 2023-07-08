@@ -17,16 +17,6 @@ const Navbar = () => {
         }
     };
 
-    const [showOptions, setShowOptions] = useState(false);
-
-    const handleAvatarHover = () => {
-        setShowOptions(true);
-    };
-
-    const handleAvatarLeave = () => {
-        setShowOptions(false);
-    };
-
     const History = useNavigate();
     const handleLogOut = async () => {
         await axios.get('http://localhost:3000/v1/auth/logout');
@@ -141,44 +131,6 @@ const Navbar = () => {
                                 <span className="icon-name">Dashboard</span>
                             </NavLink>
                         </li>
-                        {loggedIn && (
-                            <>
-                                <li className="nav-item">
-                                    <div
-                                        className="avatar-container"
-                                        onMouseEnter={handleAvatarHover}
-                                        onMouseLeave={handleAvatarLeave}
-                                    >
-                                        <img
-                                            src={'../../../public/profile.png'}
-                                            className="avatar"
-                                            alt="User Avatar"
-                                        />
-                                        {showOptions && (
-                                            <div className="avatar-options">
-                                                <NavLink
-                                                    to="/mytests"
-                                                    className="avatar-option"
-                                                    onClick={toggleNavbar}
-                                                >
-                                                    My Tests
-                                                </NavLink>
-                                                <NavLink
-                                                    to="/mydashboard"
-                                                    className="avatar-option"
-                                                    onClick={toggleNavbar}
-                                                >
-                                                    My Dashboard
-                                                </NavLink>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <span className="profile-info">
-                                        Sign out {username}
-                                    </span>
-                                </li>
-                            </>
-                        )}
                     </ul>
                 </div>
             </div>
