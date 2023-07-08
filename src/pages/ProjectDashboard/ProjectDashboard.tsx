@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ProjectDashboard.css';
-import ReqForm from './ReqForm';
-import Table from './Table';
-import TestForm from './TestForm';
-
+import Requirements from './Requirements';
+import TesteSets from './Testsets';
 import axios from 'axios';
 import { TestSet } from '@/components/Models/testsetsModel';
 
@@ -32,10 +30,6 @@ const ProjectDashboard = () => {
     // const [testSet, setTestSet] = React.useState<TestSet[]>([]);
 
     const [count, setCount] = React.useState<number>(1);
-    const [num, setNum] = React.useState<number>(10);
-    const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
-    const [isTestActive, setTestActive] = React.useState<boolean>(false);
-    const [requirements, setRequirements] = React.useState([]);
     const [testDetails, setTestDetails] = React.useState<TestSet[]>([]);
     const handleRequirementSet = (id: string) => {
         setSelectedRequirementSet(id);
@@ -48,17 +42,11 @@ const ProjectDashboard = () => {
             (item) => item.testsetId === id
         );
         setSelectedTestSet(selectedTestSet[0]);
-        //console.log(id)
         console.log(selectedTestSet);
         setSelectedItem(null);
         setSelectedRequirementSet(null);
     };
-    const handleSelectedItem = (id: number) => {
-        setSelectedItem(id);
-        setSelectedRequirementSet(null);
-        setSelectedtestSetId(null);
-        console.log(selectedItem);
-    };
+
     const browseItems = [
         {
             id: 1,
@@ -75,25 +63,6 @@ const ProjectDashboard = () => {
             name: 'Defects',
             image: '../../../public/defects.png',
         },
-    ];
-
-    const requirementsColumns: TableColumn[] = [
-        { key: 'RequirementId', label: 'Requirement Id' },
-        { key: 'RequirementSetId', label: 'RequirementSet Id' },
-        { key: 'RequirementDescription', label: 'Requirement Description' },
-        { key: 'RequirementCategory', label: 'Reference Category' },
-        { key: 'ReferenceSOP', label: 'Reference SOP' },
-        { key: 'Verification', label: 'Verification' },
-    ];
-
-    const testSetHeader: TableColumn[] = [
-        { key: 'testName', label: 'TestSet Name' },
-        { key: 'testsetId', label: 'TestSet Id' },
-        { key: 'reqsetId', label: 'ReqSet Id' },
-        { key: 'requirementSetName', label: 'RequirementSet Name' },
-        { key: 'category', label: 'Category' },
-        { key: 'description', label: 'Description' },
-        { key: 'status', label: 'Status' },
     ];
 
     const handleRequirementListState = (id: React.SetStateAction<number>) => {
@@ -115,19 +84,6 @@ const ProjectDashboard = () => {
         setCount(count + 1);
     };
 
-    const createRequirements = () => {
-        const entry = {
-            RequirementId: 1900,
-            RequirementSetId: 1094,
-            RequirementDescription: 'Hello',
-            RequirementCategory: 'Comedy',
-            ReferenceSOP: 'Hi',
-            Verification: 'Done',
-        };
-        setRequirements([[...requirements], entry]);
-        console.log(requirements);
-        handleFormActive();
-    };
     const refreshTestSets = async () => {
         await getTestSets();
     };
@@ -146,12 +102,7 @@ const ProjectDashboard = () => {
     useEffect(() => {
         getTestSets();
     }, []);
-    const handleFormActive = () => {
-        setReqFormActive(!isReqFormActive);
-    };
-    const handleTestActive = () => {
-        setTestActive(!isTestActive);
-    };
+
     const handleTestListState = (id: React.SetStateAction<number>) => {
         setTestListState(!testListState);
         setSelectedItem(id);
@@ -285,68 +236,17 @@ const ProjectDashboard = () => {
                 ))}
             </div>
             <div className="project-dashboard-content">
-                {selectedItem === 1 && (
-                    <div>
-                        <button
-                            className="create-reqSet-button"
-                            onClick={createRequirementSet}
-                        >
-                            Create Requirement Set
-                        </button>
-                    </div>
-                )}
-                {selectedItem === 2 && (
-                    <div>
-                        <button
-                            className="create-reqSet-button"
-                            onClick={handleTestActive}
-                        >
-                            Create Test Set
-                        </button>
-                        {isTestActive && (
-                            <TestForm
-                                refresh={refreshTestSets}
-                                handleFormActive={handleTestActive}
-                            />
-                        )}
-                    </div>
-                )}
-
-                {selectedRequirementSet && (
-                    <div>
-                        <button
-                            className="create-reqSet-button"
-                            onClick={handleFormActive}
-                        >
-                            Create Requirements
-                        </button>
-                        {isReqFormActive ? (
-                            <ReqForm
-                                handleFormActive={handleFormActive}
-                                createRequirements={createRequirements}
-                            />
-                        ) : (
-                            <Table
-                                data={requirements}
-                                columns={requirementsColumns}
-                            />
-                        )}
-                    </div>
-                )}
-                {selectedTestSetId && (
-                    <div className="testsetdetails">
-                        <table>
-                            <tbody>
-                                {testSetHeader.map((item) => (
-                                    <tr key={item.key}>
-                                        <td>{item.label}</td>
-                                        <td>{selectedTestSet[item.key]}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
+                <Requirements
+                    selectedItem={selectedItem}
+                    selectedRequirementSet={selectedRequirementSet}
+                    createRequirementSet={createRequirementSet}
+                />
+                <TesteSets
+                    selectedItem={selectedItem}
+                    selectedTestSetId={selectedTestSetId}
+                    refreshTestSets={refreshTestSets}
+                    selectedTestSet={selectedTestSet}
+                />
             </div>
         </div>
     );
