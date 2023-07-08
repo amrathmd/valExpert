@@ -183,12 +183,6 @@ const Register1: React.FC<Step1Props> = ({ onSubmit }) => {
                 <button type="submit" className="register-button">
                     Next
                 </button>
-                <div className="message">
-                    Already have an account &nbsp;
-                    <NavLink to="/login">
-                        <a>Login!</a>
-                    </NavLink>
-                </div>
             </form>
         </div>
     );
