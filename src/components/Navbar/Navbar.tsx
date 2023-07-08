@@ -124,7 +124,7 @@ const Navbar = () => {
                                 className="navlink"
                             >
                                 <img
-                                    src={'../../../public/search.png'}
+                                    src={'../../../public/folder.png'}
                                     className="logo"
                                     onClick={toggleNavbar}
                                 ></img>

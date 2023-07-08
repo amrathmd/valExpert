@@ -18,10 +18,6 @@
 .forms {
     height: 500px;
     width: 350px;
-    /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
     position: absolute;
     left: 45%;
     top: 120px;
@@ -301,4 +297,19 @@ NavLink {
 }
 .create-project:hover {
     background-color: #0056b3;
+}
+ #req-dropdown{
+    border: 1px solid #ccc;
+    width: 100%;
+    border-radius: 5px;
+    padding: 6px;
+}
+.radioClass{
+    align-items: flex-start;
+    min-width: fit-content;
+    margin: 4px;
+  
+}
+.radioClass label{
+      margin-right:10px ;   
 }

@@ -1,6 +1,6 @@
+import React, { useContext } from 'react';
 import { Project } from '@/components/Models/projerctModel';
-import React from 'react';
-import DashboardContext from '@/contexts/dashboardContext';
+import DashboardContext from '../../contexts/dashboardContext';
 
 interface TableProps {
     projects: Project[];
@@ -8,8 +8,7 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = (props) => {
     const { projects } = props;
-    const { dashboardState, setDashboardState } =
-        React.useContext(DashboardContext);
+    const { dashboardState, setDashboardState } = useContext(DashboardContext);
     const handleProject = () => {
         setDashboardState(1);
     };

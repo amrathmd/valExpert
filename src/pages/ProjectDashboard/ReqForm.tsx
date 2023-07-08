@@ -12,17 +12,20 @@ const ReqForm: React.FC<ReqFormProps> = ({
     return (
         <div className="req-form-container">
             <div className="req-form">
+                <div className="heading">
+                    <h2>Requirements Form</h2>
+                </div>
                 <div className="req-item">
                     <label className="req-label" htmlFor="ReqId">
                         Requirement Id
                     </label>
-                    <input type="number" />
+                    <input type="number" placeholder="Requirement Id" />
                 </div>
                 <div className="req-item">
                     <label className="req-label" htmlFor="ReqSetId">
                         RequirementSet Id
                     </label>
-                    <input type="number" />
+                    <input type="number" placeholder="RequirementSet Id" />
                 </div>
                 <div className="req-item">
                     <label
@@ -31,7 +34,10 @@ const ReqForm: React.FC<ReqFormProps> = ({
                     >
                         Requirement Description
                     </label>
-                    <input type="textarea" />
+                    <input
+                        type="textarea"
+                        placeholder="Requirement Description"
+                    />
                 </div>
                 <div className="req-item">
                     <label className="req-label" htmlFor="Reference Category">
@@ -50,7 +56,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
                     <label className="req-label" htmlFor="Reference SOP">
                         Reference SOP
                     </label>
-                    <input type="text" />
+                    <input type="text" placeholder="Reference SOP" />
                 </div>
                 <div className="req-item">
                     <label className="req-label" htmlFor="Verification">
