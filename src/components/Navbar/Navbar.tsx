@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import AuthContext from '../../contexts/AuthContext';
 import useCookie from 'react-cookie';
 import axios from 'axios';
-
+import UserComponent from '../UserComponent/UserComponent';
 const Navbar = () => {
     const [isActive, setIsActive] = useState(false);
     const location = useLocation();
@@ -28,7 +28,7 @@ const Navbar = () => {
         setIsActive(!isActive);
     };
 
-    const { loggedIn, getLoggedIn, userType, username } =
+    const { loggedIn, getLoggedIn, userType, userName } =
         React.useContext(AuthContext);
 
     return (
@@ -131,6 +131,13 @@ const Navbar = () => {
                                 <span className="icon-name">Dashboard</span>
                             </NavLink>
                         </li>
+                        {loggedIn && userType === 'valexpertadmin' && (
+                            <UserComponent
+                                toggleNavbar={toggleNavbar}
+                                userName={userName}
+                                handleLogOut={handleLogOut}
+                            />
+                        )}
                     </ul>
                 </div>
             </div>
