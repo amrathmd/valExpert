@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import './Register.css';
 import Joi, { ValidationError } from 'joi-browser';
 import axios from 'axios';
+import { react_frontend_url } from '../../config';
 
 interface Account {
     companyId: string;
@@ -92,7 +93,7 @@ const Register2: React.FC<props> = ({ step1Data }) => {
             console.log('Error' + validationErrors);
         } else {
             const response = await axios.post(
-                'http://localhost:3000/v1/admin',
+                `${react_frontend_url}/v1/admin`,
                 account
             );
             if (response.status === 201) {
