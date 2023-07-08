@@ -44,30 +44,38 @@ const Login = () => {
         <div className="container">
             <form className="login-form" onSubmit={handleSubmit}>
                 <h2>Login form</h2>
-                <div className="message">
-                    Welcome to valXert,Please enter your credentials
+                <div className="ac">
+                    <p className="message">Welcome Back to valExpert</p>
                 </div>
                 <div className="inputform">
                     <label htmlFor="email">Email</label>
                     <input
                         type="text"
                         id="email"
-                        placeholder="Enter your email"
+                        placeholder="Email"
                         className="text"
                         onChange={(e) => {
                             setEmail(e.target.value);
                         }}
                     ></input>
-                    <label htmlFor="password">Password</label>
+                    <div className="pass">
+                        <label htmlFor="password">Password</label>
+                        <a>Forgot Your Password?</a>
+                    </div>
+
                     <input
                         type="password"
                         id="password"
-                        placeholder="Enter your password"
+                        placeholder="Password"
                         className="text"
                         onChange={(e) => {
                             setPassword(e.target.value);
                         }}
                     />
+                    <div className="account">
+                        <input type="checkbox"></input>
+                        <label className="rem">Remember me</label>
+                    </div>
                     <button type="submit" className="button">
                         Login
                     </button>
