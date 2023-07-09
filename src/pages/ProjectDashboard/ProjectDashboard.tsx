@@ -4,6 +4,7 @@ import Requirements from './Requirements';
 import TesteSets from './Testsets';
 import axios from 'axios';
 import { TestSet } from '@/components/Models/testsetsModel';
+import { TestScript } from '@/components/Models/testscriptsModel';
 
 interface RequirementSet {
     _id: string;
@@ -28,9 +29,47 @@ const ProjectDashboard = () => {
         RequirementSet[]
     >([]);
     // const [testSet, setTestSet] = React.useState<TestSet[]>([]);
-
     const [count, setCount] = React.useState<number>(1);
     const [testDetails, setTestDetails] = React.useState<TestSet[]>([]);
+
+    const [scriptDetails, setScriptDetails] = React.useState<TestScript[]>([]);
+    const [selectedTestscriptId, setSelectedscriptId] = React.useState(null);
+    const [selectedTestScript, setSelectedTestScript] = React.useState<any>({});
+    const [selectedScripts, setSelectedScripts] = React.useState(0);
+    const [scriptListState, setscriptListState] = React.useState(false);
+    // const handleTestScript= (id: string) => {
+    //     setSelectedscriptId(id);
+    //     const selectedTestScript = scriptDetails.filter(
+    //         (item) => item._id === id
+    //     );
+    //     setSelectedTestScript(selectedTestScript[0]);
+    //     console.log(selectedTestScript);
+    //     setSelectedScripts(null);
+    // };
+    const refreshTestScripts = async () => {
+        await getTestScripts();
+    };
+    const getTestScripts = async () => {
+        const res = await axios.get<TestScript[]>(
+            'http://localhost:3000/v1/testscripts'
+        );
+        console.log(res);
+        if (!res) {
+            window.alert('error');
+        }
+        setScriptDetails(res.data);
+        console.log(scriptDetails);
+    };
+    useEffect(() => {
+        getTestScripts();
+    }, []);
+
+    const handleScriptListState = (id: React.SetStateAction<number>) => {
+        setscriptListState(!scriptListState);
+        setSelectedScripts(id);
+        setSelectedscriptId(null);
+    };
+
     const handleRequirementSet = (id: string) => {
         setSelectedRequirementSet(id);
         setSelectedItem(null);
@@ -228,6 +267,9 @@ const ProjectDashboard = () => {
                                         }
                                     >
                                         {set.testName}
+                                        {scriptDetails.length === 0 && (
+                                            <span>+</span>
+                                        )}
                                     </li>
                                 ))}
                             </ul>
@@ -246,6 +288,10 @@ const ProjectDashboard = () => {
                     selectedTestSetId={selectedTestSetId}
                     refreshTestSets={refreshTestSets}
                     selectedTestSet={selectedTestSet}
+                    selectedScripts={selectedScripts}
+                    selectedScriptId={selectedTestscriptId}
+                    refreshTestScripts={refreshTestScripts}
+                    selectedTestScript={selectedTestScript}
                 />
             </div>
         </div>

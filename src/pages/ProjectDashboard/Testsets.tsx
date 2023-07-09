@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TestForm from './TestForm';
-
+import axios from 'axios';
+import { TestScript } from '@/components/Models/testscriptsModel';
+import Testscripts from './Testscripts';
+import TestscriptsForm from './TestscriptsForm';
 interface Props {
     selectedItem: number;
     selectedTestSetId: any;
     refreshTestSets: () => void;
     selectedTestSet: any;
+    selectedScripts: number;
+    selectedScriptId: any;
+    refreshTestScripts: () => void;
+    selectedTestScript: any;
 }
 
 interface TableColumn {
@@ -18,9 +25,14 @@ const TesteSets: React.FC<Props> = ({
     selectedTestSetId,
     refreshTestSets,
     selectedTestSet,
+    selectedScripts,
+    selectedScriptId,
+    refreshTestScripts,
+    selectedTestScript,
 }) => {
     const [isTestActive, setTestActive] = React.useState<boolean>(false);
-
+    const [testListState, setTestListState] = React.useState(false);
+    const [isScriptFormActive, setScriptFormActive] = useState(false);
     const handleTestActive = () => {
         setTestActive(!isTestActive);
     };
@@ -35,6 +47,9 @@ const TesteSets: React.FC<Props> = ({
         { key: 'status', label: 'Status' },
     ];
 
+    const handleScriptFormActive = () => {
+        setScriptFormActive(true);
+    };
     return (
         <div>
             {selectedItem === 2 && (
@@ -65,8 +80,29 @@ const TesteSets: React.FC<Props> = ({
                             ))}
                         </tbody>
                     </table>
+                    <button
+                        className="create-reqSet-button"
+                        onClick={handleScriptFormActive}
+                    >
+                        Create Script
+                    </button>
                 </div>
             )}
+            {isScriptFormActive && (
+                <TestscriptsForm
+                    refreshscripts={refreshTestScripts}
+                    handleFormActive={handleScriptFormActive}
+                    // Pass any necessary props to the TestscriptsForm component
+                />
+            )}
+            <div className="project-dashboard-content">
+                <Testscripts
+                    selectedItems={selectedScripts}
+                    selectedTestscriptId={selectedScriptId}
+                    refreshTestScripts={refreshTestScripts}
+                    selectedTestScript={selectedTestScript}
+                />
+            </div>
         </div>
     );
 };
