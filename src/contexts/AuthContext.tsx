@@ -14,6 +14,7 @@ export const AuthContextProvider = (props: any) => {
             `${react_frontend_url}/v1/auth/loggedIn`
         );
         setLoggedIn(result.data);
+        await findUserType();
     };
 
     const findUserType = async () => {
@@ -22,6 +23,10 @@ export const AuthContextProvider = (props: any) => {
         );
         setUserType(result.data.userType);
         setUserName(result.data.username);
+    };
+    const refresh = async () => {
+        await getLoggedIn();
+        await findUserType();
     };
 
     React.useEffect(() => {
@@ -33,7 +38,7 @@ export const AuthContextProvider = (props: any) => {
 
     return (
         <AuthContext.Provider
-            value={{ loggedIn, getLoggedIn, userType, userName }}
+            value={{ loggedIn, getLoggedIn, userType, userName, refresh }}
         >
             {props.children}
         </AuthContext.Provider>
