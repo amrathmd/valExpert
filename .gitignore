@@ -106,3 +106,5 @@ dist
 
 #environment variables
 .env
+
+.vscode/
