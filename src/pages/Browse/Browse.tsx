@@ -15,7 +15,7 @@ interface BrowseItem {
     content: string;
 }
 interface Users {
-    _idu: string;
+    _id: string;
     name: string;
     mobile: string;
     email: string;
@@ -58,6 +58,10 @@ const Browse: React.FC = () => {
         }
     };
 
+    useEffect(() => {
+        getUsers();
+    }, []);
+
     const handleCreateProject = () => {
         const obj = {
             _id: '1',
@@ -75,16 +79,10 @@ const Browse: React.FC = () => {
     const handlePrompt = () => {
         setPrompt(!prompt);
     };
-    const handleCreateUser = () => {
-        const obj = {
-            _idu: '123',
-            name: 'Bruno',
-            mobile: '1234567890',
-            email: 'bruno@gmail.com',
-            status: 'Active',
-        };
-        setUsers([...users, obj]);
-        handleUserPrompt();
+    const getUsers = async () => {
+        const res = await axios.get('http://localhost:3000/v1/adminusers');
+        console.log(res);
+        setUsers(res.data);
         console.log(users);
     };
     const handleUserPrompt = () => {
@@ -94,9 +92,7 @@ const Browse: React.FC = () => {
         setUsers(updatedUsers);
     };
     const handleDeleteUser = (userId: string) => {
-        const updatedUsers = users.filter(
-            (user: Users) => user._idu !== userId
-        );
+        const updatedUsers = users.filter((user: Users) => user._id !== userId);
         setUsers(updatedUsers);
     };
     const browseItems: BrowseItem[] = [
@@ -237,7 +233,7 @@ const Browse: React.FC = () => {
                                         <UserForm
                                             userprompt={userprompt}
                                             handleUserPrompt={handleUserPrompt}
-                                            handleCreateUser={handleCreateUser}
+                                            getUsers={getUsers}
                                         />
                                     </div>
                                 </div>
@@ -253,7 +249,7 @@ const Browse: React.FC = () => {
                                     <UserForm
                                         userprompt={userprompt}
                                         handleUserPrompt={handleUserPrompt}
-                                        handleCreateUser={handleCreateUser}
+                                        getUsers={getUsers}
                                     />
                                     <div
                                         onClick={handleUserPrompt}

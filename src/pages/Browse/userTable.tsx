@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './project.css';
 import DashboardContext from '../../contexts/dashboardContext';
 interface Users {
-    _idu: string;
+    _id: string;
     name: string;
     mobile: string;
     email: string;
@@ -33,12 +33,12 @@ const UserTable: React.FC<TableProps> = (props) => {
     };
     const handleDeleteUser = (userId: string) => {
         //   API call to delete the user
-        const updatedUsers = users.filter((user) => user._idu !== userId);
+        const updatedUsers = users.filter((user) => user._id !== userId);
         onUpdateUsers(updatedUsers);
     };
     const handleSaveUser = () => {
         const editedUserIndex = users.findIndex(
-            (user) => user._idu === editingUserId
+            (user) => user._id === editingUserId
         );
         if (editedUserIndex !== -1) {
             const updatedUsers = [...users];
@@ -81,10 +81,10 @@ const UserTable: React.FC<TableProps> = (props) => {
             </thead>
             <tbody>
                 {users.map((user) => (
-                    <tr key={user._idu}>
-                        <td>{user._idu}</td>
+                    <tr key={user._id}>
+                        <td>{user._id}</td>
                         <td>
-                            {isEditing(user._idu) ? (
+                            {isEditing(user._id) ? (
                                 <input
                                     type="text"
                                     value={editedUserData.name ?? user.name}
@@ -100,7 +100,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                             )}
                         </td>
                         <td>
-                            {isEditing(user._idu) ? (
+                            {isEditing(user._id) ? (
                                 <input
                                     type="text"
                                     value={editedUserData.mobile ?? user.mobile}
@@ -116,7 +116,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                             )}
                         </td>
                         <td>
-                            {isEditing(user._idu) ? (
+                            {isEditing(user._id) ? (
                                 <input
                                     type="text"
                                     value={editedUserData.email ?? user.email}
@@ -132,7 +132,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                             )}
                         </td>
                         <td>
-                            {isEditing(user._idu) ? (
+                            {isEditing(user._id) ? (
                                 <input
                                     type="text"
                                     value={editedUserData.status ?? user.status}
@@ -148,7 +148,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                             )}
                         </td>
                         <td>
-                            {isEditing(user._idu) ? (
+                            {isEditing(user._id) ? (
                                 <>
                                     <div className="action-icon">
                                         <button
@@ -174,7 +174,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                                             className="edit-icon"
                                             title="Edit User"
                                             onClick={() =>
-                                                handleEditUser(user._idu)
+                                                handleEditUser(user._id)
                                             }
                                         />
                                         <img
@@ -183,7 +183,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                                             className="edit-icon"
                                             title="Delete  User"
                                             onClick={() =>
-                                                handleDeleteUser(user._idu)
+                                                handleDeleteUser(user._id)
                                             }
                                         />
                                     </div>
