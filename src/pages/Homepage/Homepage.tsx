@@ -50,7 +50,12 @@ const Homepage = () => {
                                             allowedRoles={['valexpertadmin']}
                                         />
                                     }
-                                ></Route>
+                                >
+                                    <Route
+                                        path="register"
+                                        element={<RegistrationPage />}
+                                    ></Route>
+                                </Route>
                                 <Route
                                     path="/dashboard"
                                     element={<Dashboard />}
