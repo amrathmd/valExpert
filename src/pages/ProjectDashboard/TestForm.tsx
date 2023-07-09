@@ -12,8 +12,8 @@ const defaultTestSet = {
     testName: '',
     requirementSetName: '',
     description: '',
-    category: '',
-    status: '',
+    category: 'IQ',
+    status: 'Approved',
 };
 
 const TestForm: React.FC<TestSetFormProps> = ({
