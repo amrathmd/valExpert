@@ -9,7 +9,6 @@ interface FormProps {
     refresh: () => void;
 }
 const defaultForm: Project = {
-    _id: '',
     name: '',
     department: '',
     category: '',
