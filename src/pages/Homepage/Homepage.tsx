@@ -17,6 +17,7 @@ import {
 import './Homepage.css';
 import AuthContext from '../../contexts/AuthContext';
 import { DashboardContextProvider } from '../..//contexts/dashboardContext';
+import PrivateRoute from '../..//components/PrivateRoute/PrivateRoute';
 
 const Homepage = () => {
     const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
@@ -42,12 +43,14 @@ const Homepage = () => {
                                     path="/contactus"
                                     element={<Contact />}
                                 ></Route>
-                                {loggedIn && userType === 'valexpertadmin' && (
-                                    <Route
-                                        path="/register"
-                                        element={<RegistrationPage />}
-                                    ></Route>
-                                )}
+                                <Route
+                                    path="/register"
+                                    element={
+                                        <PrivateRoute
+                                            allowedRoles={['valexpertadmin']}
+                                        />
+                                    }
+                                ></Route>
                                 <Route
                                     path="/dashboard"
                                     element={<Dashboard />}
