@@ -3,16 +3,14 @@ import { NavLink } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
 
 interface UserComponentProps {
-    toggleNavbar: () => void;
     handleLogOut: () => void;
     userName: string;
 }
 
 const UserComponent = (props: UserComponentProps) => {
-    const { toggleNavbar, handleLogOut, userName } = props;
+    const { handleLogOut, userName } = props;
     const [showOptions, setShowOptions] = useState(false);
     const [avatar, setAvatar] = useState(false);
-
     const updateOptions = () => {
         setShowOptions(!showOptions);
     };
@@ -24,7 +22,9 @@ const UserComponent = (props: UserComponentProps) => {
     return (
         <li className="nav-item">
             <div
-                className={`avatar-container ${avatar ? 'active' : ''}`}
+                className={`avatar-container ${
+                    avatar && showOptions ? 'active' : ''
+                }`}
                 onClick={updateOptions}
             >
                 <img
@@ -35,12 +35,11 @@ const UserComponent = (props: UserComponentProps) => {
                 />
                 <span>{showOptions}</span>
 
-                {showOptions && (
+                {avatar && showOptions && (
                     <div className={`avatar-options ${avatar ? 'active' : ''}`}>
                         <NavLink
-                            to="/mydashboard"
+                            to="/dashboard"
                             className="avatar-option field"
-                            onClick={toggleNavbar}
                         >
                             My Dashboard
                         </NavLink>
