@@ -52,7 +52,7 @@ const Homepage = () => {
                                     }
                                 >
                                     <Route
-                                        path="register"
+                                        path="/register"
                                         element={<RegistrationPage />}
                                     ></Route>
                                 </Route>
