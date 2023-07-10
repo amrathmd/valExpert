@@ -1,7 +1,7 @@
 .container {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items:center;
+    justify-content:center;
     width: 100vw;
     height: 100vh;
     background-image: url('../../../public/Home.png');
@@ -25,37 +25,70 @@
 }
 
 .container form h2 {
-    text-align: center;
+    text-align:left;
     font-weight: 600;
-    margin-bottom: 10px;
     font-size: large;
+    padding-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px; 
 }
 
 .conditional-message{
-    text-align: center;
+    text-align:center;
 }
 .inputform {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    
 }
 .login-form {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    width: 30vw;
+    width: 25vw;
+    height:45vh;
 }
 
 .inputform>label {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    font-size: medium;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.pass{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pass a{
+    font-size: medium;
+    align-self: flex-end;
+    color:darkblue;
+    text-decoration: none;
+}
+.pass>label {
+    margin-bottom: 6px;
     font-size: medium;
     font-weight: 500;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .inputform>input{
-    border-radius: 10px;
+   
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 8px;
+    margin-bottom: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
 }
-
+.inputform > input:focus {
+    border-bottom: 2px solid rgb(132, 132, 231); 
+    border-radius: 2px; /* Change the border radius to create a rounded effect */
+  }
 .text {
     padding: 8px;
     margin-bottom: 8px;
@@ -67,12 +100,10 @@
     font-size: 16px;
     border: none;
     cursor: pointer;
-    border-radius: 4px;
-    width: 50%;
-    max-width: 50%;
-    align-self: center;
-    padding: 5px;
-    margin-top: 5px;
+    border-radius: 2px;
+    width: 100%;
+    padding: 20px;
+    margin-top: 10px;
 }
 
 .button:hover {
@@ -96,14 +127,46 @@
         width: 300px;
     }
 }
-.message {
-    margin-top: 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
+
 .login-error {
     text-align: center;
     color: red;
 }
+.ac{
+    margin-bottom: 10px;
+    padding-left: 20px;
+  }
+
+.account {
+    text-align:start;
+    display: flex;
+    flex-direction:row; 
+    margin-bottom: 10px;
+  }
+
+  .account input[type="checkbox"] {
+    margin-right: 5px;
+    transform: scale(1.2);
+  }
+  
+  .account span {
+    margin-right: 1px;
+    color: #777777;
+    margin-bottom: 10px;
+  }
+  
+  .account a {
+    color:darkblue;
+    text-decoration: none;
+  }
+  .message{
+    margin-bottom: 8px;
+  }
+  .account.rem{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 13PX;
+    color: #777777;
+
+  }
+  

@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import './Register.css';
 import Joi, { ValidationError } from 'joi-browser';
 import axios from 'axios';
+import { react_frontend_url } from '../../config';
 
 interface Account {
     companyId: string;
@@ -10,6 +11,7 @@ interface Account {
     email: string;
     password: string;
     confirmPassword: string;
+    userType: string;
 }
 interface Company {
     _id: string;
@@ -40,6 +42,7 @@ const Register2: React.FC<props> = ({ step1Data }) => {
         email: '',
         password: '',
         confirmPassword: '',
+        userType: '',
     });
     const [errors, setErrors] = useState<Errors>({});
     const History = useNavigate();
@@ -75,23 +78,28 @@ const Register2: React.FC<props> = ({ step1Data }) => {
             })
             .required()
             .label('Confirm Password'),
+        userType: Joi.string(),
     };
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         account.companyId = step1Data._id;
+        account.userType = 'admin';
         const validationErrors = validate();
 
         if (validationErrors) {
             setErrors(validationErrors);
-            console.log('Here');
-            console.log(validationErrors);
+
+            console.log('Error' + validationErrors);
         } else {
             const response = await axios.post(
-                'http://localhost:3000/v1/admin',
+                `${react_frontend_url}/v1/admin`,
                 account
             );
-            console.log(response);
+            if (response.status === 201) {
+                alert('Admin for the company created successfully!');
+                History('/');
+            }
         }
     };
 
@@ -188,12 +196,6 @@ const Register2: React.FC<props> = ({ step1Data }) => {
                 <button className="register-button" type="submit">
                     Register!
                 </button>
-                <div className="message">
-                    Already have an account &nbsp;
-                    <NavLink to="/login">
-                        <a>Login!</a>
-                    </NavLink>
-                </div>
             </form>
         </div>
     );
