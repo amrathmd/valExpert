@@ -3,6 +3,7 @@ import './Register.css';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { react_frontend_url } from '../../config';
 interface Company {
     companyName: string;
     Address: {
@@ -61,7 +62,7 @@ const Register1: React.FC<Step1Props> = ({ onSubmit }) => {
             },
         };
         const response = await axios.post(
-            'http://localhost:3000/v1/company',
+            `${react_frontend_url}/v1/company`,
             body
         );
         if (response.status === 201) {
@@ -183,12 +184,6 @@ const Register1: React.FC<Step1Props> = ({ onSubmit }) => {
                 <button type="submit" className="register-button">
                     Next
                 </button>
-                <div className="message">
-                    Already have an account &nbsp;
-                    <NavLink to="/login">
-                        <a>Login!</a>
-                    </NavLink>
-                </div>
             </form>
         </div>
     );

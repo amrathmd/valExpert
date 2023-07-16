@@ -1,0 +1,140 @@
+.project-dashboard {
+    display: flex;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.project-dashboard-sidebar {
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-left: 60px;
+    border-right: 1px solid grey;
+    resize: horizontal;
+    overflow: auto;
+    height: 100vh;
+    width: 20vw;
+}
+
+.project-dashboard-sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.project-dashboard-sidebar li {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    padding-left: 5px;
+}
+
+.requirements-list {
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    max-height: 0;
+}
+
+.requirements-list.open {
+    margin-left: 10px;
+    max-height: fit-content;
+}
+
+.arrow {
+    height: 15px;
+    width: 15px;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.arrow-down {
+    height: 15px;
+    width: 15px;
+    transform: rotate(90deg);
+}
+
+.icons {
+    height: 20px;
+    width: 20px;
+}
+
+.selected-req-set {
+    background-color: #a5c0dd;
+    padding: 0;
+    border-radius: 5px;
+}
+.selected-test-set {
+    background-color: #a5c0dd;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.create-reqSet-button {
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    margin-top: 30px;
+    margin-left: 30px;
+    border-radius: 5px;
+}
+
+.reqform-set {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.testArrow {
+    height: 15px;
+    width: 15px;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.testArrow-down {
+    height: 15px;
+    width: 15px;
+    transform: rotate(90deg);
+}
+
+.test-list {
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    max-height: 0;
+}
+
+.test-list.open {
+    margin-left: 10px;
+    max-height: fit-content;
+}
+.testsetdetails {
+    margin-top: 20px;
+    margin-left: 350px;
+  }
+  
+  .testsetdetails table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+  
+  .testsetdetails td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .testsetdetails td:first-child {
+    font-weight: bold;
+    width: 150px;
+  }
+  
+  .testsetdetails td:last-child {
+    text-align: right;
+  }
+  
+  .testsetdetails tr:last-child td {
+    border-bottom: none;
+  }
+  
