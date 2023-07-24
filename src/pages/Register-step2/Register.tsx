@@ -132,71 +132,79 @@ const Register2: React.FC<props> = ({ step1Data }) => {
 
     return (
         <div className="register">
-            <form className="register-form" onSubmit={handleSubmit}>
-                <h2>Register</h2>
-                <p className="info">Note: You will be registered as an Admin</p>
-                <div className="input-elements">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        className="email"
-                        placeholder="Enter your email"
-                        required
-                        name="email"
-                        onChange={handleChange}
-                    ></input>
-                    {errors.email && (
-                        <div className="error">{errors.email}</div>
-                    )}
-                </div>
-                <div className="input-elements">
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        className="username"
-                        placeholder="Enter your username"
-                        required
-                        name="username"
-                        onChange={handleChange}
-                    ></input>
-                    {errors.username && (
-                        <div className="error">{errors.username}</div>
-                    )}
-                </div>
-                <div className="input-elements">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        className="password"
-                        value={account.password}
-                        placeholder="Enter a password"
-                        required
-                        name="password"
-                        onChange={handleChange}
-                    ></input>
-                </div>
-                <div className="input-elements">
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input
-                        type="password"
-                        className="confirm-password"
-                        placeholder="Confirm your password"
-                        value={account.confirmPassword}
-                        onChange={handleChange}
-                        name="confirmPassword"
-                        required
-                    />
-                    {errors.password && (
-                        <div className="error">{errors.password}</div>
-                    )}
-                    {errors.confirmPassword && !errors.password && (
-                        <div className="error">{errors.confirmPassword}</div>
-                    )}
-                </div>
-                <button className="register-button" type="submit">
-                    Register!
-                </button>
-            </form>
+            <div className="register-form">
+                <form className="" onSubmit={handleSubmit}>
+                    <h2 className="head1">Register</h2>
+                    <p className="info">
+                        Note: You will be registered as an Admin
+                    </p>
+                    <div className="input-elements">
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            type="email"
+                            className="email"
+                            placeholder="Enter your email"
+                            required
+                            name="email"
+                            onChange={handleChange}
+                        ></input>
+                        {errors.email && (
+                            <div className="error">{errors.email}</div>
+                        )}
+                    </div>
+                    <div className="input-elements">
+                        <label htmlFor="username">Username:</label>
+                        <input
+                            type="text"
+                            className="username"
+                            placeholder="Enter your username"
+                            required
+                            name="username"
+                            onChange={handleChange}
+                        ></input>
+                        {errors.username && (
+                            <div className="error">{errors.username}</div>
+                        )}
+                    </div>
+                    <div className="input-elements">
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            className="password"
+                            value={account.password}
+                            placeholder="Enter a password"
+                            required
+                            name="password"
+                            onChange={handleChange}
+                        ></input>
+                    </div>
+                    <div className="input-elements">
+                        <label htmlFor="confirmPassword">
+                            Confirm Password:
+                        </label>
+                        <input
+                            type="password"
+                            className="confirm-password"
+                            placeholder="Confirm your password"
+                            value={account.confirmPassword}
+                            onChange={handleChange}
+                            name="confirmPassword"
+                            required
+                        />
+                        {errors.password && (
+                            <div className="error">{errors.password}</div>
+                        )}
+                        {errors.confirmPassword && !errors.password && (
+                            <div className="error">
+                                {errors.confirmPassword}
+                            </div>
+                        )}
+                    </div>
+                    <button className="register-button" type="submit">
+                        Register!
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };
