@@ -4,7 +4,7 @@ import React from 'react';
 const DashboardContext = createContext(null);
 
 export const DashboardContextProvider = (props: any) => {
-    const [dashboardState, setDashboardState] = React.useState(0);
+    const [dashboardState, setDashboardState] = React.useState(1);
 
     return (
         <DashboardContext.Provider

@@ -9,7 +9,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "prepare": "husky install",
-    "lint": "eslint" 
+    "lint": "eslint"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,json}": [
@@ -81,8 +81,12 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@heroicons/react": "^2.0.18",
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.14.1",
     "@reduxjs/toolkit": "1.8",
     "@types/arcgis-js-api": "^4.23.1",
     "@types/react": "^18.0.9",
