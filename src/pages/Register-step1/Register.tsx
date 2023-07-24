@@ -94,97 +94,99 @@ const Register1: React.FC<Step1Props> = ({ onSubmit }) => {
     };
     return (
         <div className="register2-container">
-            <form className="register-form" onSubmit={handleSubmit}>
-                <h2>Register</h2>
-                <div className="input-elements">
-                    <label htmlFor="company-name">Company name</label>
-                    <input
-                        type="text"
-                        className="company-name"
-                        placeholder="Enter your company name"
-                        required
-                        value={data.companyName}
-                        name="companyName"
-                        onChange={handleChange}
-                    ></input>
-                </div>
-                <div className="input-elements">
-                    <label htmlFor="company-city">City</label>
-                    <input
-                        type="text"
-                        className="company-city"
-                        placeholder="Enter the city in which the company located"
-                        required
-                        value={data.Address.city}
-                        name="Address.city"
-                        onChange={handleChange}
-                    ></input>
-                </div>
-                <div className="input-elements">
-                    <label htmlFor="company-state">State</label>
-                    <input
-                        type="text"
-                        className="company-state"
-                        placeholder=""
-                        name="Address.state"
-                        value={data.Address.state}
-                        required
-                        onChange={handleChange}
-                    ></input>
-                </div>
+            <div className="register-form2">
+                <h1 className="head2">Register</h1>
+                <form className="" onSubmit={handleSubmit}>
+                    <div className="input-elements">
+                        <label htmlFor="company-name">Company name</label>
+                        <input
+                            type="text"
+                            className="company-name"
+                            placeholder="Enter your company name"
+                            required
+                            value={data.companyName}
+                            name="companyName"
+                            onChange={handleChange}
+                        ></input>
+                    </div>
+                    <div className="input-elements">
+                        <label htmlFor="company-city">City</label>
+                        <input
+                            type="text"
+                            className="company-city"
+                            placeholder="Enter the city in which the company located"
+                            required
+                            value={data.Address.city}
+                            name="Address.city"
+                            onChange={handleChange}
+                        ></input>
+                    </div>
+                    <div className="input-elements">
+                        <label htmlFor="company-state">State</label>
+                        <input
+                            type="text"
+                            className="company-state"
+                            placeholder="Enter State"
+                            name="Address.state"
+                            value={data.Address.state}
+                            required
+                            onChange={handleChange}
+                        ></input>
+                    </div>
 
-                <div className="input-elements">
-                    <label htmlFor="country">Country</label>
-                    <input
-                        type="text"
-                        className="company-country"
-                        placeholder="Enter your country"
-                        name="Address.country"
-                        value={data.Address.country}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="input-elements">
-                    <label htmlFor="company-postalcode">Postal code</label>
-                    <input
-                        type="text"
-                        className="company-postalcode"
-                        placeholder="Enter the postal code"
-                        name="Address.postalCode"
-                        value={data.Address.postalCode}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="input-elements">
-                    <label htmlFor="company-phone">Phone</label>
-                    <input
-                        type="text"
-                        className="company-phone"
-                        placeholder="Enter the mobile number"
-                        name="contact.phone"
-                        value={data.contact.phone}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="input-elements">
-                    <label htmlFor="company-email">Email</label>
-                    <input
-                        type="text"
-                        className="company-email"
-                        placeholder="Enter the Email of your company"
-                        onChange={handleChange}
-                        value={data.contact.companyEmail}
-                        name="contact.companyEmail"
-                        required
-                    />
-                </div>
-                <button type="submit" className="register-button">
-                    Next
-                </button>
-            </form>
+                    <div className="input-elements">
+                        <label htmlFor="country">Country</label>
+                        <input
+                            type="text"
+                            className="company-country"
+                            placeholder="Enter your country"
+                            name="Address.country"
+                            value={data.Address.country}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="input-elements">
+                        <label htmlFor="company-postalcode">Postal code</label>
+                        <input
+                            type="text"
+                            className="company-postalcode"
+                            placeholder="Enter the postal code"
+                            name="Address.postalCode"
+                            value={data.Address.postalCode}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="input-elements">
+                        <label htmlFor="company-phone">Phone</label>
+                        <input
+                            type="text"
+                            className="company-phone"
+                            placeholder="Enter the mobile number"
+                            name="contact.phone"
+                            value={data.contact.phone}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="input-elements">
+                        <label htmlFor="company-email">Email</label>
+                        <input
+                            type="text"
+                            className="company-email"
+                            placeholder="Enter the Email of your company"
+                            onChange={handleChange}
+                            value={data.contact.companyEmail}
+                            name="contact.companyEmail"
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="register-button">
+                        Next
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

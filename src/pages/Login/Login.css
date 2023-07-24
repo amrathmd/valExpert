@@ -1,15 +1,15 @@
 .container {
     display: flex;
-    align-items:center;
-    justify-content:center;
+    /* align-items:center; */
+    /* justify-content:center; */
     width: 100vw;
     height: 100vh;
-    background-image: url('../../../public/Home.png');
+    background-color:rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    margin: 0;
-    padding: 0;
 }
 
 .check-boxes {
@@ -44,41 +44,53 @@
     
 }
 .login-form {
-    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     width: 25vw;
     height:45vh;
+    margin-left: 150px;
+    margin-top: 150px;
 }
-
-.inputform>label {
+.login-button{
+    width: max-width;
+    height:max-content;
+    background-color:rgb(64, 64, 237); 
+    color: white;
+    border-radius: 4px;
+    padding: 3px;
+}
+.login-button:hover{
+    background-color:#0a4070;
+}
+.i>label {
     margin-bottom: 6px;
     font-size: medium;
     font-weight: 500;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .pass{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+
 }
 .pass a{
     font-size: medium;
     align-self: flex-end;
-    color:darkblue;
+    color:rgb(64, 64, 237);
     text-decoration: none;
+    float: right;
 }
 .pass>label {
     margin-bottom: 6px;
     font-size: medium;
-    font-weight: 500;
+    font-weight: 450;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .inputform>input{
-   
-    border-radius: 0;
+    border-radius: 5px;
     border: none;
-    border-bottom: 2px solid #ccc;
+    border: 2px solid #ccc;
     padding: 8px;
     margin-bottom: 8px;
     width: 100%;
@@ -86,8 +98,8 @@
     outline: none;
 }
 .inputform > input:focus {
-    border-bottom: 2px solid rgb(132, 132, 231); 
-    border-radius: 2px; /* Change the border radius to create a rounded effect */
+    border: 2px solid rgb(64, 64, 237); 
+    border-radius: 4px; /* Change the border radius to create a rounded effect */
   }
 .text {
     padding: 8px;
@@ -132,6 +144,10 @@
     text-align: center;
     color: red;
 }
+.head{
+    color: #063762;
+    text-transform:capitalize;
+}
 .ac{
     margin-bottom: 10px;
     padding-left: 20px;
@@ -142,13 +158,13 @@
     display: flex;
     flex-direction:row; 
     margin-bottom: 10px;
+    padding-left: 2px;
   }
 
   .account input[type="checkbox"] {
     margin-right: 5px;
     transform: scale(1.2);
   }
-  
   .account span {
     margin-right: 1px;
     color: #777777;
@@ -161,6 +177,7 @@
   }
   .message{
     margin-bottom: 8px;
+
   }
   .account.rem{
     display: inline-block;
