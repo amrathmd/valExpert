@@ -8,6 +8,7 @@ import AuthContext from '../../contexts/AuthContext';
 import useCookie from 'react-cookie';
 import axios from 'axios';
 import UserComponent from '../UserComponent/UserComponent';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 const Navbar = () => {
     const [isActive, setIsActive] = useState(false);
     const location = useLocation();
@@ -139,6 +140,25 @@ const Navbar = () => {
                                 />
                             </div>
                         )}
+                        <li>
+                            {
+                                /*loggedIn && userType === 'admin' &&*/
+                                <div>
+                                    <NavLink
+                                        to="/manageaccounts"
+                                        style={{
+                                            backgroundColor:
+                                                getColor('/manageaccounts'),
+                                        }}
+                                        className="navlink"
+                                    >
+                                        <ManageAccountsIcon
+                                            sx={{ color: 'white' }}
+                                        ></ManageAccountsIcon>
+                                    </NavLink>
+                                </div>
+                            }
+                        </li>
                     </ul>
                 </div>
             </div>

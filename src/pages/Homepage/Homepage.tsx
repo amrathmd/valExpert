@@ -18,6 +18,7 @@ import './Homepage.css';
 import AuthContext from '../../contexts/AuthContext';
 import { DashboardContextProvider } from '../..//contexts/dashboardContext';
 import PrivateRoute from '../..//components/PrivateRoute/PrivateRoute';
+import UserManagement from '../Usermanagement/UserManagement';
 
 const Homepage = () => {
     const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
@@ -59,6 +60,10 @@ const Homepage = () => {
                                 <Route
                                     path="/dashboard"
                                     element={<Dashboard />}
+                                ></Route>
+                                <Route
+                                    path="/manageaccounts"
+                                    element={<UserManagement />}
                                 ></Route>
                             </Routes>
                         </div>
