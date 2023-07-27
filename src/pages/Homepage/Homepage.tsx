@@ -19,9 +19,14 @@ import AuthContext from '../../contexts/AuthContext';
 import { DashboardContextProvider } from '../..//contexts/dashboardContext';
 import PrivateRoute from '../..//components/PrivateRoute/PrivateRoute';
 import UserManagement from '../Usermanagement/UserManagement';
+import UserForm from '../Usermanagement/UserForm';
 
 const Homepage = () => {
     const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
+    const [userprompt, setUserPrompt] = React.useState<boolean>(true);
+    const handleUserPrompt = () => {
+        setUserPrompt(!userprompt);
+    };
     return (
         <ErrorBoundary>
             <DashboardContextProvider>
@@ -64,6 +69,10 @@ const Homepage = () => {
                                 <Route
                                     path="/manageaccounts"
                                     element={<UserManagement />}
+                                ></Route>
+                                <Route
+                                    path="/manageaccounts/creatnewuser"
+                                    element={<UserForm />}
                                 ></Route>
                             </Routes>
                         </div>

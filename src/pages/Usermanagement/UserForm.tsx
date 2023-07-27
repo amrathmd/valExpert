@@ -4,11 +4,6 @@ import { User } from '@/components/Models/adminUsersModel';
 import Joi from 'joi-browser';
 import { Typography } from '@mui/material';
 
-interface FormUserProps {
-    userprompt: boolean;
-    handleUserPrompt: () => void;
-}
-
 const defaultUser = {
     name: '',
     email: '',
@@ -16,8 +11,7 @@ const defaultUser = {
     status: 'Active',
 };
 
-const UserForm: React.FC<FormUserProps> = (props) => {
-    const { userprompt, handleUserPrompt } = props;
+const UserForm = () => {
     const [userId, setUserId] = useState<string>('');
     const [selectedOption, setSelectedOption] = useState('Active');
     const [user, setUser] = useState<User>(defaultUser);
@@ -32,10 +26,6 @@ const UserForm: React.FC<FormUserProps> = (props) => {
         email: Joi.string().email().required(),
         mobile: Joi.string().required(),
         status: Joi.string().required(),
-    };
-
-    const handleChangeUserPrompt = () => {
-        handleUserPrompt();
     };
 
     const handleSubmit = async (event: any) => {
@@ -56,7 +46,6 @@ const UserForm: React.FC<FormUserProps> = (props) => {
                 return;
             }
             window.alert('success');
-            handleChangeUserPrompt();
         }
     };
 
@@ -85,10 +74,7 @@ const UserForm: React.FC<FormUserProps> = (props) => {
     };
 
     return (
-        <form
-            className={`forms ${userprompt ? 'active' : ''}`}
-            onSubmit={handleSubmit}
-        >
+        <form onSubmit={handleSubmit}>
             <Typography variant="caption" display="block" gutterBottom>
                 NOTE : When you create a user donot forget to downlaod the text
                 file containing username and password of the created user. Donot
@@ -135,11 +121,7 @@ const UserForm: React.FC<FormUserProps> = (props) => {
                     Inactive
                 </label>
             </div>
-            <button
-                className="cancel"
-                type="button"
-                onClick={handleChangeUserPrompt}
-            >
+            <button className="cancel" type="button">
                 Cancel
             </button>
             <button className="ok" type="submit">

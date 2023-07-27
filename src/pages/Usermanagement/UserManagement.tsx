@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import UserForm from './UserForm';
 import './user.css';
+import { NavLink } from 'react-router-dom';
 interface User {
     _id: string;
     name: string;
@@ -12,9 +13,7 @@ interface User {
 const UserManagement = () => {
     const [users, setUsers] = React.useState([]);
     const [userprompt, setUserprompt] = React.useState<boolean>();
-    const handleUserPrompt = () => {
-        setUserprompt(!userprompt);
-    };
+
     /* const getUsers = async () => {
         const res = await axios.get('http://localhost:3000/v1/adminusers');
         console.log(res);
@@ -47,13 +46,9 @@ const UserManagement = () => {
                         </ul>
                         <i className="fa fa-start-o" aria-hidden="true"></i>
                     </div>
-                    <span className="create-button" onClick={handleUserPrompt}>
-                        Add Users
-                    </span>
-                    <UserForm
-                        userprompt={userprompt}
-                        handleUserPrompt={handleUserPrompt}
-                    />
+                    <NavLink to="/manageaccounts/createnewuser">
+                        <span className="create-button">Add Users</span>
+                    </NavLink>
                 </div>
             )}
         </div>
