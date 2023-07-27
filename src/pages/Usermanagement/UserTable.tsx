@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import './user.css';
 import DashboardContext from '../../contexts/dashboardContext';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { Tooltip } from '@mui/material';
+import './UserTable.css';
+
 interface Users {
     _id: string;
     name: string;
@@ -11,12 +15,10 @@ interface Users {
 
 interface TableProps {
     users: Users[];
-    onUpdateUsers: (updatedUsers: Users[]) => void;
-    onDeleteUser: (userId: string) => void;
 }
 
 const UserTable: React.FC<TableProps> = (props) => {
-    const { users, onUpdateUsers, onDeleteUser } = props;
+    const { users } = props;
     const { dashboardState, setDashboardState } =
         React.useContext(DashboardContext);
     const [isBlinking, setIsBlinking] = useState(false);
@@ -31,10 +33,7 @@ const UserTable: React.FC<TableProps> = (props) => {
     const handleEditUser = (userId: string) => {
         setEditingUserId(userId);
     };
-    const handleDeleteUser = (userId: string) => {
-        const updatedUsers = users.filter((user) => user._id !== userId);
-        onUpdateUsers(updatedUsers);
-    };
+
     const handleSaveUser = () => {
         const editedUserIndex = users.findIndex(
             (user) => user._id === editingUserId
@@ -45,8 +44,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                 ...updatedUsers[editedUserIndex],
                 ...editedUserData,
             };
-            // api call- save functionality here
-            onUpdateUsers(updatedUsers);
+
             setEditingUserId('');
             setEditedUserData({});
         }
@@ -66,11 +64,11 @@ const UserTable: React.FC<TableProps> = (props) => {
             [field]: value,
         }));
     };
+
     return (
         <table className="content-table">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Name</th>
                     <th>Mobile</th>
                     <th>Email</th>
@@ -81,113 +79,31 @@ const UserTable: React.FC<TableProps> = (props) => {
             <tbody>
                 {users.map((user) => (
                     <tr key={user._id}>
-                        <td>{user._id}</td>
+                        <td>{user.name}</td>
+                        <td>{user.mobile}</td>
+                        <td>{user.email}</td>
+                        <td>{user.status}</td>
                         <td>
-                            {isEditing(user._id) ? (
-                                <input
-                                    type="text"
-                                    value={editedUserData.name ?? user.name}
-                                    onChange={(e) =>
-                                        handleInputChange(
-                                            'name',
-                                            e.target.value
-                                        )
-                                    }
-                                />
-                            ) : (
-                                user.name
-                            )}
-                        </td>
-                        <td>
-                            {isEditing(user._id) ? (
-                                <input
-                                    type="text"
-                                    value={editedUserData.mobile ?? user.mobile}
-                                    onChange={(e) =>
-                                        handleInputChange(
-                                            'mobile',
-                                            e.target.value
-                                        )
-                                    }
-                                />
-                            ) : (
-                                user.mobile
-                            )}
-                        </td>
-                        <td>
-                            {isEditing(user._id) ? (
-                                <input
-                                    type="text"
-                                    value={editedUserData.email ?? user.email}
-                                    onChange={(e) =>
-                                        handleInputChange(
-                                            'email',
-                                            e.target.value
-                                        )
-                                    }
-                                />
-                            ) : (
-                                user.email
-                            )}
-                        </td>
-                        <td>
-                            {isEditing(user._id) ? (
-                                <input
-                                    type="text"
-                                    value={editedUserData.status ?? user.status}
-                                    onChange={(e) =>
-                                        handleInputChange(
-                                            'status',
-                                            e.target.value
-                                        )
-                                    }
-                                />
-                            ) : (
-                                user.status
-                            )}
-                        </td>
-                        <td>
-                            {isEditing(user._id) ? (
-                                <>
-                                    <div className="action-icon">
-                                        <button
-                                            className="button"
-                                            onClick={handleSaveUser}
-                                        >
-                                            Save
-                                        </button>
-                                        <button
-                                            className="button"
-                                            onClick={handleCancelEdit}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <div className="action-icon">
-                                        <img
-                                            src="../../../public/edit.png"
-                                            alt="Edit"
-                                            className="edit-icon"
+                            <>
+                                <div className="action-icon">
+                                    <a onClick={() => handleEditUser(user._id)}>
+                                        <Tooltip
                                             title="Edit User"
-                                            onClick={() =>
-                                                handleEditUser(user._id)
-                                            }
-                                        />
-                                        <img
-                                            src="../../../public/bin.png"
-                                            alt="Delete"
-                                            className="edit-icon"
-                                            title="Delete  User"
-                                            onClick={() =>
-                                                handleDeleteUser(user._id)
-                                            }
-                                        />
-                                    </div>
-                                </>
-                            )}
+                                            placement="top-end"
+                                        >
+                                            <EditIcon></EditIcon>
+                                        </Tooltip>
+                                    </a>
+                                    <a onClick={() => handleEditUser(user._id)}>
+                                        <Tooltip
+                                            title="Delete User"
+                                            placement="top-end"
+                                        >
+                                            <DeleteOutlineIcon></DeleteOutlineIcon>
+                                        </Tooltip>
+                                    </a>
+                                </div>
+                            </>
                         </td>
                     </tr>
                 ))}
