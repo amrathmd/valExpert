@@ -1,0 +1,21 @@
+.userForm {
+    display: flex;
+    flex-direction: row;
+    width: 50vw;
+    border-width: 2px;
+}
+.formleft {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    /* border-width: 2px; */
+}
+.formright {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    border-width: 2px;
+}
+.formleft {
+    margin-bottom: 20px;
+}
