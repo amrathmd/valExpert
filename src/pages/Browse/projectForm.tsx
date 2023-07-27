@@ -3,11 +3,6 @@ import { react_frontend_url } from '../../config';
 import axios from 'axios';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
-interface FormProps {
-    prompt: boolean;
-    handlePrompt: () => void;
-    refresh: () => void;
-}
 const defaultForm: Project = {
     name: '',
     department: '',
@@ -16,9 +11,7 @@ const defaultForm: Project = {
     implementationDate: null,
 };
 
-const Form: React.FC<FormProps> = (props) => {
-    const { prompt, handlePrompt, refresh } = props;
-
+const Form = () => {
     const [project, setProject] = useState(defaultForm);
     const updateProject = (field: string, value: any) => {
         setProject((updatedProject) => {
@@ -28,9 +21,6 @@ const Form: React.FC<FormProps> = (props) => {
             };
         });
     };
-    const handleChangePrompt = () => {
-        handlePrompt();
-    };
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -39,7 +29,7 @@ const Form: React.FC<FormProps> = (props) => {
         });
         console.log('creaTed', res);
         setProject(defaultForm);
-        await refresh();
+        // await refresh();
     };
 
     return (
@@ -84,11 +74,7 @@ const Form: React.FC<FormProps> = (props) => {
                 }
             />
 
-            <button
-                className="cancel"
-                type="button"
-                onClick={handleChangePrompt}
-            >
+            <button className="cancel" type="button">
                 Cancel
             </button>
             <button className="ok" type="submit">
