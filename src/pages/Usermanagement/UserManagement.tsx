@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import UserForm from './UserForm';
-import './user.css';
 import { NavLink } from 'react-router-dom';
+import UserTable from './UserTable';
 interface User {
     _id: string;
     name: string;
@@ -14,15 +14,14 @@ const UserManagement = () => {
     const [users, setUsers] = React.useState([]);
     const [userprompt, setUserprompt] = React.useState<boolean>();
 
-    /* const getUsers = async () => {
+    const getUsers = async () => {
         const res = await axios.get('http://localhost:3000/v1/adminusers');
-        console.log(res);
         setUsers(res.data);
-        console.log(users);
     };
     React.useEffect(() => {
         getUsers();
-    }, []);*/
+    }, []);
+    console.log(users);
     return (
         <div>
             {users.length === 0 && (
@@ -51,6 +50,7 @@ const UserManagement = () => {
                     </NavLink>
                 </div>
             )}
+            {users.length !== 0 && <UserTable users={users} />}
         </div>
     );
 };
