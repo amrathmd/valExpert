@@ -8,7 +8,7 @@
 .project-dashboard-sidebar {
     background-color: #f2f2f2;
     padding: 20px;
-    margin-left: 60px;
+    /* margin-left: 60px; */
     border-right: 1px solid grey;
     resize: horizontal;
     overflow: auto;
@@ -112,29 +112,28 @@
 .testsetdetails {
     margin-top: 20px;
     margin-left: 350px;
-  }
-  
-  .testsetdetails table {
+}
+
+.testsetdetails table {
     width: 100%;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
-  }
-  
-  .testsetdetails td {
+}
+
+.testsetdetails td {
     padding: 8px;
     border-bottom: 1px solid #ccc;
-  }
-  
-  .testsetdetails td:first-child {
+}
+
+.testsetdetails td:first-child {
     font-weight: bold;
     width: 150px;
-  }
-  
-  .testsetdetails td:last-child {
+}
+
+.testsetdetails td:last-child {
     text-align: right;
-  }
-  
-  .testsetdetails tr:last-child td {
+}
+
+.testsetdetails tr:last-child td {
     border-bottom: none;
-  }
-  
+}

@@ -46,7 +46,7 @@ const UserManagement = () => {
                         </ul>
                         <i className="fa fa-start-o" aria-hidden="true"></i>
                     </div>
-                    <NavLink to="/manageaccounts/createnewuser">
+                    <NavLink to="/manageaccounts/creatnewuser">
                         <span className="create-button">Add Users</span>
                     </NavLink>
                 </div>

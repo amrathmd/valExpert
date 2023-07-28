@@ -74,60 +74,10 @@ const UserForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Typography variant="caption" display="block" gutterBottom>
-                NOTE : When you create a user donot forget to downlaod the text
-                file containing username and password of the created user. Donot
-                share it with anyone except the user! You cannot download the
-                username and password once you have created the user.
-            </Typography>
-            <label htmlFor="name">Name </label>
-            <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                onChange={(e) => handleInputChange('name', e.target.value)}
-            />
-            <label>Email</label>
-            <input
-                type="text"
-                placeholder="Email"
-                onChange={(e) => handleInputChange('email', e.target.value)}
-            />
-            <label>Mobile</label>
-            <input
-                type="text"
-                placeholder="Mobile"
-                onChange={(e) => handleInputChange('mobile', e.target.value)}
-            />
-            <label>Status</label>
-            <div className="radioClass">
-                <label>
-                    <input
-                        type="radio"
-                        value="Active"
-                        checked={selectedOption === 'Active'}
-                        onChange={handleOptionChange}
-                    />
-                    Active
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="Inactive"
-                        checked={selectedOption === 'Inactive'}
-                        onChange={handleOptionChange}
-                    />
-                    Inactive
-                </label>
-            </div>
-            <button className="cancel" type="button">
-                Cancel
-            </button>
-            <button className="ok" type="submit">
-                Save
-            </button>
-        </form>
+        <>
+            <div className="title">Management console</div>
+            <form onSubmit={handleSubmit}></form>
+        </>
     );
 };
 
