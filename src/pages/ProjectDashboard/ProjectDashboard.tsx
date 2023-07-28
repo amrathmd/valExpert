@@ -31,6 +31,7 @@ const ProjectDashboard = () => {
 
     const [count, setCount] = React.useState<number>(1);
     const [testDetails, setTestDetails] = React.useState<TestSet[]>([]);
+
     const handleRequirementSet = (id: string) => {
         setSelectedRequirementSet(id);
         setSelectedItem(null);
@@ -119,12 +120,10 @@ const ProjectDashboard = () => {
                             className={`${
                                 items.id === 1
                                     ? 'requirements'
-                                    : items.id == 2
+                                    : items.id === 2
                                     ? 'tests'
-                                    : selectedItem === items.id
-                                    ? 'selected'
                                     : ''
-                            }`}
+                            } ${selectedItem === items.id ? 'selected' : ''}`}
                             onClick={
                                 items.id === 1
                                     ? () => handleRequirementListState(items.id)
@@ -133,37 +132,38 @@ const ProjectDashboard = () => {
                                     : null
                             }
                         >
-                            <img src={items.image} className="icons"></img>
+                            <img
+                                src={items.image}
+                                className="icons"
+                                alt={items.name}
+                            />
                             {items.name}
                             <span>
                                 {items.id === 1 &&
-                                    requirementSets.length != 0 && (
+                                    requirementSets.length !== 0 && (
                                         <img
                                             src="../../../public/right-arrow.png"
+                                            alt="arrow"
                                             className={`${
                                                 !reqListState
                                                     ? 'arrow'
                                                     : 'arrow-down'
                                             }`}
-                                        ></img>
+                                        />
                                     )}
                             </span>
                             <span>
-                                {items.id === 2 &&
-                                    (testDetails.length != 0 ? (
-                                        <img
-                                            src="../../../public/right-arrow.png"
-                                            className={`${
-                                                !testListState
-                                                    ? 'testArrow'
-                                                    : 'testArrow-down'
-                                            }`}
-                                        ></img>
-                                    ) : (
-                                        <div>
-                                            <span>+</span>
-                                        </div>
-                                    ))}
+                                {items.id === 2 && (
+                                    <img
+                                        src="../../../public/right-arrow.png"
+                                        alt="arrow"
+                                        className={`${
+                                            !testListState
+                                                ? 'testArrow'
+                                                : 'testArrow-down'
+                                        }`}
+                                    />
+                                )}
                             </span>
                         </li>
                         {items.id === 1 && (
