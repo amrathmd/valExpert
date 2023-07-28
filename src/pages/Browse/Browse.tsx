@@ -7,7 +7,7 @@ import UserTable from './userTable';
 import UserForm from './userForm';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-import { react_frontend_url } from '../../config';
+import { react_backend_url } from '../../config';
 
 interface BrowseItem {
     id: number;
@@ -117,7 +117,7 @@ const Browse: React.FC = () => {
         },
     ];
     const getProjects = async () => {
-        const res = await axios.get(`${react_frontend_url}/v1/projects`);
+        const res = await axios.get(`${react_backend_url}/v1/projects`);
         console.log(res);
         setProjects(res.data);
     };

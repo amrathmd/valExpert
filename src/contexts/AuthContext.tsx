@@ -1,7 +1,7 @@
 import { useState, createContext } from 'react';
 import React from 'react';
 import axios from 'axios';
-import { react_frontend_url } from '../config';
+import { react_backend_url } from '../config';
 
 const AuthContext = createContext(null);
 
@@ -10,17 +10,13 @@ export const AuthContextProvider = (props: any) => {
     const [userType, setUserType] = useState(null);
     const [userName, setUserName] = useState(null);
     const getLoggedIn = async () => {
-        const result = await axios.get(
-            `${react_frontend_url}/v1/auth/loggedIn`
-        );
+        const result = await axios.get(`${react_backend_url}/v1/auth/loggedIn`);
         setLoggedIn(result.data);
         await findUserType();
     };
 
     const findUserType = async () => {
-        const result = await axios.get(
-            `${react_frontend_url}/v1/auth/userType`
-        );
+        const result = await axios.get(`${react_backend_url}/v1/auth/userType`);
         setUserType(result.data.userType);
         setUserName(result.data.username);
     };
