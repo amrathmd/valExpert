@@ -1,13 +1,9 @@
 import { Project } from '@/components/Models/projerctModel';
 import { react_backend_url } from '../../config';
 import axios from 'axios';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-interface FormProps {
-    prompt: boolean;
-    handlePrompt: () => void;
-    refresh: () => void;
-}
 const defaultForm: Project = {
     name: '',
     department: '',
@@ -16,10 +12,9 @@ const defaultForm: Project = {
     implementationDate: null,
 };
 
-const Form: React.FC<FormProps> = (props) => {
-    const { prompt, handlePrompt, refresh } = props;
-
+const Form = () => {
     const [project, setProject] = useState(defaultForm);
+    const navigate = useNavigate();
     const updateProject = (field: string, value: any) => {
         setProject((updatedProject) => {
             return {
@@ -27,9 +22,6 @@ const Form: React.FC<FormProps> = (props) => {
                 [field]: value,
             };
         });
-    };
-    const handleChangePrompt = () => {
-        handlePrompt();
     };
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -39,7 +31,7 @@ const Form: React.FC<FormProps> = (props) => {
         });
         console.log('creaTed', res);
         setProject(defaultForm);
-        await refresh();
+        navigate('/');
     };
 
     return (
@@ -54,6 +46,7 @@ const Form: React.FC<FormProps> = (props) => {
                 onChange={(e) => updateProject('name', e.target.value)}
                 name="name"
                 placeholder="New Project"
+                required
             />
             <label>Department</label>
             <input
@@ -61,6 +54,7 @@ const Form: React.FC<FormProps> = (props) => {
                 value={project.department}
                 placeholder="Department"
                 onChange={(e) => updateProject('department', e.target.value)}
+                required
             />
             <label>Category</label>
             <input
@@ -68,6 +62,7 @@ const Form: React.FC<FormProps> = (props) => {
                 placeholder="Category"
                 value={project.category}
                 onChange={(e) => updateProject('category', e.target.value)}
+                required
             />
             <label>Project Description</label>
             <input
@@ -75,6 +70,7 @@ const Form: React.FC<FormProps> = (props) => {
                 placeholder="Project Description"
                 value={project.description}
                 onChange={(e) => updateProject('description', e.target.value)}
+                required
             />
             <label>Estimated Implementation Date </label>
             <input
@@ -82,12 +78,13 @@ const Form: React.FC<FormProps> = (props) => {
                 onChange={(e) =>
                     updateProject('implementationDate', e.target.value)
                 }
+                required
             />
 
             <button
                 className="cancel"
                 type="button"
-                onClick={handleChangePrompt}
+                onClick={() => navigate('/')}
             >
                 Cancel
             </button>
