@@ -1,7 +1,8 @@
 import { Project } from '@/components/Models/projerctModel';
 import { react_frontend_url } from '../../config';
 import axios from 'axios';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const defaultForm: Project = {
     name: '',
@@ -13,6 +14,7 @@ const defaultForm: Project = {
 
 const Form = () => {
     const [project, setProject] = useState(defaultForm);
+    const navigate = useNavigate();
     const updateProject = (field: string, value: any) => {
         setProject((updatedProject) => {
             return {
@@ -29,7 +31,7 @@ const Form = () => {
         });
         console.log('creaTed', res);
         setProject(defaultForm);
-        // await refresh();
+        navigate('/');
     };
 
     return (
@@ -44,6 +46,7 @@ const Form = () => {
                 onChange={(e) => updateProject('name', e.target.value)}
                 name="name"
                 placeholder="New Project"
+                required
             />
             <label>Department</label>
             <input
@@ -51,6 +54,7 @@ const Form = () => {
                 value={project.department}
                 placeholder="Department"
                 onChange={(e) => updateProject('department', e.target.value)}
+                required
             />
             <label>Category</label>
             <input
@@ -58,6 +62,7 @@ const Form = () => {
                 placeholder="Category"
                 value={project.category}
                 onChange={(e) => updateProject('category', e.target.value)}
+                required
             />
             <label>Project Description</label>
             <input
@@ -65,6 +70,7 @@ const Form = () => {
                 placeholder="Project Description"
                 value={project.description}
                 onChange={(e) => updateProject('description', e.target.value)}
+                required
             />
             <label>Estimated Implementation Date </label>
             <input
@@ -72,9 +78,14 @@ const Form = () => {
                 onChange={(e) =>
                     updateProject('implementationDate', e.target.value)
                 }
+                required
             />
 
-            <button className="cancel" type="button">
+            <button
+                className="cancel"
+                type="button"
+                onClick={() => navigate('/')}
+            >
                 Cancel
             </button>
             <button className="ok" type="submit">
