@@ -1,5 +1,5 @@
 import { Project } from '@/components/Models/projerctModel';
-import { react_frontend_url } from '../../config';
+import { react_backend_url } from '../../config';
 import axios from 'axios';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
@@ -34,7 +34,7 @@ const Form: React.FC<FormProps> = (props) => {
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const res = await axios.post(`${react_frontend_url}/v1/projects`, {
+        const res = await axios.post(`${react_backend_url}/v1/projects`, {
             project,
         });
         console.log('creaTed', res);

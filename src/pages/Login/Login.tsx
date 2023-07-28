@@ -3,7 +3,7 @@ import './Login.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../contexts/AuthContext';
-import { react_frontend_url } from '../../config';
+import { react_backend_url } from '../../config';
 
 const Login = () => {
     const History = useNavigate();
@@ -21,7 +21,7 @@ const Login = () => {
         };
 
         const result = await axios
-            .post(`${react_frontend_url}/v1/admin/login`, body, {
+            .post(`${react_backend_url}/v1/admin/login`, body, {
                 withCredentials: true,
             })
             .then((result) => {
@@ -42,25 +42,29 @@ const Login = () => {
             });
     };
     return (
-        <div className="container">
-            <div className="login-form">
-                <form className="" onSubmit={handleSubmit}>
-                    <h2 className="head">Login form</h2>
-                    <div className="ac">
-                        <p className="message">Welcome Back to valExpert</p>
+        <div className="Loglogincontainer">
+            <div className="Loglogin-form">
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <h2 className="Loghead">Login form</h2>
+                        <div className="Logac">
+                            <p className="Logmessage">
+                                Welcome Back to valExpert
+                            </p>
+                        </div>
                     </div>
-                    <div className="inputform">
+                    <div className="Loginputform">
                         <label htmlFor="email">Email</label>
                         <input
                             type="text"
                             id="email"
                             placeholder="Email"
-                            className="text"
+                            className="Logtext"
                             onChange={(e) => {
                                 setEmail(e.target.value);
                             }}
                         ></input>
-                        <div className="pass">
+                        <div className="Logpass">
                             <label htmlFor="password">Password</label>
                             <a>Forgot Your Password?</a>
                         </div>
@@ -69,20 +73,20 @@ const Login = () => {
                             type="password"
                             id="password"
                             placeholder="Password"
-                            className="text"
+                            className="Logtext"
                             onChange={(e) => {
                                 setPassword(e.target.value);
                             }}
                         />
-                        <div className="account">
+                        <div className="Logaccount">
                             <input type="checkbox"></input>
-                            <label className="rem">Remember me</label>
+                            <label className="Logrem">Remember me</label>
                         </div>
-                        <button type="submit" className="login-button">
+                        <button type="submit" className="Loglogin-button">
                             Login
                         </button>
                         {error.length > 0 && (
-                            <p className="login-error">{error}</p>
+                            <p className="Loglogin-error">{error}</p>
                         )}
                     </div>
                 </form>

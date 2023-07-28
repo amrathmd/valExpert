@@ -1,11 +1,5 @@
-.navbar {
-    display: inline;
-    float: left;
-}
-.routes {
-    display: inline;
-}
-.container {
+.homeContainer {
     display: grid;
-    grid-template-columns: auto auto;
+
+    grid-template-columns: 60px auto;
 }
