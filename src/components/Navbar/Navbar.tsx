@@ -9,6 +9,8 @@ import useCookie from 'react-cookie';
 import axios from 'axios';
 import UserComponent from '../UserComponent/UserComponent';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import HelpRoundedIcon from '@mui/icons-material/Help';
+import { Tooltip } from '@mui/material';
 const Navbar = () => {
     const [isActive, setIsActive] = useState(false);
     const location = useLocation();
@@ -50,87 +52,76 @@ const Navbar = () => {
                     </div>
                     <ul className={`nav ${isActive ? 'active' : ''}`}>
                         <li className="nav-item">
-                            <NavLink
-                                to="/"
-                                style={{ backgroundColor: getColor('/') }}
-                                className="navlink"
-                            >
-                                <img
-                                    src={'../../../public/house.png'}
-                                    className="logo"
-                                    onClick={toggleNavbar}
-                                ></img>
-                                <span className="icon-name">Home</span>
-                            </NavLink>
+                            <Tooltip title="Home" placement="left">
+                                <NavLink
+                                    to="/"
+                                    style={{ backgroundColor: getColor('/') }}
+                                    className="navlink"
+                                >
+                                    <img
+                                        src={'../../../public/house.png'}
+                                        className="logo"
+                                        onClick={toggleNavbar}
+                                    ></img>
+                                </NavLink>
+                            </Tooltip>
                         </li>
 
                         {!loggedIn && userType == null && (
                             <li className="nav-item">
-                                <NavLink
-                                    to="/login"
-                                    style={{
-                                        backgroundColor: getColor('/login'),
-                                    }}
-                                    className="navlink"
-                                >
-                                    <img
-                                        src={'../../../public/login.png'}
-                                        className="logo"
-                                        onClick={toggleNavbar}
-                                    ></img>
-                                    <span className="icon-name">Login</span>
-                                </NavLink>
+                                <Tooltip title="Login" placement="left">
+                                    <NavLink
+                                        to="/login"
+                                        style={{
+                                            backgroundColor: getColor('/login'),
+                                        }}
+                                        className="navlink"
+                                    >
+                                        <img
+                                            src={'../../../public/login.png'}
+                                            className="logo"
+                                            onClick={toggleNavbar}
+                                        ></img>
+                                    </NavLink>
+                                </Tooltip>
                             </li>
                         )}
                         {loggedIn && userType === 'valexpertadmin' && (
                             <li className="nav-item">
+                                <Tooltip title="Register" placement="left">
+                                    <NavLink
+                                        to="/register"
+                                        style={{
+                                            backgroundColor:
+                                                getColor('/register'),
+                                        }}
+                                        className="navlink"
+                                    >
+                                        <img
+                                            src={'../../../public/login.png'}
+                                            className="logo"
+                                            onClick={toggleNavbar}
+                                        ></img>
+                                    </NavLink>
+                                </Tooltip>
+                            </li>
+                        )}
+                        <li className="nav-item">
+                            <Tooltip title="Dashboard" placement="left">
                                 <NavLink
-                                    to="/register"
+                                    to="/dashboard"
                                     style={{
-                                        backgroundColor: getColor('/register'),
+                                        backgroundColor: getColor('/dashboard'),
                                     }}
                                     className="navlink"
                                 >
                                     <img
-                                        src={'../../../public/login.png'}
+                                        src={'../../../public/folder.png'}
                                         className="logo"
                                         onClick={toggleNavbar}
                                     ></img>
-                                    <span className="icon-name">Register</span>
                                 </NavLink>
-                            </li>
-                        )}
-                        <li className="nav-item">
-                            <NavLink
-                                to="/contactus"
-                                style={{
-                                    backgroundColor: getColor('/contactus'),
-                                }}
-                                className="navlink"
-                            >
-                                <img
-                                    src={'../../../public/paper-plane.png'}
-                                    className="logo"
-                                    onClick={toggleNavbar}
-                                ></img>
-                                <span className="icon-name">ContactUs</span>
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink
-                                to="/dashboard"
-                                style={{
-                                    backgroundColor: getColor('/dashboard'),
-                                }}
-                                className="navlink"
-                            >
-                                <img
-                                    src={'../../../public/folder.png'}
-                                    className="logo"
-                                    onClick={toggleNavbar}
-                                ></img>
-                                <span className="icon-name">Dashboard</span>
-                            </NavLink>
+                            </Tooltip>
                         </li>
                         {loggedIn && userType !== null && (
                             <div>
@@ -144,20 +135,40 @@ const Navbar = () => {
                             {
                                 /*loggedIn && userType === 'admin' &&*/
                                 <div>
+                                    <Tooltip
+                                        title="Manage Users"
+                                        placement="left"
+                                    >
+                                        <NavLink
+                                            to="/manageaccounts"
+                                            style={{
+                                                backgroundColor:
+                                                    getColor('/manageaccounts'),
+                                            }}
+                                            className="navlink"
+                                        >
+                                            <ManageAccountsIcon
+                                                sx={{ color: 'white' }}
+                                            ></ManageAccountsIcon>
+                                        </NavLink>
+                                    </Tooltip>
+                                </div>
+                            }
+                            <div>
+                                <Tooltip title="Help" placement="left">
                                     <NavLink
-                                        to="/manageaccounts"
+                                        to="/help"
                                         style={{
-                                            backgroundColor:
-                                                getColor('/manageaccounts'),
+                                            backgroundColor: getColor('/help'),
                                         }}
                                         className="navlink"
                                     >
-                                        <ManageAccountsIcon
+                                        <HelpRoundedIcon
                                             sx={{ color: 'white' }}
-                                        ></ManageAccountsIcon>
+                                        ></HelpRoundedIcon>
                                     </NavLink>
-                                </div>
-                            }
+                                </Tooltip>
+                            </div>
                         </li>
                     </ul>
                 </div>

@@ -3,7 +3,7 @@ import './Login.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../contexts/AuthContext';
-import { react_frontend_url } from '../../config';
+import { react_backend_url } from '../../config';
 
 const Login = () => {
     const History = useNavigate();
@@ -21,7 +21,7 @@ const Login = () => {
         };
 
         const result = await axios
-            .post(`${react_frontend_url}/v1/admin/login`, body, {
+            .post(`${react_backend_url}/v1/admin/login`, body, {
                 withCredentials: true,
             })
             .then((result) => {
