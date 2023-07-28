@@ -9,11 +9,17 @@ interface FormUserProps {
     getUsers: () => void;
 }
 
-const defaultUser = {
-    name: '',
+const defaultUser: User = {
+    fullname: '',
+    username: '',
     email: '',
     mobile: '',
     status: 'Active',
+    password: '',
+    country: '',
+    group: [''],
+    department: '',
+    office: '',
 };
 
 const UserForm: React.FC<FormUserProps> = (props) => {
