@@ -13,13 +13,18 @@
 }
 .head2{
     color: #063762;
-    text-transform: capitalize;
-    font-weight: 60px;
+    font-weight:bolder;
+    font-size: 25px;
 }
 .register-form2{
+    padding-top: 20px;
+    padding-left: 35px;
     border-radius: 10px;
-    margin-left: 180px;
-    margin-top: 30px;
+    margin-left: 680px;
+    margin-top: 120px;
+    width: 20vw;
+    height: 65vh;
+    background-color:rgb(247, 247, 247);
 }
 .input-elements {
     display: flex;
@@ -32,6 +37,7 @@
 .input-elements > input {
     border-radius: 10px;
 }
+
 .register-form{
     width: 420px;
 }

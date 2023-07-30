@@ -295,11 +295,7 @@ const Browse: React.FC = () => {
                                         >
                                             Create new Project
                                         </span>
-                                        <Form
-                                            prompt={prompt}
-                                            handlePrompt={handlePrompt}
-                                            refresh={refresh}
-                                        />
+                                        <Form />
                                     </div>
                                 </div>
                             </div>
@@ -307,11 +303,7 @@ const Browse: React.FC = () => {
                             selectedItem.label == 'Projects' && (
                                 <div>
                                     <Table projects={projects} />
-                                    <Form
-                                        prompt={prompt}
-                                        handlePrompt={handlePrompt}
-                                        refresh={refresh}
-                                    />
+                                    <Form />
                                     <div
                                         onClick={handlePrompt}
                                         className="create-project"

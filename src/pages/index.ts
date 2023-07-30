@@ -8,3 +8,4 @@ export { default as RegistrationPage } from './RegistrationPage/RegistrationPage
 export { default as Browse } from './Browse/Browse';
 export { default as Dashboard } from './Dashboard/dashboard';
 export { default as ProjectDashboard } from './ProjectDashboard/ProjectDashboard';
+export { default as Projects } from './Projects/Projects';
