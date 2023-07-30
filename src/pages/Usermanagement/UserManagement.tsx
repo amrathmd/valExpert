@@ -3,6 +3,7 @@ import axios from 'axios';
 import UserForm from './UserForm';
 import { NavLink } from 'react-router-dom';
 import UserTable from './UserTable';
+import './UserTable.css';
 interface User {
     _id: string;
     name: string;
@@ -23,6 +24,20 @@ const UserManagement = () => {
         getUsers();
     }, []);
     console.log(users);
+
+    React.useEffect(() => {
+        if (users.length === 0) {
+            setUsers([
+                {
+                    _id: '1',
+                    name: 'John Doe',
+                    mobile: '1234567890',
+                    email: 'john.doe@example.com',
+                    status: 'Active',
+                },
+            ]);
+        }
+    }, [users]);
     return (
         <div>
             {users.length === 0 && (
@@ -46,6 +61,7 @@ const UserManagement = () => {
                         </ul>
                         <i className="fa fa-start-o" aria-hidden="true"></i>
                     </div>
+
                     <NavLink to="/manageaccounts/creatnewuser">
                         <span className="create-button">Add Users</span>
                     </NavLink>
@@ -53,10 +69,14 @@ const UserManagement = () => {
             )}
             {users.length !== 0 && (
                 <div>
-                    <UserTable users={users} />
-                    <NavLink to="/manageaccounts/creatnewuser">
-                        <span className="create-button">Add Users</span>
-                    </NavLink>
+                    <div className="table-container">
+                        <UserTable users={users} />
+                    </div>
+                    <div className="add-users-button-container">
+                        <NavLink to="/manageaccounts/creatnewuser">
+                            <span className="create-button">Add Users</span>
+                        </NavLink>
+                    </div>
                 </div>
             )}
         </div>

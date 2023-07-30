@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios';
-
+import { User } from '@/components/Models/adminUsersModel';
 import Joi from 'joi-browser';
 import './userForm.css';
 import {
@@ -33,20 +34,8 @@ import {
 } from '@mui/icons-material';
 import { countries } from 'countries-list';
 import { OnChangeValue } from 'react-select';
-interface User {
-    fullname: string;
-    username: string;
-    email: string;
-    mobile: string;
-    status: string;
-    group: string[];
-    country: string;
-    office: string;
-    department: string;
-    password: string;
-}
 
-const defaultUser: User = {
+const defaultUser = {
     fullname: '',
     username: '',
     email: '',
@@ -110,7 +99,9 @@ const UserForm = () => {
             };
         });
     };
-
+    const handleBack = () => {
+        history.back();
+    };
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const countryOptions = Object.keys(countries).map((countryCode) => ({
@@ -139,36 +130,63 @@ const UserForm = () => {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const { error } = schema.validate(user, { abortEarly: false });
-
-        // If there are errors, update the error state and show the error messages
         if (error) {
             const newErrors: any = {};
-
             error.details.forEach((detail: any) => {
                 newErrors[detail.context.key] = detail.message;
             });
-            console.log(newErrors);
             setError(newErrors);
         } else {
-            console.log(user);
-        }
-        /*const { error } = Joi.validate(user, schema);
-        if (error) {
-            setvalidationError(error.details[0].message);
-            alert(error.details[0].message);
-            return;
-        } else {
-            const res = await axios.post(
-                'http://localhost:3000/v1/adminusers',
-                user
-            );
-            if (!res) {
-                console.log(res);
-                window.alert('error');
-                return;
+            try {
+                const res = await axios.post(
+                    'http://localhost:3000/v1/adminusers',
+                    user
+                );
+                if (res.data) {
+                    window.alert('User created successfully!');
+                } else {
+                    window.alert('User creation failed!');
+                }
+            } catch (error) {
+                console.error('Error creating user:', error);
+                window.alert('An error occurred while creating the user.');
             }
-            window.alert('success');*/
+        }
     };
+
+    // const handleSubmit = async (event: any) => {
+    //     event.preventDefault();
+    //     const { error } = schema.validate(user, { abortEarly: false });
+
+    //     // If there are errors, update the error state and show the error messages
+    //     if (error) {
+    //         const newErrors: any = {};
+
+    //         error.details.forEach((detail: any) => {
+    //             newErrors[detail.context.key] = detail.message;
+    //         });
+    //         console.log(newErrors);
+    //         setError(newErrors);
+    //     } else {
+    //         console.log(user);
+    //     }
+    //     /*const { error } = Joi.validate(user, schema);
+    //     if (error) {
+    //         setvalidationError(error.details[0].message);
+    //         alert(error.details[0].message);
+    //         return;
+    //     } else {
+    //         const res = await axios.post(
+    //             'http://localhost:3000/v1/adminusers',
+    //             user
+    //         );
+    //         if (!res) {
+    //             console.log(res);
+    //             window.alert('error');
+    //             return;
+    //         }
+    //         window.alert('success');*/
+    // };
 
     const handleChange = (event: SelectChangeEvent<typeof group>) => {
         const { name, value } = event.target;
@@ -467,6 +485,9 @@ const UserForm = () => {
                     >
                         Create User!
                     </button>
+                    <IconButton onClick={handleBack}>
+                        <ArrowBackIcon />
+                    </IconButton>
                 </div>
             </form>
         </div>
