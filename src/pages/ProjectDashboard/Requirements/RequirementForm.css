@@ -1,0 +1,24 @@
+.req-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin-left: 300px;
+}
+
+.heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.heading > h2 {
+    font-weight: bold;
+    font-size: 18px;
+}
+.req-item {
+    margin: 10px;
+}
+.req-submit {
+    display: flex;
+    justify-content: space-between;
+}

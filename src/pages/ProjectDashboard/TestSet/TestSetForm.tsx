@@ -17,7 +17,7 @@ const defaultTestSet = {
     status: 'Approved',
 };
 
-const TestForm: React.FC<TestSetFormProps> = ({
+const TestSetForm: React.FC<TestSetFormProps> = ({
     refresh,
     handleFormActive,
 }) => {
@@ -172,4 +172,4 @@ const TestForm: React.FC<TestSetFormProps> = ({
         </form>
     );
 };
-export default TestForm;
+export default TestSetForm;

@@ -1,6 +1,6 @@
 import React from 'react';
-import ReqForm from './ReqForm';
-import Table from './Table';
+import ReqForm from './RequirementForm';
+import Table from '../Table';
 
 interface Props {
     selectedItem: number;

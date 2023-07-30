@@ -50,7 +50,14 @@ const UserManagement = () => {
                     </NavLink>
                 </div>
             )}
-            {users.length !== 0 && <UserTable users={users} />}
+            {users.length !== 0 && (
+                <div>
+                    <UserTable users={users} />
+                    <NavLink to="/manageaccounts/creatnewuser">
+                        <span className="create-button">Add Users</span>
+                    </NavLink>
+                </div>
+            )}
         </div>
     );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import TestForm from './TestForm';
-import TestCasesForm from './TestCasesForm';
+import TestSetForm from './TestSetForm';
+import TestCasesForm from './TestCases/TestcaseForm';
 import { TestCase } from '@/components/Models/testCasesmodel';
 
 interface Props {
@@ -55,7 +55,7 @@ const TestSets: React.FC<Props> = ({
                     </button>
 
                     {isTestActive && (
-                        <TestForm
+                        <TestSetForm
                             refresh={refreshTestSets}
                             handleFormActive={handleTestActive}
                         />

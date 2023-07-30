@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ProjectDashboard.css';
-import Requirements from './Requirements';
-import TestSets from './Testsets';
+import Requirements from './Requirements/Requirement';
+import TestSets from './TestSet/TestSetDetails';
 import axios from 'axios';
 import { TestSet } from '@/components/Models/testsetsModel';
 import { TestCase } from '@/components/Models/testCasesmodel';
@@ -76,7 +76,7 @@ const ProjectDashboard = () => {
     const browseItems = [
         {
             id: 1,
-            name: 'Requirements',
+            name: 'Requirement sets',
             image: '../../../public/requirement.png',
         },
         {
@@ -166,18 +166,7 @@ const ProjectDashboard = () => {
                             {items.name}
 
                             <span>
-                                {items.id === 1 &&
-                                    requirementSets.length !== 0 && (
-                                        <img
-                                            src="../../../public/right-arrow.png"
-                                            alt="arrow"
-                                            className={`${
-                                                !reqListState
-                                                    ? 'arrow'
-                                                    : 'arrow-down'
-                                            }`}
-                                        />
-                                    )}
+                                {items.id === 1 && requirementSets.length !== 0}
                             </span>
                             <span>
                                 {items.id === 2 && (
