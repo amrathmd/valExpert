@@ -1,50 +1,75 @@
 import React, { useEffect, useState } from 'react';
 import './ProjectDashboard.css';
 import Requirements from './Requirements';
-import TesteSets from './Testsets';
+import TestSets from './Testsets';
 import axios from 'axios';
 import { TestSet } from '@/components/Models/testsetsModel';
+import { TestCase } from '@/components/Models/testCasesmodel';
 
 interface RequirementSet {
     _id: string;
     name: string;
-}
-interface TableColumn {
-    key: string;
-    label: string;
 }
 
 const ProjectDashboard = () => {
     const [reqListState, setReqListState] = React.useState<boolean>(false);
     const requirementsRef = React.useRef<HTMLUListElement>(null);
     const testsRef = React.useRef<HTMLUListElement>(null);
-    const [selectedItem, setSelectedItem] = React.useState(0);
-    const [testListState, setTestListState] = React.useState(false);
-    const [selectedRequirementSet, setSelectedRequirementSet] =
-        React.useState(null);
-    const [selectedTestSetId, setSelectedtestSetId] = React.useState(null);
+    const [selectedItem, setSelectedItem] = React.useState<number>(0);
+    const [testListState, setTestListState] = React.useState<boolean>(false);
+    const [selectedRequirementSet, setSelectedRequirementSet] = React.useState<
+        string | null
+    >(null);
+    const [selectedTestSetId, setSelectedtestSetId] = React.useState<
+        string | null
+    >(null);
     const [selectedTestSet, setSelectedTestSet] = React.useState<any>({});
     const [requirementSets, setRequirementSets] = React.useState<
         RequirementSet[]
     >([]);
-    // const [testSet, setTestSet] = React.useState<TestSet[]>([]);
-
     const [count, setCount] = React.useState<number>(1);
     const [testDetails, setTestDetails] = React.useState<TestSet[]>([]);
+    const [testCases, setTestCases] = React.useState<TestCase[]>([]);
+    const [testCaseVisibility, setTestCaseVisibility] = useState<
+        Record<string, boolean>
+    >({});
+
+    // Function to toggle the test cases list visibility for a test set
+    const toggleTestCaseList = (testSetId: string) => {
+        setTestCaseVisibility((prevState) => ({
+            ...prevState,
+            [testSetId]: !prevState[testSetId],
+        }));
+    };
+    const getTestCases = async (testSetId: string) => {
+        const res = await axios.get<TestCase[]>(
+            `http://localhost:3000/v1/testcases/${testSetId}`
+        );
+        console.log(res);
+        if (!res.data) {
+            window.alert('error');
+        }
+        setTestCases(res.data);
+        console.log(testCases);
+    };
+
+    useEffect(() => {
+        if (selectedTestSetId) {
+            getTestCases(selectedTestSetId);
+        }
+    }, [selectedTestSetId]);
 
     const handleRequirementSet = (id: string) => {
         setSelectedRequirementSet(id);
-        setSelectedItem(null);
+        setSelectedItem(0);
         setSelectedtestSetId(null);
     };
+
     const handleTestSet = (id: string) => {
         setSelectedtestSetId(id);
-        const selectedTestSet = testDetails.filter(
-            (item) => item.testsetId === id
-        );
-        setSelectedTestSet(selectedTestSet[0]);
-        console.log(selectedTestSet);
-        setSelectedItem(null);
+        const selectedTestSet = testDetails.find((item) => item._id === id);
+        setSelectedTestSet(selectedTestSet || {});
+        setSelectedItem(0);
         setSelectedRequirementSet(null);
     };
 
@@ -66,8 +91,8 @@ const ProjectDashboard = () => {
         },
     ];
 
-    const handleRequirementListState = (id: React.SetStateAction<number>) => {
-        if (requirementSets.length != 0) {
+    const handleRequirementListState = (id: number) => {
+        if (requirementSets.length !== 0) {
             setReqListState(!reqListState);
         }
         setSelectedItem(id);
@@ -94,17 +119,18 @@ const ProjectDashboard = () => {
             'http://localhost:3000/v1/testsets'
         );
         console.log(res);
-        if (!res) {
+        if (!res.data) {
             window.alert('error');
         }
         setTestDetails(res.data);
         console.log(testDetails);
     };
+
     useEffect(() => {
         getTestSets();
     }, []);
 
-    const handleTestListState = (id: React.SetStateAction<number>) => {
+    const handleTestListState = (id: number) => {
         setTestListState(!testListState);
         setSelectedItem(id);
         setSelectedRequirementSet(null);
@@ -129,7 +155,7 @@ const ProjectDashboard = () => {
                                     ? () => handleRequirementListState(items.id)
                                     : items.id === 2
                                     ? () => handleTestListState(items.id)
-                                    : null
+                                    : undefined
                             }
                         >
                             <img
@@ -138,6 +164,7 @@ const ProjectDashboard = () => {
                                 alt={items.name}
                             />
                             {items.name}
+
                             <span>
                                 {items.id === 1 &&
                                     requirementSets.length !== 0 && (
@@ -217,15 +244,13 @@ const ProjectDashboard = () => {
                             >
                                 {testDetails.map((set) => (
                                     <li
-                                        key={set.testsetId}
+                                        key={set._id}
                                         className={`${
-                                            selectedTestSetId === set.testsetId
+                                            selectedTestSetId === set._id
                                                 ? 'selected-test-set'
                                                 : ''
                                         }`}
-                                        onClick={() =>
-                                            handleTestSet(set.testsetId)
-                                        }
+                                        onClick={() => handleTestSet(set._id)}
                                     >
                                         {set.testName}
                                     </li>
@@ -241,14 +266,16 @@ const ProjectDashboard = () => {
                     selectedRequirementSet={selectedRequirementSet}
                     createRequirementSet={createRequirementSet}
                 />
-                <TesteSets
+                <TestSets
                     selectedItem={selectedItem}
                     selectedTestSetId={selectedTestSetId}
                     refreshTestSets={refreshTestSets}
                     selectedTestSet={selectedTestSet}
+                    testCases={testCases}
                 />
             </div>
         </div>
     );
 };
+
 export default ProjectDashboard;
