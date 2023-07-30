@@ -45,12 +45,12 @@ const Login = () => {
         <div className="Loglogincontainer">
             <div className="Loglogin-form">
                 <form onSubmit={handleSubmit}>
-                    <div>
+                    <div className="LogHeader">
                         <h2 className="Loghead">Login form</h2>
                         <div className="Logac">
-                            <p className="Logmessage">
+                            <h3 className="Logmessage">
                                 Welcome Back to valExpert
-                            </p>
+                            </h3>
                         </div>
                     </div>
                     <div className="Loginputform">

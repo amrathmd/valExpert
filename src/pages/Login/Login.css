@@ -34,15 +34,17 @@
 .Loginputform {
     display: flex;
     flex-direction: column;
+    margin-top: 30px;
     padding-left: 20px;
     padding-right: 20px;
 }
 .Loglogin-form {
-    border-radius: 10px;
+    border-radius: 12px;
     width: 25vw;
-    height: 45vh;
-    margin-left: 10vw;
-    margin-top: 10vh;
+    height: 40vh;
+    margin-left: 33vw;
+    margin-top: 28vh;
+    background-color:rgb(247, 247, 247);
 }
 .Loglogin-button {
     width: max-width;
@@ -51,6 +53,7 @@
     color: white;
     border-radius: 4px;
     padding: 3px;
+    margin-top: 10px;
 }
 .Loglogin-button:hover {
     background-color: #0a4070;
@@ -140,10 +143,15 @@
 .Loghead {
     color: #063762;
     text-transform: capitalize;
+    margin-top: 20px;
+    font-weight:bold;
 }
+
 .Logac {
-    margin-bottom: 10px;
     padding-left: 20px;
+}
+.LogHeader{
+     margin-top: 20px;
 }
 
 .Logaccount {
@@ -169,7 +177,7 @@
     text-decoration: none;
 }
 .Logmessage {
-    margin-bottom: 8px;
+    margin-top: 20px;
 }
 .Logaccount.rem {
     display: inline-block;

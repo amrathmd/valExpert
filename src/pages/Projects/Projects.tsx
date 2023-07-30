@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { react_frontend_url } from '../../config';
+import { react_backend_url } from '../../config';
 import { NavLink } from 'react-router-dom';
 import './Projects.css';
 
@@ -8,7 +8,7 @@ const Projects = () => {
     const [projects, setProjects] = useState([]);
 
     const getProjects = async () => {
-        const res = await axios.get(`${react_frontend_url}/v1/projects`);
+        const res = await axios.get(`${react_backend_url}/v1/projects`);
         console.log(res);
         setProjects(res.data);
     };

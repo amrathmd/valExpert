@@ -95,7 +95,7 @@ const Register1: React.FC<Step1Props> = ({ onSubmit }) => {
     return (
         <div className="register2-container">
             <div className="register-form2">
-                <h1 className="head2">Register</h1>
+                <h2 className="head2">Register</h2>
                 <form className="" onSubmit={handleSubmit}>
                     <div className="input-elements">
                         <label htmlFor="company-name">Company name</label>
