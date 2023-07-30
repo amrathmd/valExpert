@@ -3,7 +3,12 @@ import axios from 'axios';
 
 import Joi from 'joi-browser';
 import './userForm.css';
-import { IconButton, InputAdornment, Typography } from '@mui/material';
+import {
+    FormHelperText,
+    IconButton,
+    InputAdornment,
+    Typography,
+} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -16,7 +21,16 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { VisibilityOff, Visibility } from '@mui/icons-material';
+import {
+    VisibilityOff,
+    Visibility,
+    AccountCircle,
+    Key,
+    MobileFriendly,
+    Phone,
+    Email,
+    AccountBox,
+} from '@mui/icons-material';
 import { countries } from 'countries-list';
 import { OnChangeValue } from 'react-select';
 interface User {
@@ -66,6 +80,13 @@ function getStyles(name: string, group: string[], theme: Theme) {
                 : theme.typography.fontWeightMedium,
     };
 }
+const initialErrors = {
+    fullname: '',
+    username: '',
+    email: '',
+    password: '',
+    mobile: '',
+};
 
 const UserForm = () => {
     const [selectedOption, setSelectedOption] = useState('Active');
@@ -76,6 +97,8 @@ const UserForm = () => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [selectedStatus, setSelectedStatus] = useState('Active');
     const [selectedCountry, setSelectedCountry] = useState('');
+    const [error, setError] = useState(initialErrors);
+    const [booleanError, setBooleanError] = useState<boolean>(false);
 
     const handleCountryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -100,16 +123,35 @@ const UserForm = () => {
         event.preventDefault();
     };
 
-    const schema = {
-        name: Joi.string().required(),
-        email: Joi.string().email().required(),
-        mobile: Joi.string().required(),
-        status: Joi.string().required(),
-    };
+    const schema = Joi.object({
+        fullname: Joi.string().required().label('Fullname'),
+        username: Joi.string().required().label('Username'),
+        email: Joi.string().email().required().label('Email'),
+        password: Joi.string()
+
+            .required()
+            .min(8)
+            .max(20)
+            .label('Password'),
+        mobile: Joi.string().required().label('Mobile'),
+    }).options({ allowUnknown: true });
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log(user);
+        const { error } = schema.validate(user, { abortEarly: false });
+
+        // If there are errors, update the error state and show the error messages
+        if (error) {
+            const newErrors: any = {};
+
+            error.details.forEach((detail: any) => {
+                newErrors[detail.context.key] = detail.message;
+            });
+            console.log(newErrors);
+            setError(newErrors);
+        } else {
+            console.log(user);
+        }
         /*const { error } = Joi.validate(user, schema);
         if (error) {
             setvalidationError(error.details[0].message);
@@ -154,7 +196,7 @@ const UserForm = () => {
         }));
     };
     return (
-        <>
+        <div className="userformPage">
             <div className="title">Create users</div>
 
             <form onSubmit={handleSubmit}>
@@ -169,9 +211,18 @@ const UserForm = () => {
                                 className="formfeild"
                                 size="small"
                                 required
+                                error={!!error.fullname}
+                                helperText={error.fullname}
                                 sx={{ marginBottom: 3 }}
                                 value={user.fullname}
                                 onChange={handleTextChange}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <AccountBox />
+                                        </InputAdornment>
+                                    ),
+                                }}
                             />
                             <TextField
                                 label="UserName"
@@ -180,6 +231,15 @@ const UserForm = () => {
                                 name="username"
                                 className="formfeild"
                                 size="small"
+                                error={!!error.username}
+                                helperText={error.username}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <AccountCircle />
+                                        </InputAdornment>
+                                    ),
+                                }}
                                 required
                                 value={user.username}
                                 onChange={handleTextChange}
@@ -195,7 +255,16 @@ const UserForm = () => {
                                 required
                                 value={user.email}
                                 onChange={handleTextChange}
+                                error={!!error.email}
+                                helperText={error.email}
                                 sx={{ marginBottom: 3 }}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <Email />
+                                        </InputAdornment>
+                                    ),
+                                }}
                             />
                             <FormControl
                                 sx={{ marginBottom: 3 }}
@@ -231,10 +300,20 @@ const UserForm = () => {
                                             </IconButton>
                                         </InputAdornment>
                                     }
+                                    startAdornment={
+                                        <InputAdornment position="start">
+                                            <Key />
+                                        </InputAdornment>
+                                    }
                                     label="Password"
                                     value={user.password}
                                     onChange={handleTextChange}
                                 />
+                                {error.password && (
+                                    <FormHelperText sx={{ color: '#f44336' }}>
+                                        {error.password}
+                                    </FormHelperText>
+                                )}
                             </FormControl>
                             <TextField
                                 select
@@ -270,6 +349,15 @@ const UserForm = () => {
                                 onChange={handleTextChange}
                                 required
                                 sx={{ marginBottom: 3 }}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <Phone />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                error={!!error.mobile}
+                                helperText={error.mobile}
                             />
                             <TextField
                                 label="Office Phone"
@@ -282,6 +370,13 @@ const UserForm = () => {
                                 size="small"
                                 required
                                 sx={{ marginBottom: 3 }}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <Phone />
+                                        </InputAdornment>
+                                    ),
+                                }}
                             />
                             <FormControl
                                 sx={{ marginBottom: 3 }}
@@ -295,6 +390,7 @@ const UserForm = () => {
                                     Group
                                 </InputLabel>
                                 <Select
+                                    label="Group"
                                     labelId="demo-multiple-name-label"
                                     id="demo-multiple-name"
                                     name="group"
@@ -373,7 +469,7 @@ const UserForm = () => {
                     </button>
                 </div>
             </form>
-        </>
+        </div>
     );
 };
 
