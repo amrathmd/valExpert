@@ -8,7 +8,8 @@ interface TestSetFormProps {
 }
 
 const defaultTestSet = {
-    testsetId: '',
+    projectId: '',
+    requirementSetId: '',
     testName: '',
     requirementSetName: '',
     description: '',
@@ -16,7 +17,7 @@ const defaultTestSet = {
     status: 'Approved',
 };
 
-const TestForm: React.FC<TestSetFormProps> = ({
+const TestSetForm: React.FC<TestSetFormProps> = ({
     refresh,
     handleFormActive,
 }) => {
@@ -32,6 +33,7 @@ const TestForm: React.FC<TestSetFormProps> = ({
     };
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        console.log(testSet);
         const res = await axios.post('http://localhost:3000/v1/testsets', {
             testSet,
         });
@@ -50,6 +52,32 @@ const TestForm: React.FC<TestSetFormProps> = ({
             <div className="req-form">
                 <div className="heading">
                     <h2>TestSet Details</h2>
+                </div>
+                <div className="req-item">
+                    <label className="req-label" htmlFor="ProjectId">
+                        Project Id
+                    </label>
+                    <input
+                        type="text"
+                        value={testSet.projectId}
+                        placeholder="Project Id "
+                        onChange={(e) =>
+                            updateTestSet('projectId', e.target.value)
+                        }
+                    />
+                </div>
+                <div className="req-item">
+                    <label className="req-label" htmlFor="Requirement Id">
+                        ReuirementSet Id
+                    </label>
+                    <input
+                        type="text"
+                        value={testSet.requirementSetId}
+                        placeholder="RequirementSet Id"
+                        onChange={(e) =>
+                            updateTestSet('requirementSetId', e.target.value)
+                        }
+                    />
                 </div>
                 <div className="req-item">
                     <label className="req-label" htmlFor="ReqId">
@@ -144,4 +172,4 @@ const TestForm: React.FC<TestSetFormProps> = ({
         </form>
     );
 };
-export default TestForm;
+export default TestSetForm;

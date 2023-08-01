@@ -1,11 +1,13 @@
 import React from 'react';
-import ReqForm from './ReqForm';
-import Table from './Table';
+import ReqForm from './RequirementForm';
+import Table from '../Table';
+import RequirementSetForm from './RequirementSetsForm';
 
 interface Props {
     selectedItem: number;
     selectedRequirementSet: any;
-    createRequirementSet: () => void;
+
+    RequirementSets: any;
 }
 
 interface TableColumn {
@@ -16,13 +18,19 @@ interface TableColumn {
 const Requirements: React.FC<Props> = ({
     selectedItem,
     selectedRequirementSet,
-    createRequirementSet,
+
+    RequirementSets,
 }) => {
     const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
     const [requirements, setRequirements] = React.useState([]);
+    const [requirementSetFrom, setRequirmentSetForm] =
+        React.useState<boolean>(false);
 
     const handleFormActive = () => {
         setReqFormActive(!isReqFormActive);
+    };
+    const createRequirementSet = () => {
+        setRequirmentSetForm(!requirementSetFrom);
     };
 
     const createRequirements = () => {
@@ -50,14 +58,34 @@ const Requirements: React.FC<Props> = ({
 
     return (
         <div>
-            {selectedItem === 1 && (
-                <div>
-                    <button
-                        className="create-reqSet-button"
-                        onClick={createRequirementSet}
-                    >
-                        Create Requirement Set
-                    </button>
+            {selectedItem === 1 && RequirementSets.length === 0 && (
+                <div className="message">
+                    <div>
+                        <p className="para">
+                            Welcome to our project Dashboard!
+                        </p>
+                        <ul className="dot-list">
+                            <li>
+                                You have the power to add requirements from your
+                                project enabling
+                                <br /> effective development for Enhanced
+                                Project development.
+                            </li>
+                            <li>
+                                We believe that by adding requirement sets for
+                                your project and
+                                <br />
+                                you'll unlock the full potential of our platform
+                                .
+                            </li>
+                        </ul>
+                        <span
+                            className="create-button"
+                            onClick={createRequirementSet}
+                        >
+                            Create Requirement sets
+                        </span>
+                    </div>
                 </div>
             )}
 

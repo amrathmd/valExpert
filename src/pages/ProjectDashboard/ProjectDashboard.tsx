@@ -1,56 +1,82 @@
 import React, { useEffect, useState } from 'react';
 import './ProjectDashboard.css';
-import Requirements from './Requirements';
-import TesteSets from './Testsets';
+import Requirements from './Requirements/Requirement';
+import TestSets from './TestSet/TestSetDetails';
 import axios from 'axios';
 import { TestSet } from '@/components/Models/testsetsModel';
+import { TestCase } from '@/components/Models/testCasesmodel';
 
 interface RequirementSet {
     _id: string;
     name: string;
-}
-interface TableColumn {
-    key: string;
-    label: string;
 }
 
 const ProjectDashboard = () => {
     const [reqListState, setReqListState] = React.useState<boolean>(false);
     const requirementsRef = React.useRef<HTMLUListElement>(null);
     const testsRef = React.useRef<HTMLUListElement>(null);
-    const [selectedItem, setSelectedItem] = React.useState(0);
-    const [testListState, setTestListState] = React.useState(false);
-    const [selectedRequirementSet, setSelectedRequirementSet] =
-        React.useState(null);
-    const [selectedTestSetId, setSelectedtestSetId] = React.useState(null);
+    const [selectedItem, setSelectedItem] = React.useState<number>(0);
+    const [testListState, setTestListState] = React.useState<boolean>(false);
+    const [selectedRequirementSet, setSelectedRequirementSet] = React.useState<
+        string | null
+    >(null);
+    const [selectedTestSetId, setSelectedtestSetId] = React.useState<
+        string | null
+    >(null);
     const [selectedTestSet, setSelectedTestSet] = React.useState<any>({});
     const [requirementSets, setRequirementSets] = React.useState<
         RequirementSet[]
     >([]);
-    // const [testSet, setTestSet] = React.useState<TestSet[]>([]);
-
     const [count, setCount] = React.useState<number>(1);
     const [testDetails, setTestDetails] = React.useState<TestSet[]>([]);
+    const [testCases, setTestCases] = React.useState<TestCase[]>([]);
+    const [testCaseVisibility, setTestCaseVisibility] = useState<
+        Record<string, boolean>
+    >({});
+
+    // Function to toggle the test cases list visibility for a test set
+    const toggleTestCaseList = (testSetId: string) => {
+        setTestCaseVisibility((prevState) => ({
+            ...prevState,
+            [testSetId]: !prevState[testSetId],
+        }));
+    };
+    const getTestCases = async (testSetId: string) => {
+        const res = await axios.get<TestCase[]>(
+            `http://localhost:3000/v1/testcases/${testSetId}`
+        );
+        console.log(res);
+        if (!res.data) {
+            window.alert('error');
+        }
+        setTestCases(res.data);
+        console.log(testCases);
+    };
+
+    useEffect(() => {
+        if (selectedTestSetId) {
+            getTestCases(selectedTestSetId);
+        }
+    }, [selectedTestSetId]);
+
     const handleRequirementSet = (id: string) => {
         setSelectedRequirementSet(id);
-        setSelectedItem(null);
+        setSelectedItem(0);
         setSelectedtestSetId(null);
     };
+
     const handleTestSet = (id: string) => {
         setSelectedtestSetId(id);
-        const selectedTestSet = testDetails.filter(
-            (item) => item.testsetId === id
-        );
-        setSelectedTestSet(selectedTestSet[0]);
-        console.log(selectedTestSet);
-        setSelectedItem(null);
+        const selectedTestSet = testDetails.find((item) => item._id === id);
+        setSelectedTestSet(selectedTestSet || {});
+        setSelectedItem(0);
         setSelectedRequirementSet(null);
     };
 
     const browseItems = [
         {
             id: 1,
-            name: 'Requirements',
+            name: 'Requirement sets',
             image: '../../../public/requirement.png',
         },
         {
@@ -65,23 +91,13 @@ const ProjectDashboard = () => {
         },
     ];
 
-    const handleRequirementListState = (id: React.SetStateAction<number>) => {
-        if (requirementSets.length != 0) {
+    const handleRequirementListState = (id: number) => {
+        if (requirementSets.length !== 0) {
             setReqListState(!reqListState);
         }
         setSelectedItem(id);
         setSelectedRequirementSet(null);
         setSelectedtestSetId(null);
-    };
-
-    const createRequirementSet = () => {
-        const obj = {
-            _id: `${count}`,
-            name: `RequirementSet ${count}`,
-        };
-
-        setRequirementSets([...requirementSets, obj]);
-        setCount(count + 1);
     };
 
     const refreshTestSets = async () => {
@@ -93,17 +109,18 @@ const ProjectDashboard = () => {
             'http://localhost:3000/v1/testsets'
         );
         console.log(res);
-        if (!res) {
+        if (!res.data) {
             window.alert('error');
         }
         setTestDetails(res.data);
         console.log(testDetails);
     };
+
     useEffect(() => {
         getTestSets();
     }, []);
 
-    const handleTestListState = (id: React.SetStateAction<number>) => {
+    const handleTestListState = (id: number) => {
         setTestListState(!testListState);
         setSelectedItem(id);
         setSelectedRequirementSet(null);
@@ -119,51 +136,40 @@ const ProjectDashboard = () => {
                             className={`${
                                 items.id === 1
                                     ? 'requirements'
-                                    : items.id == 2
+                                    : items.id === 2
                                     ? 'tests'
-                                    : selectedItem === items.id
-                                    ? 'selected'
                                     : ''
-                            }`}
+                            } ${selectedItem === items.id ? 'selected' : ''}`}
                             onClick={
                                 items.id === 1
                                     ? () => handleRequirementListState(items.id)
                                     : items.id === 2
                                     ? () => handleTestListState(items.id)
-                                    : null
+                                    : undefined
                             }
                         >
-                            <img src={items.image} className="icons"></img>
+                            <img
+                                src={items.image}
+                                className="icons"
+                                alt={items.name}
+                            />
                             {items.name}
+
                             <span>
-                                {items.id === 1 &&
-                                    requirementSets.length != 0 && (
-                                        <img
-                                            src="../../../public/right-arrow.png"
-                                            className={`${
-                                                !reqListState
-                                                    ? 'arrow'
-                                                    : 'arrow-down'
-                                            }`}
-                                        ></img>
-                                    )}
+                                {items.id === 1 && requirementSets.length !== 0}
                             </span>
                             <span>
-                                {items.id === 2 &&
-                                    (testDetails.length != 0 ? (
-                                        <img
-                                            src="../../../public/right-arrow.png"
-                                            className={`${
-                                                !testListState
-                                                    ? 'testArrow'
-                                                    : 'testArrow-down'
-                                            }`}
-                                        ></img>
-                                    ) : (
-                                        <div>
-                                            <span>+</span>
-                                        </div>
-                                    ))}
+                                {items.id === 2 && (
+                                    <img
+                                        src="../../../public/right-arrow.png"
+                                        alt="arrow"
+                                        className={`${
+                                            !testListState
+                                                ? 'testArrow'
+                                                : 'testArrow-down'
+                                        }`}
+                                    />
+                                )}
                             </span>
                         </li>
                         {items.id === 1 && (
@@ -217,15 +223,13 @@ const ProjectDashboard = () => {
                             >
                                 {testDetails.map((set) => (
                                     <li
-                                        key={set.testsetId}
+                                        key={set._id}
                                         className={`${
-                                            selectedTestSetId === set.testsetId
+                                            selectedTestSetId === set._id
                                                 ? 'selected-test-set'
                                                 : ''
                                         }`}
-                                        onClick={() =>
-                                            handleTestSet(set.testsetId)
-                                        }
+                                        onClick={() => handleTestSet(set._id)}
                                     >
                                         {set.testName}
                                     </li>
@@ -239,16 +243,18 @@ const ProjectDashboard = () => {
                 <Requirements
                     selectedItem={selectedItem}
                     selectedRequirementSet={selectedRequirementSet}
-                    createRequirementSet={createRequirementSet}
+                    RequirementSets={requirementSets}
                 />
-                <TesteSets
+                <TestSets
                     selectedItem={selectedItem}
                     selectedTestSetId={selectedTestSetId}
                     refreshTestSets={refreshTestSets}
                     selectedTestSet={selectedTestSet}
+                    testCases={testCases}
                 />
             </div>
         </div>
     );
 };
+
 export default ProjectDashboard;
