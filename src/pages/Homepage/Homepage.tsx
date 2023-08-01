@@ -22,6 +22,7 @@ import PrivateRoute from '../..//components/PrivateRoute/PrivateRoute';
 import UserManagement from '../Usermanagement/UserManagement';
 import UserForm from '../Usermanagement/UserForm';
 import Form from '../Browse/projectForm';
+import ProjectForm from '../Projects/projectForm';
 
 const Homepage = () => {
     const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
@@ -78,7 +79,7 @@ const Homepage = () => {
                                 ></Route>
                                 <Route
                                     path="/createProject"
-                                    element={<Form />}
+                                    element={<ProjectForm />}
                                 ></Route>
                             </Routes>
                         </div>
