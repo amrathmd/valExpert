@@ -100,16 +100,6 @@ const ProjectDashboard = () => {
         setSelectedtestSetId(null);
     };
 
-    const createRequirementSet = () => {
-        const obj = {
-            _id: `${count}`,
-            name: `RequirementSet ${count}`,
-        };
-
-        setRequirementSets([...requirementSets, obj]);
-        setCount(count + 1);
-    };
-
     const refreshTestSets = async () => {
         await getTestSets();
     };
@@ -253,7 +243,7 @@ const ProjectDashboard = () => {
                 <Requirements
                     selectedItem={selectedItem}
                     selectedRequirementSet={selectedRequirementSet}
-                    createRequirementSet={createRequirementSet}
+                    RequirementSets={requirementSets}
                 />
                 <TestSets
                     selectedItem={selectedItem}

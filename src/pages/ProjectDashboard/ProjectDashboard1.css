@@ -1,0 +1,32 @@
+.dashboard-sidebar {
+    background-color: #fff;
+    padding: 20px;
+    border-right: 1px solid rgb(235, 228, 228);
+    height: 100vh;
+    width: 15vw;
+    position: fixed;
+}
+.content-bar {
+    margin-left: 20vw;
+    padding-left: 10px;
+}
+.blur-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(87, 86, 86, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.requirementsetform {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
