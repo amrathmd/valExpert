@@ -1,48 +1,39 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import axios from 'axios';
-
 import Joi from 'joi-browser';
-import './userForm.css';
-import { IconButton, InputAdornment, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { Paper } from '@mui/material';
 import { Theme, useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { countries } from 'countries-list';
-import { OnChangeValue } from 'react-select';
-interface User {
-    fullname: string;
-    username: string;
-    email: string;
-    mobile: string;
-    status: string;
-    group: string[];
-    country: string;
-    office: string;
+import { useNavigate } from 'react-router-dom';
+
+interface Project {
+    projectName: string;
+    facility: string;
     department: string;
-    password: string;
+    status: string;
+    country: string;
+    scope: string;
+    category: string;
+    description: string;
+    // estimationDate:string;
 }
 
-const defaultUser: User = {
-    fullname: '',
-    username: '',
-    email: '',
-    mobile: '',
-    status: 'Active',
-    password: '',
-    country: '',
-    group: [''],
+const defaultProject: Project = {
+    projectName: '',
+    facility: '',
     department: '',
-    office: '',
+    status: '',
+    country: '',
+    scope: '',
+    category: '',
+    description: '',
+    // estimationDate:'',
 };
 
 const ITEM_HEIGHT = 48;
@@ -67,38 +58,29 @@ function getStyles(name: string, group: string[], theme: Theme) {
     };
 }
 
-const UserForm = () => {
-    const [selectedOption, setSelectedOption] = useState('Active');
-    const [user, setUser] = useState(defaultUser);
+const ProjectForm = () => {
+    const [project, setProject] = useState(defaultProject);
     const [ValidationError, setvalidationError] = useState<string>('');
-    const theme = useTheme();
+    const navigate = useNavigate();
     const [group, setGroup] = React.useState<string[]>([]);
-    const [showPassword, setShowPassword] = React.useState(false);
     const [selectedStatus, setSelectedStatus] = useState('Active');
     const [selectedCountry, setSelectedCountry] = useState('');
 
     const handleCountryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setSelectedCountry(value);
-        setUser((prevUser) => {
+        setProject((prevProject) => {
             return {
-                ...prevUser,
+                ...prevProject,
                 [name]: value,
             };
         });
     };
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
     const countryOptions = Object.keys(countries).map((countryCode) => ({
         code: countryCode,
         name: countries[countryCode].name,
     }));
-    const handleMouseDownPassword = (
-        event: React.MouseEvent<HTMLButtonElement>
-    ) => {
-        event.preventDefault();
-    };
 
     const schema = {
         name: Joi.string().required(),
@@ -109,7 +91,19 @@ const UserForm = () => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log(user);
+        console.log(project);
+        const res = await axios.post(
+            'http://localhost:3000/v1/projects',
+            project
+        );
+        if (!res) {
+            console.log(res);
+            window.alert('error');
+            return;
+        }
+        window.alert('success');
+        navigate('/');
+
         /*const { error } = Joi.validate(user, schema);
         if (error) {
             setvalidationError(error.details[0].message);
@@ -131,111 +125,73 @@ const UserForm = () => {
     const handleChange = (event: SelectChangeEvent<typeof group>) => {
         const { name, value } = event.target;
         setGroup(typeof value === 'string' ? value.split(',') : value);
-        setUser((prevUser) => {
+        setProject((prevProject) => {
             return {
-                ...prevUser,
+                ...prevProject,
                 [name]: typeof value === 'string' ? value.split(',') : value,
             };
         });
     };
     const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setUser((prevUser) => ({
-            ...prevUser,
+        setProject((prevProject) => ({
+            ...prevProject,
             [name]: value,
         }));
     };
 
     const handleStatusChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSelectedStatus(event.target.value);
-        setUser((prevUser) => ({
-            ...prevUser,
+        setProject((prevProject) => ({
+            ...prevProject,
             status: event.target.value,
         }));
     };
     return (
         <>
-            <div className="title">Create users</div>
+            <div className="title">Create Project</div>
 
             <form onSubmit={handleSubmit}>
                 <div className="form-container">
                     <div className="userForm">
                         <div className="formleft">
                             <TextField
-                                label="FullName"
+                                label="Project Name"
                                 fullWidth
                                 variant="outlined"
-                                name="fullname"
+                                name="projectName"
                                 className="formfeild"
                                 size="small"
                                 required
                                 sx={{ marginBottom: 3 }}
-                                value={user.fullname}
+                                value={project.projectName}
                                 onChange={handleTextChange}
                             />
                             <TextField
-                                label="UserName"
+                                label="Facility"
                                 fullWidth
                                 variant="outlined"
-                                name="username"
+                                name="facility"
                                 className="formfeild"
                                 size="small"
                                 required
-                                value={user.username}
+                                value={project.facility}
                                 onChange={handleTextChange}
                                 sx={{ marginBottom: 3 }}
                             />
                             <TextField
-                                label="Email"
+                                label="Department"
                                 fullWidth
                                 variant="outlined"
-                                name="email"
+                                name="department"
                                 className="formfeild"
                                 size="small"
                                 required
-                                value={user.email}
+                                value={project.department}
                                 onChange={handleTextChange}
                                 sx={{ marginBottom: 3 }}
                             />
-                            <FormControl
-                                sx={{ marginBottom: 3 }}
-                                variant="outlined"
-                                size="small"
-                                className="formfeild"
-                                required
-                            >
-                                <InputLabel htmlFor="outlined-adornment-password">
-                                    Password
-                                </InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    name="password"
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={
-                                                    handleClickShowPassword
-                                                }
-                                                onMouseDown={
-                                                    handleMouseDownPassword
-                                                }
-                                                edge="end"
-                                            >
-                                                {showPassword ? (
-                                                    <VisibilityOff />
-                                                ) : (
-                                                    <Visibility />
-                                                )}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="Password"
-                                    value={user.password}
-                                    onChange={handleTextChange}
-                                />
-                            </FormControl>
+
                             <TextField
                                 select
                                 label="Country"
@@ -257,80 +213,47 @@ const UserForm = () => {
                                     </MenuItem>
                                 ))}
                             </TextField>
+                            <TextField
+                                label="Scope"
+                                fullWidth
+                                variant="outlined"
+                                name="scope"
+                                className="formfeild"
+                                size="small"
+                                value={project.scope}
+                                onChange={handleTextChange}
+                                required
+                                sx={{ marginBottom: 3 }}
+                            />
                         </div>
                         <div className="formright">
                             <TextField
-                                label="Mobile"
+                                label="Category"
                                 fullWidth
                                 variant="outlined"
-                                name="mobile"
+                                name="category"
                                 className="formfeild"
-                                size="small"
-                                value={user.mobile}
+                                value={project.category}
                                 onChange={handleTextChange}
+                                size="small"
                                 required
                                 sx={{ marginBottom: 3 }}
                             />
                             <TextField
-                                label="Office Phone"
+                                label="Project Description"
                                 fullWidth
+                                multiline
+                                rows={4}
                                 variant="outlined"
-                                name="office"
+                                name="description"
                                 className="formfeild"
-                                value={user.office}
+                                value={project.description}
                                 onChange={handleTextChange}
                                 size="small"
                                 required
                                 sx={{ marginBottom: 3 }}
                             />
-                            <FormControl
-                                sx={{ marginBottom: 3 }}
-                                className="formfeild"
-                                required
-                            >
-                                <InputLabel
-                                    id="demo-multiple-name-label"
-                                    size="small"
-                                >
-                                    Group
-                                </InputLabel>
-                                <Select
-                                    labelId="demo-multiple-name-label"
-                                    id="demo-multiple-name"
-                                    name="group"
-                                    multiple
-                                    value={group}
-                                    onChange={handleChange}
-                                    input={<OutlinedInput label="Group" />}
-                                    MenuProps={MenuProps}
-                                    size="small"
-                                >
-                                    {names.map((name) => (
-                                        <MenuItem
-                                            key={name}
-                                            value={name}
-                                            style={getStyles(
-                                                name,
-                                                group,
-                                                theme
-                                            )}
-                                        >
-                                            {name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            <TextField
-                                label="Department"
-                                fullWidth
-                                variant="outlined"
-                                name="department"
-                                className="formfeild"
-                                size="small"
-                                value={user.department}
-                                onChange={handleTextChange}
-                                sx={{ marginBottom: 3 }}
-                            />
+                            <input type="Date" />
                             <div className="select-group">
                                 <div>
                                     <FormLabel id="demo-row-radio-buttons-group-label">
@@ -369,7 +292,7 @@ const UserForm = () => {
                         type="submit"
                         onClick={handleSubmit}
                     >
-                        Create User!
+                        Create Project!
                     </button>
                 </div>
             </form>
@@ -377,4 +300,4 @@ const UserForm = () => {
     );
 };
 
-export default UserForm;
+export default ProjectForm;

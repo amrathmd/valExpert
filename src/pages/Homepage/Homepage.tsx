@@ -13,6 +13,7 @@ import {
     RegistrationPage,
     Browse,
     Dashboard,
+    Projects,
 } from '../index';
 import './Homepage.css';
 import AuthContext from '../../contexts/AuthContext';
@@ -20,6 +21,8 @@ import { DashboardContextProvider } from '../..//contexts/dashboardContext';
 import PrivateRoute from '../..//components/PrivateRoute/PrivateRoute';
 import UserManagement from '../Usermanagement/UserManagement';
 import UserForm from '../Usermanagement/UserForm';
+import Form from '../Browse/projectForm';
+import ProjectForm from '../Projects/projectForm';
 
 const Homepage = () => {
     const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
@@ -38,7 +41,7 @@ const Homepage = () => {
 
                         <div className="routes">
                             <Routes>
-                                <Route path="/" element={<Home />}></Route>
+                                <Route path="/" element={<Projects />}></Route>
                                 {!loggedIn && (
                                     <Route
                                         path="/login"
@@ -73,6 +76,10 @@ const Homepage = () => {
                                 <Route
                                     path="/manageaccounts/creatnewuser"
                                     element={<UserForm />}
+                                ></Route>
+                                <Route
+                                    path="/createProject"
+                                    element={<ProjectForm />}
                                 ></Route>
                             </Routes>
                         </div>
