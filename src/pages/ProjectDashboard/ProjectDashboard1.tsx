@@ -23,7 +23,7 @@ const Dashboard = () => {
     >(null);
     const [requirementSets, setRequirementSets] = useState([]);
     const [requirementSetForm, setRequirementSetForm] = useState<boolean>();
-    const createRequirementSet = () => {
+    const handleRequirementSet = () => {
         setRequirementSetForm(!requirementSetForm);
     };
 
@@ -34,9 +34,7 @@ const Dashboard = () => {
     const handleRequirementSetClick = (reqSetId: any) => {
         setSelectedRequirementSet(reqSetId);
     };
-    const handleRequirementSetForm = () => {
-        setRequirementSetForm(!requirementSetForm);
-    };
+
     return (
         <div className="projectdashboard">
             <div className="dashboard-sidebar">
@@ -85,7 +83,7 @@ const Dashboard = () => {
                             ))}
                             <ListItemButton
                                 sx={{ pl: 3 }}
-                                onClick={createRequirementSet}
+                                onClick={handleRequirementSet}
                             >
                                 <Typography
                                     variant="caption"
@@ -111,8 +109,7 @@ const Dashboard = () => {
                 <div className="blur-background">
                     <div className="requirementsetform">
                         <RequirementSetForm
-                            formState={requirementSetForm}
-                            setFormState={handleRequirementSetForm}
+                            handleRequirementSet={handleRequirementSet}
                         />
                     </div>
                 </div>

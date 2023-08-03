@@ -10,10 +10,9 @@ const initialSet: RequirementSet = {
     projectId: '',
 };
 interface Props {
-    formState: boolean;
-    setFormState: () => void;
+    handleRequirementSet: () => void;
 }
-const RequirementSetForm: React.FC<Props> = (formState, setFormState) => {
+const RequirementSetForm: React.FC<Props> = ({ handleRequirementSet }) => {
     const [requirementSet, setRequirementset] = useState(initialSet);
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -26,27 +25,27 @@ const RequirementSetForm: React.FC<Props> = (formState, setFormState) => {
     };
     return (
         <div className="requirementSetForm">
-            <form>
-                <TextField
-                    label="RequirementSet Name"
-                    variant="outlined"
-                    fullWidth
-                    onChange={handleTextChange}
-                    value={requirementSet.name}
-                    name="RequirementSetName"
-                />
-                <Button variant="contained" size="medium">
-                    Submit
-                </Button>
-                <Button
-                    variant="contained"
-                    size="medium"
-                    sx={{ backgroundColor: ' red' }}
-                    onClick={setFormState}
-                >
-                    Cancel
-                </Button>
-            </form>
+            <div className="requirementSetFormContainer">
+                <div>
+                    <TextField
+                        label="RequirementSet Name"
+                        variant="outlined"
+                        fullWidth
+                        onChange={handleTextChange}
+                        value={requirementSet.name}
+                        name="RequirementSetName"
+                    />
+                </div>
+                <div className="buttons-requirementSetForm">
+                    <button className="reqCreate">Create</button>
+                    <button
+                        className="reqCancel"
+                        onClick={handleRequirementSet}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };

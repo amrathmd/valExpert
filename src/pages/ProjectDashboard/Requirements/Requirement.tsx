@@ -2,6 +2,7 @@ import React from 'react';
 import ReqForm from './RequirementForm';
 import Table from '../Table';
 import RequirementSetForm from './RequirementSetsForm';
+import './Requirements.css';
 
 interface Props {
     selectedItem: number;
