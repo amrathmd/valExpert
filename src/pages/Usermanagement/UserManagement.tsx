@@ -3,29 +3,33 @@ import axios from 'axios';
 import UserForm from './UserForm';
 import { NavLink } from 'react-router-dom';
 import UserTable from './UserTable';
-interface User {
-    _id: string;
-    name: string;
-    mobile: string;
-    email: string;
-    status: string;
-}
+import './UserTable.css';
+
 const UserManagement = () => {
     const [users, setUsers] = React.useState([]);
-    const [userprompt, setUserprompt] = React.useState<boolean>();
-
+    const [userPrompt, setUserPrompt] = React.useState<boolean>();
     const getUsers = async () => {
-        const res = await axios.get('http://localhost:3000/v1/adminusers');
-        setUsers(res.data);
+        try {
+            const res = await axios.get('http://localhost:3000/v1/adminusers');
+            setUsers(res.data.allUsers);
+            console.log(res.data.allUsers);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
     };
 
     React.useEffect(() => {
         getUsers();
     }, []);
-    console.log(users);
+
+    React.useEffect(() => {
+        // When the users state changes, check if there are any users
+        setUserPrompt(users.length === 0);
+    }, [users]);
+
     return (
         <div>
-            {users.length === 0 && (
+            {userPrompt ? ( // Display the welcome message if there are no users
                 <div className="message">
                     <div>
                         <p className="para">Welcome to our platform!</p>
@@ -50,13 +54,18 @@ const UserManagement = () => {
                         <span className="create-button">Add Users</span>
                     </NavLink>
                 </div>
-            )}
-            {users.length !== 0 && (
+            ) : (
+                // If there are users, display the table
                 <div>
-                    <UserTable users={users} />
-                    <NavLink to="/manageaccounts/creatnewuser">
-                        <span className="create-button">Add Users</span>
-                    </NavLink>
+                    <div className="table-container">
+                        <UserTable users={users} />{' '}
+                        {/* Pass the users array to the UserTable component */}
+                    </div>
+                    <div className="add-users-button-container">
+                        <NavLink to="/manageaccounts/creatnewuser">
+                            <span className="create-button">Add Users</span>
+                        </NavLink>
+                    </div>
                 </div>
             )}
         </div>
