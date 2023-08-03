@@ -14,6 +14,8 @@ import { Add, ExpandLess, ExpandMore } from '@mui/icons-material';
 import Requirements from './Requirements/Requirement';
 import TestSets from './TestSet/TestSetDetails';
 import RequirementSetForm from './Requirements/RequirementSetsForm';
+import axios from 'axios';
+import { react_backend_url } from '../../config';
 
 const Dashboard = () => {
     const [open, setOpen] = useState<boolean>(false);
@@ -35,6 +37,16 @@ const Dashboard = () => {
         setSelectedRequirementSet(reqSetId);
     };
 
+    React.useEffect(() => {
+        const FetchRequirementSets = async () => {
+            const result = await axios.get(
+                `${react_backend_url}/v1/requirementset`
+            );
+            setRequirementSets(result.data);
+            console.log(result.data);
+        };
+        FetchRequirementSets();
+    }, []);
     return (
         <div className="projectdashboard">
             <div className="dashboard-sidebar">
