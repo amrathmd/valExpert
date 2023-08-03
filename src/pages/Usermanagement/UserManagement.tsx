@@ -11,8 +11,8 @@ const UserManagement = () => {
     const getUsers = async () => {
         try {
             const res = await axios.get('http://localhost:3000/v1/adminusers');
-            console.log(res);
-            setUsers(res.data); // Store the fetched users in the state
+            setUsers(res.data.allUsers);
+            console.log(res.data.allUsers);
         } catch (error) {
             console.error('Error fetching users:', error);
         }

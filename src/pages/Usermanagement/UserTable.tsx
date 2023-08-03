@@ -31,7 +31,7 @@ interface TableProps {
 }
 
 const UserTable: React.FC<TableProps> = (props) => {
-    const { users } = props;
+    const [users, setUsers] = useState<Users[]>(props.users);
     const { dashboardState, setDashboardState } =
         React.useContext(DashboardContext);
     const [isBlinking, setIsBlinking] = useState(false);
@@ -42,8 +42,17 @@ const UserTable: React.FC<TableProps> = (props) => {
     const handleEditUser = (userId: string) => {
         setEditingUserId(userId);
     };
-    const refresh = () => {
-        window.location.reload();
+
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get(
+                `${react_backend_url}/v1/adminUsers`
+            );
+            const userData = response.data;
+            setUserDetails(userData.user);
+        } catch (error) {
+            console.log('Error occurred while fetching users:', error);
+        }
     };
     const handleDeleteUser = async (userid: string) => {
         try {
@@ -52,6 +61,13 @@ const UserTable: React.FC<TableProps> = (props) => {
             );
             console.log(result);
             setalert(true);
+            setTimeout(() => {
+                setalert(false);
+            }, 3000);
+            fetchUsers();
+            setUsers((prevUsers) =>
+                prevUsers.filter((user) => user._id !== userid)
+            );
         } catch {
             console.log('error occurred');
         }
@@ -62,7 +78,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                 `http://localhost:3000/v1/adminUsers/${userid}`
             );
             const userDetailsData = response.data;
-            setUserDetails(userDetailsData);
+            setUserDetails(userDetailsData.user);
             setShowDetailsModal(true);
         } catch (error) {
             console.log('Error occurred while fetching user details:', error);
@@ -74,13 +90,6 @@ const UserTable: React.FC<TableProps> = (props) => {
             {alert && (
                 <div>
                     <Alert severity="success">User Deleted Successfully!</Alert>
-                    <Button
-                        variant="contained"
-                        color="success"
-                        onClick={refresh}
-                    >
-                        Refresh
-                    </Button>
                 </div>
             )}
             <table className="content-table">
@@ -97,7 +106,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                     {users.map((user) => (
                         <tr key={user._id}>
                             <td>{user.fullname}</td>
-                            <td>{user.mobile}</td>
+                            <td>{user.office}</td>
                             <td>{user.email}</td>
                             <td>{user.status}</td>
                             <td>

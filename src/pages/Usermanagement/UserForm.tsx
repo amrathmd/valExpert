@@ -22,6 +22,8 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
+
 import {
     VisibilityOff,
     Visibility,
@@ -88,6 +90,7 @@ const UserForm = () => {
     const [selectedCountry, setSelectedCountry] = useState('');
     const [error, setError] = useState(initialErrors);
     const [booleanError, setBooleanError] = useState<boolean>(false);
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const handleCountryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -143,7 +146,10 @@ const UserForm = () => {
                     user
                 );
                 if (res.data) {
-                    window.alert('User created successfully!');
+                    setShowSuccess(true);
+                    setTimeout(() => {
+                        setShowSuccess(false);
+                    }, 3000);
                 } else {
                     window.alert('User creation failed!');
                 }
@@ -153,40 +159,6 @@ const UserForm = () => {
             }
         }
     };
-
-    // const handleSubmit = async (event: any) => {
-    //     event.preventDefault();
-    //     const { error } = schema.validate(user, { abortEarly: false });
-
-    //     // If there are errors, update the error state and show the error messages
-    //     if (error) {
-    //         const newErrors: any = {};
-
-    //         error.details.forEach((detail: any) => {
-    //             newErrors[detail.context.key] = detail.message;
-    //         });
-    //         console.log(newErrors);
-    //         setError(newErrors);
-    //     } else {
-    //         console.log(user);
-    //     }
-    //     /*const { error } = Joi.validate(user, schema);
-    //     if (error) {
-    //         setvalidationError(error.details[0].message);
-    //         alert(error.details[0].message);
-    //         return;
-    //     } else {
-    //         const res = await axios.post(
-    //             'http://localhost:3000/v1/adminusers',
-    //             user
-    //         );
-    //         if (!res) {
-    //             console.log(res);
-    //             window.alert('error');
-    //             return;
-    //         }
-    //         window.alert('success');*/
-    // };
 
     const handleChange = (event: SelectChangeEvent<typeof group>) => {
         const { name, value } = event.target;
@@ -490,6 +462,20 @@ const UserForm = () => {
                     </IconButton>
                 </div>
             </form>
+            {showSuccess && (
+                <Alert
+                    severity="success"
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 9999,
+                    }}
+                >
+                    User created successfully!
+                </Alert>
+            )}
         </div>
     );
 };
