@@ -181,7 +181,8 @@ const UserTable: React.FC<TableProps> = (props) => {
                             <strong>Status:</strong> {userDetails.status}
                         </div>
                         <div className="field">
-                            <strong>Group:</strong> {userDetails.group}
+                            <strong>Group:</strong>{' '}
+                            {userDetails.group.join(', ')}
                         </div>
                         <div className="field">
                             <strong>Country:</strong> {userDetails.country}

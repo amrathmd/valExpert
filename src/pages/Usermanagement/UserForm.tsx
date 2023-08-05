@@ -23,6 +23,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
 
 import {
     VisibilityOff,
@@ -129,6 +130,7 @@ const UserForm = () => {
             .label('Password'),
         mobile: Joi.string().required().label('Mobile'),
     }).options({ allowUnknown: true });
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -149,7 +151,8 @@ const UserForm = () => {
                     setShowSuccess(true);
                     setTimeout(() => {
                         setShowSuccess(false);
-                    }, 3000);
+                        navigate('/manageaccounts');
+                    }, 2000);
                 } else {
                     window.alert('User creation failed!');
                 }

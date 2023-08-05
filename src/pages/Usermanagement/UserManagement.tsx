@@ -23,13 +23,12 @@ const UserManagement = () => {
     }, []);
 
     React.useEffect(() => {
-        // When the users state changes, check if there are any users
         setUserPrompt(users.length === 0);
     }, [users]);
 
     return (
         <div>
-            {userPrompt ? ( // Display the welcome message if there are no users
+            {userPrompt ? (
                 <div className="message">
                     <div>
                         <p className="para">Welcome to our platform!</p>
@@ -55,11 +54,9 @@ const UserManagement = () => {
                     </NavLink>
                 </div>
             ) : (
-                // If there are users, display the table
                 <div>
                     <div className="table-container">
                         <UserTable users={users} />{' '}
-                        {/* Pass the users array to the UserTable component */}
                     </div>
                     <div className="add-users-button-container">
                         <NavLink to="/manageaccounts/creatnewuser">
