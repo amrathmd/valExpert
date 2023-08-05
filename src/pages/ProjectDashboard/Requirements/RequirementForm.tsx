@@ -144,7 +144,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
                 <div className="req-submit">
                     <Button
                         variant="contained"
-                        sx={{ backgroundColor: 'red' }}
+                        color="error"
                         onClick={handleFormActive}
                     >
                         Cancel

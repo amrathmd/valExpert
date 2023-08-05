@@ -1,4 +1,4 @@
-.req-form-container {
+.test-form-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,10 +14,10 @@
     font-weight: bold;
     font-size: 18px;
 }
-.req-item {
+.test-item {
     margin: 10px;
 }
-.req-submit {
+.test-submit {
     display: flex;
     justify-content: space-between;
 }

@@ -245,13 +245,7 @@ const ProjectDashboard = () => {
                     selectedRequirementSet={selectedRequirementSet}
                     RequirementSets={requirementSets}
                 />
-                <TestSets
-                    selectedItem={selectedItem}
-                    selectedTestSetId={selectedTestSetId}
-                    refreshTestSets={refreshTestSets}
-                    selectedTestSet={selectedTestSet}
-                    testCases={testCases}
-                />
+                <TestSets selectedItem={selectedItem} />
             </div>
         </div>
     );

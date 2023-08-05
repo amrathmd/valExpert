@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { Alert, Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import './RequirementSetFrom.css';
 import axios from 'axios';
@@ -9,7 +9,7 @@ interface RequirementSet {
 }
 const initialSet: RequirementSet = {
     name: '',
-    projectId: '64ab0f4a4250c114d4fde1d6',
+    projectId: '64bb88ddeef4680b930b0339',
 };
 interface Props {
     handleRequirementSet: () => void;
@@ -44,36 +44,45 @@ const RequirementSetForm: React.FC<Props> = ({ handleRequirementSet }) => {
         if (success) {
             const timer = setTimeout(() => {
                 setSuccess(false);
-            }, 5000);
+                handleRequirementSet();
+            }, 2000);
             return () => clearTimeout(timer);
         }
     }, [success]);
     return (
-        <div className="requirementSetForm">
-            <div className="requirementSetFormContainer">
-                <div>
-                    <TextField
-                        label="RequirementSet Name"
-                        variant="outlined"
-                        fullWidth
-                        onChange={handleTextChange}
-                        value={requirementSet.name}
-                        name="name"
-                    />
-                </div>
-                <div className="buttons-requirementSetForm">
-                    <button className="reqCreate" onClick={handleSubmit}>
-                        Create
-                    </button>
-                    <button
-                        className="reqCancel"
-                        onClick={handleRequirementSet}
-                    >
-                        Cancel
-                    </button>
+        <>
+            {success && (
+                <Alert severity="success" sx={{ bottom: 5 }}>
+                    Requirement Set saved successfullty!
+                </Alert>
+            )}
+
+            <div className="requirementSetForm">
+                <div className="requirementSetFormContainer">
+                    <div>
+                        <TextField
+                            label="RequirementSet Name"
+                            variant="outlined"
+                            fullWidth
+                            onChange={handleTextChange}
+                            value={requirementSet.name}
+                            name="name"
+                        />
+                    </div>
+                    <div className="buttons-requirementSetForm">
+                        <button className="reqCreate" onClick={handleSubmit}>
+                            Create
+                        </button>
+                        <button
+                            className="reqCancel"
+                            onClick={handleRequirementSet}
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 export default RequirementSetForm;

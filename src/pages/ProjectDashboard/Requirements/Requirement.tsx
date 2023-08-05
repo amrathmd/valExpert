@@ -1,6 +1,6 @@
 import React from 'react';
 import ReqForm from './RequirementForm';
-import Table from '../Table';
+
 import RequirementSetForm from './RequirementSetsForm';
 import './Requirements.css';
 import { react_backend_url } from '../../../config';
@@ -14,11 +14,6 @@ interface Props {
     selectedRequirementSet: any;
 
     RequirementSets: any;
-}
-
-interface TableColumn {
-    key: string;
-    label: string;
 }
 
 const Requirements: React.FC<Props> = ({
@@ -63,14 +58,6 @@ const Requirements: React.FC<Props> = ({
         handleFormActive();
     };
 
-    const requirementsColumns: TableColumn[] = [
-        { key: 'RequirementId', label: 'Requirement Id' },
-        { key: 'RequirementSetId', label: 'RequirementSet Id' },
-        { key: 'RequirementDescription', label: 'Requirement Description' },
-        { key: 'RequirementCategory', label: 'Reference Category' },
-        { key: 'ReferenceSOP', label: 'Reference SOP' },
-        { key: 'Verification', label: 'Verification' },
-    ];
     const handleEditRequirment = () => {
         console.log(true);
     };
@@ -137,11 +124,11 @@ const Requirements: React.FC<Props> = ({
                         <table className="content-table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Mobile</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th>Manage requirement</th>
+                                    <th>RequirementSetId</th>
+                                    <th>RequirementDescription</th>
+                                    <th>RequirementCategory</th>
+                                    <th>ReferenceSOP</th>
+                                    <th>Verification</th>
                                 </tr>
                             </thead>
                             <tbody>

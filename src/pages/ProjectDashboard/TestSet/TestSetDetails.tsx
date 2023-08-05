@@ -5,10 +5,6 @@ import { TestCase } from '@/components/Models/testCasesmodel';
 
 interface Props {
     selectedItem: number;
-    selectedTestSetId: string | null;
-    refreshTestSets: () => void;
-    selectedTestSet: any;
-    testCases: TestCase[];
 }
 
 interface TableColumn {
@@ -16,13 +12,7 @@ interface TableColumn {
     label: string;
 }
 
-const TestSets: React.FC<Props> = ({
-    selectedItem,
-    selectedTestSetId,
-    refreshTestSets,
-    selectedTestSet,
-    testCases,
-}) => {
+const TestSets: React.FC<Props> = ({ selectedItem }) => {
     const [isTestActive, setTestActive] = React.useState<boolean>(false);
     const [isTestCasesActive, setTestCasesActive] = React.useState(false);
 
@@ -55,40 +45,9 @@ const TestSets: React.FC<Props> = ({
                     </button>
 
                     {isTestActive && (
-                        <TestSetForm
-                            refresh={refreshTestSets}
-                            handleFormActive={handleTestActive}
-                        />
+                        <TestSetForm handleTestSetForm={handleTestActive} />
                     )}
                 </div>
-            )}
-            {selectedTestSetId && (
-                <div>
-                    <div className="testsetdetails">
-                        <table>
-                            <tbody>
-                                {testSetHeader.map((item) => (
-                                    <tr key={item.key}>
-                                        <td>{item.label}</td>
-                                        <td>{selectedTestSet[item.key]}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    <button
-                        className="create-reqSet-button"
-                        onClick={handleTestCasesActive}
-                    >
-                        create test cases
-                    </button>
-                </div>
-            )}
-            {isTestCasesActive && (
-                <TestCasesForm
-                    handleFormActive={handleTestCasesActive}
-                    selectedTestSetId={selectedTestSetId}
-                />
             )}
         </div>
     );

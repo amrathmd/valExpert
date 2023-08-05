@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { TestSet } from '@/components/Models/testsetsModel';
 import axios from 'axios';
+import './testSetForm.css';
+import {
+    Button,
+    FormControl,
+    FormLabel,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    TextareaAutosize,
+} from '@mui/material';
 
 interface TestSetFormProps {
-    refresh: () => void;
-    handleFormActive: () => void;
+    handleTestSetForm: () => void;
 }
 
 const defaultTestSet = {
@@ -17,10 +27,7 @@ const defaultTestSet = {
     status: 'Approved',
 };
 
-const TestSetForm: React.FC<TestSetFormProps> = ({
-    refresh,
-    handleFormActive,
-}) => {
+const TestSetForm: React.FC<TestSetFormProps> = ({ handleTestSetForm }) => {
     const [testSet, setTestSet] = useState(defaultTestSet);
 
     const updateTestSet = (field: string, value: any) => {
@@ -43,35 +50,28 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
             return;
         }
         window.alert('success');
-        handleFormActive();
-        refresh();
+        handleTestSetForm();
     };
 
     return (
-        <form className="req-form-container" onSubmit={handleSubmit}>
-            <div className="req-form">
+        <form className="test-form-container" onSubmit={handleSubmit}>
+            <div className="test-form">
                 <div className="heading">
                     <h2>TestSet Details</h2>
                 </div>
-                <div className="req-item">
-                    <label className="req-label" htmlFor="ProjectId">
-                        Project Id
-                    </label>
-                    <input
-                        type="text"
+                <div className="test-item">
+                    <TextField
+                        label="Project Id"
                         value={testSet.projectId}
-                        placeholder="Project Id "
+                        placeholder="Project Id"
                         onChange={(e) =>
                             updateTestSet('projectId', e.target.value)
                         }
                     />
                 </div>
-                <div className="req-item">
-                    <label className="req-label" htmlFor="Requirement Id">
-                        ReuirementSet Id
-                    </label>
-                    <input
-                        type="text"
+                <div className="test-item">
+                    <TextField
+                        label="RequirementSet Id"
                         value={testSet.requirementSetId}
                         placeholder="RequirementSet Id"
                         onChange={(e) =>
@@ -79,12 +79,9 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
                         }
                     />
                 </div>
-                <div className="req-item">
-                    <label className="req-label" htmlFor="ReqId">
-                        TestSet Name
-                    </label>
-                    <input
-                        type="text"
+                <div className="test-item">
+                    <TextField
+                        label="TestSet Name"
                         value={testSet.testName}
                         placeholder="TestSet Name"
                         onChange={(e) =>
@@ -92,12 +89,9 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
                         }
                     />
                 </div>
-                <div className="req-item">
-                    <label className="req-label" htmlFor="Reqname">
-                        RequirementSet Name
-                    </label>
-                    <input
-                        type="text"
+                <div className="test-item">
+                    <TextField
+                        label="RequirementSet Name"
                         value={testSet.requirementSetName}
                         placeholder="RequirementSet Name"
                         onChange={(e) =>
@@ -105,68 +99,65 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
                         }
                     />
                 </div>
-                <div className="req-item">
-                    <label
-                        className="req-label"
-                        htmlFor="RequirementDescription"
-                    >
-                        Description
-                    </label>
-                    <textarea
+                <div className="test-item">
+                    <InputLabel>Description</InputLabel>
+                    <TextField
+                        multiline
                         rows={4}
-                        cols={34}
+                        value={testSet.description}
                         onChange={(e) =>
                             updateTestSet('description', e.target.value)
                         }
-                    >
-                        {testSet.description}
-                    </textarea>
+                    />
                 </div>
-                <div className="req-item">
-                    <label className="req-label" htmlFor="Reference Category">
-                        Category
-                    </label>
-                    <select
-                        id="req-dropdown"
-                        onChange={(e) =>
-                            updateTestSet('category', e.target.value)
-                        }
-                    >
-                        <option value="IQ">IQ</option>
-                        <option value="OQ">OQ</option>
-                        <option value="PQ">PQ</option>
-                        <option value="UAT">UAT</option>
-                        <option value="FAT">FAT</option>
-                        <option value="Integration Test">
-                            Integration Test
-                        </option>
-                        <option value="Unit Tests">Unit Tests</option>
-                        <option value="Smoke Test">Smoke Test</option>
-                    </select>
+                <div className="test-item">
+                    <FormControl>
+                        <FormLabel>Category</FormLabel>
+                        <Select
+                            value={testSet.category}
+                            onChange={(e) =>
+                                updateTestSet('category', e.target.value)
+                            }
+                        >
+                            <MenuItem value="IQ">IQ</MenuItem>
+                            <MenuItem value="OQ">OQ</MenuItem>
+                            <MenuItem value="PQ">PQ</MenuItem>
+                            <MenuItem value="UAT">UAT</MenuItem>
+                            <MenuItem value="FAT">FAT</MenuItem>
+                            <MenuItem value="Integration Test">
+                                Integration Test
+                            </MenuItem>
+                            <MenuItem value="Unit Tests">Unit Tests</MenuItem>
+                            <MenuItem value="Smoke Test">Smoke Test</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
-
-                <div className="req-item">
-                    <label className="req-label" htmlFor="Verification">
-                        Status
-                    </label>
-                    <select
-                        id="req-dropdown"
-                        onChange={(e) =>
-                            updateTestSet('status', e.target.value)
-                        }
-                    >
-                        <option value="Approved">Approved</option>
-                        <option value="Draft">Draft</option>
-                        <option value="In Review">In Review</option>
-                    </select>
+                <div className="test-item">
+                    <FormControl>
+                        <FormLabel>Status</FormLabel>
+                        <Select
+                            value={testSet.status}
+                            onChange={(e) =>
+                                updateTestSet('status', e.target.value)
+                            }
+                        >
+                            <MenuItem value="Approved">Approved</MenuItem>
+                            <MenuItem value="Draft">Draft</MenuItem>
+                            <MenuItem value="In Review">In Review</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
-                <div className="req-submit">
-                    <button type="reset" className="req-cancel">
+                <div className="test-submit">
+                    <Button
+                        variant="contained"
+                        color="error"
+                        onClick={handleTestSetForm}
+                    >
                         Cancel
-                    </button>
-                    <button type="submit" className="req-confirm">
+                    </Button>
+                    <Button type="submit" variant="contained" color="primary">
                         Confirm
-                    </button>
+                    </Button>
                 </div>
             </div>
         </form>
