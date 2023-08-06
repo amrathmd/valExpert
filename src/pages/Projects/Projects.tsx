@@ -1,78 +1,12 @@
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import { react_backend_url } from '../../config';
-// import { NavLink } from 'react-router-dom';
-// import './Projects.css';
-
-// const Projects = () => {
-//     const [projects, setProjects] = useState([]);
-//     const [menuVisible,setMenuVisible]=useState(false)
-
-//     const getProjects = async () => {
-//         const res = await axios.get(`${react_backend_url}/v1/projects`);
-//         console.log(res);
-//         setProjects(res.data);
-//     };
-//     const handleClick=()=>{
-//         setMenuVisible(!menuVisible)
-//     }
-//     useEffect(() => {
-//         getProjects();
-//     }, []);
-
-//     return (
-//         <div>
-//             <div className="project-title">
-//                 <b>valExpert</b>
-//             </div>
-//             <div className="project-tagline">
-//                 <p>Tag line of valExpert</p>
-//             </div>
-//             <div className="projects-header">
-//                 <p>Projects</p>
-//             </div>
-//             <section className="projects-section">
-//                 <div className="create-card">
-//                     <NavLink to="/createProject">
-//                         <div className="image-pic">
-//                             <img src={'../../../public/create.png'} alt="" />
-//                         </div>
-//                         <button className="createProject-btn">
-//                             Create New
-//                         </button>
-//                     </NavLink>
-//                 </div>
-//                 {projects.length !== 0 &&
-//                     projects.map((item) => (
-//                         <div className="projects-card" key={item._id} onClick={handleClick}>
-//                             <div className="image-pic"></div>
-//                             <div className="project-description">
-//                                 <b>{item.name}</b>
-//                                 {item.description}
-//                             </div>
-//                         </div>
-//                     ))}
-//                     {menuVisible &&
-//                     <div className='menu-handler'>
-//                         <p>Project Details</p>
-//                         <p>Manage Project</p>
-//                     </div>
-//                     }
-//             </section>
-//         </div>
-//     );
-// };
-
-// export default Projects;
-
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { react_backend_url } from '../../config';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Projects.css';
 import Button from '@mui/material/Button';
 import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import IconButton from '@mui/material/IconButton';
+import DashboardContext from '../../contexts/dashboardContext';
 
 const defaultProject = [
     { key: 'projectName', label: 'Project Name' },
@@ -96,12 +30,14 @@ const Projects = () => {
     const projectTableRef = useRef<HTMLDivElement>(null);
     const [selectedProject, setSelectedProject] = useState(null);
     const [isVisible, setIsVisible] = useState(true);
+    const { projectId, setProjectId } = React.useContext(DashboardContext);
 
     const getProjects = async () => {
         const res = await axios.get(`${react_backend_url}/v1/projects`);
         console.log(res);
         setProjects(res.data);
     };
+    const History = useNavigate();
 
     useEffect(() => {
         getProjects();
@@ -114,11 +50,13 @@ const Projects = () => {
         event.preventDefault();
         const x = event.clientX;
         const y = event.clientY;
+        setProjectId(id);
         setCursorCoordinates({ x, y });
         cursorCoordinatesRef.current = { x, y };
 
         const selectedProject = projects.find((item) => item._id === id);
         setSelectedProject(selectedProject);
+        console.log(selectedProject);
         setIsVisible(false);
         event.stopPropagation();
     };
@@ -151,6 +89,10 @@ const Projects = () => {
             document.removeEventListener('click', handleOutsideClick, true);
         };
     }, [selectedProject]);
+    const handleManageProject = (id: string) => {
+        setProjectId(id);
+        History('/dashboard');
+    };
 
     return (
         <div>
@@ -192,17 +134,7 @@ const Projects = () => {
                         </div>
                     ))}
             </section>
-            {/* {selectedProject && (
-          <div
-            className="menu-handler"
-            style={{ position: 'absolute',  }}
-          >
-            <div > 
-            <button type='button' onClick={handleManageProject}>Project Details</button>
-          </div>
-            <NavLink to='/dashboard'><div><button>Manage Project</button></div></NavLink>
-          </div>
-        )} */}
+
             {selectedProject && (
                 <div
                     className={`project-table-container ${
@@ -234,9 +166,14 @@ const Projects = () => {
                         </tbody>
                     </table>
                     <div className="project-table-button">
-                        <NavLink to="/dashboard">
-                            <Button variant="contained">Manage Project</Button>
-                        </NavLink>
+                        <Button
+                            variant="contained"
+                            onClick={() =>
+                                handleManageProject(selectedProject._id)
+                            }
+                        >
+                            Manage Project
+                        </Button>
                     </div>
                 </div>
             )}
