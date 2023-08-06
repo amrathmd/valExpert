@@ -12,9 +12,11 @@ import {
     TextField,
     TextareaAutosize,
 } from '@mui/material';
+import { react_backend_url } from '../../../config';
 
 interface TestSetFormProps {
     handleTestSetForm: () => void;
+    projectId: string;
 }
 
 const defaultTestSet = {
@@ -27,8 +29,12 @@ const defaultTestSet = {
     status: 'Approved',
 };
 
-const TestSetForm: React.FC<TestSetFormProps> = ({ handleTestSetForm }) => {
+const TestSetForm: React.FC<TestSetFormProps> = ({
+    handleTestSetForm,
+    projectId,
+}) => {
     const [testSet, setTestSet] = useState(defaultTestSet);
+    const [requirementSets, setRequirementSets] = useState([]);
 
     const updateTestSet = (field: string, value: any) => {
         setTestSet((prevTestSet) => {
@@ -38,8 +44,26 @@ const TestSetForm: React.FC<TestSetFormProps> = ({ handleTestSetForm }) => {
             };
         });
     };
+    React.useEffect(() => {
+        const FetchRequirementSets = async () => {
+            const result = await axios.get(
+                `${react_backend_url}/v1/requirementset/project/${projectId}`
+            );
+            setRequirementSets(result.data);
+        };
+        FetchRequirementSets();
+    }, []);
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        testSet.projectId = projectId;
+
+        const requiredReq = requirementSets.find(
+            (item) => item._id === testSet.requirementSetId
+        );
+
+        testSet.requirementSetName = requiredReq.name;
+
         console.log(testSet);
         const res = await axios.post('http://localhost:3000/v1/testsets', {
             testSet,
@@ -59,25 +83,29 @@ const TestSetForm: React.FC<TestSetFormProps> = ({ handleTestSetForm }) => {
                 <div className="heading">
                     <h2>TestSet Details</h2>
                 </div>
+
                 <div className="test-item">
-                    <TextField
-                        label="Project Id"
-                        value={testSet.projectId}
-                        placeholder="Project Id"
-                        onChange={(e) =>
-                            updateTestSet('projectId', e.target.value)
-                        }
-                    />
-                </div>
-                <div className="test-item">
-                    <TextField
-                        label="RequirementSet Id"
-                        value={testSet.requirementSetId}
-                        placeholder="RequirementSet Id"
-                        onChange={(e) =>
-                            updateTestSet('requirementSetId', e.target.value)
-                        }
-                    />
+                    <FormControl>
+                        <FormLabel>Requirement Set</FormLabel>
+                        <Select
+                            value={testSet.requirementSetId}
+                            onChange={(e) =>
+                                updateTestSet(
+                                    'requirementSetId',
+                                    e.target.value
+                                )
+                            }
+                        >
+                            {requirementSets.map((requirementSet) => (
+                                <MenuItem
+                                    value={requirementSet._id}
+                                    key={requirementSet._id}
+                                >
+                                    {requirementSet.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </div>
                 <div className="test-item">
                     <TextField
@@ -89,16 +117,7 @@ const TestSetForm: React.FC<TestSetFormProps> = ({ handleTestSetForm }) => {
                         }
                     />
                 </div>
-                <div className="test-item">
-                    <TextField
-                        label="RequirementSet Name"
-                        value={testSet.requirementSetName}
-                        placeholder="RequirementSet Name"
-                        onChange={(e) =>
-                            updateTestSet('requirementSetName', e.target.value)
-                        }
-                    />
-                </div>
+
                 <div className="test-item">
                     <InputLabel>Description</InputLabel>
                     <TextField

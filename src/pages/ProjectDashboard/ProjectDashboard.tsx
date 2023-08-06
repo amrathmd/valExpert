@@ -240,12 +240,13 @@ const ProjectDashboard = () => {
                 ))}
             </div>
             <div className="project-dashboard-content">
-                <Requirements
+                {/* <Requirements
                     selectedItem={selectedItem}
                     selectedRequirementSet={selectedRequirementSet}
                     RequirementSets={requirementSets}
+                    projectId={projectId}
                 />
-                <TestSets selectedItem={selectedItem} />
+                <TestSets selectedItem={selectedItem} />*/}
             </div>
         </div>
     );

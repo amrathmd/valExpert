@@ -25,9 +25,10 @@ const Dashboard = () => {
     const [openRequirementSet, setOpenRequirementSet] =
         useState<boolean>(false);
     const [openTestSets, setOpenTestSets] = useState<boolean>(false);
+    const [testSet, setTestSet] = useState([]);
     const [openTestSet, setOpenTestSet] = useState<boolean>(false);
     const [openTestCase, setOpentestCase] = useState<boolean>(false);
-    const [selectedList, setSelectedList] = useState(0);
+    const [selectedList, setSelectedList] = useState(1);
     const [selectedRequirementSet, setSelectedRequirementSet] = useState<
         string | null
     >(null);
@@ -86,16 +87,7 @@ const Dashboard = () => {
         }
         setSelectedTestCase(id);
     };
-    React.useEffect(() => {
-        const FetchRequirementSets = async () => {
-            const result = await axios.get(
-                `${react_backend_url}/v1/requirementset`
-            );
-            setRequirementSets(result.data);
-        };
-        FetchRequirementSets();
-        console.log(projectId);
-    }, []);
+
     const handleTestCaseClick = (id: string) => {
         console.log(id);
     };
@@ -108,6 +100,23 @@ const Dashboard = () => {
     const handleDefectSelectedClick = (id: string) => {
         setSelectedDefect(id);
     };
+    React.useEffect(() => {
+        const FetchRequirementSets = async () => {
+            const result = await axios.get(
+                `${react_backend_url}/v1/requirementset/project/${projectId}`
+            );
+            setRequirementSets(result.data);
+        };
+        FetchRequirementSets();
+    }, [requirementSetForm]);
+    React.useEffect(() => {
+        const FetchTestSets = async () => {
+            const result = await axios.get(
+                `${react_backend_url}/testsets/project/${projectId}`
+            );
+            setTestSet(result.data);
+        };
+    });
     const testSets = [
         {
             _id: '1',
@@ -363,6 +372,19 @@ const Dashboard = () => {
                                 </>
                             ))}
                         </List>
+                        <ListItemButton
+                            sx={{ pl: 3 }}
+                            onClick={handleTestSetForm}
+                        >
+                            <Typography
+                                variant="caption"
+                                display="block"
+                                gutterBottom
+                            >
+                                <Add />
+                                Create Test set
+                            </Typography>
+                        </ListItemButton>
                     </Collapse>
                     <ListItemButton onClick={handleDefectClick}>
                         <ListItemText primary="Defects" />
@@ -396,21 +418,26 @@ const Dashboard = () => {
                     selectedItem={selectedList}
                     selectedRequirementSet={selectedRequirementSet}
                     RequirementSets={requirementSets}
+                    projectId={projectId}
                 />
-                <TestSets selectedItem={selectedList} />
+                <TestSets selectedItem={selectedList} projectId={projectId} />
             </div>
             {requirementSetForm && (
                 <div className="blur-background">
                     <div className="requirementsetform">
                         <RequirementSetForm
                             handleRequirementSet={handleRequirementSet}
+                            projectId={projectId}
                         />
                     </div>
                 </div>
             )}
             {testSetForm && (
                 <div>
-                    <TestSetForm handleTestSetForm={handleTestSetForm} />
+                    <TestSetForm
+                        handleTestSetForm={handleTestSetForm}
+                        projectId={projectId}
+                    />
                 </div>
             )}
         </div>

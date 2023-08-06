@@ -12,14 +12,14 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 interface Props {
     selectedItem: number;
     selectedRequirementSet: any;
-
+    projectId: string;
     RequirementSets: any;
 }
 
 const Requirements: React.FC<Props> = ({
     selectedItem,
     selectedRequirementSet,
-
+    projectId,
     RequirementSets,
 }) => {
     const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
@@ -37,10 +37,9 @@ const Requirements: React.FC<Props> = ({
     React.useEffect(() => {
         const FetchRequirementSets = async () => {
             const result = await axios.get(
-                `${react_backend_url}/v1/requirementset`
+                `${react_backend_url}/v1/requirementset/project/${projectId}`
             );
             setRequirementSets(result.data);
-            console.log(result.data);
         };
         FetchRequirementSets();
     }, []);
@@ -102,6 +101,7 @@ const Requirements: React.FC<Props> = ({
                     <div className="requirementsetform">
                         <RequirementSetForm
                             handleRequirementSet={handleRequirementSet}
+                            projectId={projectId}
                         />
                     </div>
                 </div>

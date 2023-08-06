@@ -9,12 +9,16 @@ interface RequirementSet {
 }
 const initialSet: RequirementSet = {
     name: '',
-    projectId: '64bb88ddeef4680b930b0339',
+    projectId: '',
 };
 interface Props {
     handleRequirementSet: () => void;
+    projectId: string;
 }
-const RequirementSetForm: React.FC<Props> = ({ handleRequirementSet }) => {
+const RequirementSetForm: React.FC<Props> = ({
+    handleRequirementSet,
+    projectId,
+}) => {
     const [requirementSet, setRequirementset] = useState(initialSet);
     const [success, setSuccess] = useState<boolean>(false);
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +33,7 @@ const RequirementSetForm: React.FC<Props> = ({ handleRequirementSet }) => {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         try {
+            requirementSet.projectId = projectId;
             const response = await axios.post(
                 `${react_backend_url}/v1/requirementset`,
                 requirementSet
