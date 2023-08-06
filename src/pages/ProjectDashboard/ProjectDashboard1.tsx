@@ -23,6 +23,7 @@ import { project } from 'esri/geometry/projection';
 const Dashboard = () => {
     const [openRequirementSet, setOpenRequirementSet] =
         useState<boolean>(false);
+    const [openTestSets, setOpenTestSets] = useState<boolean>(false);
     const [openTestSet, setOpenTestSet] = useState<boolean>(false);
     const [openTestCase, setOpentestCase] = useState<boolean>(false);
     const [selectedList, setSelectedList] = useState(0);
@@ -41,6 +42,8 @@ const Dashboard = () => {
     const [selectedTestScript, setSelectedTestScript] = useState<string | null>(
         null
     );
+    const [openDefects, setOpenDefects] = useState<boolean>(false);
+    const [selectedDefect, setSelectedDefect] = useState(null);
     const handleRequirementSet = () => {
         setRequirementSetForm(!requirementSetForm);
     };
@@ -54,17 +57,31 @@ const Dashboard = () => {
     const handleRequirementSetClick = (reqSetId: any) => {
         setSelectedRequirementSet(reqSetId);
     };
-    const handleTestSetClick = () => {
-        setOpenTestSet(!openTestSet);
+    const handleTestsSetClick = () => {
+        setOpenTestSets(!openTestSets);
+        setOpenTestSet(false);
+        setOpentestCase(false);
         setSelectedList(2);
     };
+
     const handleTestSetSelectedClick = (id: string) => {
+        if (selectedTestSet === id && openTestSet === true) {
+            setOpenTestSet(false);
+        } else {
+            setOpenTestSet(true);
+        }
         setSelectedTestSet(id);
+        setOpentestCase(false);
     };
     const handleTestSetForm = () => {
         setTestSetForm(true);
     };
     const handleTestCaseSelectedClick = (id: string) => {
+        if (SelectedTestCase === id && openTestCase === true) {
+            setOpentestCase(false);
+        } else {
+            setOpentestCase(true);
+        }
         setSelectedTestCase(id);
     };
     React.useEffect(() => {
@@ -82,6 +99,12 @@ const Dashboard = () => {
     };
     const handleTestScriptSelectedClick = (id: string) => {
         setSelectedTestScript(id);
+    };
+    const handleDefectClick = () => {
+        setOpenDefects(!openDefects);
+    };
+    const handleDefectSelectedClick = (id: string) => {
+        setSelectedDefect(id);
     };
     console.log(projectId);
     const testSets = [
@@ -130,6 +153,16 @@ const Dashboard = () => {
             ],
         },
         // Add more test sets as needed
+    ];
+    const Defects = [
+        {
+            _id: '1001',
+            defectName: 'hello',
+        },
+        {
+            _id: '1002',
+            defectName: 'world',
+        },
     ];
     return (
         <div className="projectdashboard">
@@ -202,11 +235,11 @@ const Dashboard = () => {
                         </List>
                     </Collapse>
 
-                    <ListItemButton onClick={handleTestSetClick}>
+                    <ListItemButton onClick={handleTestsSetClick}>
                         <ListItemText primary="Test sets" />
-                        {openTestSet ? <ExpandLess /> : <ExpandMore />}
+                        {openTestSets ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
-                    <Collapse in={openTestSet} timeout="auto" unmountOnExit>
+                    <Collapse in={openTestSets} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                             {testSets.map((testset) => (
                                 <>
@@ -252,7 +285,7 @@ const Dashboard = () => {
                                                         <ListItemButton
                                                             key={testcase._id}
                                                             sx={{
-                                                                pl: 4,
+                                                                pl: 6,
                                                                 backgroundColor:
                                                                     SelectedTestCase ===
                                                                     testcase._id
@@ -269,7 +302,7 @@ const Dashboard = () => {
                                                                 <ListItemText
                                                                     secondary={`${testcase.name}`}
                                                                 />
-                                                                {openTestSet &&
+                                                                {openTestCase &&
                                                                 testcase._id ===
                                                                     SelectedTestCase ? (
                                                                     <ExpandLess />
@@ -280,7 +313,7 @@ const Dashboard = () => {
                                                         </ListItemButton>
                                                         <Collapse
                                                             in={
-                                                                openTestSet &&
+                                                                openTestCase &&
                                                                 testcase._id ===
                                                                     SelectedTestCase
                                                             }
@@ -296,7 +329,7 @@ const Dashboard = () => {
                                                                             testScript._id
                                                                         }
                                                                         sx={{
-                                                                            pl: 4,
+                                                                            pl: 10,
                                                                             backgroundColor:
                                                                                 selectedTestScript ===
                                                                                 testScript._id
@@ -329,6 +362,31 @@ const Dashboard = () => {
                                 </>
                             ))}
                         </List>
+                    </Collapse>
+                    <ListItemButton onClick={handleDefectClick}>
+                        <ListItemText primary="Defects" />
+                        {openDefects ? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
+                    <Collapse in={openDefects} timeout="auto" unmountOnExit>
+                        {Defects.map((defect) => (
+                            <ListItemButton
+                                key={defect._id}
+                                sx={{
+                                    pl: 4,
+                                    backgroundColor:
+                                        selectedDefect === defect._id
+                                            ? 'rgba(0, 0, 0, 0.1)'
+                                            : 'transparent',
+                                }}
+                                onClick={() =>
+                                    handleDefectSelectedClick(defect._id)
+                                }
+                            >
+                                <Typography variant="subtitle2" gutterBottom>
+                                    {defect.defectName}
+                                </Typography>
+                            </ListItemButton>
+                        ))}
                     </Collapse>
                 </List>
             </div>
