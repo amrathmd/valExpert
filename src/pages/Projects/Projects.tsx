@@ -91,7 +91,7 @@ const Projects = () => {
     }, [selectedProject]);
     const handleManageProject = (id: string) => {
         setProjectId(id);
-        History('/dashboard');
+        History(`/dashboard/${projectId}`);
     };
 
     return (

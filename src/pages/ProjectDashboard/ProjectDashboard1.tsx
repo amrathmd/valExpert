@@ -18,6 +18,7 @@ import axios from 'axios';
 import { react_backend_url } from '../../config';
 import TestSetForm from './TestSet/TestSetForm';
 import DashboardContext from '../../contexts/dashboardContext';
+import { useParams } from 'react-router-dom';
 import { project } from 'esri/geometry/projection';
 
 const Dashboard = () => {
@@ -47,9 +48,10 @@ const Dashboard = () => {
     const handleRequirementSet = () => {
         setRequirementSetForm(!requirementSetForm);
     };
-    const { projectId } = React.useContext(DashboardContext);
+    //const { projectId } = React.useContext(DashboardContext);
     // const [testSets, setTestSets] = useState([]);
 
+    const { id: projectId } = useParams();
     const handleClick = () => {
         setOpenRequirementSet(!openRequirementSet);
         setSelectedList(1);
@@ -90,9 +92,9 @@ const Dashboard = () => {
                 `${react_backend_url}/v1/requirementset`
             );
             setRequirementSets(result.data);
-            console.log(result.data);
         };
         FetchRequirementSets();
+        console.log(projectId);
     }, []);
     const handleTestCaseClick = (id: string) => {
         console.log(id);
@@ -106,7 +108,6 @@ const Dashboard = () => {
     const handleDefectSelectedClick = (id: string) => {
         setSelectedDefect(id);
     };
-    console.log(projectId);
     const testSets = [
         {
             _id: '1',

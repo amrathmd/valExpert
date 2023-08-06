@@ -66,7 +66,7 @@ const Homepage = () => {
                                     ></Route>
                                 </Route>
                                 <Route
-                                    path="/dashboard"
+                                    path="/dashboard/:id"
                                     element={<Dashboard />}
                                 ></Route>
                                 <Route
