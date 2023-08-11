@@ -37,6 +37,7 @@ import {
 import { countries } from 'countries-list';
 import { OnChangeValue } from 'react-select';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
+import { react_backend_url } from '../../config';
 
 const defaultUser = {
     fullname: '',
@@ -143,7 +144,7 @@ const UserForm = () => {
         } else {
             try {
                 const res = await axios.post(
-                    'http://localhost:3000/v1/adminusers',
+                    `${react_backend_url}/v1/adminusers`,
                     user
                 );
                 if (res.data) {

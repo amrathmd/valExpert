@@ -94,7 +94,7 @@ const ProjectForm = () => {
         event.preventDefault();
         console.log(project);
         const res = await axios.post(
-            `http://${react_backend_url}/v1/projects`,
+            `${react_backend_url}/v1/projects`,
             project
         );
         if (!res) {
