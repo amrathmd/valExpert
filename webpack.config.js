@@ -75,6 +75,9 @@ module.exports = (env, options) => {
         devServer: {
             historyApiFallback: true,
         },
+        externals: {
+            config: JSON.stringify({ apiUrl: '/v1' }),
+        },
         plugins: [
             // need to use ForkTsCheckerWebpackPlugin because Babel loader ignores the compilation errors for Typescript
             new ForkTsCheckerWebpackPlugin(),
@@ -86,11 +89,6 @@ module.exports = (env, options) => {
                 chunkFilename: devMode
                     ? '[name].css'
                     : '[name].[contenthash].css',
-            }),
-            new webpack.DefinePlugin({
-                'process.env.REACT_APP_API_URL': JSON.stringify(
-                    process.env.REACT_APP_API_URL || '/v1'
-                ),
             }),
             // copy static files from public folder to build directory
             new CopyPlugin({
