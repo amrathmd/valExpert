@@ -20,6 +20,7 @@ import TestSetForm from './TestSet/TestSetForm';
 import DashboardContext from '../../contexts/dashboardContext';
 import { useParams } from 'react-router-dom';
 import { project } from 'esri/geometry/projection';
+import StickyHeader from '../StickyHeader';
 
 const Dashboard = () => {
     const [openRequirementSet, setOpenRequirementSet] =
@@ -176,6 +177,7 @@ const Dashboard = () => {
     ];
     return (
         <div className="projectdashboard">
+            <StickyHeader />
             <div className="dashboard-sidebar">
                 <List
                     sx={{

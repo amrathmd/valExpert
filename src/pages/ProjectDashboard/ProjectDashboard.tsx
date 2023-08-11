@@ -5,6 +5,7 @@ import TestSets from './TestSet/TestSetDetails';
 import axios from 'axios';
 import { TestSet } from '@/components/Models/testsetsModel';
 import { TestCase } from '@/components/Models/testCasesmodel';
+import StickyHeader from '../StickyHeader';
 
 interface RequirementSet {
     _id: string;
@@ -129,6 +130,7 @@ const ProjectDashboard = () => {
 
     return (
         <div className="project-dashboard">
+            <StickyHeader />
             <div className="project-dashboard-sidebar">
                 {browseItems.map((items) => (
                     <ul key={items.id}>
