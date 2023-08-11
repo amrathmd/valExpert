@@ -91,36 +91,57 @@ const ProjectForm = () => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log(project);
-        const res = await axios.post(
-            'http://localhost:3000/v1/projects',
-            project
-        );
-        if (!res) {
-            console.log(res);
-            window.alert('error');
-            return;
-        }
-        window.alert('success');
-        navigate('/');
-
-        /*const { error } = Joi.validate(user, schema);
-        if (error) {
-            setvalidationError(error.details[0].message);
-            alert(error.details[0].message);
-            return;
-        } else {
+        try {
+            console.log(project);
             const res = await axios.post(
-                'http://localhost:3000/v1/adminusers',
-                user
+                'http://localhost:3000/v1/projects',
+                project
             );
             if (!res) {
                 console.log(res);
                 window.alert('error');
                 return;
             }
-            window.alert('success');*/
+            window.alert('success');
+            navigate('/');
+        } catch (error) {
+            console.error('Error creating project:', error);
+            window.alert('An error occurred while creating the project.');
+        }
     };
+
+    // const handleSubmit = async (event: any) => {
+    //     event.preventDefault();
+    //     console.log(project);
+    //     const res = await axios.post(
+    //         'http://localhost:3000/v1/projects',
+    //         project
+    //     );
+    //     if (!res) {
+    //         console.log(res);
+    //         window.alert('error');
+    //         return;
+    //     }
+    //     window.alert('success');
+    //     navigate('/');
+
+    //     /*const { error } = Joi.validate(user, schema);
+    //     if (error) {
+    //         setvalidationError(error.details[0].message);
+    //         alert(error.details[0].message);
+    //         return;
+    //     } else {
+    //         const res = await axios.post(
+    //             'http://localhost:3000/v1/adminusers',
+    //             user
+    //         );
+    //         if (!res) {
+    //             console.log(res);
+    //             window.alert('error');
+    //             return;
+    //         }
+    //         window.alert('success');*/
+    // };
 
     const handleChange = (event: SelectChangeEvent<typeof group>) => {
         const { name, value } = event.target;

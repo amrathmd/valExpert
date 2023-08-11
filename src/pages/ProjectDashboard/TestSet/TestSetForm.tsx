@@ -56,7 +56,7 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        testSet.projectId = projectId;
+        //testSet.projectId = projectId;
 
         const requiredReq = requirementSets.find(
             (item) => item._id === testSet.requirementSetId

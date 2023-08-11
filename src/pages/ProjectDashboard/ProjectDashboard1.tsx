@@ -117,6 +117,7 @@ const Dashboard = () => {
             );
             setTestSet(result.data);
         };
+        FetchTestSets();
     });
     const testSets = [
         {
