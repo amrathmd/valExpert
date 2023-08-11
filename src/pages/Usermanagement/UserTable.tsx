@@ -75,7 +75,7 @@ const UserTable: React.FC<TableProps> = (props) => {
     const handleViewUser = async (userid: string) => {
         try {
             const response = await axios.get(
-                `http://localhost:3000/v1/adminUsers/${userid}`
+                `http://${react_backend_url}/v1/adminUsers/${userid}`
             );
             const userDetailsData = response.data;
             setUserDetails(userDetailsData.user);

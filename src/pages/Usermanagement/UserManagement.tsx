@@ -4,14 +4,17 @@ import UserForm from './UserForm';
 import { NavLink } from 'react-router-dom';
 import UserTable from './UserTable';
 import './UserTable.css';
-import StickyHeader from '../StickyHeader';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
+import { react_backend_url } from '../../config';
 
 const UserManagement = () => {
     const [users, setUsers] = React.useState([]);
     const [userPrompt, setUserPrompt] = React.useState<boolean>();
     const getUsers = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/v1/adminusers');
+            const res = await axios.get(
+                `http://${react_backend_url}/v1/adminusers`
+            );
             setUsers(res.data.allUsers);
             console.log(res.data.allUsers);
         } catch (error) {
@@ -30,46 +33,50 @@ const UserManagement = () => {
 
     return (
         <div>
-            {userPrompt ? ( // Display the welcome message if there are no users
-                <div className="message">
-                    <div>
-                        <p className="para">Welcome to our platform!</p>
-                        <ul className="dot-list">
-                            <li>
-                                You have the power to add users from your
-                                company enabling
-                                <br /> effective collaboration Enhanced Project
-                                Management,Customized User Permissions.
-                            </li>
-                            <li>
-                                We believe that by adding users from your
-                                company,
-                                <br />
-                                you'll unlock the full potential of our platform
-                                .
-                            </li>
-                        </ul>
-                        <i className="fa fa-start-o" aria-hidden="true"></i>
-                    </div>
-                    <NavLink to="/manageaccounts/creatnewuser">
-                        <span className="create-button">Add Users</span>
-                    </NavLink>
-                </div>
-            ) : (
-                // If there are users, display the table
-                <div>
-                    <StickyHeader />
-                    <div className="table-container">
-                        <UserTable users={users} />{' '}
-                        {/* Pass the users array to the UserTable component */}
-                    </div>
-                    <div className="add-users-button-container">
+            <StickyHeader />
+            <div>
+                {userPrompt ? ( // Display the welcome message if there are no users
+                    <div className="message">
+                        <div>
+                            <p className="para">Welcome to our platform!</p>
+                            <ul className="dot-list">
+                                <li>
+                                    You have the power to add users from your
+                                    company enabling
+                                    <br /> effective collaboration Enhanced
+                                    Project Management,Customized User
+                                    Permissions.
+                                </li>
+                                <li>
+                                    We believe that by adding users from your
+                                    company,
+                                    <br />
+                                    you'll unlock the full potential of our
+                                    platform .
+                                </li>
+                            </ul>
+                            <i className="fa fa-start-o" aria-hidden="true"></i>
+                        </div>
                         <NavLink to="/manageaccounts/creatnewuser">
                             <span className="create-button">Add Users</span>
                         </NavLink>
                     </div>
-                </div>
-            )}
+                ) : (
+                    // If there are users, display the table
+                    <div>
+                        <StickyHeader />
+                        <div className="table-container">
+                            <UserTable users={users} />{' '}
+                            {/* Pass the users array to the UserTable component */}
+                        </div>
+                        <div className="add-users-button-container">
+                            <NavLink to="/manageaccounts/creatnewuser">
+                                <span className="create-button">Add Users</span>
+                            </NavLink>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

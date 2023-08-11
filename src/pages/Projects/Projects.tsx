@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import IconButton from '@mui/material/IconButton';
 import DashboardContext from '../../contexts/dashboardContext';
-import StickyHeader from '../StickyHeader';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
 const defaultProject = [
     { key: 'projectName', label: 'Project Name' },

@@ -20,7 +20,7 @@ import TestSetForm from './TestSet/TestSetForm';
 import DashboardContext from '../../contexts/dashboardContext';
 import { useParams } from 'react-router-dom';
 import { project } from 'esri/geometry/projection';
-import StickyHeader from '../StickyHeader';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
 const Dashboard = () => {
     const [openRequirementSet, setOpenRequirementSet] =

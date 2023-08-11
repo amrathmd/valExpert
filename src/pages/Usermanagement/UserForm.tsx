@@ -36,7 +36,7 @@ import {
 } from '@mui/icons-material';
 import { countries } from 'countries-list';
 import { OnChangeValue } from 'react-select';
-import StickyHeader from '../StickyHeader';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
 const defaultUser = {
     fullname: '',
