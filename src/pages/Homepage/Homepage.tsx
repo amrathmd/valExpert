@@ -23,6 +23,7 @@ import UserManagement from '../Usermanagement/UserManagement';
 import UserForm from '../Usermanagement/UserForm';
 import Form from '../Browse/projectForm';
 import ProjectForm from '../Projects/projectForm';
+import UserDetails from '../Usermanagement/userDetails';
 
 const Homepage = () => {
     const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
@@ -80,6 +81,10 @@ const Homepage = () => {
                                 <Route
                                     path="/createProject"
                                     element={<ProjectForm />}
+                                ></Route>
+                                <Route
+                                    path="/manageaccounts/user/:id"
+                                    element={<UserDetails />}
                                 ></Route>
                             </Routes>
                         </div>

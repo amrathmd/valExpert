@@ -457,9 +457,13 @@ const UserForm = () => {
                     >
                         Create User!
                     </button>
-                    <IconButton onClick={handleBack}>
-                        <ArrowBackIcon />
-                    </IconButton>
+                    <button
+                        className="form-button"
+                        type="submit"
+                        onClick={handleBack}
+                    >
+                        Back
+                    </button>
                 </div>
             </form>
             {showSuccess && (
