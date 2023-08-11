@@ -36,6 +36,7 @@ import {
 } from '@mui/icons-material';
 import { countries } from 'countries-list';
 import { OnChangeValue } from 'react-select';
+import StickyHeader from '../StickyHeader';
 
 const defaultUser = {
     fullname: '',
@@ -186,297 +187,304 @@ const UserForm = () => {
         }));
     };
     return (
-        <div className="userformPage">
-            <div className="title">Create users</div>
+        <>
+            <StickyHeader />
+            <div className="userformPage">
+                <div className="title">Create users</div>
 
-            <form onSubmit={handleSubmit}>
-                <div className="form-container">
-                    <div className="userForm">
-                        <div className="formleft">
-                            <TextField
-                                label="FullName"
-                                fullWidth
-                                variant="outlined"
-                                name="fullname"
-                                className="formfeild"
-                                size="small"
-                                required
-                                error={!!error.fullname}
-                                helperText={error.fullname}
-                                sx={{ marginBottom: 3 }}
-                                value={user.fullname}
-                                onChange={handleTextChange}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <AccountBox />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            <TextField
-                                label="UserName"
-                                fullWidth
-                                variant="outlined"
-                                name="username"
-                                className="formfeild"
-                                size="small"
-                                error={!!error.username}
-                                helperText={error.username}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <AccountCircle />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                required
-                                value={user.username}
-                                onChange={handleTextChange}
-                                sx={{ marginBottom: 3 }}
-                            />
-                            <TextField
-                                label="Email"
-                                fullWidth
-                                variant="outlined"
-                                name="email"
-                                className="formfeild"
-                                size="small"
-                                required
-                                value={user.email}
-                                onChange={handleTextChange}
-                                error={!!error.email}
-                                helperText={error.email}
-                                sx={{ marginBottom: 3 }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Email />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            <FormControl
-                                sx={{ marginBottom: 3 }}
-                                variant="outlined"
-                                size="small"
-                                className="formfeild"
-                                required
-                            >
-                                <InputLabel htmlFor="outlined-adornment-password">
-                                    Password
-                                </InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    name="password"
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={
-                                                    handleClickShowPassword
-                                                }
-                                                onMouseDown={
-                                                    handleMouseDownPassword
-                                                }
-                                                edge="end"
-                                            >
-                                                {showPassword ? (
-                                                    <VisibilityOff />
-                                                ) : (
-                                                    <Visibility />
-                                                )}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    startAdornment={
-                                        <InputAdornment position="start">
-                                            <Key />
-                                        </InputAdornment>
-                                    }
-                                    label="Password"
-                                    value={user.password}
+                <form onSubmit={handleSubmit}>
+                    <div className="form-container">
+                        <div className="userForm">
+                            <div className="formleft">
+                                <TextField
+                                    label="FullName"
+                                    fullWidth
+                                    variant="outlined"
+                                    name="fullname"
+                                    className="formfeild"
+                                    size="small"
+                                    required
+                                    error={!!error.fullname}
+                                    helperText={error.fullname}
+                                    sx={{ marginBottom: 3 }}
+                                    value={user.fullname}
                                     onChange={handleTextChange}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountBox />
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
-                                {error.password && (
-                                    <FormHelperText sx={{ color: '#f44336' }}>
-                                        {error.password}
-                                    </FormHelperText>
-                                )}
-                            </FormControl>
-                            <TextField
-                                select
-                                label="Country"
-                                variant="outlined"
-                                fullWidth
-                                name="country"
-                                value={selectedCountry}
-                                onChange={handleCountryChange}
-                                size="small"
-                                className="formfeild"
-                                sx={{ marginBottom: 3 }}
-                            >
-                                {countryOptions.map((option) => (
-                                    <MenuItem
-                                        key={option.code}
-                                        value={option.code}
-                                    >
-                                        {option.name}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                        </div>
-                        <div className="formright">
-                            <TextField
-                                label="Mobile"
-                                fullWidth
-                                variant="outlined"
-                                name="mobile"
-                                className="formfeild"
-                                size="small"
-                                value={user.mobile}
-                                onChange={handleTextChange}
-                                required
-                                sx={{ marginBottom: 3 }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Phone />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                error={!!error.mobile}
-                                helperText={error.mobile}
-                            />
-                            <TextField
-                                label="Office Phone"
-                                fullWidth
-                                variant="outlined"
-                                name="office"
-                                className="formfeild"
-                                value={user.office}
-                                onChange={handleTextChange}
-                                size="small"
-                                required
-                                sx={{ marginBottom: 3 }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Phone />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            <FormControl
-                                sx={{ marginBottom: 3 }}
-                                className="formfeild"
-                                required
-                            >
-                                <InputLabel
-                                    id="demo-multiple-name-label"
+                                <TextField
+                                    label="UserName"
+                                    fullWidth
+                                    variant="outlined"
+                                    name="username"
+                                    className="formfeild"
                                     size="small"
-                                >
-                                    Group
-                                </InputLabel>
-                                <Select
-                                    label="Group"
-                                    labelId="demo-multiple-name-label"
-                                    id="demo-multiple-name"
-                                    name="group"
-                                    multiple
-                                    value={group}
-                                    onChange={handleChange}
-                                    input={<OutlinedInput label="Group" />}
-                                    MenuProps={MenuProps}
+                                    error={!!error.username}
+                                    helperText={error.username}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    required
+                                    value={user.username}
+                                    onChange={handleTextChange}
+                                    sx={{ marginBottom: 3 }}
+                                />
+                                <TextField
+                                    label="Email"
+                                    fullWidth
+                                    variant="outlined"
+                                    name="email"
+                                    className="formfeild"
                                     size="small"
+                                    required
+                                    value={user.email}
+                                    onChange={handleTextChange}
+                                    error={!!error.email}
+                                    helperText={error.email}
+                                    sx={{ marginBottom: 3 }}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <Email />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                                <FormControl
+                                    sx={{ marginBottom: 3 }}
+                                    variant="outlined"
+                                    size="small"
+                                    className="formfeild"
+                                    required
                                 >
-                                    {names.map((name) => (
-                                        <MenuItem
-                                            key={name}
-                                            value={name}
-                                            style={getStyles(
-                                                name,
-                                                group,
-                                                theme
-                                            )}
+                                    <InputLabel htmlFor="outlined-adornment-password">
+                                        Password
+                                    </InputLabel>
+                                    <OutlinedInput
+                                        id="outlined-adornment-password"
+                                        type={
+                                            showPassword ? 'text' : 'password'
+                                        }
+                                        name="password"
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={
+                                                        handleClickShowPassword
+                                                    }
+                                                    onMouseDown={
+                                                        handleMouseDownPassword
+                                                    }
+                                                    edge="end"
+                                                >
+                                                    {showPassword ? (
+                                                        <VisibilityOff />
+                                                    ) : (
+                                                        <Visibility />
+                                                    )}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                        startAdornment={
+                                            <InputAdornment position="start">
+                                                <Key />
+                                            </InputAdornment>
+                                        }
+                                        label="Password"
+                                        value={user.password}
+                                        onChange={handleTextChange}
+                                    />
+                                    {error.password && (
+                                        <FormHelperText
+                                            sx={{ color: '#f44336' }}
                                         >
-                                            {name}
+                                            {error.password}
+                                        </FormHelperText>
+                                    )}
+                                </FormControl>
+                                <TextField
+                                    select
+                                    label="Country"
+                                    variant="outlined"
+                                    fullWidth
+                                    name="country"
+                                    value={selectedCountry}
+                                    onChange={handleCountryChange}
+                                    size="small"
+                                    className="formfeild"
+                                    sx={{ marginBottom: 3 }}
+                                >
+                                    {countryOptions.map((option) => (
+                                        <MenuItem
+                                            key={option.code}
+                                            value={option.code}
+                                        >
+                                            {option.name}
                                         </MenuItem>
                                     ))}
-                                </Select>
-                            </FormControl>
-                            <TextField
-                                label="Department"
-                                fullWidth
-                                variant="outlined"
-                                name="department"
-                                className="formfeild"
-                                size="small"
-                                value={user.department}
-                                onChange={handleTextChange}
-                                sx={{ marginBottom: 3 }}
-                            />
-                            <div className="select-group">
-                                <div>
-                                    <FormLabel id="demo-row-radio-buttons-group-label">
-                                        Status
-                                    </FormLabel>
-                                </div>
-                                <div>
-                                    <RadioGroup
-                                        sx={{ marginBottom: 3 }}
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        value={selectedStatus}
-                                        onChange={handleStatusChange}
+                                </TextField>
+                            </div>
+                            <div className="formright">
+                                <TextField
+                                    label="Mobile"
+                                    fullWidth
+                                    variant="outlined"
+                                    name="mobile"
+                                    className="formfeild"
+                                    size="small"
+                                    value={user.mobile}
+                                    onChange={handleTextChange}
+                                    required
+                                    sx={{ marginBottom: 3 }}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <Phone />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    error={!!error.mobile}
+                                    helperText={error.mobile}
+                                />
+                                <TextField
+                                    label="Office Phone"
+                                    fullWidth
+                                    variant="outlined"
+                                    name="office"
+                                    className="formfeild"
+                                    value={user.office}
+                                    onChange={handleTextChange}
+                                    size="small"
+                                    required
+                                    sx={{ marginBottom: 3 }}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <Phone />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                                <FormControl
+                                    sx={{ marginBottom: 3 }}
+                                    className="formfeild"
+                                    required
+                                >
+                                    <InputLabel
+                                        id="demo-multiple-name-label"
+                                        size="small"
                                     >
-                                        <FormControlLabel
-                                            value="Active"
-                                            control={<Radio />}
-                                            label="Active"
-                                        />
-                                        <FormControlLabel
-                                            value="Inactive"
-                                            control={<Radio />}
-                                            label="inactive"
-                                        />
-                                    </RadioGroup>
+                                        Group
+                                    </InputLabel>
+                                    <Select
+                                        label="Group"
+                                        labelId="demo-multiple-name-label"
+                                        id="demo-multiple-name"
+                                        name="group"
+                                        multiple
+                                        value={group}
+                                        onChange={handleChange}
+                                        input={<OutlinedInput label="Group" />}
+                                        MenuProps={MenuProps}
+                                        size="small"
+                                    >
+                                        {names.map((name) => (
+                                            <MenuItem
+                                                key={name}
+                                                value={name}
+                                                style={getStyles(
+                                                    name,
+                                                    group,
+                                                    theme
+                                                )}
+                                            >
+                                                {name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                <TextField
+                                    label="Department"
+                                    fullWidth
+                                    variant="outlined"
+                                    name="department"
+                                    className="formfeild"
+                                    size="small"
+                                    value={user.department}
+                                    onChange={handleTextChange}
+                                    sx={{ marginBottom: 3 }}
+                                />
+                                <div className="select-group">
+                                    <div>
+                                        <FormLabel id="demo-row-radio-buttons-group-label">
+                                            Status
+                                        </FormLabel>
+                                    </div>
+                                    <div>
+                                        <RadioGroup
+                                            sx={{ marginBottom: 3 }}
+                                            row
+                                            aria-labelledby="demo-row-radio-buttons-group-label"
+                                            name="row-radio-buttons-group"
+                                            value={selectedStatus}
+                                            onChange={handleStatusChange}
+                                        >
+                                            <FormControlLabel
+                                                value="Active"
+                                                control={<Radio />}
+                                                label="Active"
+                                            />
+                                            <FormControlLabel
+                                                value="Inactive"
+                                                control={<Radio />}
+                                                label="inactive"
+                                            />
+                                        </RadioGroup>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="userFormButton">
-                    <button
-                        className="form-button"
-                        type="submit"
-                        onClick={handleSubmit}
+                    <div className="userFormButton">
+                        <button
+                            className="form-button"
+                            type="submit"
+                            onClick={handleSubmit}
+                        >
+                            Create User!
+                        </button>
+                        <IconButton onClick={handleBack}>
+                            <ArrowBackIcon />
+                        </IconButton>
+                    </div>
+                </form>
+                {showSuccess && (
+                    <Alert
+                        severity="success"
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 9999,
+                        }}
                     >
-                        Create User!
-                    </button>
-                    <IconButton onClick={handleBack}>
-                        <ArrowBackIcon />
-                    </IconButton>
-                </div>
-            </form>
-            {showSuccess && (
-                <Alert
-                    severity="success"
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        zIndex: 9999,
-                    }}
-                >
-                    User created successfully!
-                </Alert>
-            )}
-        </div>
+                        User created successfully!
+                    </Alert>
+                )}
+            </div>
+        </>
     );
 };
 

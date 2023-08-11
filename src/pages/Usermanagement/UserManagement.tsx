@@ -4,6 +4,7 @@ import UserForm from './UserForm';
 import { NavLink } from 'react-router-dom';
 import UserTable from './UserTable';
 import './UserTable.css';
+import StickyHeader from '../StickyHeader';
 
 const UserManagement = () => {
     const [users, setUsers] = React.useState([]);
@@ -57,6 +58,7 @@ const UserManagement = () => {
             ) : (
                 // If there are users, display the table
                 <div>
+                    <StickyHeader />
                     <div className="table-container">
                         <UserTable users={users} />{' '}
                         {/* Pass the users array to the UserTable component */}
