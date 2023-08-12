@@ -6,15 +6,19 @@ import UserTable from './UserTable';
 import './UserTable.css';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 import { react_backend_url } from '../../config';
-
+import { Card, CardContent, Chip, Grid, Typography } from '@mui/material';
+import './UserManagement.css';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 const UserManagement = () => {
     const [users, setUsers] = React.useState([]);
     const [userPrompt, setUserPrompt] = React.useState<boolean>();
+    const [activeUsers, setActiveUsers] = React.useState<number>(0);
+    const [inactiveUsers, setInactiveUsers] = React.useState<number>(0);
     const getUsers = async () => {
         try {
-            const res = await axios.get(
-                `http://${react_backend_url}/v1/adminusers`
-            );
+            const res = await axios.get(`${react_backend_url}/v1/adminusers`);
             setUsers(res.data.allUsers);
             console.log(res.data.allUsers);
         } catch (error) {
@@ -29,6 +33,10 @@ const UserManagement = () => {
     React.useEffect(() => {
         // When the users state changes, check if there are any users
         setUserPrompt(users.length === 0);
+        setActiveUsers(users.filter((user) => user.status === 'Active').length);
+        setInactiveUsers(
+            users.filter((user) => user.status === 'Inactive').length
+        );
     }, [users]);
 
     return (
@@ -63,11 +71,66 @@ const UserManagement = () => {
                     </div>
                 ) : (
                     // If there are users, display the table
+
                     <div>
-                        <StickyHeader />
+                        <div className="usermanagementconsole">
+                            <SupervisedUserCircleIcon
+                                sx={{ color: '#003059' }}
+                            />{' '}
+                            User Management Console
+                        </div>
+                        <div className="cardsContainer">
+                            <div>
+                                <Card
+                                    sx={{
+                                        width: 200,
+                                        backgroundColor: '#13bb24',
+                                        height: 100,
+                                    }}
+                                >
+                                    <CardContent>
+                                        <div className="iconPlusData">
+                                            <h4 className="card-data">
+                                                {inactiveUsers}
+                                            </h4>
+                                            <PersonAddIcon
+                                                sx={{ color: 'white' }}
+                                            />
+                                        </div>
+                                        <h6 className="card-heading">
+                                            Number of Active users
+                                        </h6>
+                                    </CardContent>
+                                </Card>
+                            </div>
+
+                            <div>
+                                <Card
+                                    sx={{
+                                        width: 200,
+                                        height: 100,
+                                        backgroundColor: '#F53A3A',
+                                    }}
+                                >
+                                    <CardContent>
+                                        <div className="iconPlusData">
+                                            <h4 className="card-data">
+                                                {activeUsers}
+                                            </h4>
+                                            <PersonAddDisabledIcon
+                                                sx={{ color: 'white' }}
+                                            />
+                                        </div>
+                                        <h6 className="card-heading">
+                                            Number of Inactive users
+                                        </h6>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        </div>
+
                         <div className="table-container">
                             <UserTable users={users} />{' '}
-                            {/* Pass the users array to the UserTable component */}
                         </div>
                         <div className="add-users-button-container">
                             <NavLink to="/manageaccounts/creatnewuser">
