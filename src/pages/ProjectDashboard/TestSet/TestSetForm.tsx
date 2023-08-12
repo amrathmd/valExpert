@@ -63,9 +63,9 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
         );
 
         testSet.requirementSetName = requiredReq.name;
-
+        testSet.projectId = projectId;
         console.log(testSet);
-        const res = await axios.post('http://localhost:3000/v1/testsets', {
+        const res = await axios.post(`${react_backend_url}/v1/testsets`, {
             testSet,
         });
         console.log('res post', res);
