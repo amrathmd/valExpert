@@ -76,8 +76,13 @@ const Homepage = () => {
                                 ></Route>
                                 <Route
                                     path="/manageaccounts/creatnewuser"
-                                    element={<UserForm />}
-                                ></Route>
+                                    element={
+                                        <UserForm
+                                            userDetails={null}
+                                            isEditMode={false}
+                                        />
+                                    }
+                                />
                                 <Route
                                     path="/createProject"
                                     element={<ProjectForm />}

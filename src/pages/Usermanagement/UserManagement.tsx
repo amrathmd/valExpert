@@ -1,13 +1,33 @@
 import React from 'react';
 import axios from 'axios';
 import UserForm from './UserForm';
-import { NavLink } from 'react-router-dom';
 import UserTable from './UserTable';
 import './UserTable.css';
+import { NavLink, Route, useNavigate, useLocation } from 'react-router-dom';
+interface Users {
+    _id: string;
+    fullname: string;
+    username: string;
+    email: string;
+    mobile: string;
+    status: string;
+    group: string[];
+    country: string;
+    office: string;
+    department: string;
+    password: string;
+}
 
+interface UserFormProps {
+    userDetails: Users | null;
+    isEditMode: boolean;
+}
 const UserManagement = () => {
     const [users, setUsers] = React.useState([]);
     const [userPrompt, setUserPrompt] = React.useState<boolean>();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const state = location.state as UserFormProps;
     const getUsers = async () => {
         try {
             const res = await axios.get('http://localhost:3000/v1/adminusers');
@@ -26,6 +46,13 @@ const UserManagement = () => {
         // When the users state changes, check if there are any users
         setUserPrompt(users.length === 0);
     }, [users]);
+    const handleAddUsersClick = () => {
+        const propsToPass = {
+            userDetails: null as Users | null,
+            isEditMode: false,
+        };
+        navigate('/manageaccounts/creatnewuser', { state: propsToPass });
+    };
 
     return (
         <div>
@@ -50,9 +77,15 @@ const UserManagement = () => {
                         </ul>
                         <i className="fa fa-start-o" aria-hidden="true"></i>
                     </div>
-                    <NavLink to="/manageaccounts/creatnewuser">
+                    {/* <NavLink to="/manageaccounts/creatnewuser">
                         <span className="create-button">Add Users</span>
-                    </NavLink>
+                    </NavLink> */}
+                    <button
+                        className="create-button"
+                        onClick={handleAddUsersClick}
+                    >
+                        Add Users
+                    </button>
                 </div>
             ) : (
                 // If there are users, display the table
@@ -62,13 +95,33 @@ const UserManagement = () => {
                         {/* Pass the users array to the UserTable component */}
                     </div>
                     <div className="add-users-button-container">
-                        <NavLink to="/manageaccounts/creatnewuser">
-                            <span className="create-button">Add Users</span>
-                        </NavLink>
+                        <button
+                            className="create-button"
+                            onClick={handleAddUsersClick}
+                        >
+                            Add Users
+                        </button>
                     </div>
                 </div>
             )}
         </div>
     );
 };
+const UserFormRoute = () => {
+    const location = useLocation();
+    const state = location.state as UserFormProps;
+
+    return (
+        <Route
+            path="/manageaccounts/creatnewuser"
+            element={
+                <UserForm
+                    userDetails={state && state.userDetails}
+                    isEditMode={state && state.isEditMode}
+                />
+            }
+        />
+    );
+};
+
 export default UserManagement;

@@ -38,6 +38,7 @@ import { countries } from 'countries-list';
 import { OnChangeValue } from 'react-select';
 
 const defaultUser = {
+    _id: '',
     fullname: '',
     username: '',
     email: '',
@@ -78,10 +79,14 @@ const initialErrors = {
     password: '',
     mobile: '',
 };
-
-const UserForm = () => {
-    const [selectedOption, setSelectedOption] = useState('Active');
+interface UserFormProps {
+    userDetails: User | null;
+    isEditMode: boolean;
+}
+const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
     const [user, setUser] = useState(defaultUser);
+
+    const [selectedOption, setSelectedOption] = useState('Active');
     const [ValidationError, setvalidationError] = useState<string>('');
     const theme = useTheme();
     const [group, setGroup] = React.useState<string[]>([]);
@@ -91,6 +96,20 @@ const UserForm = () => {
     const [error, setError] = useState(initialErrors);
     const [booleanError, setBooleanError] = useState<boolean>(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [showUpdateSuccess, setShowUpdateSuccess] = useState(false);
+
+    useEffect(() => {
+        // Populate the form fields with user details if in edit mode
+        if (isEditMode && userDetails) {
+            setUser((prevUser) => ({
+                ...prevUser,
+                ...userDetails, // Merge user details while preserving _id
+            }));
+            setSelectedStatus(userDetails.status);
+            setSelectedCountry(userDetails.country);
+            setGroup(userDetails.group);
+        }
+    }, [isEditMode, userDetails]);
 
     const handleCountryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -141,15 +160,32 @@ const UserForm = () => {
             setError(newErrors);
         } else {
             try {
-                const res = await axios.post(
-                    'http://localhost:3000/v1/adminusers',
-                    user
-                );
+                let res;
+
+                if (isEditMode) {
+                    res = await axios.put(
+                        `http://localhost:3000/v1/adminusers/${userDetails?._id}`,
+                        user
+                    );
+                } else {
+                    res = await axios.post(
+                        'http://localhost:3000/v1/adminusers',
+                        user
+                    );
+                }
+
                 if (res.data) {
-                    setShowSuccess(true);
-                    setTimeout(() => {
-                        setShowSuccess(false);
-                    }, 3000);
+                    if (isEditMode) {
+                        setShowUpdateSuccess(true);
+                        setTimeout(() => {
+                            setShowUpdateSuccess(false);
+                        }, 3000);
+                    } else {
+                        setShowSuccess(true);
+                        setTimeout(() => {
+                            setShowSuccess(false);
+                        }, 3000);
+                    }
                 } else {
                     window.alert('User creation failed!');
                 }
@@ -455,14 +491,14 @@ const UserForm = () => {
                         type="submit"
                         onClick={handleSubmit}
                     >
-                        Create User!
+                        {isEditMode ? 'Save' : 'Create User'}
                     </button>
                     <button
                         className="form-button"
-                        type="submit"
+                        type="button"
                         onClick={handleBack}
                     >
-                        Back
+                        {isEditMode ? 'Cancel' : 'Back'}
                     </button>
                 </div>
             </form>
@@ -478,6 +514,20 @@ const UserForm = () => {
                     }}
                 >
                     User created successfully!
+                </Alert>
+            )}
+            {showUpdateSuccess && (
+                <Alert
+                    severity="success"
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 9999,
+                    }}
+                >
+                    User updated successfully!
                 </Alert>
             )}
         </div>

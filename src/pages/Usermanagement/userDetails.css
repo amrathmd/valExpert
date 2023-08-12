@@ -41,7 +41,17 @@ h1 {
 .main {
     /* color: teal; */
     font-family: Arial, sans-serif;
-    max-width: 80%;
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+.main.active {
+    /* color: teal; */
+    font-family: Arial, sans-serif;
+    max-width: 60%;
     margin: 0 auto;
     padding: 20px;
     background-color: #f5f5f5;

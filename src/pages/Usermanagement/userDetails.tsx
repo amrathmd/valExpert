@@ -6,7 +6,8 @@ import './userDetails.css';
 import { Box, Button, Container, Typography } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import { red } from '@mui/material/colors';
-
+import UserForm from './UserForm';
+import UserEditForm from './UserEditForm';
 interface Users {
     _id: string;
     fullname: string;
@@ -23,7 +24,13 @@ interface Users {
 
 const UserDetailsPage = () => {
     const [userDetails, setUserDetails] = React.useState<Users>();
+    const [isEditMode, setIsEditMode] = useState(false);
+
     const user = useParams();
+
+    const handleEditClick = () => {
+        setIsEditMode(true);
+    };
     useEffect(() => {
         const fetchUserData = async () => {
             console.log(user);
@@ -39,72 +46,89 @@ const UserDetailsPage = () => {
     return (
         <div>
             {userDetails && (
-                <div className="main">
-                    <h1>{userDetails.fullname}</h1>
-                    <hr />
-                    <div className="details">
-                        <div className="detailsleft">
-                            <div className="field">
-                                <strong>User Name:</strong>{' '}
-                                {userDetails.username}
+                <div>
+                    {isEditMode ? (
+                        <UserEditForm userDetails={userDetails} />
+                    ) : (
+                        <div className="main">
+                            <h1>{userDetails.fullname}</h1>
+                            <hr />
+                            <div className="details">
+                                <div className="detailsleft">
+                                    <div className="field">
+                                        <strong>User Name:</strong>{' '}
+                                        {userDetails.username}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Mobile:</strong>{' '}
+                                        {userDetails.mobile}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Email:</strong>{' '}
+                                        {userDetails.email}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Status:</strong>{' '}
+                                        {userDetails.status}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Group:</strong>{' '}
+                                        {userDetails.group.join(', ')}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Country:</strong>{' '}
+                                        {userDetails.country}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Office:</strong>{' '}
+                                        {userDetails.office}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Department:</strong>{' '}
+                                        {userDetails.department}
+                                    </div>
+                                </div>
+                                <div className="detailsright">
+                                    <div className="field">
+                                        <strong>User Name:</strong>{' '}
+                                        {userDetails.username}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Mobile:</strong>{' '}
+                                        {userDetails.mobile}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Email:</strong>{' '}
+                                        {userDetails.email}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Status:</strong>{' '}
+                                        {userDetails.status}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Group:</strong>{' '}
+                                        {userDetails.group.join(', ')}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Country:</strong>{' '}
+                                        {userDetails.country}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Office:</strong>{' '}
+                                        {userDetails.office}
+                                    </div>
+                                    <div className="field">
+                                        <strong>Department:</strong>{' '}
+                                        {userDetails.department}
+                                    </div>
+                                </div>
                             </div>
-                            <div className="field">
-                                <strong>Mobile:</strong> {userDetails.mobile}
-                            </div>
-                            <div className="field">
-                                <strong>Email:</strong> {userDetails.email}
-                            </div>
-                            <div className="field">
-                                <strong>Status:</strong> {userDetails.status}
-                            </div>
-                            <div className="field">
-                                <strong>Group:</strong>{' '}
-                                {userDetails.group.join(', ')}
-                            </div>
-                            <div className="field">
-                                <strong>Country:</strong> {userDetails.country}
-                            </div>
-                            <div className="field">
-                                <strong>Office:</strong> {userDetails.office}
-                            </div>
-                            <div className="field">
-                                <strong>Department:</strong>{' '}
-                                {userDetails.department}
-                            </div>
+                            <button className="form-button">
+                                <Link to="/manageaccounts">Go Back</Link>
+                            </button>
+                            <button onClick={handleEditClick}>Edit</button>
                         </div>
-                        <div className="detailsright">
-                            <div className="field">
-                                <strong>User Name:</strong>{' '}
-                                {userDetails.username}
-                            </div>
-                            <div className="field">
-                                <strong>Mobile:</strong> {userDetails.mobile}
-                            </div>
-                            <div className="field">
-                                <strong>Email:</strong> {userDetails.email}
-                            </div>
-                            <div className="field">
-                                <strong>Status:</strong> {userDetails.status}
-                            </div>
-                            <div className="field">
-                                <strong>Group:</strong>{' '}
-                                {userDetails.group.join(', ')}
-                            </div>
-                            <div className="field">
-                                <strong>Country:</strong> {userDetails.country}
-                            </div>
-                            <div className="field">
-                                <strong>Office:</strong> {userDetails.office}
-                            </div>
-                            <div className="field">
-                                <strong>Department:</strong>{' '}
-                                {userDetails.department}
-                            </div>
-                        </div>
-                    </div>
-                    <button className="form-button">
-                        <Link to="/manageaccounts">Go Back</Link>
-                    </button>
+                    )}
                 </div>
             )}
         </div>

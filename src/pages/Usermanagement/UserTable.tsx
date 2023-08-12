@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import DashboardContext from '../../contexts/dashboardContext';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Alert, Button, Tooltip } from '@mui/material';
 import './UserTable.css';
@@ -108,8 +107,14 @@ const UserTable: React.FC<TableProps> = (props) => {
                 <tbody>
                     {users.map((user) => (
                         <tr key={user._id}>
-                            <td onClick={() => handleViewUser(user._id)}>
-                                {user.fullname}
+                            <td>
+                                <NavLink
+                                    to={`/manageaccounts/user/${user._id}`}
+                                    className="user-link"
+                                    title="Click to View User Details"
+                                >
+                                    {user.fullname}
+                                </NavLink>
                             </td>
                             <td>{user.office}</td>
                             <td>{user.email}</td>
