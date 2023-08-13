@@ -1,23 +1,44 @@
-.test-form-container {
+
+.test1-form-container {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-}
-
-.heading {
+  }
+  
+  div.test1-form-container > div{
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 90px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .heading {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.heading > h2 {
+  }
+  
+  .heading > h2 {
     font-weight: bold;
-    font-size: 18px;
-}
-.test-item {
-    margin: 10px;
-}
-.test-submit {
+    font-size: 24px;
+  }
+  
+  .test1-item {
+    margin: 20px;
+    width: 2vw;
+  }
+  
+  .test1-submit {
     display: flex;
     justify-content: space-between;
-}
+    margin-top: 20px;
+    flex-wrap: wrap; 
+  }
+  
+  .test1-submit > button {
+    width: 48%; 
+  }

@@ -1,3 +1,9 @@
+.req-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Set the container height to fill the viewport */
+  }
 .requirementSetForm {
     display: flex;
     justify-content: center;

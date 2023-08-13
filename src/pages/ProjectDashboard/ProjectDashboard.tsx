@@ -245,7 +245,7 @@ const ProjectDashboard = () => {
                     selectedRequirementSet={selectedRequirementSet}
                     RequirementSets={requirementSets}
                 />
-                <TestSets selectedItem={selectedItem} />
+                {/* <TestSets selectedItem={selectedItem} /> */}
             </div>
         </div>
     );

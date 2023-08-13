@@ -50,16 +50,24 @@ const Dashboard = () => {
     const handleClick = () => {
         setOpenRequirementSet(!openRequirementSet);
         setSelectedList(1);
+        setSelectedTestSet(null);
+        setSelectedRequirementSet(null);
     };
     const handleRequirementSetClick = (reqSetId: any) => {
         setSelectedRequirementSet(reqSetId);
+        setSelectedList(0);
+        setSelectedTestSet(null);
     };
     const handleTestSetClick = () => {
         setOpenTestSet(!openTestSet);
         setSelectedList(2);
+        setSelectedRequirementSet(null);
+        setSelectedTestSet(null);
     };
     const handleTestSetSelectedClick = (id: string) => {
         setSelectedTestSet(id);
+        setSelectedList(0);
+        setSelectedRequirementSet(null);
     };
     const handleTestSetForm = () => {
         setTestSetForm(true);
@@ -338,7 +346,7 @@ const Dashboard = () => {
                     selectedRequirementSet={selectedRequirementSet}
                     RequirementSets={requirementSets}
                 />
-                <TestSets selectedItem={selectedList} />
+                <TestSets selectedList={selectedList} />
             </div>
             {requirementSetForm && (
                 <div className="blur-background">

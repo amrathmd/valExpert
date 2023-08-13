@@ -4,7 +4,7 @@ import TestCasesForm from './TestCases/TestcaseForm';
 import { TestCase } from '@/components/Models/testCasesmodel';
 
 interface Props {
-    selectedItem: number;
+    selectedList: number;
 }
 
 interface TableColumn {
@@ -12,7 +12,7 @@ interface TableColumn {
     label: string;
 }
 
-const TestSets: React.FC<Props> = ({ selectedItem }) => {
+const TestSets: React.FC<Props> = ({ selectedList }) => {
     const [isTestActive, setTestActive] = React.useState<boolean>(false);
     const [isTestCasesActive, setTestCasesActive] = React.useState(false);
 
@@ -35,7 +35,7 @@ const TestSets: React.FC<Props> = ({ selectedItem }) => {
 
     return (
         <div>
-            {selectedItem === 2 && (
+            {selectedList === 2 && (
                 <div>
                     <button
                         className="create-reqSet-button"

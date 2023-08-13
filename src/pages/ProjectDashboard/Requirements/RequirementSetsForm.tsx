@@ -1,15 +1,16 @@
 import { Alert, Button, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './RequirementSetFrom.css';
 import axios from 'axios';
 import { react_backend_url } from '../../../config';
+import DashboardContext from '../../../contexts/dashboardContext';
 interface RequirementSet {
     name: string;
     projectId: string;
 }
 const initialSet: RequirementSet = {
     name: '',
-    projectId: '64bb88ddeef4680b930b0339',
+    projectId: '',
 };
 interface Props {
     handleRequirementSet: () => void;
@@ -26,9 +27,11 @@ const RequirementSetForm: React.FC<Props> = ({ handleRequirementSet }) => {
             };
         });
     };
+    const { projectId } = useContext(DashboardContext);
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         try {
+            requirementSet.projectId = projectId;
             const response = await axios.post(
                 `${react_backend_url}/v1/requirementset`,
                 requirementSet

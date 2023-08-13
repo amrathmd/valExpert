@@ -54,22 +54,23 @@ const TestSetForm: React.FC<TestSetFormProps> = ({ handleTestSetForm }) => {
     };
 
     return (
-        <form className="test-form-container" onSubmit={handleSubmit}>
-            <div className="test-form">
+        <form className="test1-form-container" onSubmit={handleSubmit}>
+            <div>
                 <div className="heading">
                     <h2>TestSet Details</h2>
                 </div>
-                <div className="test-item">
+                <div className="req-item">
                     <TextField
                         label="Project Id"
                         value={testSet.projectId}
+                        fullWidth
                         placeholder="Project Id"
                         onChange={(e) =>
                             updateTestSet('projectId', e.target.value)
                         }
                     />
                 </div>
-                <div className="test-item">
+                <div className="req-item">
                     <TextField
                         label="RequirementSet Id"
                         value={testSet.requirementSetId}
@@ -77,9 +78,10 @@ const TestSetForm: React.FC<TestSetFormProps> = ({ handleTestSetForm }) => {
                         onChange={(e) =>
                             updateTestSet('requirementSetId', e.target.value)
                         }
+                        fullWidth
                     />
                 </div>
-                <div className="test-item">
+                <div className="req-item">
                     <TextField
                         label="TestSet Name"
                         value={testSet.testName}
@@ -87,31 +89,34 @@ const TestSetForm: React.FC<TestSetFormProps> = ({ handleTestSetForm }) => {
                         onChange={(e) =>
                             updateTestSet('testName', e.target.value)
                         }
+                        fullWidth
                     />
                 </div>
-                <div className="test-item">
+                <div className="req-item">
                     <TextField
                         label="RequirementSet Name"
                         value={testSet.requirementSetName}
+                        fullWidth
                         placeholder="RequirementSet Name"
                         onChange={(e) =>
                             updateTestSet('requirementSetName', e.target.value)
                         }
                     />
                 </div>
-                <div className="test-item">
+                <div className="req-item">
                     <InputLabel>Description</InputLabel>
                     <TextField
                         multiline
                         rows={4}
+                        fullWidth
                         value={testSet.description}
                         onChange={(e) =>
                             updateTestSet('description', e.target.value)
                         }
                     />
                 </div>
-                <div className="test-item">
-                    <FormControl>
+                <div className="req-item">
+                    <FormControl fullWidth>
                         <FormLabel>Category</FormLabel>
                         <Select
                             value={testSet.category}
@@ -132,7 +137,7 @@ const TestSetForm: React.FC<TestSetFormProps> = ({ handleTestSetForm }) => {
                         </Select>
                     </FormControl>
                 </div>
-                <div className="test-item">
+                {/* <div className="test-item">
                     <FormControl>
                         <FormLabel>Status</FormLabel>
                         <Select
@@ -146,8 +151,8 @@ const TestSetForm: React.FC<TestSetFormProps> = ({ handleTestSetForm }) => {
                             <MenuItem value="In Review">In Review</MenuItem>
                         </Select>
                     </FormControl>
-                </div>
-                <div className="test-submit">
+                </div> */}
+                <div className="req-submit">
                     <Button
                         variant="contained"
                         color="error"
