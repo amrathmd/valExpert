@@ -1,97 +1,90 @@
-/* Profile.css */
 .profile-container {
+}
+.button-items {
+    border: 1px solid black;
+    margin: 1rem;
+    padding: 5px;
+    border-radius: 5px;
+}
+/* Styling for the Password Change Form */
+.changePassword-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 2rem;
+    width: 50vw;
+    border-radius: 10px;
+    padding: 10px;
 }
 
-.button-group {
+.changePassword-form {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-/* Add border to buttons */
-.button-group button {
-    border: 1px solid #333;
-    padding: 0.5rem 1rem;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-/* Details.css */
-.details-container {
-    margin: 2rem;
-}
-
-.detail-item {
-    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
 }
 
-.key-label {
-    margin-right: 1rem;
-    font-weight: bold;
+.input-item {
+    margin-bottom: 15px;
 }
 
-.edit-input {
-    width: 60%;
-    padding: 0.5rem;
-    border: 1px solid #ccc; /* Add border to input fields */
+label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
 }
 
-/* Add border to the "Save" button */
-.edit-input + button {
-    border: 1px solid #333;
-    padding: 0.5rem 1rem;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.success-message {
-    color: green;
-    font-weight: bold;
-    margin-top: 1rem;
-}
-
-/* Details.css */
-.details-container {
-    margin: 2rem;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    border-radius: 8px;
-}
-
-.detail-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.key-label {
-    font-weight: bold;
-}
-
-.edit-input {
-    width: 60%;
-    padding: 0.5rem;
+input {
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.3s;
 }
 
-.save-button {
+input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.changePassword-button {
+    padding: 10px;
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
     border-radius: 4px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s;
+    width: 200px;
 }
 
-.save-button:hover {
+.changepassword-button:hover {
     background-color: #0056b3;
+}
+/* Details.css */
+
+.details-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 20px;
+    width: 50vw;
+    align-items: flex-start;
+    border-radius: 10px;
+}
+
+.details-content {
+    display: flex;
+    flex-direction: column;
+}
+.details-table td {
+    padding: 10px;
+}
+.details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.details-label {
+    font-weight: bold;
 }
