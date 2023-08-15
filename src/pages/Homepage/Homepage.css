@@ -3,3 +3,37 @@
 
     grid-template-columns: 60px auto;
 }
+
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobileMessageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Optional background color */
+}
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.laptopIcon {
+    font-size: 48px;
+    color: #333;
+}
+
+.mobileMessage {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    padding: 20px;
+}
