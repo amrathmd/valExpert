@@ -22,6 +22,25 @@ import { useParams } from 'react-router-dom';
 import { project } from 'esri/geometry/projection';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
+interface TestScript {
+    _id: string;
+    description: string;
+}
+
+interface TestCase {
+    Type: string;
+    _id: string;
+    testScripts: TestScript[];
+}
+interface TestSet {
+    _id: string;
+    testName: string;
+    testCases: TestCase[];
+}
+const testSetSchema: TestSet[] = [];
+const testCaseSchema: TestCase[] = [];
+const testScriptSchema: TestScript[] = [];
+
 const Dashboard = () => {
     const [openRequirementSet, setOpenRequirementSet] =
         useState<boolean>(false);
@@ -47,6 +66,10 @@ const Dashboard = () => {
     );
     const [openDefects, setOpenDefects] = useState<boolean>(false);
     const [selectedDefect, setSelectedDefect] = useState(null);
+    const [testSets, setTestSets] = useState(testSetSchema);
+    const [testCases, setTestCases] = useState(testCaseSchema);
+    const [testScripts, setTestScripts] = useState(testScriptSchema);
+
     const handleRequirementSet = () => {
         setRequirementSetForm(!requirementSetForm);
     };
@@ -109,6 +132,19 @@ const Dashboard = () => {
     const handleDefectSelectedClick = (id: string) => {
         setSelectedDefect(id);
     };
+    const findTestCases = async (testset: TestSet) => {
+        const result = await axios.get(
+            `${react_backend_url}/v1/testcases/testset/${testset._id}`
+        );
+        setTestCases(result.data);
+    };
+    const findTestSteps = async (testcase: TestCase) => {
+        const result = await axios.get(
+            `${react_backend_url}/v1/teststeps/testcases/${testcase._id}`
+        );
+        console.log(result.data);
+        setTestScripts(result.data);
+    };
     React.useEffect(() => {
         const FetchRequirementSets = async () => {
             const result = await axios.get(
@@ -121,58 +157,14 @@ const Dashboard = () => {
     React.useEffect(() => {
         const FetchTestSets = async () => {
             const result = await axios.get(
-                `${react_backend_url}/testsets/project/${projectId}`
+                `${react_backend_url}/v1/testsets/project/${projectId}`
             );
-            setTestSet(result.data);
+            setTestSets(result.data);
+            console.log(result.data);
         };
-    });
-    const testSets = [
-        {
-            _id: '1',
-            name: 'Test Set 1',
-            testCases: [
-                {
-                    _id: '101',
-                    name: 'Test Case 1',
-                    testScripts: [
-                        { _id: '306', name: 'testScript6' },
-                        { _id: '307', name: 'Test script7' },
-                    ],
-                },
-                {
-                    _id: '102',
-                    name: 'Test Case 2',
-                    testScripts: [
-                        { _id: '308', name: 'testScript9' },
-                        { _id: '309', name: 'Test script10' },
-                    ],
-                },
-            ],
-        },
-        {
-            _id: '2',
-            name: 'Test Set 2',
-            testCases: [
-                {
-                    _id: '201',
-                    name: 'TestCase 3',
-                    testScripts: [
-                        { _id: '301', name: 'testScript1' },
-                        { _id: '302', name: 'Test script2' },
-                    ],
-                },
-                {
-                    _id: '202',
-                    name: 'Test Case 4',
-                    testScripts: [
-                        { _id: '303', name: 'testScript1' },
-                        { _id: '304', name: 'Test script2' },
-                    ],
-                },
-            ],
-        },
-        // Add more test sets as needed
-    ];
+        FetchTestSets();
+    }, []);
+
     const Defects = [
         {
             _id: '1001',
@@ -278,9 +270,13 @@ const Dashboard = () => {
                                             )
                                         }
                                     >
-                                        <ListItemButton>
+                                        <ListItemButton
+                                            onClick={() =>
+                                                findTestCases(testset)
+                                            }
+                                        >
                                             <ListItemText
-                                                primary={`${testset.name}`}
+                                                primary={`${testset.testName}`}
                                             />
                                             {openTestSet &&
                                             testset._id === selectedTestSet ? (
@@ -299,8 +295,9 @@ const Dashboard = () => {
                                         unmountOnExit
                                     >
                                         <List component="div" disablePadding>
-                                            {testset.testCases.map(
-                                                (testcase) => (
+                                            {testCases &&
+                                                testCases.length != 0 &&
+                                                testCases.map((testcase) => (
                                                     <>
                                                         <ListItemButton
                                                             key={testcase._id}
@@ -318,9 +315,15 @@ const Dashboard = () => {
                                                                 )
                                                             }
                                                         >
-                                                            <ListItemButton>
+                                                            <ListItemButton
+                                                                onClick={() =>
+                                                                    findTestSteps(
+                                                                        testcase
+                                                                    )
+                                                                }
+                                                            >
                                                                 <ListItemText
-                                                                    secondary={`${testcase.name}`}
+                                                                    secondary={`${testcase.Type}`}
                                                                 />
                                                                 {openTestCase &&
                                                                 testcase._id ===
@@ -340,43 +343,45 @@ const Dashboard = () => {
                                                             timeout="auto"
                                                             unmountOnExit
                                                         >
-                                                            {testcase.testScripts.map(
-                                                                (
-                                                                    testScript
-                                                                ) => (
-                                                                    <ListItemButton
-                                                                        key={
-                                                                            testScript._id
-                                                                        }
-                                                                        sx={{
-                                                                            pl: 10,
-                                                                            backgroundColor:
-                                                                                selectedTestScript ===
+                                                            {testScripts &&
+                                                                testScripts.length !=
+                                                                    0 &&
+                                                                testScripts.map(
+                                                                    (
+                                                                        testScript
+                                                                    ) => (
+                                                                        <ListItemButton
+                                                                            key={
                                                                                 testScript._id
-                                                                                    ? 'rgba(0, 0, 0, 0.1)'
-                                                                                    : 'transparent',
-                                                                        }}
-                                                                        onClick={() =>
-                                                                            handleTestScriptSelectedClick(
-                                                                                testScript._id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <Typography
-                                                                            variant="subtitle2"
-                                                                            gutterBottom
-                                                                        >
-                                                                            {
-                                                                                testScript.name
                                                                             }
-                                                                        </Typography>
-                                                                    </ListItemButton>
-                                                                )
-                                                            )}
+                                                                            sx={{
+                                                                                pl: 10,
+                                                                                backgroundColor:
+                                                                                    selectedTestScript ===
+                                                                                    testScript._id
+                                                                                        ? 'rgba(0, 0, 0, 0.1)'
+                                                                                        : 'transparent',
+                                                                            }}
+                                                                            onClick={() =>
+                                                                                handleTestScriptSelectedClick(
+                                                                                    testScript._id
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            <Typography
+                                                                                variant="subtitle2"
+                                                                                gutterBottom
+                                                                            >
+                                                                                {
+                                                                                    testScript.description
+                                                                                }
+                                                                            </Typography>
+                                                                        </ListItemButton>
+                                                                    )
+                                                                )}
                                                         </Collapse>
                                                     </>
-                                                )
-                                            )}
+                                                ))}
                                         </List>
                                     </Collapse>
                                 </>

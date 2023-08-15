@@ -6,6 +6,7 @@ import './Projects.css';
 import Button from '@mui/material/Button';
 import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import IconButton from '@mui/material/IconButton';
+import { CircularProgress } from '@mui/material';
 import DashboardContext from '../../contexts/dashboardContext';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
@@ -33,11 +34,27 @@ const Projects = () => {
     const [isVisible, setIsVisible] = useState(true);
     const { projectId, setProjectId } = React.useContext(DashboardContext);
 
+    const [loadingProjects, setLoadingProjects] = useState(true);
+    const [error, setError] = useState(null);
+
     const getProjects = async () => {
-        const res = await axios.get(`${react_backend_url}/v1/projects`);
-        console.log(res);
-        setProjects(res.data);
+        try {
+            const res = await axios.get(`${react_backend_url}/v1/projects`);
+            setProjects(res.data);
+            setError(null); // Clear any previous errors if successful
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+            setError(
+                'An error occurred while fetching projects. Please try again later.'
+            );
+        }
     };
+
+    // const getProjects = async () => {
+    //     const res = await axios.get(`${react_backend_url}/v1/projects`);
+    //     console.log(res);
+    //     setProjects(res.data);
+    // };
     const History = useNavigate();
 
     useEffect(() => {
