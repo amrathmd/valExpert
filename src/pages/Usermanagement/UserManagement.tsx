@@ -11,7 +11,7 @@ import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 import { NavLink, Route, useNavigate, useLocation } from 'react-router-dom';
-import { react_backend_url } from '../../config';
+
 interface Users {
     _id: string;
     fullname: string;
