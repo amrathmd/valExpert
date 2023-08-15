@@ -1,122 +1,99 @@
-/* .main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-h1 {
-    color: black;
-    font-weight: bold;
-    font-size: 30px;
-    display: grid;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-.details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-width: thick;
-    border-color: antiquewhite;
-    width: fit-content;
-    margin-bottom: 20px;
-}
-.form-button {
-    background-color: #0d77d3;
-    color: whitesmoke;
-    padding: 10px;
-    font-weight: 500;
-    align-self: center;
-    display: grid;
-    justify-content: center;
-} */
-
-/* Reset some default styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Main container */
 .main {
-    /* color: teal; */
     font-family: Arial, sans-serif;
-    max-width: 60%;
-    margin: 0 auto;
+    width: 60%;
+    margin: auto;
     padding: 20px;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
+    border: 1px solid #ffffff;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-}
-.main.active {
-    /* color: teal; */
-    font-family: Arial, sans-serif;
-    max-width: 60%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
 }
 
-/* Headings */
 h1 {
-    font-size: 30px;
+    font-size: 24px;
     margin-bottom: 20px;
     font-weight: bold;
     color: steelblue;
 }
 
 hr {
-    height: 4px;
+    height: 2px;
     background-color: rgb(180, 159, 244);
+    border: none;
+    margin: 15px 0;
 }
 
-/* User details container */
 .details {
     display: flex;
     flex-direction: row;
     margin-top: 15px;
 }
-strong {
-    color: black;
-}
 
-/* Individual field */
 .field {
     margin-bottom: 15px;
-    display: flex;
-    align-items: center;
 }
 
 strong {
     font-weight: bold;
-    min-width: 150px;
+    min-width: 120px;
+    display: inline-block;
 }
 
-/* User details text */
 .detail-text {
     font-size: 16px;
+    margin-left: 10px;
 }
 
-/* Link button */
 .form-button {
-    display: inline-block;
     margin-top: 25px;
 }
 
 .form-button a {
-    display: inline-block;
-    background-color: #007bff;
+    display: contents;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 20px 30px;
     font-size: 16px;
-    border-radius: 4px;
     text-decoration: none;
     transition: background-color 0.3s ease;
 }
 
 .form-button a:hover {
     background-color: #0056b3;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.left-content {
+    display: flex;
+    align-items: center;
+}
+.right-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.left-content h1 {
+    margin-right: 10px;
+}
+
+.right-content button {
+    margin-left: 70px;
+    transition: background-color 0.3s ease;
+}
+.right-content button:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
 }

@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './userDetails.css';
-// import { Link } from 'react-router-dom';
-import { Box, Button, Container, Typography } from '@mui/material';
-import { ArrowBack } from '@mui/icons-material';
+import { Box, Button, Container, Typography, Tooltip } from '@mui/material';
 import { red } from '@mui/material/colors';
 import UserForm from './UserForm';
 import UserEditForm from './UserEditForm';
+import ModeTwoToneIcon from '@mui/icons-material/ModeTwoTone';
+import {
+    ArrowBack,
+    CheckCircle,
+    RadioButtonUnchecked,
+} from '@mui/icons-material';
+
 interface Users {
     _id: string;
     fullname: string;
@@ -19,7 +24,7 @@ interface Users {
     country: string;
     office: string;
     department: string;
-    password: string;
+    // password: string;
 }
 
 const UserDetailsPage = () => {
@@ -51,7 +56,39 @@ const UserDetailsPage = () => {
                         <UserEditForm userDetails={userDetails} />
                     ) : (
                         <div className="main">
-                            <h1>{userDetails.fullname}</h1>
+                            <div className="header">
+                                <div className="left-content">
+                                    <h1>User: {userDetails.fullname}</h1>
+                                    {userDetails.status === 'Active' ? (
+                                        <Button
+                                            variant="contained"
+                                            style={{
+                                                backgroundColor: 'green',
+                                                color: 'white',
+                                            }}
+                                            startIcon={<CheckCircle />}
+                                            disabled
+                                        >
+                                            Active
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            variant="contained"
+                                            startIcon={<RadioButtonUnchecked />}
+                                            disabled
+                                        >
+                                            Inactive
+                                        </Button>
+                                    )}
+                                </div>
+                                <div className="right-content">
+                                    <Tooltip title="Edit User" arrow>
+                                        <button onClick={handleEditClick}>
+                                            <ModeTwoToneIcon />
+                                        </button>
+                                    </Tooltip>
+                                </div>
+                            </div>
                             <hr />
                             <div className="details">
                                 <div className="detailsleft">
@@ -79,6 +116,8 @@ const UserDetailsPage = () => {
                                         <strong>Country:</strong>{' '}
                                         {userDetails.country}
                                     </div>
+                                </div>
+                                <div className="detailsright">
                                     <div className="field">
                                         <strong>Office:</strong>{' '}
                                         {userDetails.office}
@@ -87,8 +126,6 @@ const UserDetailsPage = () => {
                                         <strong>Department:</strong>{' '}
                                         {userDetails.department}
                                     </div>
-                                </div>
-                                <div className="detailsright">
                                     <div className="field">
                                         <strong>User Name:</strong>{' '}
                                         {userDetails.username}
@@ -105,28 +142,11 @@ const UserDetailsPage = () => {
                                         <strong>Status:</strong>{' '}
                                         {userDetails.status}
                                     </div>
-                                    <div className="field">
-                                        <strong>Group:</strong>{' '}
-                                        {userDetails.group.join(', ')}
-                                    </div>
-                                    <div className="field">
-                                        <strong>Country:</strong>{' '}
-                                        {userDetails.country}
-                                    </div>
-                                    <div className="field">
-                                        <strong>Office:</strong>{' '}
-                                        {userDetails.office}
-                                    </div>
-                                    <div className="field">
-                                        <strong>Department:</strong>{' '}
-                                        {userDetails.department}
-                                    </div>
                                 </div>
                             </div>
-                            <button className="form-button">
+                            <Button variant="outlined">
                                 <Link to="/manageaccounts">Go Back</Link>
-                            </button>
-                            <button onClick={handleEditClick}>Edit</button>
+                            </Button>{' '}
                         </div>
                     )}
                 </div>

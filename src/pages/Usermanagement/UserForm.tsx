@@ -23,6 +23,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
 
 import {
     VisibilityOff,
@@ -36,6 +37,7 @@ import {
 } from '@mui/icons-material';
 import { countries } from 'countries-list';
 import { OnChangeValue } from 'react-select';
+import { react_backend_url } from '../../config';
 
 const defaultUser = {
     _id: '',
@@ -44,7 +46,6 @@ const defaultUser = {
     email: '',
     mobile: '',
     status: 'Active',
-    password: '',
     country: '',
     group: [''],
     department: '',
@@ -76,7 +77,7 @@ const initialErrors = {
     fullname: '',
     username: '',
     email: '',
-    password: '',
+
     mobile: '',
 };
 interface UserFormProps {
@@ -90,7 +91,7 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
     const [ValidationError, setvalidationError] = useState<string>('');
     const theme = useTheme();
     const [group, setGroup] = React.useState<string[]>([]);
-    const [showPassword, setShowPassword] = React.useState(false);
+
     const [selectedStatus, setSelectedStatus] = useState('Active');
     const [selectedCountry, setSelectedCountry] = useState('');
     const [error, setError] = useState(initialErrors);
@@ -99,11 +100,10 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
     const [showUpdateSuccess, setShowUpdateSuccess] = useState(false);
 
     useEffect(() => {
-        // Populate the form fields with user details if in edit mode
         if (isEditMode && userDetails) {
             setUser((prevUser) => ({
                 ...prevUser,
-                ...userDetails, // Merge user details while preserving _id
+                ...userDetails,
             }));
             setSelectedStatus(userDetails.status);
             setSelectedCountry(userDetails.country);
@@ -124,7 +124,6 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
     const handleBack = () => {
         history.back();
     };
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const countryOptions = Object.keys(countries).map((countryCode) => ({
         code: countryCode,
@@ -140,14 +139,9 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
         fullname: Joi.string().required().label('Fullname'),
         username: Joi.string().required().label('Username'),
         email: Joi.string().email().required().label('Email'),
-        password: Joi.string()
-
-            .required()
-            .min(8)
-            .max(20)
-            .label('Password'),
         mobile: Joi.string().required().label('Mobile'),
     }).options({ allowUnknown: true });
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -164,27 +158,29 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
 
                 if (isEditMode) {
                     res = await axios.put(
-                        `http://localhost:3000/v1/adminusers/${userDetails?._id}`,
+                        `${react_backend_url}/${userDetails?._id}`,
                         user
                     );
                 } else {
+                    const { _id, ...userWithoutId } = user;
                     res = await axios.post(
-                        'http://localhost:3000/v1/adminusers',
-                        user
+                        `${react_backend_url}/v1/adminusers`,
+                        userWithoutId
                     );
                 }
-
                 if (res.data) {
                     if (isEditMode) {
                         setShowUpdateSuccess(true);
                         setTimeout(() => {
                             setShowUpdateSuccess(false);
-                        }, 3000);
+                            navigate('/manageaccounts');
+                        }, 1500);
                     } else {
                         setShowSuccess(true);
                         setTimeout(() => {
                             setShowSuccess(false);
-                        }, 3000);
+                            navigate('/manageaccounts');
+                        }, 1500);
                     }
                 } else {
                     window.alert('User creation failed!');
@@ -292,12 +288,11 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                                     ),
                                 }}
                             />
-                            <FormControl
+                            {/*<FormControl
                                 sx={{ marginBottom: 3 }}
                                 variant="outlined"
                                 size="small"
                                 className="formfeild"
-                                required
                             >
                                 <InputLabel htmlFor="outlined-adornment-password">
                                     Password
@@ -339,8 +334,8 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                                     <FormHelperText sx={{ color: '#f44336' }}>
                                         {error.password}
                                     </FormHelperText>
-                                )}
-                            </FormControl>
+                                )} 
+                            </FormControl>*/}
                             <TextField
                                 select
                                 label="Country"

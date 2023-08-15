@@ -11,7 +11,7 @@ interface User {
     country: string;
     office: string;
     department: string;
-    password: string;
+    //password: string;
 }
 interface UserEditFormProps {
     userDetails: User;

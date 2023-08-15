@@ -15,7 +15,7 @@ const defaultUser: User = {
     email: '',
     mobile: '',
     status: 'Active',
-    password: '',
+    //password: '',
     country: '',
     group: [''],
     department: '',

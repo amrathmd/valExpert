@@ -9,5 +9,4 @@ export interface User {
     country: string;
     office: string;
     department: string;
-    password: string;
 }

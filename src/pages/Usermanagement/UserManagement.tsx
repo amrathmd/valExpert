@@ -4,6 +4,7 @@ import UserForm from './UserForm';
 import UserTable from './UserTable';
 import './UserTable.css';
 import { NavLink, Route, useNavigate, useLocation } from 'react-router-dom';
+import { react_backend_url } from '../../config';
 interface Users {
     _id: string;
     fullname: string;
@@ -15,7 +16,7 @@ interface Users {
     country: string;
     office: string;
     department: string;
-    password: string;
+    // password: string;
 }
 
 interface UserFormProps {
@@ -30,7 +31,7 @@ const UserManagement = () => {
     const state = location.state as UserFormProps;
     const getUsers = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/v1/adminusers');
+            const res = await axios.get(`${react_backend_url}/v1/adminusers`);
             setUsers(res.data.allUsers);
             console.log(res.data.allUsers);
         } catch (error) {
@@ -43,7 +44,6 @@ const UserManagement = () => {
     }, []);
 
     React.useEffect(() => {
-        // When the users state changes, check if there are any users
         setUserPrompt(users.length === 0);
     }, [users]);
     const handleAddUsersClick = () => {
@@ -56,7 +56,7 @@ const UserManagement = () => {
 
     return (
         <div>
-            {userPrompt ? ( // Display the welcome message if there are no users
+            {userPrompt ? (
                 <div className="message">
                     <div>
                         <p className="para">Welcome to our platform!</p>
@@ -88,11 +88,9 @@ const UserManagement = () => {
                     </button>
                 </div>
             ) : (
-                // If there are users, display the table
                 <div>
                     <div className="table-container">
                         <UserTable users={users} />{' '}
-                        {/* Pass the users array to the UserTable component */}
                     </div>
                     <div className="add-users-button-container">
                         <button
