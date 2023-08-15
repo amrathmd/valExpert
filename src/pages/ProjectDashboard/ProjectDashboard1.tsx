@@ -20,7 +20,7 @@ import TestSetForm from './TestSet/TestSetForm';
 import DashboardContext from '../../contexts/dashboardContext';
 import { useParams } from 'react-router-dom';
 import { project } from 'esri/geometry/projection';
-import StickyHeader from '../StickyHeader';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
 interface TestScript {
     _id: string;
@@ -80,15 +80,21 @@ const Dashboard = () => {
     const handleClick = () => {
         setOpenRequirementSet(!openRequirementSet);
         setSelectedList(1);
+        setSelectedTestSet(null);
+        setSelectedRequirementSet(null);
     };
     const handleRequirementSetClick = (reqSetId: any) => {
         setSelectedRequirementSet(reqSetId);
+        setSelectedList(0);
+        setSelectedTestSet(null);
     };
     const handleTestsSetClick = () => {
         setOpenTestSets(!openTestSets);
         setOpenTestSet(false);
         setOpentestCase(false);
         setSelectedList(2);
+        setSelectedRequirementSet(null);
+        setSelectedTestSet(null);
     };
 
     const handleTestSetSelectedClick = (id: string) => {
@@ -99,6 +105,8 @@ const Dashboard = () => {
         }
         setSelectedTestSet(id);
         setOpentestCase(false);
+        setSelectedList(0);
+        setSelectedRequirementSet(null);
     };
     const handleTestSetForm = () => {
         setTestSetForm(true);

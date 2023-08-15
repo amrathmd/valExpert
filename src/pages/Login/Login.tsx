@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../contexts/AuthContext';
 import { react_backend_url } from '../../config';
-import StickyHeader from '../StickyHeader';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
 const Login = () => {
     const History = useNavigate();
@@ -46,18 +46,14 @@ const Login = () => {
         <>
             <StickyHeader />
             <div className="Loglogincontainer">
+                {/* <div className='loginImage'>
+                </div> */}
                 <div className="Loglogin-form">
                     <form onSubmit={handleSubmit}>
-                        <div className="LogHeader">
-                            <h2 className="Loghead">Login form</h2>
-                            <div className="Logac">
-                                <h3 className="Logmessage">
-                                    Welcome Back to valExpert
-                                </h3>
-                            </div>
-                        </div>
                         <div className="Loginputform">
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email" className="text">
+                                Email
+                            </label>
                             <input
                                 type="text"
                                 id="email"
@@ -68,7 +64,9 @@ const Login = () => {
                                 }}
                             ></input>
                             <div className="Logpass">
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="password" className="text">
+                                    Password
+                                </label>
                                 <a>Forgot Your Password?</a>
                             </div>
 
@@ -86,7 +84,7 @@ const Login = () => {
                                 <label className="Logrem">Remember me</label>
                             </div>
                             <button type="submit" className="Loglogin-button">
-                                Login
+                                <h2 className="buttontext">Login</h2>
                             </button>
                             {error.length > 0 && (
                                 <p className="Loglogin-error">{error}</p>

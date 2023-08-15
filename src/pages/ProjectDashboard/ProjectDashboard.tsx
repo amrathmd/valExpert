@@ -5,7 +5,7 @@ import TestSets from './TestSet/TestSetDetails';
 import axios from 'axios';
 import { TestSet } from '@/components/Models/testsetsModel';
 import { TestCase } from '@/components/Models/testCasesmodel';
-import StickyHeader from '../StickyHeader';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
 interface RequirementSet {
     _id: string;

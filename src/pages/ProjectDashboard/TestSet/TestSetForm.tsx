@@ -85,7 +85,7 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
                 </div>
 
                 <div className="test-item">
-                    <FormControl>
+                    <FormControl fullWidth>
                         <FormLabel>Requirement Set</FormLabel>
                         <Select
                             value={testSet.requirementSetId}
@@ -109,6 +109,7 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
                 </div>
                 <div className="test-item">
                     <TextField
+                        fullWidth
                         label="TestSet Name"
                         value={testSet.testName}
                         placeholder="TestSet Name"
@@ -121,6 +122,7 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
                 <div className="test-item">
                     <InputLabel>Description</InputLabel>
                     <TextField
+                        fullWidth
                         multiline
                         rows={4}
                         value={testSet.description}
@@ -130,7 +132,7 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
                     />
                 </div>
                 <div className="test-item">
-                    <FormControl>
+                    <FormControl fullWidth>
                         <FormLabel>Category</FormLabel>
                         <Select
                             value={testSet.category}
@@ -152,7 +154,7 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
                     </FormControl>
                 </div>
                 <div className="test-item">
-                    <FormControl>
+                    <FormControl fullWidth>
                         <FormLabel>Status</FormLabel>
                         <Select
                             value={testSet.status}

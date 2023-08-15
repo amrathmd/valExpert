@@ -8,7 +8,7 @@ import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import IconButton from '@mui/material/IconButton';
 import { CircularProgress } from '@mui/material';
 import DashboardContext from '../../contexts/dashboardContext';
-import StickyHeader from '../StickyHeader';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
 const defaultProject = [
     { key: 'projectName', label: 'Project Name' },
