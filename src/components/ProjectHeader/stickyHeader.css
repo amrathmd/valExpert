@@ -1,0 +1,15 @@
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.project-title>b{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(0,48,89);
+    margin-left: 2rem;
+    height: 3rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+}

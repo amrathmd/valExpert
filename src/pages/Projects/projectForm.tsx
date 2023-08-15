@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { countries } from 'countries-list';
 import { useNavigate } from 'react-router-dom';
+import { react_backend_url } from '../../config';
 
 interface Project {
     projectName: string;
@@ -93,7 +94,7 @@ const ProjectForm = () => {
         event.preventDefault();
         console.log(project);
         const res = await axios.post(
-            'http://localhost:3000/v1/projects',
+            `${react_backend_url}/v1/projects`,
             project
         );
         if (!res) {

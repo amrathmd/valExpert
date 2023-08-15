@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import axios from 'axios';
 import { User } from '@/components/Models/adminUsersModel';
 import Joi from 'joi-browser';
+import { react_backend_url } from '../../config';
 
 interface FormUserProps {
     userprompt: boolean;
@@ -53,7 +54,7 @@ const UserForm: React.FC<FormUserProps> = (props) => {
             return;
         } else {
             const res = await axios.post(
-                'http://localhost:3000/v1/adminusers',
+                `http://${react_backend_url}/v1/adminusers`,
                 user
             );
             if (!res) {

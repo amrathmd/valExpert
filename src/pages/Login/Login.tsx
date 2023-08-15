@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../contexts/AuthContext';
 import { react_backend_url } from '../../config';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
 const Login = () => {
     const History = useNavigate();
@@ -42,56 +43,57 @@ const Login = () => {
             });
     };
     return (
-        <div className="Loglogincontainer">
-            <div className="Loglogin-form">
-                <form onSubmit={handleSubmit}>
-                    <div className="LogHeader">
-                        <h2 className="Loghead">Login form</h2>
-                        <div className="Logac">
-                            <h3 className="Logmessage">
-                                Welcome Back to valExpert
-                            </h3>
-                        </div>
-                    </div>
-                    <div className="Loginputform">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            type="text"
-                            id="email"
-                            placeholder="Email"
-                            className="Logtext"
-                            onChange={(e) => {
-                                setEmail(e.target.value);
-                            }}
-                        ></input>
-                        <div className="Logpass">
-                            <label htmlFor="password">Password</label>
-                            <a>Forgot Your Password?</a>
-                        </div>
+        <>
+            <StickyHeader />
+            <div className="Loglogincontainer">
+                {/* <div className='loginImage'>
+                </div> */}
+                <div className="Loglogin-form">
+                    <form onSubmit={handleSubmit}>
+                        <div className="Loginputform">
+                            <label htmlFor="email" className="text">
+                                Email
+                            </label>
+                            <input
+                                type="text"
+                                id="email"
+                                placeholder="Email"
+                                className="Logtext"
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }}
+                            ></input>
+                            <div className="Logpass">
+                                <label htmlFor="password" className="text">
+                                    Password
+                                </label>
+                                <a>Forgot Your Password?</a>
+                            </div>
 
-                        <input
-                            type="password"
-                            id="password"
-                            placeholder="Password"
-                            className="Logtext"
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                            }}
-                        />
-                        <div className="Logaccount">
-                            <input type="checkbox"></input>
-                            <label className="Logrem">Remember me</label>
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Password"
+                                className="Logtext"
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                }}
+                            />
+                            <div className="Logaccount">
+                                <input type="checkbox"></input>
+                                <label className="Logrem">Remember me</label>
+                            </div>
+                            <button type="submit" className="Loglogin-button">
+                                <h2 className="buttontext">Login</h2>
+                            </button>
+                            {error.length > 0 && (
+                                <p className="Loglogin-error">{error}</p>
+                            )}
                         </div>
-                        <button type="submit" className="Loglogin-button">
-                            Login
-                        </button>
-                        {error.length > 0 && (
-                            <p className="Loglogin-error">{error}</p>
-                        )}
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

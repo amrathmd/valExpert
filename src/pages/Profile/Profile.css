@@ -1,0 +1,97 @@
+/* Profile.css */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Add border to buttons */
+.button-group button {
+    border: 1px solid #333;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+/* Details.css */
+.details-container {
+    margin: 2rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.key-label {
+    margin-right: 1rem;
+    font-weight: bold;
+}
+
+.edit-input {
+    width: 60%;
+    padding: 0.5rem;
+    border: 1px solid #ccc; /* Add border to input fields */
+}
+
+/* Add border to the "Save" button */
+.edit-input + button {
+    border: 1px solid #333;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+/* Details.css */
+.details-container {
+    margin: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.key-label {
+    font-weight: bold;
+}
+
+.edit-input {
+    width: 60%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.save-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}

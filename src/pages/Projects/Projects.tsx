@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import IconButton from '@mui/material/IconButton';
 import DashboardContext from '../../contexts/dashboardContext';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
 const defaultProject = [
     { key: 'projectName', label: 'Project Name' },
@@ -96,12 +97,7 @@ const Projects = () => {
 
     return (
         <div>
-            <div className="project-title">
-                <b>valExpert</b>
-            </div>
-            <div className="project-tagline">
-                <p>Tag line of valExpert</p>
-            </div>
+            <StickyHeader />
             <div className="projects-header">
                 <p>Projects</p>
             </div>

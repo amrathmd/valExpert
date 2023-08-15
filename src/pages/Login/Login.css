@@ -18,7 +18,15 @@
 .Logcheck-boxes label {
     margin-left: 10px;
 }
-
+.text{
+    margin-bottom: 10px;
+    color:rgba(0, 48, 89, 0.80);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
 .Loglogincontainer form h2 {
     text-align: left;
     font-weight: 600;
@@ -34,29 +42,28 @@
 .Loginputform {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    margin-top: 22px;
     padding-left: 20px;
     padding-right: 20px;
+    width: 580px;
 }
 .Loglogin-form {
     border-radius: 12px;
-    width: 25vw;
-    height: 40vh;
-    margin-left: 33vw;
-    margin-top: 28vh;
-    background-color:rgb(247, 247, 247);
+    width: 639px;
+    height: 350px;
+    margin-left: 1128px;
+    margin-top: 317px;                                                                                                                                              
 }
 .Loglogin-button {
-    width: max-width;
-    height: max-content;
-    background-color: rgb(64, 64, 237);
+    height: 40px;
+    background-color: #003059;
+    width: 540px;
+    flex-shrink: 0;
     color: white;
+    border-style: solid;
     border-radius: 4px;
     padding: 3px;
     margin-top: 10px;
-}
-.Loglogin-button:hover {
-    background-color: #0a4070;
 }
 .Logi label {
     margin-bottom: 6px;
@@ -65,23 +72,23 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .Logpass {
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; */
 }
 .Logpass a {
-    font-size: medium;
+    font-size: 13px;
     align-self: flex-end;
-    color: rgb(64, 64, 237);
+    color: rgba(0, 48, 89, 0.80);
     text-decoration: none;
     float: right;
 }
-.Logpass label {
+/* .Logpass label {
     margin-bottom: 6px;
     font-size: medium;
     font-weight: 450;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+} */
 
 .Loginputform > input {
     border-radius: 5px;
@@ -93,13 +100,31 @@
     box-sizing: border-box;
     outline: none;
 }
+
+.loginImage{
+    height: 500px;
+    width:1500px; 
+    background-color: #003059;                                                                            
+}
 .Loginputform > input:focus {
-    border: 2px solid rgb(64, 64, 237);
-    border-radius: 4px; /* Change the border radius to create a rounded effect */
+    /* border: 2px solid rgb(64, 64, 237); */
+    border: 2px solid #000;
+    border-radius: 4px; /* Change the border radius to   create a rounded effect */
 }
 .Logtext {
     padding: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    height: 50px;
+    width: 520px;
+}
+.buttontext{
+    font-style: normal;
+    font-family: "Roboto",sans-serif;
+    color: #FFF;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 232px;
 }
 
 .Logbutton {
