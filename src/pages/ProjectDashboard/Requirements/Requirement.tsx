@@ -43,19 +43,6 @@ const Requirements: React.FC<Props> = ({
         };
         FetchRequirementSets();
     }, []);
-    const createRequirements = () => {
-        const entry = {
-            RequirementId: 1900,
-            RequirementSetId: 1094,
-            RequirementDescription: 'Hello',
-            RequirementCategory: 'Comedy',
-            ReferenceSOP: 'Hi',
-            Verification: 'Done',
-        };
-        setRequirements([[...requirements], entry]);
-        console.log(requirements);
-        handleFormActive();
-    };
 
     const handleEditRequirment = () => {
         console.log(true);
@@ -118,7 +105,7 @@ const Requirements: React.FC<Props> = ({
                     {isReqFormActive ? (
                         <ReqForm
                             handleFormActive={handleFormActive}
-                            createRequirements={createRequirements}
+                            selectedRequirementSet={selectedRequirementSet}
                         />
                     ) : (
                         <table className="content-table">
