@@ -24,7 +24,7 @@ import StickyHeader from '../StickyHeader';
 
 interface TestScript {
     _id: string;
-    name: string;
+    description: string;
 }
 
 interface TestCase {
@@ -130,9 +130,9 @@ const Dashboard = () => {
         );
         setTestCases(result.data);
     };
-    const findTestScripts = async (testcase: TestCase) => {
+    const findTestSteps = async (testcase: TestCase) => {
         const result = await axios.get(
-            `${react_backend_url}/v1/testscripts/testcase/${testcase._id}`
+            `${react_backend_url}/v1/teststeps/testcases/${testcase._id}`
         );
         console.log(result.data);
         setTestScripts(result.data);
@@ -309,7 +309,7 @@ const Dashboard = () => {
                                                         >
                                                             <ListItemButton
                                                                 onClick={() =>
-                                                                    findTestScripts(
+                                                                    findTestSteps(
                                                                         testcase
                                                                     )
                                                                 }
@@ -335,12 +335,10 @@ const Dashboard = () => {
                                                             timeout="auto"
                                                             unmountOnExit
                                                         >
-                                                            {testcase.testScripts &&
-                                                                testcase
-                                                                    .testScripts
-                                                                    .length !=
+                                                            {testScripts &&
+                                                                testScripts.length !=
                                                                     0 &&
-                                                                testcase.testScripts.map(
+                                                                testScripts.map(
                                                                     (
                                                                         testScript
                                                                     ) => (
@@ -367,7 +365,7 @@ const Dashboard = () => {
                                                                                 gutterBottom
                                                                             >
                                                                                 {
-                                                                                    testScript.name
+                                                                                    testScript.description
                                                                                 }
                                                                             </Typography>
                                                                         </ListItemButton>
