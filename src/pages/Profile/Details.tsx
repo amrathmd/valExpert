@@ -1,69 +1,80 @@
-import React, { useState } from 'react';
+import { Avatar } from '@mui/material';
+import { react_backend_url } from '../../config';
+import axios from 'axios';
+import React from 'react';
 import './Profile.css';
 
-interface DetailsProps {
-    updateactive: boolean;
+interface Users {
+    _id: string;
+    fullname: string;
+    username: string;
+    email: string;
+    mobile: string;
+    status: string;
+    group: string[];
+    country: string;
+    office: string;
+    department: string;
+    password: string;
 }
 
-const Details: React.FC<DetailsProps> = ({ updateactive }) => {
-    const initialData = {
-        fullname: 'Arbaz',
-        username: 'Naveen',
-        status: 'Done',
-        country: 'India',
-        group: 'Cse',
-    };
-    const [obj, setObj] = useState(initialData);
-
-    const model = [
-        { key: 'fullname', label: 'FullName' },
-        { key: 'username', label: 'UserName' },
-        { key: 'status', label: 'Status' },
-        { key: 'country', label: 'Country' },
-        { key: 'group', label: 'Group' },
-    ];
-
-    const handleInputChange = (key: string, value: string) => {
-        setObj((prevObj) => ({
-            ...prevObj,
-            [key]: value,
-        }));
-    };
-    const [success, setSuccess] = useState(false);
-    const handleSuccess = () => {
-        setSuccess(true);
-        console.log(obj);
-        alert('Success!');
-    };
-
+const Details = () => {
+    const [user, setUser] = React.useState<Users | undefined>();
+    const id = '64d7ed1fd3186b0ec4845352';
+    React.useEffect(() => {
+        const fetchUser = async () => {
+            const response = await axios.get(
+                `${react_backend_url}/v1/adminusers/${id}`
+            );
+            console.log(response.data.user);
+            setUser(response.data.user);
+        };
+        fetchUser();
+    }, []);
     return (
         <div className="details-container">
-            {model.map((items) => (
-                <div key={items.key} className="detail-item">
-                    <span className="key-label">{items.label}</span>
-                    {updateactive ? (
-                        <input
-                            className="edit-input"
-                            value={obj[items.key]}
-                            onChange={(e) =>
-                                handleInputChange(items.key, e.target.value)
-                            }
-                        />
-                    ) : (
-                        <span>{obj[items.key]}</span>
-                    )}
+            <div>
+                <div className="avatar">
+                    <Avatar sx={{ width: 100, height: 100 }} />
                 </div>
-            ))}
-            {updateactive && (
-                <button className="save-button" onClick={handleSuccess}>
-                    Save
-                </button>
-            )}
-            {success && (
-                <p className="success-message">Success message displayed!</p>
-            )}
+            </div>
+            <div className="details-content">
+                <table className="details-table">
+                    <tbody>
+                        <tr>
+                            <td className="details-label">Username</td>
+                            <td>{user?.username}</td>
+                        </tr>
+                        <tr>
+                            <td className="details-label">Email</td>
+                            <td>{user?.email}</td>
+                        </tr>
+                        <tr>
+                            <td className="details-label">Mobile</td>
+                            <td>{user?.mobile}</td>
+                        </tr>
+                        <tr>
+                            <td className="details-label">Group</td>
+                            <td>
+                                <ul className="group-list">
+                                    {user?.group?.map((groupName, index) => (
+                                        <li key={index}>{groupName}</li>
+                                    ))}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="details-label">Office</td>
+                            <td>{user?.office}</td>
+                        </tr>
+                        <tr>
+                            <td className="details-label">Department</td>
+                            <td>{user?.department}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
-
 export default Details;

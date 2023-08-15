@@ -1,42 +1,71 @@
-import React, { useState } from 'react';
-
-import Details from './Details';
-import Update from './Update';
-import Password from './Password';
+import React from 'react';
 import './Profile.css';
+import ChangePassword from './ChangePassword';
+import Details from './Details';
+import UpdatedDetails from './UpdateProfile';
 
 const Profile = () => {
+    const [profile, setProfile] = React.useState<boolean>(true);
+    const [updateProfile, setUpdateProfile] = React.useState<boolean>(false);
+    const [changePassword, setChangePassword] = React.useState<boolean>(false);
+
     const handleProfile = () => {
-        setUpdateActive(!updateactive);
-    };
-    const handleEdit = () => {
-        setUpdateActive(!updateactive);
-    };
-    const handlePassword = () => {
-        setUpdateActive(!updateactive);
-        setPassword(!password);
+        setProfile(true);
+        setUpdateProfile(false);
+        setChangePassword(false);
     };
 
-    const [profile, setProfile] = useState(true);
-    const [updateactive, setUpdateActive] = useState(false);
-    const [password, setPassword] = useState(false);
+    const handleUpdate = () => {
+        setProfile(false);
+        setUpdateProfile(true);
+        setChangePassword(false);
+    };
+
+    const handlePassword = () => {
+        setProfile(false);
+        setUpdateProfile(false);
+        setChangePassword(true);
+    };
 
     return (
         <div className="profile-container">
-            <div className="button-group">
+            <div className="profile-buttons">
                 <span>
-                    <button onClick={handleProfile}>Profile</button>
+                    <button
+                        className={`button-items ${
+                            profile ? 'active-button' : 'inactive-button'
+                        }`}
+                        onClick={handleProfile}
+                    >
+                        Profile
+                    </button>
                 </span>
                 <span>
-                    <button onClick={handleEdit}>UpdateProfile</button>
+                    <button
+                        className={`button-items ${
+                            updateProfile ? 'active-button' : 'inactive-button'
+                        }`}
+                        onClick={handleUpdate}
+                    >
+                        Update profile
+                    </button>
                 </span>
                 <span>
-                    <button onClick={handlePassword}>Password</button>
+                    <button
+                        className={`button-items ${
+                            changePassword ? 'active-button' : 'inactive-button'
+                        }`}
+                        onClick={handlePassword}
+                    >
+                        Change Password
+                    </button>
                 </span>
             </div>
-
-            {profile && <Details updateactive={updateactive} />}
-            {password && <Password />}
+            <div className="profile-content">
+                {changePassword && <ChangePassword />}
+                {profile && <Details />}
+                {updateProfile && <UpdatedDetails />}
+            </div>
         </div>
     );
 };
