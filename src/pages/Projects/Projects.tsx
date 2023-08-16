@@ -124,7 +124,7 @@ const Projects = () => {
                 <div className="create-card">
                     <NavLink to="/createProject">
                         <div className="image-pic">
-                            <img src={'../../../public/create.png'} alt="" />
+                            <img src={'../../../public/Plus.png'} alt="" />
                         </div>
                         <button className="createProject-btn">
                             Create New
@@ -139,7 +139,14 @@ const Projects = () => {
                             key={item._id}
                             onClick={(event) => handleClick(event, item._id)}
                         >
-                            <div className="image-pic"></div>
+                            <div className="image-pic">
+                                <img
+                                    src={'../../../public/icon.png'}
+                                    alt=""
+                                    className="iconimg"
+                                />
+                            </div>
+
                             <div className="project-description">
                                 <b>{item.projectName}</b>
                                 {item.description}
