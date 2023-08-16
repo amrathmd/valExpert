@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import './RequirementForm.css';
+import axios from 'axios';
 import {
     TextField,
     FormControl,
@@ -9,21 +10,23 @@ import {
     Button,
     FormLabel,
 } from '@mui/material';
+import { react_backend_url } from '../../../config';
 const initialState = {
-    RequirementName: '',
-    RequirementDescription: ' ',
-    ReferenceCategory: 'User Requirement',
-    ReferenceSOP: '',
-    Verification: 'Testing',
+    requirementName: '',
+    requirementDescription: ' ',
+    requirementCategory: 'User Requirement',
+    reference: '',
+    verification: 'Testing',
+    requirementSetId: '',
 };
 
 interface ReqFormProps {
-    createRequirements: () => void;
     handleFormActive: () => void;
+    selectedRequirementSet: string;
 }
 const ReqForm: React.FC<ReqFormProps> = ({
-    createRequirements,
     handleFormActive,
+    selectedRequirementSet,
 }) => {
     const [requirement, setRequirement] = useState(initialState);
     const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +37,6 @@ const ReqForm: React.FC<ReqFormProps> = ({
                 [name]: value,
             };
         });
-        console.log(requirement);
     };
     const handleSelectChange = (event: any) => {
         const { name, value } = event.target;
@@ -45,6 +47,24 @@ const ReqForm: React.FC<ReqFormProps> = ({
                 [name]: value,
             };
         });
+    };
+
+    const handleReqFormSubmit = async () => {
+        requirement.requirementSetId = selectedRequirementSet;
+        try {
+            const res = await axios.post(
+                `${react_backend_url}/v1/requirements`,
+                requirement
+            );
+            if (res.data) {
+                window.alert('Success');
+            } else {
+                window.alert('Error while creating requirements');
+            }
+        } catch (error) {
+            window.alert('An error occurred while creating the user.');
+        }
+        console.log(requirement);
     };
     return (
         <div className="req-form-container">
@@ -58,8 +78,8 @@ const ReqForm: React.FC<ReqFormProps> = ({
                         variant="outlined"
                         fullWidth
                         onChange={handleTextChange}
-                        value={requirement.RequirementName}
-                        name="RequirementName"
+                        value={requirement.requirementName}
+                        name="requirementName"
                     />
                 </div>
                 <div className="req-item">
@@ -71,8 +91,8 @@ const ReqForm: React.FC<ReqFormProps> = ({
                         rows={4}
                         fullWidth
                         onChange={handleTextChange}
-                        value={requirement.RequirementDescription}
-                        name="RequirementDescription"
+                        value={requirement.requirementDescription}
+                        name="requirementDescription"
                     />
                 </div>
                 <div className="req-item">
@@ -85,8 +105,8 @@ const ReqForm: React.FC<ReqFormProps> = ({
                             id="req-dropdown"
                             label="Reference Category"
                             onChange={handleSelectChange}
-                            value={requirement.ReferenceCategory}
-                            name="ReferenceCategory"
+                            value={requirement.requirementCategory}
+                            name="referenceCategory"
                         >
                             <MenuItem value="User Requirement">
                                 User Requirement
@@ -116,8 +136,8 @@ const ReqForm: React.FC<ReqFormProps> = ({
                         type="text"
                         fullWidth
                         onChange={handleTextChange}
-                        value={requirement.ReferenceSOP}
-                        name="ReferenceSOP"
+                        value={requirement.reference}
+                        name="reference"
                     />
                 </div>
                 <div className="req-item">
@@ -130,8 +150,8 @@ const ReqForm: React.FC<ReqFormProps> = ({
                             id="req-dropdown"
                             label="Verification"
                             onChange={handleSelectChange}
-                            value={requirement.Verification}
-                            name="Verification"
+                            value={requirement.verification}
+                            name="verification"
                         >
                             <MenuItem value="Testing">Testing</MenuItem>
                             <MenuItem value="Procedure">Procedure</MenuItem>
@@ -149,7 +169,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
                     >
                         Cancel
                     </Button>
-                    <Button variant="contained" onClick={createRequirements}>
+                    <Button variant="contained" onClick={handleReqFormSubmit}>
                         Confirm
                     </Button>
                 </div>
