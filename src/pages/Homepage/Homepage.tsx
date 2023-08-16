@@ -29,8 +29,8 @@ import configureAppStore, {
     getPreloadedState,
 } from '../../store/configureStore';
 import { Provider as ReduxProvider } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLaptop } from '@fortawesome/free-solid-svg-icons';
+import LaptopIcon from '@mui/icons-material/Laptop';
+
 const Homepage = () => {
     const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
     const [userprompt, setUserPrompt] = React.useState<boolean>(true);
@@ -125,10 +125,7 @@ const Homepage = () => {
                         ) : (
                             <div className="mobileMessageContainer">
                                 <div className="iconContainer">
-                                    <FontAwesomeIcon
-                                        icon={faLaptop}
-                                        className="laptopIcon"
-                                    />
+                                    <LaptopIcon />
                                 </div>
                                 <p className="mobileMessage">
                                     This website is only accessible on desktop
