@@ -67,12 +67,3 @@
 .field {
     margin: 10px;
 }
-.user-link {
-    display: inline-block;
-    position: relative;
-    color: #007bff;
-    text-decoration: none;
-}
-.user-link:hover {
-    text-decoration: underline;
-}
