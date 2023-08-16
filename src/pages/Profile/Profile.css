@@ -88,3 +88,69 @@ input:focus {
 .details-label {
     font-weight: bold;
 }
+.updateddetails-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+}
+
+.updateddetail-item {
+    display: flex;
+    align-items: center;
+}
+
+.key-label {
+    flex: 0.2; /* Adjust label width */
+    font-weight: bold;
+    padding-right: 10px; /* Add some spacing between label and input */
+}
+
+.updatededit-input {
+    flex: 0.2; /* Adjust input width */                                                                                                                                                                                                                                      
+    padding: 2px; /* Reduce padding */
+    /* border: 1px solid #ccc; */
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif; 
+}
+
+.updatedsave-button {
+    padding: 6px 12px; /* Adjust button padding */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+     /* transition: background-color 0.3s ease;  */
+}
+
+/* .updatedsave-button:hover {
+    background-color: #0056b3;
+} */
+/* Button styles */
+.button-items {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Active button styles */
+.active-button {
+    background-color:#007bff;
+}
+
+/* Inactive button styles */
+.inactive-button {
+    border: 2px solid rgba(0, 48, 89, 0.80);
+    color: black;
+}
+
+
