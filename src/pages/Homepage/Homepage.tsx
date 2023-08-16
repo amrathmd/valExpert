@@ -24,13 +24,31 @@ import UserForm from '../Usermanagement/UserForm';
 import Form from '../Browse/projectForm';
 import ProjectForm from '../Projects/projectForm';
 import Profile from '../Profile/Profile';
+import UserDetails from '../Usermanagement/UserDetails';
+import { Provider as ReduxProvider } from 'react-redux';
+import configureAppStore, {
+    getPreloadedState,
+} from '../../store/configureStore';
+import LaptopIcon from '@mui/icons-material/Laptop';
 
 const Homepage = () => {
     const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
     const [userprompt, setUserPrompt] = React.useState<boolean>(true);
+    const [isDesktop, setIsDesktop] = React.useState(window.innerWidth > 768);
     const handleUserPrompt = () => {
         setUserPrompt(!userprompt);
     };
+    React.useEffect(() => {
+        const handleResize = () => {
+            setIsDesktop(window.innerWidth > 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+    const preloadedState = getPreloadedState();
     return (
         <ErrorBoundary>
             <DashboardContextProvider>
@@ -39,55 +57,80 @@ const Homepage = () => {
                         <div className="navbar">
                             <Navbar />
                         </div>
-
-                        <div className="routes">
-                            <Routes>
-                                <Route path="/" element={<Projects />}></Route>
-                                {!loggedIn && (
-                                    <Route
-                                        path="/login"
-                                        element={<Login />}
-                                    ></Route>
-                                )}
-                                <Route
-                                    path="/contactus"
-                                    element={<Contact />}
-                                ></Route>
-                                <Route
-                                    path="/register"
-                                    element={
-                                        <PrivateRoute
-                                            allowedRoles={['valexpertadmin']}
-                                        />
-                                    }
+                        {isDesktop ? (
+                            <div className="routes">
+                                <ReduxProvider
+                                    store={configureAppStore(preloadedState)}
                                 >
-                                    <Route
-                                        path="/register"
-                                        element={<RegistrationPage />}
-                                    ></Route>
-                                </Route>
-                                <Route
-                                    path="/dashboard/:id"
-                                    element={<Dashboard />}
-                                ></Route>
-                                <Route
-                                    path="/manageaccounts"
-                                    element={<UserManagement />}
-                                ></Route>
-                                <Route
-                                    path="/manageaccounts/creatnewuser"
-                                    element={<UserForm />}
-                                ></Route>
-                                <Route
-                                    path="/createProject"
-                                    element={<ProjectForm />}
-                                ></Route>
-                                <Route
-                                    path="/profile"
-                                    element={<Profile />}
-                                ></Route>
-                            </Routes>
-                        </div>
+                                    <Routes>
+                                        <Route
+                                            path="/"
+                                            element={<Projects />}
+                                        ></Route>
+                                        {!loggedIn && (
+                                            <Route
+                                                path="/login"
+                                                element={<Login />}
+                                            ></Route>
+                                        )}
+                                        <Route
+                                            path="/contactus"
+                                            element={<Contact />}
+                                        ></Route>
+                                        <Route
+                                            path="/register"
+                                            element={
+                                                <PrivateRoute
+                                                    allowedRoles={[
+                                                        'valexpertadmin',
+                                                    ]}
+                                                />
+                                            }
+                                        >
+                                            <Route
+                                                path="/register"
+                                                element={<RegistrationPage />}
+                                            ></Route>
+                                        </Route>
+                                        <Route
+                                            path="/dashboard/:id"
+                                            element={<Dashboard />}
+                                        ></Route>
+                                        <Route
+                                            path="/manageaccounts"
+                                            element={<UserManagement />}
+                                        ></Route>
+                                        <Route
+                                            path="/manageaccounts/creatnewuser"
+                                            element={
+                                                <UserForm
+                                                    userDetails={null}
+                                                    isEditMode={false}
+                                                />
+                                            }
+                                        />
+                                        <Route
+                                            path="/createProject"
+                                            element={<ProjectForm />}
+                                        ></Route>
+                                        <Route
+                                            path="/manageaccounts/user/:id"
+                                            element={<UserDetails />}
+                                        ></Route>
+                                    </Routes>
+                                </ReduxProvider>
+                            </div>
+                        ) : (
+                            <div className="mobileMessageContainer">
+                                <div className="iconContainer">
+                                    <LaptopIcon />
+                                </div>
+                                <p className="mobileMessage">
+                                    This website is only accessible on desktop
+                                    devices.
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </Router>
             </DashboardContextProvider>
