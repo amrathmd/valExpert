@@ -6,12 +6,7 @@ import { Alert, Button, Tooltip } from '@mui/material';
 import './UserTable.css';
 import axios from 'axios';
 import { react_backend_url } from '../..//config';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { User } from '@/components/Models/adminUsersModel';
+import { NavLink } from 'react-router-dom';
 interface Users {
     _id: string;
     fullname: string;
@@ -105,7 +100,15 @@ const UserTable: React.FC<TableProps> = (props) => {
                 <tbody>
                     {users.map((user) => (
                         <tr key={user._id}>
-                            <td>{user.fullname}</td>
+                            <td>
+                                <NavLink
+                                    to={`/manageaccounts/user/${user._id}`}
+                                    className="user-link"
+                                    title="Click to View User Details"
+                                >
+                                    <a>{user.fullname}</a>
+                                </NavLink>
+                            </td>
                             <td>{user.office}</td>
                             <td>{user.email}</td>
                             <td>{user.status}</td>
@@ -124,15 +127,6 @@ const UserTable: React.FC<TableProps> = (props) => {
                                                 <DeleteOutlineIcon></DeleteOutlineIcon>
                                             </Tooltip>
                                         </a>
-                                        <a>
-                                            <button
-                                                onClick={() =>
-                                                    handleViewUser(user._id)
-                                                }
-                                            >
-                                                View details
-                                            </button>
-                                        </a>
                                     </div>
                                 </>
                             </td>
@@ -140,70 +134,11 @@ const UserTable: React.FC<TableProps> = (props) => {
                     ))}
                 </tbody>
             </table>
-            {userDetails && (
-                <Dialog
-                    open={showDetailsModal}
-                    onClose={() => setShowDetailsModal(false)}
-                    maxWidth="md"
-                    fullWidth
-                    PaperProps={{
-                        style: {
-                            borderRadius: 20,
-                        },
-                    }}
-                >
-                    <DialogTitle className="field">
-                        {'  '}
-                        <strong>User Details</strong>
-                    </DialogTitle>
-                    <DialogContent
-                        style={{
-                            minHeight: '300px',
-                            padding: '30px',
-                        }}
-                    >
-                        <div className="field">
-                            <strong>Full Name:</strong>
-                            {userDetails.fullname}
-                        </div>
-
-                        <div className="field">
-                            <strong>User Name:</strong>
-                            {userDetails.username}
-                        </div>
-                        <div className="field">
-                            <strong>Mobile:</strong> {userDetails.mobile}
-                        </div>
-                        <div className="field">
-                            <strong>Email:</strong> {userDetails.email}
-                        </div>
-                        <div className="field">
-                            <strong>Status:</strong> {userDetails.status}
-                        </div>
-                        <div className="field">
-                            <strong>Group:</strong> {userDetails.group}
-                        </div>
-                        <div className="field">
-                            <strong>Country:</strong> {userDetails.country}
-                        </div>
-                        <div className="field">
-                            <strong>Status:</strong> {userDetails.status}
-                        </div>
-                        <div className="field">
-                            <strong>Office:</strong> {userDetails.office}
-                        </div>
-                        <div className="field">
-                            <strong>Department:</strong>{' '}
-                            {userDetails.department}
-                        </div>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() => setShowDetailsModal(false)}>
-                            Close
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            )}
+            {/* {userDetails && (
+            <NavLink to=`/${userDetails}`>
+                <UserDetails userDetails={userDetails} />
+            </NavLink>
+        )} */}
         </div>
     );
 };
