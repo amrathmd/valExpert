@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import UserForm from './UserForm';
+import { NavLink } from 'react-router-dom';
 import UserTable from './UserTable';
 import './UserTable.css';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
@@ -10,34 +11,11 @@ import './UserManagement.css';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
-import { NavLink, Route, useNavigate, useLocation } from 'react-router-dom';
-
-interface Users {
-    _id: string;
-    fullname: string;
-    username: string;
-    email: string;
-    mobile: string;
-    status: string;
-    group: string[];
-    country: string;
-    office: string;
-    department: string;
-    // password: string;
-}
-
-interface UserFormProps {
-    userDetails: Users | null;
-    isEditMode: boolean;
-}
 const UserManagement = () => {
     const [users, setUsers] = React.useState([]);
     const [userPrompt, setUserPrompt] = React.useState<boolean>();
     const [activeUsers, setActiveUsers] = React.useState<number>(0);
     const [inactiveUsers, setInactiveUsers] = React.useState<number>(0);
-    const location = useLocation();
-    const navigate = useNavigate();
-    const state = location.state as UserFormProps;
     const getUsers = async () => {
         try {
             const res = await axios.get(`${react_backend_url}/v1/adminusers`);
@@ -53,19 +31,13 @@ const UserManagement = () => {
     }, []);
 
     React.useEffect(() => {
+        // When the users state changes, check if there are any users
         setUserPrompt(users.length === 0);
         setActiveUsers(users.filter((user) => user.status === 'Active').length);
         setInactiveUsers(
             users.filter((user) => user.status === 'Inactive').length
         );
     }, [users]);
-    const handleAddUsersClick = () => {
-        const propsToPass = {
-            userDetails: null as Users | null,
-            isEditMode: false,
-        };
-        navigate('/manageaccounts/creatnewuser', { state: propsToPass });
-    };
 
     return (
         <div>
