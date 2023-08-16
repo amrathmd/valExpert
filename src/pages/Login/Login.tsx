@@ -5,6 +5,8 @@ import axios from 'axios';
 import AuthContext from '../../contexts/AuthContext';
 import { react_backend_url } from '../../config';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
+import { Reactangle } from '../../../public/Rectangle 4.jpg';
+import group from '../../../public/Group 3.png';
 
 const Login = () => {
     const History = useNavigate();
@@ -46,8 +48,13 @@ const Login = () => {
         <>
             <StickyHeader />
             <div className="Loglogincontainer">
-                {/* <div className='loginImage'>
-                </div> */}
+                <div className="loginImage">
+                    <img
+                        src="../../../public/Best.png"
+                        alt=""
+                        className="rectangle"
+                    />
+                </div>
                 <div className="Loglogin-form">
                     <form onSubmit={handleSubmit}>
                         <div className="Loginputform">
@@ -81,7 +88,7 @@ const Login = () => {
                             />
                             <div className="Logaccount">
                                 <input type="checkbox"></input>
-                                <label className="Logrem">Remember me</label>
+                                <label className="msg">Remember me</label>
                             </div>
                             <button type="submit" className="Loglogin-button">
                                 <h2 className="buttontext">Login</h2>
