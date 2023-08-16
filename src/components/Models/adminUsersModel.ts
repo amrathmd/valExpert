@@ -1,5 +1,4 @@
 export interface User {
-    _id?: string;
     fullname: string;
     username: string;
     email: string;
@@ -9,4 +8,5 @@ export interface User {
     country: string;
     office: string;
     department: string;
+    password: string;
 }
