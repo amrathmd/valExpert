@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Tooltip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import Requirementsdetails from './Requirementsdetails';
 
 interface Props {
     selectedItem: number;
@@ -27,6 +28,7 @@ const Requirements: React.FC<Props> = ({
     const [requirementSetFrom, setRequirmentSetForm] =
         React.useState<boolean>(false);
     const [requirementSets, setRequirementSets] = React.useState([]);
+    const [selectedRequirements, setSelectedRequirements] = React.useState([]);
 
     const handleFormActive = () => {
         setReqFormActive(!isReqFormActive);
@@ -43,13 +45,6 @@ const Requirements: React.FC<Props> = ({
         };
         FetchRequirementSets();
     }, []);
-
-    const handleEditRequirment = () => {
-        console.log(true);
-    };
-    const handleDeleteRequirement = () => {
-        console.log(true);
-    };
 
     return (
         <div>
@@ -108,57 +103,9 @@ const Requirements: React.FC<Props> = ({
                             selectedRequirementSet={selectedRequirementSet}
                         />
                     ) : (
-                        <table className="content-table">
-                            <thead>
-                                <tr>
-                                    <th>RequirementSetId</th>
-                                    <th>RequirementDescription</th>
-                                    <th>RequirementCategory</th>
-                                    <th>ReferenceSOP</th>
-                                    <th>Verification</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {requirements.map((requirement) => (
-                                    <tr key={requirement._id}>
-                                        <td>{requirement.name}</td>
-                                        <td>{requirement.mobile}</td>
-                                        <td>{requirement.email}</td>
-                                        <td>{requirement.status}</td>
-                                        <td>
-                                            <>
-                                                <div className="action-icon">
-                                                    <a
-                                                        onClick={() =>
-                                                            handleEditRequirment
-                                                        }
-                                                    >
-                                                        <Tooltip
-                                                            title="Edit User"
-                                                            placement="top-end"
-                                                        >
-                                                            <EditIcon></EditIcon>
-                                                        </Tooltip>
-                                                    </a>
-                                                    <a
-                                                        onClick={() =>
-                                                            handleDeleteRequirement
-                                                        }
-                                                    >
-                                                        <Tooltip
-                                                            title="Delete User"
-                                                            placement="top-end"
-                                                        >
-                                                            <DeleteOutlineIcon></DeleteOutlineIcon>
-                                                        </Tooltip>
-                                                    </a>
-                                                </div>
-                                            </>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <Requirementsdetails
+                            selectedRequirementSet={selectedRequirementSet}
+                        />
                     )}
                 </div>
             )}
