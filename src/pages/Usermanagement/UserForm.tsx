@@ -226,16 +226,19 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                     <div className="userForm">
                         <div className="formleft">
                             <TextField
-                                label="FullName"
+                                label={
+                                    <span style={{ fontWeight: 900 }}>
+                                        FullName
+                                    </span>
+                                }
                                 fullWidth
                                 variant="outlined"
                                 name="fullname"
                                 className="formfeild"
-                                size="small"
                                 required
                                 error={!!error.fullname}
                                 helperText={error.fullname}
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 5 }}
                                 value={user.fullname}
                                 onChange={handleTextChange}
                                 InputProps={{
@@ -247,12 +250,15 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                                 }}
                             />
                             <TextField
-                                label="UserName"
+                                label={
+                                    <span style={{ fontWeight: 900 }}>
+                                        UserName
+                                    </span>
+                                }
                                 fullWidth
                                 variant="outlined"
                                 name="username"
                                 className="formfeild"
-                                size="small"
                                 error={!!error.username}
                                 helperText={error.username}
                                 InputProps={{
@@ -265,21 +271,24 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                                 required
                                 value={user.username}
                                 onChange={handleTextChange}
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 5 }}
                             />
                             <TextField
-                                label="Email"
+                                label={
+                                    <span style={{ fontWeight: 900 }}>
+                                        Email
+                                    </span>
+                                }
                                 fullWidth
                                 variant="outlined"
                                 name="email"
                                 className="formfeild"
-                                size="small"
                                 required
                                 value={user.email}
                                 onChange={handleTextChange}
                                 error={!!error.email}
                                 helperText={error.email}
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 5 }}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
@@ -288,65 +297,29 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                                     ),
                                 }}
                             />
-                            {/*<FormControl
-                                sx={{ marginBottom: 3 }}
-                                variant="outlined"
-                                size="small"
-                                className="formfeild"
-                            >
-                                <InputLabel htmlFor="outlined-adornment-password">
-                                    Password
-                                </InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    name="password"
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={
-                                                    handleClickShowPassword
-                                                }
-                                                onMouseDown={
-                                                    handleMouseDownPassword
-                                                }
-                                                edge="end"
-                                            >
-                                                {showPassword ? (
-                                                    <VisibilityOff />
-                                                ) : (
-                                                    <Visibility />
-                                                )}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    startAdornment={
-                                        <InputAdornment position="start">
-                                            <Key />
-                                        </InputAdornment>
-                                    }
-                                    label="Password"
-                                    value={user.password}
-                                    onChange={handleTextChange}
-                                />
-                                {error.password && (
-                                    <FormHelperText sx={{ color: '#f44336' }}>
-                                        {error.password}
-                                    </FormHelperText>
-                                )} 
-                            </FormControl>*/}
+
                             <TextField
                                 select
-                                label="Country"
+                                error={!!error.username}
+                                helperText={error.username}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start"></InputAdornment>
+                                    ),
+                                }}
+                                required
+                                placeholder="Select Country"
+                                label={
+                                    <span style={{ fontWeight: 900 }}>
+                                        Country
+                                    </span>
+                                }
                                 variant="outlined"
                                 fullWidth
                                 name="country"
-                                value={selectedCountry}
                                 onChange={handleCountryChange}
-                                size="small"
                                 className="formfeild"
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 5 }}
                             >
                                 {countryOptions.map((option) => (
                                     <MenuItem
@@ -360,16 +333,19 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                         </div>
                         <div className="formright">
                             <TextField
-                                label="Mobile"
+                                label={
+                                    <span style={{ fontWeight: 900 }}>
+                                        Mobile
+                                    </span>
+                                }
                                 fullWidth
                                 variant="outlined"
                                 name="mobile"
                                 className="formfeild"
-                                size="small"
                                 value={user.mobile}
                                 onChange={handleTextChange}
                                 required
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 5 }}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
@@ -381,16 +357,19 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                                 helperText={error.mobile}
                             />
                             <TextField
-                                label="Office Phone"
+                                label={
+                                    <span style={{ fontWeight: 900 }}>
+                                        Office Phone
+                                    </span>
+                                }
                                 fullWidth
                                 variant="outlined"
                                 name="office"
                                 className="formfeild"
                                 value={user.office}
                                 onChange={handleTextChange}
-                                size="small"
                                 required
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 5 }}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
@@ -400,18 +379,22 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                                 }}
                             />
                             <FormControl
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 5 }}
                                 className="formfeild"
                                 required
                             >
                                 <InputLabel
                                     id="demo-multiple-name-label"
-                                    size="small"
+                                    style={{ fontWeight: 900 }}
                                 >
                                     Group
                                 </InputLabel>
                                 <Select
-                                    label="Group"
+                                    label={
+                                        <span style={{ fontWeight: 900 }}>
+                                            Group
+                                        </span>
+                                    }
                                     labelId="demo-multiple-name-label"
                                     id="demo-multiple-name"
                                     name="group"
@@ -420,7 +403,6 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                                     onChange={handleChange}
                                     input={<OutlinedInput label="Group" />}
                                     MenuProps={MenuProps}
-                                    size="small"
                                 >
                                     {names.map((name) => (
                                         <MenuItem
@@ -438,25 +420,76 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                                 </Select>
                             </FormControl>
                             <TextField
-                                label="Department"
+                                label={
+                                    <span style={{ fontWeight: 900 }}>
+                                        Department
+                                    </span>
+                                }
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start"></InputAdornment>
+                                    ),
+                                }}
                                 fullWidth
                                 variant="outlined"
                                 name="department"
                                 className="formfeild"
-                                size="small"
                                 value={user.department}
                                 onChange={handleTextChange}
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 5 }}
                             />
                             <div className="select-group">
-                                <div>
-                                    <FormLabel id="demo-row-radio-buttons-group-label">
+                                <FormControl
+                                    // select
+                                    // required
+                                    // variant="outlined"
+                                    // fullWidth
+                                    // name="status"
+                                    // onChange={handleStatusChange}
+                                    className="formfeild"
+                                    sx={{
+                                        m: 1,
+                                        minWidth: 120,
+                                        marginBottom: 5,
+                                    }}
+                                    size="medium"
+                                    // label={
+                                    //     <span style={{ fontWeight: 900 }}>
+                                    //         Status
+                                    //     </span>
+                                    // }
+                                    // InputProps={{
+                                    //     startAdornment: (
+                                    //         <InputAdornment position="start"></InputAdornment>
+                                    //     ),
+                                    // }}
+                                >
+                                    <InputLabel id="demo-select-small-label">
                                         Status
+                                    </InputLabel>
+                                    <Select
+                                        labelId="demo-select-small-label"
+                                        id="demo-select-small"
+                                        label="Status"
+                                        value={selectedStatus}
+                                        onChange={handleStatusChange}
+                                    >
+                                        <MenuItem value="Active">
+                                            Active
+                                        </MenuItem>
+                                        <MenuItem value="Inactive">
+                                            Inactive
+                                        </MenuItem>
+                                    </Select>
+                                </FormControl>
+                                {/* <div>
+                                    <FormLabel id="demo-row-radio-buttons-group-label">
+                                        Status>
                                     </FormLabel>
-                                </div>
-                                <div>
+                                </div> */}
+                                {/* <div>
                                     <RadioGroup
-                                        sx={{ marginBottom: 3 }}
+                                        sx={{ marginBottom: 5 }}
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
@@ -474,7 +507,7 @@ const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
                                             label="inactive"
                                         />
                                     </RadioGroup>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
