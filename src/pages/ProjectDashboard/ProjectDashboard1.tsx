@@ -23,6 +23,8 @@ import { project } from 'esri/geometry/projection';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 import { InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import './ProjectDashboard1.css';
 
 interface TestScript {
     _id: string;
@@ -72,7 +74,11 @@ const Dashboard = () => {
     const [testCases, setTestCases] = useState(testCaseSchema);
     const [testScripts, setTestScripts] = useState(testScriptSchema);
     const [project, setProject] = useState(null);
+    const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
 
+    const handleReqFormActive = () => {
+        setReqFormActive(!isReqFormActive);
+    };
     const handleRequirementSet = () => {
         setRequirementSetForm(!requirementSetForm);
     };
@@ -190,52 +196,73 @@ const Dashboard = () => {
     return (
         <div className="projectdashboard">
             <StickyHeader />
-            <div className="req-header">
-                <div className="req-projectName">
-                    {project && <p>Project Name: {project.projectName}</p>}
-                </div>
-                <div className="requirements-icons">
-                    <TextField
-                        placeholder="Search"
-                        size="small"
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <ListItemButton>
-                        <div className="req-add">
-                            <img src={'../../../public/plus.svg'} alt="" />
-                            <p>Add Requirement</p>
+            {selectedRequirementSet && (
+                <div>
+                    <div className="req-header">
+                        <div className="req-projectName">
+                            {project && (
+                                <p>Project Name: {project.projectName}</p>
+                            )}
                         </div>
-                    </ListItemButton>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/back.png'} alt="" />
+                        <div className="requirements-icons">
+                            <TextField
+                                placeholder="Search"
+                                size="small"
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <SearchIcon />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                            <ListItemButton>
+                                <div
+                                    className="req-add"
+                                    onClick={handleReqFormActive}
+                                >
+                                    <img
+                                        src={'../../../public/plus.svg'}
+                                        alt=""
+                                    />
+                                    <p>Add Requirement</p>
+                                </div>
+                            </ListItemButton>
+                            <div className="req-header-icons">
+                                <img src={'../../../public/back.png'} alt="" />
+                            </div>
+                            <div className="req-header-icons">
+                                <img src={'../../../public/time.png'} alt="" />
+                            </div>
+                            <div className="req-header-icons">
+                                <img src={'../../../public/pdf.png'} alt="" />
+                            </div>
+                            <div className="req-header-icons">
+                                <img
+                                    src={'../../../public/scanner.png'}
+                                    alt=""
+                                />
+                            </div>
+                            <div className="req-header-icons">
+                                <img
+                                    src={'../../../public/blocks.png'}
+                                    alt=""
+                                />
+                            </div>
+                            <div className="req-header-icons">
+                                <img src={'../../../public/del.png'} alt="" />
+                            </div>
+                            <div className="req-header-icons">
+                                <img
+                                    src={'../../../public/ep_edit.png'}
+                                    alt=""
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/time.png'} alt="" />
-                    </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/pdf.png'} alt="" />
-                    </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/scanner.png'} alt="" />
-                    </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/blocks.png'} alt="" />
-                    </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/del.png'} alt="" />
-                    </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/ep_edit.png'} alt="" />
-                    </div>
+                    <div className="req-header-underline"></div>
                 </div>
-            </div>
-            <div className="req-header-underline"></div>
+            )}
             <div className="dashboard-sidebar">
                 <List
                     sx={{
@@ -255,7 +282,11 @@ const Dashboard = () => {
                     }
                 >
                     <ListItemButton onClick={handleClick}>
-                        <ListItemText primary="Requirement sets" />
+                        <FolderOutlinedIcon />
+                        <ListItemText
+                            sx={{ marginLeft: 2 }}
+                            primary="Requirement sets"
+                        />
                         {openRequirementSet ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Collapse
@@ -306,7 +337,11 @@ const Dashboard = () => {
                     </Collapse>
 
                     <ListItemButton onClick={handleTestsSetClick}>
-                        <ListItemText primary="Test sets" />
+                        <FolderOutlinedIcon />
+                        <ListItemText
+                            sx={{ marginLeft: 2 }}
+                            primary="Test sets"
+                        />
                         {openTestSets ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Collapse in={openTestSets} timeout="auto" unmountOnExit>
@@ -460,7 +495,11 @@ const Dashboard = () => {
                         </ListItemButton>
                     </Collapse>
                     <ListItemButton onClick={handleDefectClick}>
-                        <ListItemText primary="Defects" />
+                        <FolderOutlinedIcon />
+                        <ListItemText
+                            sx={{ marginLeft: 2 }}
+                            primary="Defects"
+                        />
                         {openDefects ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Collapse in={openDefects} timeout="auto" unmountOnExit>
@@ -492,6 +531,8 @@ const Dashboard = () => {
                     selectedRequirementSet={selectedRequirementSet}
                     RequirementSets={requirementSets}
                     projectId={projectId}
+                    handleReqFormActive={handleReqFormActive}
+                    isReqFormActive={isReqFormActive}
                 />
                 <TestSets selectedItem={selectedList} projectId={projectId} />
             </div>

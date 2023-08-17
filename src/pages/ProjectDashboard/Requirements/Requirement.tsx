@@ -15,6 +15,8 @@ interface Props {
     selectedRequirementSet: any;
     projectId: string;
     RequirementSets: any;
+    handleReqFormActive: any;
+    isReqFormActive: boolean;
 }
 
 const Requirements: React.FC<Props> = ({
@@ -22,17 +24,15 @@ const Requirements: React.FC<Props> = ({
     selectedRequirementSet,
     projectId,
     RequirementSets,
+    handleReqFormActive,
+    isReqFormActive,
 }) => {
-    const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
     const [requirements, setRequirements] = React.useState([]);
     const [requirementSetFrom, setRequirmentSetForm] =
         React.useState<boolean>(false);
     const [requirementSets, setRequirementSets] = React.useState([]);
     const [selectedRequirements, setSelectedRequirements] = React.useState([]);
 
-    const handleFormActive = () => {
-        setReqFormActive(!isReqFormActive);
-    };
     const handleRequirementSet = () => {
         setRequirmentSetForm(!requirementSetFrom);
     };
@@ -91,15 +91,15 @@ const Requirements: React.FC<Props> = ({
 
             {selectedRequirementSet && (
                 <div>
-                    <button
+                    {/* <button
                         className="create-reqSet-button"
-                        onClick={handleFormActive}
+                        onClick={handleReqFormActive}
                     >
                         Create Requirements
-                    </button>
+                    </button> */}
                     {isReqFormActive ? (
                         <ReqForm
-                            handleFormActive={handleFormActive}
+                            handleFormActive={handleReqFormActive}
                             selectedRequirementSet={selectedRequirementSet}
                         />
                     ) : (

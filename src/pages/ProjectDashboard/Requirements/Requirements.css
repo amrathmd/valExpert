@@ -9,7 +9,7 @@
 .category-title-text {
     background-color: #3575BA;
     color: white;
-    width: 1435px;
+    width: 70vw;
     height: 44px;
     display: flex;
     align-items: center;
@@ -18,7 +18,7 @@
 
 .content-table1 {
     border-collapse: collapse;
-    width: 1435px;
+    width: 70vw;
 height: 44px;
     border-radius: 5px 5px 0 0;
     

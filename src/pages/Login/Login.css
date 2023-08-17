@@ -32,61 +32,29 @@ body {
     align-items: center; /* Horizontally center the content */
 }
 
-/* ... Other existing styles ... */ 
 
-/* .Loglogincontainer {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(255, 255, 255);
-    margin: 0;
-    padding: 0;
-   
-}
-.loginImage{
-    width: 50%;
-    height: 100%;
-    top:0;
-    left:0;
-}
-.rectangle{
-    height: 90vh;
-} */
-@media (max-width: 1160px) {
+@media (max-width: 1300px) {
     .Loglogincontainer {
-        flex-direction: column-reverse; /* Reverse the order to keep .Loglogin-form on top */
+        /*flex-direction: column-reverse;  Reverse the order to keep .Loglogin-form on top */
         width:100%;
     }
     
-    .loginImage {
-        display: none; /* Hide the loginImage div */
+    .LogText{
+        width: 400px;
     }
     
     .Loglogin-form {
-        padding-top: 0; /* Remove top padding when .loginImage is hidden */
-        padding-left: 60px;
+        margin-right: 50px;
     }
 }
-/* @media(min-width:770px ) and (max-width:1160x){
-    .Loglogincontainer {
-        width:100%;
-    }
-    .loginImage {
-        width: 50%; 
-    }
-    .Loglogin-form{
-        width:50%;
-    }
 
-} */
-/* Media query for screen width between 800px and 1200px */
-@media(min-width:1162px ){
+@media(max-width:1162px ){
     .Loglogincontainer {
         width:100%;
     }
     .loginImage {
         width: 50%; 
+        display: none;
     }
     .Loglogin-form{
         width:50%;
@@ -94,28 +62,6 @@ body {
 
 }
 
-/* @media (min-width: 1170px) {
-    .Loglogincontainer {
-        width:100%;
-    }
-    .loginImage {
-        width: 40%; 
-    }
-    .Loglogin-form{
-        width:30%;
-    }
-}
-@media (max-width: 947px) {
-    .Loglogincontainer {
-        width:100%;
-    }
-    .Loglogin-form{
-        width:20%;
-    }
-    .loginImage {
-        width: 30%; 
-    }
-} */
 
 .Logcheck-boxes {
     margin: 10px;
@@ -157,12 +103,6 @@ body {
     padding-right: 20px;
     width: 580px;
 }
-/* .Loglogin-form {
-    border-radius: 12px;
-    width: 639px;
-    height: 350px;
-                                                                                                                                                
-} */
 .Loglogin-button {
     height: 40px;
     background-color: #003059;
@@ -180,11 +120,7 @@ body {
     font-weight: 500;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.Logpass {
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
-}
+
 .Logpass a {
     font-size: 13px;
     align-self: flex-end;
@@ -192,12 +128,6 @@ body {
     text-decoration: none;
     float: right;
 }
-/* .Logpass label {
-    margin-bottom: 6px;
-    font-size: medium;
-    font-weight: 450;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} */
 
 .Loginputform > input {
     border-radius: 5px;
@@ -310,13 +240,7 @@ body {
 .Logmessage {
     margin-top: 20px;
 }
-/* .Logaccount.rem {
-    font-size: 13px;
-    color: #777777;
-    margin-left: 18px;
-    width:50%
-    ba
-} */
+
 .msg{
     margin-left: 10px;
     width: 60%;

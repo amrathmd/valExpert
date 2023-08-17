@@ -110,7 +110,7 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
             try {
                 if (selectedRequirementSet) {
                     const result = await axios.get(
-                        `http://localhost:3000/v1/requirements/requirementset/${selectedRequirementSet}`
+                        `${react_backend_url}/v1/requirements/requirementset/${selectedRequirementSet}`
                     );
                     const requirementsData: Requirement[] = result.data;
                     const groupedRequirements: Record<string, Requirement[]> =
