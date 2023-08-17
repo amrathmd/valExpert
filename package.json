@@ -98,6 +98,7 @@
         "fontawesome": "^5.6.3",
         "framer-motion": "^10.12.12",
         "helper-toolkit-ts": "^1.1.13",
+        "html2pdf.js": "^0.10.1",
         "joi-browser": "^13.4.0",
         "mui-datatables": "^4.3.0",
         "react": "^18.1.0",

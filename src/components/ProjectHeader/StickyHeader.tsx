@@ -3,13 +3,21 @@ import './stickyHeader.css';
 
 const StickyHeader = () => {
     return (
-        <div className="sticky-header">
-            <div className="project-title">
-                <b>valExpert</b>
+        <div>
+            <div className="sticky-header">
+                <div className="project-title">
+                    <p>VALEXPERTS</p>
+                </div>
+                <div className="project-header-icons">
+                    <div className="user-icons">
+                        <img src={'../../../public/GroupProf.png'} alt="" />
+                    </div>
+                    <div className="user-icons">
+                        <img src={'../../../public/LogOutImg.png'} alt="" />
+                    </div>
+                </div>
             </div>
-            <div className="project-tagline">
-                <p>Tag line of valExpert</p>
-            </div>
+            <div className="title-underline"></div>
         </div>
     );
 };
