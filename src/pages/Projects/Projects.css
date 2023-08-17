@@ -36,12 +36,12 @@
     justify-content: flex-start;
 }
 .iconimg{
-    height: 60%;
-    width: 60%;
+    height: 30%;
+    width: 30%;
 }
-.plusimg{
-    height: 60%;
-    width: 60%;
+.imgageplus{
+    height: 30%;
+    width: 30%;
 }
 .project-tagline > p {
     color: white;
@@ -50,20 +50,33 @@
 .create-card {
     cursor: pointer;
     transition: all 0.5s ease;
-    width: 9rem;
-    height: 9rem;
+    width: 11rem;
+    height: 11rem;
+    margin-right: 130px;
 }
 .create-card:hover {
     transform: scale(1.2);
 }
 .image-pic {
-    width: 8rem;
-    height: 6rem;
+    width: 9rem;
+    height: 7rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(239, 245, 254);
+    background-color: #FFF;
     border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.80);
+}
+.searchbar {
+    padding-left: 20px;
+    margin-left: 700px;
+    margin-top: 10px;
+    display: flex;
+    width: 450px;
+    height: 45px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
 }
 .createProject-btn {
     width: 8rem;
@@ -79,9 +92,10 @@
 .projects-card {
     cursor: pointer;
     transition: all 0.5s ease;
-    width: 9rem;
-    height: 10rem;
+    width: 15rem;
+    height: 12rem;
     overflow: hidden;
+    margin-right: 130px;
 }
 .projects-card:hover {
     transform: scale(1.2);
@@ -93,10 +107,31 @@
 }
 
 .project-description b {
-    font-weight: 800; /* Increase the font weight for bolder text */
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Apply the desired font style */
-    display: block;
-    margin-left: 25px;
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 14.114px; /* 44.107% */
+    letter-spacing: -0.262px;
+}
+.para{
+    margin-top: 10px;
+    color: #000;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.datein{
+    width: 9rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: 4px;
+    border: 1px solid #000;
+    background: rgba(217, 217, 217, 0.00);
 }
 
 .menu-handler {
