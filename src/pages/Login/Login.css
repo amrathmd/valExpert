@@ -1,11 +1,121 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
 .Loglogincontainer {
     display: flex;
-    width: 100vw;
-    height: 100vh;
+    width: 100vw; /* Use viewport units to prevent horizontal scrollbar */
+    height: 100vh; /* Use viewport units to prevent vertical scrollbar */
+    background-color: rgb(255, 255, 255);
+}
+
+.loginImage {
+    width: 50%;
+    height: 100%;
+    overflow: hidden; /* Hide any overflowing content */
+}
+
+.rectangle {
+    height: 95%; /* Change to 100% to ensure full image display */
+    width: auto; /* Maintain the image's aspect ratio */
+    max-width: 100%; /* Prevent image from overflowing */
+}
+
+.Loglogin-form {
+    flex-grow: 1; /* Allow this section to grow to fill the remaining space */
+    padding: 20px; /* Add padding for spacing */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the content */
+    align-items: center; /* Horizontally center the content */
+}
+
+/* ... Other existing styles ... */ 
+
+/* .Loglogincontainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
     background-color: rgb(255, 255, 255);
     margin: 0;
     padding: 0;
+   
 }
+.loginImage{
+    width: 50%;
+    height: 100%;
+    top:0;
+    left:0;
+}
+.rectangle{
+    height: 90vh;
+} */
+@media (max-width: 1160px) {
+    .Loglogincontainer {
+        flex-direction: column-reverse; /* Reverse the order to keep .Loglogin-form on top */
+        width:100%;
+    }
+    
+    .loginImage {
+        display: none; /* Hide the loginImage div */
+    }
+    
+    .Loglogin-form {
+        padding-top: 0; /* Remove top padding when .loginImage is hidden */
+        padding-left: 60px;
+    }
+}
+/* @media(min-width:770px ) and (max-width:1160x){
+    .Loglogincontainer {
+        width:100%;
+    }
+    .loginImage {
+        width: 50%; 
+    }
+    .Loglogin-form{
+        width:50%;
+    }
+
+} */
+/* Media query for screen width between 800px and 1200px */
+@media(min-width:1162px ){
+    .Loglogincontainer {
+        width:100%;
+    }
+    .loginImage {
+        width: 50%; 
+    }
+    .Loglogin-form{
+        width:50%;
+    }
+
+}
+
+/* @media (min-width: 1170px) {
+    .Loglogincontainer {
+        width:100%;
+    }
+    .loginImage {
+        width: 40%; 
+    }
+    .Loglogin-form{
+        width:30%;
+    }
+}
+@media (max-width: 947px) {
+    .Loglogincontainer {
+        width:100%;
+    }
+    .Loglogin-form{
+        width:20%;
+    }
+    .loginImage {
+        width: 30%; 
+    }
+} */
 
 .Logcheck-boxes {
     margin: 10px;
@@ -47,13 +157,12 @@
     padding-right: 20px;
     width: 580px;
 }
-.Loglogin-form {
+/* .Loglogin-form {
     border-radius: 12px;
     width: 639px;
     height: 350px;
-    margin-left: 1128px;
-    margin-top: 317px;                                                                                                                                              
-}
+                                                                                                                                                
+} */
 .Loglogin-button {
     height: 40px;
     background-color: #003059;
@@ -101,11 +210,7 @@
     outline: none;
 }
 
-.loginImage{
-    height: 500px;
-    width:1500px; 
-    background-color: #003059;                                                                            
-}
+
 .Loginputform > input:focus {
     /* border: 2px solid rgb(64, 64, 237); */
     border: 2px solid #000;
@@ -185,11 +290,12 @@
     flex-direction: row;
     margin-bottom: 10px;
     padding-left: 2px;
+    align-items: center;
 }
 
 .Logaccount input[type='checkbox'] {
-    margin-right: 5px;
-    transform: scale(1.2);
+    transform: scale(1.5);
+    width: 11px;
 }
 .Logaccount span {
     margin-right: 1px;
@@ -204,9 +310,15 @@
 .Logmessage {
     margin-top: 20px;
 }
-.Logaccount.rem {
-    display: inline-block;
-    vertical-align: middle;
+/* .Logaccount.rem {
     font-size: 13px;
     color: #777777;
+    margin-left: 18px;
+    width:50%
+    ba
+} */
+.msg{
+    margin-left: 10px;
+    width: 60%;
+    margin-right: 112px;
 }
