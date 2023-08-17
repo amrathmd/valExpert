@@ -39,6 +39,7 @@ const RequirementSetForm: React.FC<Props> = ({
                 requirementSet
             );
             if (response) {
+                console.log(response);
                 setSuccess(true);
             }
         } catch (e) {
