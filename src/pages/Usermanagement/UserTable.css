@@ -67,3 +67,7 @@
 .field {
     margin: 10px;
 }
+.user-link {
+    color: blue;
+    text-decoration: underline;
+}

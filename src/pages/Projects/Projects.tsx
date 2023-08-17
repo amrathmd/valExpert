@@ -6,9 +6,10 @@ import './Projects.css';
 import Button from '@mui/material/Button';
 import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import IconButton from '@mui/material/IconButton';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, InputAdornment, TextField } from '@mui/material';
 import DashboardContext from '../../contexts/dashboardContext';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
+import SearchIcon from '@mui/icons-material/Search';
 
 const defaultProject = [
     { key: 'projectName', label: 'Project Name' },
@@ -115,6 +116,19 @@ const Projects = () => {
     return (
         <div>
             <StickyHeader />
+            <div className="searchbar">
+                <TextField
+                    placeholder="Search"
+                    size="small"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+            </div>
             <div className="projects-header">
                 <p>Projects</p>
             </div>
@@ -124,7 +138,11 @@ const Projects = () => {
                 <div className="create-card">
                     <NavLink to="/createProject">
                         <div className="image-pic">
-                            <img src={'../../../public/create.png'} alt="" />
+                            <img
+                                src={'../../../public/Plus.png'}
+                                alt=""
+                                className="iconimg"
+                            />
                         </div>
                         <button className="createProject-btn">
                             Create New
@@ -133,17 +151,31 @@ const Projects = () => {
                 </div>
                 {projects.length !== 0 &&
                     projects.map((item) => (
-                        <div
-                            ref={projectCardRef}
-                            className="projects-card"
-                            key={item._id}
-                            onClick={(event) => handleClick(event, item._id)}
-                        >
-                            <div className="image-pic"></div>
-                            <div className="project-description">
-                                <b>{item.projectName}</b>
-                                {item.description}
+                        <div key={item._id}>
+                            <div
+                                ref={projectCardRef}
+                                className="projects-card"
+                                key={item._id}
+                                onClick={(event) =>
+                                    handleClick(event, item._id)
+                                }
+                            >
+                                <div className="image-pic">
+                                    <img
+                                        src={'../../../public/icon.png'}
+                                        alt=""
+                                        className="iconimg"
+                                    />
+                                </div>
+
+                                <div className="project-description">
+                                    <b>{item.projectName}</b>
+                                    <p className="para">
+                                        Estimated completion date
+                                    </p>
+                                </div>
                             </div>
+                            <input type="date" className="datein" />
                         </div>
                     ))}
             </section>

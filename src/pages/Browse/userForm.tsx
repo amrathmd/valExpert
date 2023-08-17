@@ -11,12 +11,12 @@ interface FormUserProps {
 }
 
 const defaultUser: User = {
+    _id: '',
     fullname: '',
     username: '',
     email: '',
     mobile: '',
     status: 'Active',
-    password: '',
     country: '',
     group: [''],
     department: '',
