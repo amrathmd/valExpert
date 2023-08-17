@@ -148,8 +148,7 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
                                     <tr>
                                         <th>RequirementSetId</th>
                                         <th>RequirementDescription</th>
-                                        {/* <th>Reference</th>
-                                    <th>Verification</th> */}
+
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -167,8 +166,7 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
                                                         requirement.requirementDescription
                                                     }
                                                 </td>
-                                                {/* <td>{requirement.reference}</td>
-                                            <td>{requirement.verification}</td> */}
+
                                                 <td>
                                                     <div className="action-icon">
                                                         <Tooltip

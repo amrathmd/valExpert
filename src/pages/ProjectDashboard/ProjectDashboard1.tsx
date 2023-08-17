@@ -208,7 +208,7 @@ const Dashboard = () => {
                     />
                     <ListItemButton>
                         <div className="req-add">
-                            <img src={'../../../public/plus.png'} alt="" />
+                            <img src={'../../../public/plus.svg'} alt="" />
                             <p>Add Requirement</p>
                         </div>
                     </ListItemButton>

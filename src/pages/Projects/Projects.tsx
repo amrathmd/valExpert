@@ -139,9 +139,9 @@ const Projects = () => {
                     <NavLink to="/createProject">
                         <div className="image-pic">
                             <img
-                                src={'../../../public/Plus.png'}
-                                alt=""
-                                className="iconimg"
+                                src={'../../../public/plus.png'}
+                                alt="image not found"
+                                className="createnewimg"
                             />
                         </div>
                         <button className="createProject-btn">
