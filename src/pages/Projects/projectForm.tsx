@@ -1,17 +1,30 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import axios from 'axios';
 import Joi from 'joi-browser';
-import TextField from '@mui/material/TextField';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
 import { Theme, useTheme } from '@mui/material/styles';
-import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { countries } from 'countries-list';
+
 import { useNavigate } from 'react-router-dom';
 import { react_backend_url } from '../../config';
+import {
+    TextField,
+    Autocomplete,
+    MenuItem,
+    InputLabel,
+    FormControl,
+    Button,
+    OutlinedInput,
+    Stack,
+    Chip,
+} from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import CancelIcon from '@mui/icons-material/Cancel';
+import { start } from 'repl';
+import { NoEncryption } from '@mui/icons-material';
 
 interface Project {
     projectName: string;
@@ -37,6 +50,66 @@ const defaultProject: Project = {
     // estimationDate:'',
 };
 
+const facility = [
+    {
+        id: 1,
+        name: 'face',
+    },
+    {
+        id: 1,
+        name: 'face',
+    },
+    {
+        id: 1,
+        name: 'face',
+    },
+    {
+        id: 1,
+        name: 'face',
+    },
+    {
+        id: 1,
+        name: 'face',
+    },
+];
+
+const dept = [
+    {
+        id: 1,
+        name: 'CSE',
+    },
+    {
+        id: 1,
+        name: 'ECE',
+    },
+    {
+        id: 1,
+        name: 'EEE',
+    },
+    {
+        id: 1,
+        name: 'MME',
+    },
+];
+
+const countrydata = [
+    {
+        id: 1,
+        name: 'India',
+    },
+    {
+        id: 1,
+        name: 'England',
+    },
+    {
+        id: 1,
+        name: 'US',
+    },
+    {
+        id: 1,
+        name: 'America',
+    },
+];
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -64,24 +137,10 @@ const ProjectForm = () => {
     const [ValidationError, setvalidationError] = useState<string>('');
     const navigate = useNavigate();
     const [group, setGroup] = React.useState<string[]>([]);
-    const [selectedStatus, setSelectedStatus] = useState('Active');
-    const [selectedCountry, setSelectedCountry] = useState('');
-
-    const handleCountryChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setSelectedCountry(value);
-        setProject((prevProject) => {
-            return {
-                ...prevProject,
-                [name]: value,
-            };
-        });
-    };
-
-    const countryOptions = Object.keys(countries).map((countryCode) => ({
-        code: countryCode,
-        name: countries[countryCode].name,
-    }));
+    const [status, setStatus] = useState(null);
+    const [selectedDept, setSelectedDept] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState([]);
+    const [selectedFacility, setSelectedFacility] = useState([]);
 
     const schema = {
         name: Joi.string().required(),
@@ -173,161 +232,366 @@ const ProjectForm = () => {
             [name]: value,
         }));
     };
-
-    const handleStatusChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSelectedStatus(event.target.value);
-        setProject((prevProject) => ({
-            ...prevProject,
-            status: event.target.value,
-        }));
-    };
     return (
         <>
-            <div className="title">Create Project</div>
+            <div className="title" style={{}}>
+                Create Project
+            </div>
 
             <form onSubmit={handleSubmit}>
                 <div className="form-container">
-                    <div className="userForm">
+                    <div
+                        className="userForm"
+                        style={{ gap: 30, justifyContent: 'center' }}
+                    >
                         <div className="formleft">
                             <TextField
                                 label="Project Name"
                                 fullWidth
                                 variant="outlined"
+                                focused
                                 name="projectName"
                                 className="formfeild"
-                                size="small"
+                                // size="small"
                                 required
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 4 }}
                                 value={project.projectName}
                                 onChange={handleTextChange}
                             />
                             <TextField
-                                label="Facility"
+                                label="Purpose"
                                 fullWidth
-                                variant="outlined"
-                                name="facility"
-                                className="formfeild"
-                                size="small"
-                                required
-                                value={project.facility}
-                                onChange={handleTextChange}
-                                sx={{ marginBottom: 3 }}
-                            />
-                            <TextField
-                                label="Department"
-                                fullWidth
-                                variant="outlined"
-                                name="department"
-                                className="formfeild"
-                                size="small"
-                                required
-                                value={project.department}
-                                onChange={handleTextChange}
-                                sx={{ marginBottom: 3 }}
-                            />
-
-                            <TextField
-                                select
-                                label="Country"
-                                variant="outlined"
-                                fullWidth
-                                name="country"
-                                value={selectedCountry}
-                                onChange={handleCountryChange}
-                                size="small"
-                                className="formfeild"
-                                sx={{ marginBottom: 3 }}
-                            >
-                                {countryOptions.map((option) => (
-                                    <MenuItem
-                                        key={option.code}
-                                        value={option.code}
-                                    >
-                                        {option.name}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                            <TextField
-                                label="Scope"
-                                fullWidth
+                                focused
                                 variant="outlined"
                                 name="scope"
                                 className="formfeild"
-                                size="small"
+                                // size="small"
                                 value={project.scope}
                                 onChange={handleTextChange}
                                 required
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 4 }}
                             />
+                            <FormControl
+                                className="formfeild"
+                                fullWidth
+                                // size="small"
+                                sx={{ marginBottom: 4 }}
+                                required
+                                focused
+                            >
+                                <InputLabel id="demo-simple-select-label">
+                                    Status
+                                </InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={status}
+                                    label="Status"
+                                    onChange={(e) => {
+                                        setStatus(e.target.value);
+                                    }}
+                                >
+                                    <MenuItem value={10}>Active</MenuItem>
+                                    <MenuItem value={20}>Inactive</MenuItem>
+                                </Select>
+                            </FormControl>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer
+                                    components={['DatePicker']}
+                                    sx={{ marginBottom: 4 }}
+                                >
+                                    <DatePicker
+                                        className="formfeild"
+                                        label="Activation Date"
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker
+                                        className="formfeild"
+                                        label="In Activation Date"
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
                         </div>
                         <div className="formright">
+                            <FormControl
+                                sx={{ marginBottom: 4 }}
+                                // className="formfeild"
+                                required
+                                focused
+                            >
+                                <InputLabel>Country</InputLabel>
+                                <Select
+                                    className="formfeild"
+                                    multiple
+                                    value={selectedCountry}
+                                    onChange={(e: any) =>
+                                        setSelectedCountry(e.target.value)
+                                    }
+                                    input={<OutlinedInput label="Country" />}
+                                    renderValue={(selected) => (
+                                        <Stack
+                                            gap={1}
+                                            direction="row"
+                                            flexWrap="wrap"
+                                        >
+                                            {selected.map((value) => (
+                                                <Chip
+                                                    style={{
+                                                        backgroundColor:
+                                                            '#3575BA',
+                                                        color: 'white',
+                                                    }}
+                                                    key={value}
+                                                    label={value}
+                                                    onDelete={() =>
+                                                        setSelectedCountry(
+                                                            selectedCountry.filter(
+                                                                (item) =>
+                                                                    item !==
+                                                                    value
+                                                            )
+                                                        )
+                                                    }
+                                                    deleteIcon={
+                                                        <CancelIcon
+                                                            style={{
+                                                                color: 'white',
+                                                            }}
+                                                            onMouseDown={(
+                                                                event
+                                                            ) =>
+                                                                event.stopPropagation()
+                                                            }
+                                                        />
+                                                    }
+                                                />
+                                            ))}
+                                        </Stack>
+                                    )}
+                                >
+                                    {countrydata.map((value) => (
+                                        <MenuItem
+                                            key={value.id}
+                                            value={value.name}
+                                            sx={{
+                                                justifyContent: 'space-between',
+                                            }}
+                                        >
+                                            {value.name}
+                                            {selectedCountry.includes(value) ? (
+                                                <CheckIcon color="info" />
+                                            ) : null}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <FormControl
+                                required
+                                sx={{ marginBottom: 4 }}
+                                // className="formfeild"
+                                focused
+                            >
+                                <InputLabel>Department</InputLabel>
+                                <Select
+                                    className="formfeild"
+                                    multiple
+                                    value={selectedDept}
+                                    onChange={(e: any) =>
+                                        setSelectedDept(e.target.value)
+                                    }
+                                    input={
+                                        <OutlinedInput label="Multiple Select" />
+                                    }
+                                    renderValue={(selected) => (
+                                        <Stack
+                                            gap={1}
+                                            direction="row"
+                                            flexWrap="wrap"
+                                        >
+                                            {selected.map((value) => (
+                                                <Chip
+                                                    style={{
+                                                        backgroundColor:
+                                                            '#3575BA',
+                                                        color: 'white',
+                                                    }}
+                                                    key={value}
+                                                    label={value}
+                                                    onDelete={() =>
+                                                        setSelectedDept(
+                                                            selectedDept.filter(
+                                                                (item) =>
+                                                                    item !==
+                                                                    value
+                                                            )
+                                                        )
+                                                    }
+                                                    deleteIcon={
+                                                        <CancelIcon
+                                                            style={{
+                                                                color: 'white',
+                                                            }}
+                                                            onMouseDown={(
+                                                                event
+                                                            ) =>
+                                                                event.stopPropagation()
+                                                            }
+                                                        />
+                                                    }
+                                                />
+                                            ))}
+                                        </Stack>
+                                    )}
+                                >
+                                    {dept.map((value) => (
+                                        <MenuItem
+                                            key={value.id}
+                                            value={value.name}
+                                            sx={{
+                                                justifyContent: 'space-between',
+                                            }}
+                                        >
+                                            {value.name}
+                                            {selectedDept.includes(value) ? (
+                                                <CheckIcon color="info" />
+                                            ) : null}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+
+                            <FormControl
+                                sx={{ marginBottom: 4 }}
+                                // className="formfeild"
+                                focused
+                                required
+                            >
+                                <InputLabel>Facility</InputLabel>
+                                <Select
+                                    className="formfeild"
+                                    multiple
+                                    value={selectedFacility}
+                                    onChange={(e: any) =>
+                                        setSelectedFacility(e.target.value)
+                                    }
+                                    input={
+                                        <OutlinedInput label="Multiple Select" />
+                                    }
+                                    renderValue={(selected) => (
+                                        <Stack
+                                            gap={1}
+                                            direction="row"
+                                            flexWrap="wrap"
+                                        >
+                                            {selected.map((value) => (
+                                                <Chip
+                                                    style={{
+                                                        backgroundColor:
+                                                            '#3575BA',
+                                                        color: 'white',
+                                                    }}
+                                                    key={value}
+                                                    label={value}
+                                                    onDelete={() =>
+                                                        setSelectedFacility(
+                                                            selectedFacility.filter(
+                                                                (item) =>
+                                                                    item !==
+                                                                    value
+                                                            )
+                                                        )
+                                                    }
+                                                    deleteIcon={
+                                                        <CancelIcon
+                                                            style={{
+                                                                color: 'white',
+                                                            }}
+                                                            onMouseDown={(
+                                                                event
+                                                            ) =>
+                                                                event.stopPropagation()
+                                                            }
+                                                        />
+                                                    }
+                                                />
+                                            ))}
+                                        </Stack>
+                                    )}
+                                >
+                                    {facility.map((value) => (
+                                        <MenuItem
+                                            key={value.id}
+                                            value={value.name}
+                                            sx={{
+                                                justifyContent: 'space-between',
+                                            }}
+                                        >
+                                            {value.name}
+                                            {selectedFacility.includes(
+                                                value
+                                            ) ? (
+                                                <CheckIcon color="info" />
+                                            ) : null}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                             <TextField
                                 label="Category"
+                                focused
                                 fullWidth
                                 variant="outlined"
                                 name="category"
                                 className="formfeild"
                                 value={project.category}
                                 onChange={handleTextChange}
-                                size="small"
+                                // size="small"
                                 required
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 4 }}
                             />
                             <TextField
                                 label="Project Description"
                                 fullWidth
                                 multiline
-                                rows={4}
+                                focused
+                                rows={3}
                                 variant="outlined"
                                 name="description"
                                 className="formfeild"
                                 value={project.description}
                                 onChange={handleTextChange}
-                                size="small"
+                                // size="small"
                                 required
-                                sx={{ marginBottom: 3 }}
+                                sx={{ marginBottom: 4 }}
                             />
-                            <input type="Date" />
-                            <div className="select-group">
-                                <div>
-                                    <FormLabel id="demo-row-radio-buttons-group-label">
-                                        Status
-                                    </FormLabel>
-                                </div>
-                                <div>
-                                    <RadioGroup
-                                        sx={{ marginBottom: 3 }}
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        value={selectedStatus}
-                                        onChange={handleStatusChange}
-                                    >
-                                        <FormControlLabel
-                                            value="Active"
-                                            control={<Radio />}
-                                            label="Active"
-                                        />
-                                        <FormControlLabel
-                                            value="Inactive"
-                                            control={<Radio />}
-                                            label="inactive"
-                                        />
-                                    </RadioGroup>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div className="userFormButton">
-                    <button
+                <div
+                    className="userFormButton"
+                    style={{ gap: 60, justifyContent: 'center' }}
+                >
+                    <Button
                         className="form-button"
                         type="submit"
                         onClick={handleSubmit}
+                        size="large"
+                        variant="contained"
                     >
-                        Create Project!
-                    </button>
+                        Save
+                    </Button>
+                    <Button
+                        className="form-button"
+                        type="submit"
+                        onClick={handleSubmit}
+                        size="large"
+                        variant="contained"
+                    >
+                        Cancel
+                    </Button>
                 </div>
             </form>
         </>
