@@ -35,6 +35,14 @@
     align-items: center;
     justify-content: flex-start;
 }
+.iconimg{
+    height: 60%;
+    width: 60%;
+}
+.plusimg{
+    height: 60%;
+    width: 60%;
+}
 .project-tagline > p {
     color: white;
     font-size: 0.8rem;
@@ -78,14 +86,19 @@
 .projects-card:hover {
     transform: scale(1.2);
 }
-.project-description > b {
-    margin-top: 10px;
-    font-size: 0.8rem;
-    display: block;
-}
 .project-description {
-    font-size: 0.8rem;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
+
+.project-description b {
+    font-weight: 800; /* Increase the font weight for bolder text */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Apply the desired font style */
+    display: block;
+    margin-left: 25px;
+}
+
 .menu-handler {
     display: flex;
     flex-direction: column;
