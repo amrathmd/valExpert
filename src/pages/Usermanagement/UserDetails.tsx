@@ -12,7 +12,7 @@ import {
     CheckCircle,
     RadioButtonUnchecked,
 } from '@mui/icons-material';
-
+import { react_backend_url } from '../../config';
 interface Users {
     _id: string;
     fullname: string;
@@ -40,7 +40,7 @@ const UserDetailsPage = () => {
         const fetchUserData = async () => {
             console.log(user);
             const response = await axios.get(
-                `http://localhost:3000/v1/adminUsers/${user.id}`
+                `${react_backend_url}/v1/adminUsers/${user.id}`
             );
             const userDetails = response.data.user;
             setUserDetails(userDetails);
