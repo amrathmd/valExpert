@@ -21,6 +21,8 @@ import DashboardContext from '../../contexts/dashboardContext';
 import { useParams } from 'react-router-dom';
 import { project } from 'esri/geometry/projection';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
+import { InputAdornment, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface TestScript {
     _id: string;
@@ -69,6 +71,7 @@ const Dashboard = () => {
     const [testSets, setTestSets] = useState(testSetSchema);
     const [testCases, setTestCases] = useState(testCaseSchema);
     const [testScripts, setTestScripts] = useState(testScriptSchema);
+    const [project, setProject] = useState(null);
 
     const handleRequirementSet = () => {
         setRequirementSetForm(!requirementSetForm);
@@ -132,6 +135,7 @@ const Dashboard = () => {
     const handleDefectSelectedClick = (id: string) => {
         setSelectedDefect(id);
     };
+
     const findTestCases = async (testset: TestSet) => {
         const result = await axios.get(
             `${react_backend_url}/v1/testcases/testset/${testset._id}`
@@ -162,7 +166,15 @@ const Dashboard = () => {
             setTestSets(result.data);
             console.log(result.data);
         };
+        const FetchProject = async () => {
+            const res = await axios.get(
+                `${react_backend_url}/v1/projects/${projectId}`
+            );
+            setProject(res.data);
+            console.log(res.data);
+        };
         FetchTestSets();
+        FetchProject();
     }, []);
 
     const Defects = [
@@ -178,6 +190,52 @@ const Dashboard = () => {
     return (
         <div className="projectdashboard">
             <StickyHeader />
+            <div className="req-header">
+                <div className="req-projectName">
+                    {project && <p>Project Name: {project.projectName}</p>}
+                </div>
+                <div className="requirements-icons">
+                    <TextField
+                        placeholder="Search"
+                        size="small"
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <ListItemButton>
+                        <div className="req-add">
+                            <img src={'../../../public/plus.png'} alt="" />
+                            <p>Add Requirement</p>
+                        </div>
+                    </ListItemButton>
+                    <div className="req-header-icons">
+                        <img src={'../../../public/back.png'} alt="" />
+                    </div>
+                    <div className="req-header-icons">
+                        <img src={'../../../public/time.png'} alt="" />
+                    </div>
+                    <div className="req-header-icons">
+                        <img src={'../../../public/pdf.png'} alt="" />
+                    </div>
+                    <div className="req-header-icons">
+                        <img src={'../../../public/scanner.png'} alt="" />
+                    </div>
+                    <div className="req-header-icons">
+                        <img src={'../../../public/blocks.png'} alt="" />
+                    </div>
+                    <div className="req-header-icons">
+                        <img src={'../../../public/del.png'} alt="" />
+                    </div>
+                    <div className="req-header-icons">
+                        <img src={'../../../public/ep_edit.png'} alt="" />
+                    </div>
+                </div>
+            </div>
+            <div className="req-header-underline"></div>
             <div className="dashboard-sidebar">
                 <List
                     sx={{
