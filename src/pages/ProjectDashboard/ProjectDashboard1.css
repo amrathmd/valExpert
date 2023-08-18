@@ -41,13 +41,12 @@
 .req-projectName{
     display: inline-block;
     height: 1.875rem;
-    margin: 0.5rem;
+    margin-left:3rem;
 
 }
 .req-projectName>p{
 
     color: #000;
-    font-family: monospace;
     font-size: 1.25rem;
     font-style: normal;
     font-weight: 500;

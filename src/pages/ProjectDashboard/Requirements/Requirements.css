@@ -9,7 +9,7 @@
 .category-title-text {
     background-color: #3575BA;
     color: white;
-    width: 71.2vw;
+    width: 70vw;
     height: 44px;
     display: flex;
     align-items: center;
@@ -18,7 +18,7 @@
 
 .content-table1 {
     border-collapse: collapse;
-    width: 71.2vw;
+    width: 70vw;
 height: 44px;
     border-radius: 5px 5px 0 0;
     
@@ -56,8 +56,34 @@ height: 44px;
     border-radius: 5px;
 }
 .requirements-Details{
-    margin-top: 3rem;
-    margin-left: 3rem;
+    margin: 1.75rem;
+}
+.edit-pic{
+    width: 25px;
+    height: 25px;
+}
+.icon-border{
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7.693px;
+border: 0.962px solid #D0D5DD;
+background: #FFF;
+}
+.action-icon{
+    display: flex;
+    gap:8px;
+}
+.no-requirements{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items:  center;
+    font-size: larger;
+    font-weight: 700;
+    color : #D0D5DD;
 }
 
 

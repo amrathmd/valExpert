@@ -76,7 +76,6 @@ const Login = () => {
                                 </label>
                                 <a>Forgot Your Password?</a>
                             </div>
-
                             <input
                                 type="password"
                                 id="password"

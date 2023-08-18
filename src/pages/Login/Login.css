@@ -7,11 +7,13 @@ body {
 .Loglogincontainer {
     display:flex;
     height: 100vh; /* Use viewport units to prevent vertical scrollbar */
-    background-color: rgb(255, 255, 255);
+    width: 100vw;
+    background-color: white;
     justify-content: center;
     align-items: center;
     gap:3rem;
 }
+
 
 .loginImage {
     width: auto;

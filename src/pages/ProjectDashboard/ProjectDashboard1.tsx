@@ -189,14 +189,12 @@ const Dashboard = () => {
                 `${react_backend_url}/v1/testsets/project/${projectId}`
             );
             setTestSets(result.data);
-            console.log(result.data);
         };
         const FetchProject = async () => {
             const res = await axios.get(
                 `${react_backend_url}/v1/projects/${projectId}`
             );
             setProject(res.data);
-            console.log(res.data);
         };
         FetchTestSets();
         FetchProject();
@@ -235,7 +233,7 @@ const Dashboard = () => {
                                     ),
                                 }}
                             />
-                            <ListItemButton>
+                            <button>
                                 <div
                                     className="req-add"
                                     onClick={handleReqFormActive}
@@ -246,8 +244,8 @@ const Dashboard = () => {
                                     />
                                     <p>Add Requirement</p>
                                 </div>
-                            </ListItemButton>
-                            <Tooltip title="Route" arrow>
+                            </button>
+                            <Tooltip title="Route" placement="top-end">
                                 <div className="req-header-icons">
                                     <img
                                         src={'../../../public/back.png'}
@@ -255,7 +253,7 @@ const Dashboard = () => {
                                     />
                                 </div>
                             </Tooltip>
-                            <Tooltip title="version" arrow>
+                            <Tooltip title="version" placement="top-end">
                                 <div className="req-header-icons">
                                     <img
                                         src={'../../../public/time.png'}
@@ -263,7 +261,7 @@ const Dashboard = () => {
                                     />
                                 </div>
                             </Tooltip>
-                            <Tooltip title="Pdf Download" arrow>
+                            <Tooltip title="Pdf Download" placement="top-end">
                                 <div className="req-header-icons">
                                     <img
                                         src={'../../../public/pdf.png'}
@@ -271,7 +269,10 @@ const Dashboard = () => {
                                     />
                                 </div>
                             </Tooltip>
-                            <Tooltip title="print this page" arrow>
+                            <Tooltip
+                                title="Print this page"
+                                placement="top-end"
+                            >
                                 <div className="req-header-icons">
                                     <img
                                         src={'../../../public/scanner.png'}
@@ -279,7 +280,7 @@ const Dashboard = () => {
                                     />
                                 </div>
                             </Tooltip>
-                            <Tooltip title="Route" arrow>
+                            <Tooltip title="Version" placement="top-end">
                                 <div className="req-header-icons">
                                     <img
                                         src={'../../../public/blocks.png'}
@@ -287,7 +288,7 @@ const Dashboard = () => {
                                     />
                                 </div>
                             </Tooltip>
-                            <Tooltip title="Route" arrow>
+                            <Tooltip title="Delete" placement="top-end">
                                 <div className="req-header-icons">
                                     <img
                                         src={'../../../public/del.png'}
@@ -295,7 +296,7 @@ const Dashboard = () => {
                                     />
                                 </div>
                             </Tooltip>
-                            <Tooltip title="Route" arrow>
+                            <Tooltip title="Edit" placement="top-end">
                                 <div className="req-header-icons">
                                     <img
                                         src={'../../../public/ep_edit.png'}

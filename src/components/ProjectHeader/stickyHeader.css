@@ -7,10 +7,9 @@
     width: 100vw;
     justify-content: space-between;
     align-items: center;
+    margin-left:3rem;
 }
 .project-title{
-    width: auto;
-    height: auto;
     display: inline-block;
 }
 .project-title>p{
@@ -29,9 +28,10 @@
 }
 .project-header-icons{
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     gap: 1.5rem;
-    margin-right:106px;
+    margin-right:9.5rem;
 }
 .user-icons{
     display: flex;
