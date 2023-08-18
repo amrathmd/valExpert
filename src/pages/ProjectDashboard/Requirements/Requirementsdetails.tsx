@@ -135,7 +135,7 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
     }, [selectedRequirementSet, editDialogOpen, deleteDialogOpen]);
 
     return (
-        <div>
+        <div className="requirements-Details">
             {!editDialogOpen && (
                 <div>
                     {Object.keys(categoryRequirementsMap).map((category) => (

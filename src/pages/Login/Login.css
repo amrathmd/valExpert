@@ -5,31 +5,33 @@ body {
 }
 
 .Loglogincontainer {
-    display: flex;
-    width: 100vw; /* Use viewport units to prevent horizontal scrollbar */
+    display:flex;
     height: 100vh; /* Use viewport units to prevent vertical scrollbar */
     background-color: rgb(255, 255, 255);
+    justify-content: center;
+    align-items: center;
+    gap:3rem;
 }
 
 .loginImage {
-    width: 50%;
-    height: 100%;
+    width: auto;
+    height: auto;
     overflow: hidden; /* Hide any overflowing content */
+    display: inline-block;
 }
 
 .rectangle {
-    height: 95%; /* Change to 100% to ensure full image display */
-    width: auto; /* Maintain the image's aspect ratio */
-    max-width: 100%; /* Prevent image from overflowing */
+    height: 70vh; /* Change to 100% to ensure full image display */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 .Loglogin-form {
-    flex-grow: 1; /* Allow this section to grow to fill the remaining space */
-    padding: 20px; /* Add padding for spacing */
+    height: auto;
+    display: inline-block;
     display: flex;
-    flex-direction: column;
-    justify-content: center; /* Vertically center the content */
-    align-items: center; /* Horizontally center the content */
+    justify-content: flex-start; /* Vertically center the content */
+    margin-top: -6rem;
 }
 
 
@@ -42,10 +44,6 @@ body {
     .LogText{
         width: 400px;
     }
-    
-    .Loglogin-form {
-        margin-right: 50px;
-    }
 }
 
 @media(max-width:1162px ){
@@ -56,8 +54,9 @@ body {
         width: 50%; 
         display: none;
     }
-    .Loglogin-form{
-        width:50%;
+    .Loglogincontainer{
+        align-items: center;
+        justify-content: center;
     }
 
 }
@@ -101,7 +100,7 @@ body {
     margin-top: 22px;
     padding-left: 20px;
     padding-right: 20px;
-    width: 580px;
+    width: auto;
 }
 .Loglogin-button {
     height: 40px;

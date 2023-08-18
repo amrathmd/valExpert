@@ -9,7 +9,7 @@
 .category-title-text {
     background-color: #3575BA;
     color: white;
-    width: 70vw;
+    width: 71.2vw;
     height: 44px;
     display: flex;
     align-items: center;
@@ -18,7 +18,7 @@
 
 .content-table1 {
     border-collapse: collapse;
-    width: 70vw;
+    width: 71.2vw;
 height: 44px;
     border-radius: 5px 5px 0 0;
     
@@ -55,4 +55,9 @@ height: 44px;
     margin-bottom: 30px;
     border-radius: 5px;
 }
+.requirements-Details{
+    margin-top: 3rem;
+    margin-left: 3rem;
+}
+
 

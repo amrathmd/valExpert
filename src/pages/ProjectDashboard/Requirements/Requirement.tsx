@@ -48,7 +48,7 @@ const Requirements: React.FC<Props> = ({
 
     return (
         <div>
-            {selectedItem === 1 && RequirementSets.length === 0 && (
+            {/* {selectedItem === 1 && RequirementSets.length === 0 && (
                 <div className="message">
                     <div>
                         <p className="para">
@@ -77,7 +77,7 @@ const Requirements: React.FC<Props> = ({
                         </span>
                     </div>
                 </div>
-            )}
+            )} */}
             {requirementSetFrom && (
                 <div className="blur-background">
                     <div className="requirementsetform">

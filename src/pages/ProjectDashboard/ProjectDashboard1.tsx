@@ -9,7 +9,13 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import './ProjectDashboard1.css';
-import { Collapse, ListItemIcon, useTheme } from '@mui/material';
+import {
+    Button,
+    Collapse,
+    IconButton,
+    ListItemIcon,
+    useTheme,
+} from '@mui/material';
 import { Add, ExpandLess, ExpandMore } from '@mui/icons-material';
 import Requirements from './Requirements/Requirement';
 import TestSets from './TestSet/TestSetDetails';
@@ -24,7 +30,20 @@ import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 import { InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import Tooltip from '@mui/material/Tooltip';
+import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import './ProjectDashboard1.css';
+
+const defaultProject = [
+    { key: 'projectName', label: 'Project Name' },
+    { key: 'facility', label: 'Facility' },
+    { key: 'department', label: 'Department' },
+    { key: 'country', label: 'Country' },
+    { key: 'scope', label: 'Scope' },
+    { key: 'category', label: 'Category' },
+    { key: 'description', label: 'Project Description' },
+    { key: 'estimationDate', label: 'Estimation Date' },
+];
 
 interface TestScript {
     _id: string;
@@ -228,36 +247,62 @@ const Dashboard = () => {
                                     <p>Add Requirement</p>
                                 </div>
                             </ListItemButton>
-                            <div className="req-header-icons">
-                                <img src={'../../../public/back.png'} alt="" />
-                            </div>
-                            <div className="req-header-icons">
-                                <img src={'../../../public/time.png'} alt="" />
-                            </div>
-                            <div className="req-header-icons">
-                                <img src={'../../../public/pdf.png'} alt="" />
-                            </div>
-                            <div className="req-header-icons">
-                                <img
-                                    src={'../../../public/scanner.png'}
-                                    alt=""
-                                />
-                            </div>
-                            <div className="req-header-icons">
-                                <img
-                                    src={'../../../public/blocks.png'}
-                                    alt=""
-                                />
-                            </div>
-                            <div className="req-header-icons">
-                                <img src={'../../../public/del.png'} alt="" />
-                            </div>
-                            <div className="req-header-icons">
-                                <img
-                                    src={'../../../public/ep_edit.png'}
-                                    alt=""
-                                />
-                            </div>
+                            <Tooltip title="Route" arrow>
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/back.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="version" arrow>
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/time.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="Pdf Download" arrow>
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/pdf.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="print this page" arrow>
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/scanner.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="Route" arrow>
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/blocks.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="Route" arrow>
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/del.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="Route" arrow>
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/ep_edit.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
                         </div>
                     </div>
                     <div className="req-header-underline"></div>
@@ -526,6 +571,27 @@ const Dashboard = () => {
                 </List>
             </div>
             <div className="content-bar">
+                {project && selectedList === 1 && (
+                    <div className="project-table-container">
+                        <div>
+                            <div className="project-table-header">
+                                <h1>Project Details</h1>
+                            </div>
+                            <table className="project-table">
+                                <tbody>
+                                    {defaultProject.map((item) => (
+                                        <tr key={item.key}>
+                                            <td>
+                                                <b>{item.label}</b>
+                                            </td>
+                                            <td>{project[item.key]}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
                 <Requirements
                     selectedItem={selectedList}
                     selectedRequirementSet={selectedRequirementSet}
