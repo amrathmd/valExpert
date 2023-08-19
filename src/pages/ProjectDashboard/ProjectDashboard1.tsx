@@ -9,7 +9,13 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import './ProjectDashboard1.css';
-import { Collapse, ListItemIcon, useTheme } from '@mui/material';
+import {
+    Button,
+    Collapse,
+    IconButton,
+    ListItemIcon,
+    useTheme,
+} from '@mui/material';
 import { Add, ExpandLess, ExpandMore } from '@mui/icons-material';
 import Requirements from './Requirements/Requirement';
 import TestSets from './TestSet/TestSetDetails';
@@ -23,6 +29,21 @@ import { project } from 'esri/geometry/projection';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 import { InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import Tooltip from '@mui/material/Tooltip';
+import CancelSharpIcon from '@mui/icons-material/CancelSharp';
+import './ProjectDashboard1.css';
+
+const defaultProject = [
+    { key: 'projectName', label: 'Project Name' },
+    { key: 'facility', label: 'Facility' },
+    { key: 'department', label: 'Department' },
+    { key: 'country', label: 'Country' },
+    { key: 'scope', label: 'Scope' },
+    { key: 'category', label: 'Category' },
+    { key: 'description', label: 'Project Description' },
+    { key: 'estimationDate', label: 'Estimation Date' },
+];
 
 interface TestScript {
     _id: string;
@@ -72,7 +93,11 @@ const Dashboard = () => {
     const [testCases, setTestCases] = useState(testCaseSchema);
     const [testScripts, setTestScripts] = useState(testScriptSchema);
     const [project, setProject] = useState(null);
+    const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
 
+    const handleReqFormActive = () => {
+        setReqFormActive(!isReqFormActive);
+    };
     const handleRequirementSet = () => {
         setRequirementSetForm(!requirementSetForm);
     };
@@ -164,14 +189,12 @@ const Dashboard = () => {
                 `${react_backend_url}/v1/testsets/project/${projectId}`
             );
             setTestSets(result.data);
-            console.log(result.data);
         };
         const FetchProject = async () => {
             const res = await axios.get(
                 `${react_backend_url}/v1/projects/${projectId}`
             );
             setProject(res.data);
-            console.log(res.data);
         };
         FetchTestSets();
         FetchProject();
@@ -190,52 +213,102 @@ const Dashboard = () => {
     return (
         <div className="projectdashboard">
             <StickyHeader />
-            <div className="req-header">
-                <div className="req-projectName">
-                    {project && <p>Project Name: {project.projectName}</p>}
-                </div>
-                <div className="requirements-icons">
-                    <TextField
-                        placeholder="Search"
-                        size="small"
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <ListItemButton>
-                        <div className="req-add">
-                            <img src={'../../../public/plus.svg'} alt="" />
-                            <p>Add Requirement</p>
+            {selectedRequirementSet && (
+                <div>
+                    <div className="req-header">
+                        <div className="req-projectName">
+                            {project && (
+                                <p>Project Name: {project.projectName}</p>
+                            )}
                         </div>
-                    </ListItemButton>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/back.png'} alt="" />
+                        <div className="requirements-icons">
+                            <TextField
+                                placeholder="Search"
+                                size="small"
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <SearchIcon />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                            <button>
+                                <div
+                                    className="req-add"
+                                    onClick={handleReqFormActive}
+                                >
+                                    <img
+                                        src={'../../../public/plus.svg'}
+                                        alt=""
+                                    />
+                                    <p>Add Requirement</p>
+                                </div>
+                            </button>
+                            <Tooltip title="Route" placement="top-end">
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/back.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="version" placement="top-end">
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/time.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="Pdf Download" placement="top-end">
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/pdf.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip
+                                title="Print this page"
+                                placement="top-end"
+                            >
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/scanner.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="Version" placement="top-end">
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/blocks.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="Delete" placement="top-end">
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/del.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                            <Tooltip title="Edit" placement="top-end">
+                                <div className="req-header-icons">
+                                    <img
+                                        src={'../../../public/ep_edit.png'}
+                                        alt=""
+                                    />
+                                </div>
+                            </Tooltip>
+                        </div>
                     </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/time.png'} alt="" />
-                    </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/pdf.png'} alt="" />
-                    </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/scanner.png'} alt="" />
-                    </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/blocks.png'} alt="" />
-                    </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/del.png'} alt="" />
-                    </div>
-                    <div className="req-header-icons">
-                        <img src={'../../../public/ep_edit.png'} alt="" />
-                    </div>
+                    <div className="req-header-underline"></div>
                 </div>
-            </div>
-            <div className="req-header-underline"></div>
+            )}
             <div className="dashboard-sidebar">
                 <List
                     sx={{
@@ -255,7 +328,11 @@ const Dashboard = () => {
                     }
                 >
                     <ListItemButton onClick={handleClick}>
-                        <ListItemText primary="Requirement sets" />
+                        <FolderOutlinedIcon />
+                        <ListItemText
+                            sx={{ marginLeft: 2 }}
+                            primary="Requirement sets"
+                        />
                         {openRequirementSet ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Collapse
@@ -306,7 +383,11 @@ const Dashboard = () => {
                     </Collapse>
 
                     <ListItemButton onClick={handleTestsSetClick}>
-                        <ListItemText primary="Test sets" />
+                        <FolderOutlinedIcon />
+                        <ListItemText
+                            sx={{ marginLeft: 2 }}
+                            primary="Test sets"
+                        />
                         {openTestSets ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Collapse in={openTestSets} timeout="auto" unmountOnExit>
@@ -460,7 +541,11 @@ const Dashboard = () => {
                         </ListItemButton>
                     </Collapse>
                     <ListItemButton onClick={handleDefectClick}>
-                        <ListItemText primary="Defects" />
+                        <FolderOutlinedIcon />
+                        <ListItemText
+                            sx={{ marginLeft: 2 }}
+                            primary="Defects"
+                        />
                         {openDefects ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Collapse in={openDefects} timeout="auto" unmountOnExit>
@@ -487,11 +572,34 @@ const Dashboard = () => {
                 </List>
             </div>
             <div className="content-bar">
+                {project && selectedList === 1 && (
+                    <div className="project-table-container">
+                        <div>
+                            <div className="project-table-header">
+                                <h1>Project Details</h1>
+                            </div>
+                            <table className="project-table">
+                                <tbody>
+                                    {defaultProject.map((item) => (
+                                        <tr key={item.key}>
+                                            <td>
+                                                <b>{item.label}</b>
+                                            </td>
+                                            <td>{project[item.key]}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
                 <Requirements
                     selectedItem={selectedList}
                     selectedRequirementSet={selectedRequirementSet}
                     RequirementSets={requirementSets}
                     projectId={projectId}
+                    handleReqFormActive={handleReqFormActive}
+                    isReqFormActive={isReqFormActive}
                 />
                 <TestSets selectedItem={selectedList} projectId={projectId} />
             </div>

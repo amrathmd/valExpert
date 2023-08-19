@@ -192,16 +192,18 @@ const ReqForm: React.FC<ReqFormProps> = ({
                     </FormControl>
                 </div>
                 <div className="req-submit">
-                    <Button
-                        variant="contained"
-                        color="error"
+                    <button
                         onClick={handleFormActive}
+                        className="requirementFormButtons"
                     >
                         Cancel
-                    </Button>
-                    <Button variant="contained" onClick={handleSubmit}>
+                    </button>
+                    <button
+                        onClick={handleSubmit}
+                        className="requirementFormButtons"
+                    >
                         Confirm
-                    </Button>
+                    </button>
                 </div>
             </div>
         </div>
