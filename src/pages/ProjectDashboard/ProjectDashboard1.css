@@ -31,68 +31,64 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.req-header{
+.req-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 3rem;
-    width: 100vw;
+    width: 96.875vw;
+    padding-right: 2.15vw;
 }
-.req-projectName{
+.req-projectName {
     display: inline-block;
     height: 1.875rem;
-    margin-left:3rem;
-
+    margin-left: 3rem;
 }
-.req-projectName>p{
-
+.req-projectName > p {
     color: #000;
     font-size: 1.25rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
 }
-.req-header-underline{
-    background: #B8B6B6;
+.req-header-underline {
+    background: #b8b6b6;
     height: 0.0625rem;
-  
 }
-.req-add{
+.req-add {
     display: inline-flex;
     height: 2.5rem;
     justify-content: center;
     align-items: center;
     border-radius: 0.48081rem;
-    border: 0.962px solid #3575BA;
-    background: #3575BA;
-    box-shadow: 0px 0.9615941643714905px 1.923188328742981px 0px rgba(16, 24, 40, 0.05);
+    border: 0.962px solid #3575ba;
+    background: #3575ba;
+    box-shadow: 0px 0.9615941643714905px 1.923188328742981px 0px
+        rgba(16, 24, 40, 0.05);
     margin-left: 1.3rem;
-    padding : 0.5rem;
-
+    padding: 0.5rem;
 }
-.requirements-icons{
+.requirements-icons {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    margin-right: 6.25rem;
-    
 }
-.req-add>p{
+.req-add > p {
     font-size: medium;
-    color:#FFFFFF;
+    color: #ffffff;
 }
-.req-header-icons{
+.req-header-icons {
     display: inline-flex;
-    margin:0.3rem;
-width: 2.6875rem;
-height: 2.5rem;
-padding: 0.7rem 0.7rem;
-justify-content: space-between;
-align-items: center;
-border-radius: 0.48081rem;
-border: 0.962px solid #D0D5DD;
-background: #FFF;
-cursor: pointer;
+    margin: 0.3rem;
+    width: 2.6875rem;
+    height: 2.5rem;
+    padding: 0.7rem 0.7rem;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.48081rem;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
+    cursor: pointer;
 }
 
 .project-table-container {
@@ -102,7 +98,6 @@ cursor: pointer;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     height: 100vh;
-    
 }
 
 .project-table-cancel {
@@ -135,7 +130,6 @@ cursor: pointer;
   }
    */
 
-
 .project-table-header {
     display: flex;
     justify-content: center;
@@ -153,26 +147,23 @@ cursor: pointer;
 }
 
 @media (max-width: 1180px) {
-    .req-add > p{
+    .req-add > p {
         font-size: smaller;
-        padding : 5px;
+        padding: 5px;
     }
-    .req-header-icons{
-        padding : 0.2rem;
-        width: 2.0rem;
+    .req-header-icons {
+        padding: 0.2rem;
+        width: 2rem;
         height: 2.3rem;
     }
-    .req-add{
+    .req-add {
         height: 2.5rem;
         padding: 0.3rem;
     }
-    .req-projectName>p{
+    .req-projectName > p {
         font-size: 1.2rem;
     }
-    html{
-        font-size : 14px;
+    html {
+        font-size: 14px;
     }
-    
 }
-
-
