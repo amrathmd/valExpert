@@ -46,57 +46,59 @@ const Login = () => {
     };
     return (
         <>
-            <StickyHeader />
             <div className="Loglogincontainer">
-                <div className="loginImage">
-                    <img
-                        src="../../../public/Best.png"
-                        alt=""
-                        className="rectangle"
-                    />
-                </div>
-                <div className="Loglogin-form">
-                    <form onSubmit={handleSubmit}>
-                        <div className="Loginputform">
-                            <label htmlFor="email" className="text">
-                                Email
-                            </label>
-                            <input
-                                type="text"
-                                id="email"
-                                placeholder="Email"
-                                className="Logtext"
-                                onChange={(e) => {
-                                    setEmail(e.target.value);
-                                }}
-                            ></input>
-                            <div className="Logpass">
-                                <label htmlFor="password" className="text">
-                                    Password
+                <div className="login-section">
+                    <div className="loginImage">
+                        <img
+                            src="../../../public/Best.png"
+                            alt=""
+                            className="rectangle"
+                        />
+                    </div>
+                    <div className="Loglogin-form">
+                        <form onSubmit={handleSubmit}>
+                            <div className="Loginputform">
+                                <label htmlFor="email" className="login-text">
+                                    Email
                                 </label>
-                                <a>Forgot Your Password?</a>
+                                <input
+                                    type="text"
+                                    id="email"
+                                    placeholder="Email"
+                                    className="Logtext"
+                                    onChange={(e) => {
+                                        setEmail(e.target.value);
+                                    }}
+                                ></input>
+                                <div className="Logpass">
+                                    <label
+                                        htmlFor="password"
+                                        className="login-text"
+                                    >
+                                        Password
+                                    </label>
+                                    <a>Forgot Your Password?</a>
+                                </div>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    placeholder="Password"
+                                    className="Logtext"
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                    }}
+                                />
+                                <div className="Logaccount">
+                                    <input type="checkbox"></input>
+                                    <label className="msg">Remember me</label>
+                                </div>
+                                <button className="login-button">Login</button>
+                                {error.length > 0 && (
+                                    <p className="Loglogin-error">{error}</p>
+                                )}
                             </div>
-                            <input
-                                type="password"
-                                id="password"
-                                placeholder="Password"
-                                className="Logtext"
-                                onChange={(e) => {
-                                    setPassword(e.target.value);
-                                }}
-                            />
-                            <div className="Logaccount">
-                                <input type="checkbox"></input>
-                                <label className="msg">Remember me</label>
-                            </div>
-                            <button type="submit" className="Loglogin-button">
-                                <h2 className="buttontext">Login</h2>
-                            </button>
-                            {error.length > 0 && (
-                                <p className="Loglogin-error">{error}</p>
-                            )}
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </>
