@@ -135,120 +135,137 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
     }, [selectedRequirementSet, editDialogOpen, deleteDialogOpen]);
 
     return (
-        <div className="requirements-Details">
-            {!editDialogOpen &&
-                (Object.keys(categoryRequirementsMap).length === 0 ? (
-                    <div className="no-requirements">
-                        <h3>No requirements created in this requirement set</h3>
-                    </div>
-                ) : (
-                    <div>
-                        {Object.keys(categoryRequirementsMap).map(
-                            (category) => (
-                                <div key={category} className="category-title">
-                                    <h2 className="category-title-text">
-                                        Requirement Category:{category}
-                                    </h2>
-                                    <table className="content-table1">
-                                        <thead>
-                                            <tr>
-                                                <th>RequirementSetId</th>
-                                                <th>RequirementDescription</th>
-
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {categoryRequirementsMap[
-                                                category
-                                            ].map((requirement) => (
-                                                <tr key={requirement._id}>
-                                                    <td>
-                                                        {
-                                                            requirement.requirementSetId
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        {
-                                                            requirement.requirementDescription
-                                                        }
-                                                    </td>
-
-                                                    <td>
-                                                        <div className="action-icon">
-                                                            <div className="icon-border">
-                                                                <Tooltip
-                                                                    title="Edit Requirement"
-                                                                    placement="top-end"
-                                                                >
-                                                                    <img
-                                                                        className="edit-pic"
-                                                                        src={`../../../public/edit.svg`}
-                                                                        onClick={() =>
-                                                                            handleEditIconClick(
-                                                                                requirement
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                </Tooltip>
-                                                            </div>
-                                                            <div className="icon-border">
-                                                                <Tooltip
-                                                                    title="Delete Requirement"
-                                                                    placement="top-end"
-                                                                >
-                                                                    <img
-                                                                        className="edit-pic"
-                                                                        src={`../../../public/delete-outlined.svg`}
-                                                                        onClick={() =>
-                                                                            handleDeleteIconClick(
-                                                                                requirement
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                </Tooltip>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+        <div>
+            <div className="req-set-header">
+                <b>Requirement Set Name : RequirementSet1</b>
+                <div className="req-set-right">
+                    <b>Status : Draft</b>
+                    <b>Version : 1.3</b>
+                </div>
+            </div>
+            <div className="title-underline"></div>
+            <div className="requirements-Details">
+                {!editDialogOpen &&
+                    (Object.keys(categoryRequirementsMap).length === 0 ? (
+                        <div className="no-requirements">
+                            <h3>
+                                No requirements created in this requirement set
+                            </h3>
+                        </div>
+                    ) : (
+                        <div>
+                            {Object.keys(categoryRequirementsMap).map(
+                                (category) => (
+                                    <div
+                                        key={category}
+                                        className="category-title"
+                                    >
+                                        <h2 className="category-title-text">
+                                            Requirement Category:{category}
+                                        </h2>
+                                        <table className="content-table1">
+                                            <thead>
+                                                <tr>
+                                                    <th>RequirementSetId</th>
+                                                    <th>
+                                                        RequirementDescription
+                                                    </th>
+                                                    <th>Actions</th>
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )
-                        )}
-                        <Dialog
-                            open={deleteDialogOpen}
-                            onClose={() => setDeleteDialogOpen(false)}
-                        >
-                            <DialogTitle>Confirm Delete</DialogTitle>
-                            <DialogContent>
-                                Are you sure you want to delete this
-                                requirement?
-                            </DialogContent>
-                            <DialogActions>
-                                <Button
-                                    onClick={() => setDeleteDialogOpen(false)}
-                                >
-                                    Cancel
-                                </Button>
-                                <Button
-                                    onClick={handleDeleteRequirement}
-                                    color="error"
-                                >
-                                    Delete
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
-                    </div>
-                ))}
-            {editDialogOpen && (
-                <ReqForm
-                    selectedRequirement={selectedRequirement}
-                    handleFormActive={() => setEditDialogOpen(false)}
-                    selectedRequirementSet={undefined}
-                />
-            )}
+                                            </thead>
+                                            <tbody>
+                                                {categoryRequirementsMap[
+                                                    category
+                                                ].map((requirement) => (
+                                                    <tr key={requirement._id}>
+                                                        <td>
+                                                            {
+                                                                requirement.requirementSetId
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                requirement.requirementDescription
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            <div className="action-icon">
+                                                                <div className="icon-border">
+                                                                    <Tooltip
+                                                                        title="Edit Requirement"
+                                                                        placement="top-end"
+                                                                    >
+                                                                        <img
+                                                                            className="edit-pic"
+                                                                            src={`../../../public/edit.svg`}
+                                                                            onClick={() =>
+                                                                                handleEditIconClick(
+                                                                                    requirement
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                    </Tooltip>
+                                                                </div>
+                                                                <div className="icon-border">
+                                                                    <Tooltip
+                                                                        title="Delete Requirement"
+                                                                        placement="top-end"
+                                                                    >
+                                                                        <img
+                                                                            className="edit-pic"
+                                                                            src={`../../../public/delete-outlined.svg`}
+                                                                            onClick={() =>
+                                                                                handleDeleteIconClick(
+                                                                                    requirement
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                    </Tooltip>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )
+                            )}
+                            <Dialog
+                                open={deleteDialogOpen}
+                                onClose={() => setDeleteDialogOpen(false)}
+                            >
+                                <DialogTitle>Confirm Delete</DialogTitle>
+                                <DialogContent>
+                                    Are you sure you want to delete this
+                                    requirement?
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button
+                                        onClick={() =>
+                                            setDeleteDialogOpen(false)
+                                        }
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        onClick={handleDeleteRequirement}
+                                        color="error"
+                                    >
+                                        Delete
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+                        </div>
+                    ))}
+                {editDialogOpen && (
+                    <ReqForm
+                        selectedRequirement={selectedRequirement}
+                        handleFormActive={() => setEditDialogOpen(false)}
+                        selectedRequirementSet={undefined}
+                    />
+                )}
+            </div>
         </div>
     );
 };
