@@ -8,12 +8,15 @@ import axios from 'axios';
 import { Tooltip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import Requirementsdetails from './Requirementsdetails';
 
 interface Props {
     selectedItem: number;
     selectedRequirementSet: any;
     projectId: string;
     RequirementSets: any;
+    handleReqFormActive: any;
+    isReqFormActive: boolean;
 }
 
 const Requirements: React.FC<Props> = ({
@@ -21,16 +24,15 @@ const Requirements: React.FC<Props> = ({
     selectedRequirementSet,
     projectId,
     RequirementSets,
+    handleReqFormActive,
+    isReqFormActive,
 }) => {
-    const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
     const [requirements, setRequirements] = React.useState([]);
     const [requirementSetFrom, setRequirmentSetForm] =
         React.useState<boolean>(false);
     const [requirementSets, setRequirementSets] = React.useState([]);
+    const [selectedRequirements, setSelectedRequirements] = React.useState([]);
 
-    const handleFormActive = () => {
-        setReqFormActive(!isReqFormActive);
-    };
     const handleRequirementSet = () => {
         setRequirmentSetForm(!requirementSetFrom);
     };
@@ -44,16 +46,9 @@ const Requirements: React.FC<Props> = ({
         FetchRequirementSets();
     }, []);
 
-    const handleEditRequirment = () => {
-        console.log(true);
-    };
-    const handleDeleteRequirement = () => {
-        console.log(true);
-    };
-
     return (
         <div>
-            {selectedItem === 1 && RequirementSets.length === 0 && (
+            {/* {selectedItem === 1 && RequirementSets.length === 0 && (
                 <div className="message">
                     <div>
                         <p className="para">
@@ -82,7 +77,7 @@ const Requirements: React.FC<Props> = ({
                         </span>
                     </div>
                 </div>
-            )}
+            )} */}
             {requirementSetFrom && (
                 <div className="blur-background">
                     <div className="requirementsetform">
@@ -96,69 +91,21 @@ const Requirements: React.FC<Props> = ({
 
             {selectedRequirementSet && (
                 <div>
-                    <button
+                    {/* <button
                         className="create-reqSet-button"
-                        onClick={handleFormActive}
+                        onClick={handleReqFormActive}
                     >
                         Create Requirements
-                    </button>
+                    </button> */}
                     {isReqFormActive ? (
                         <ReqForm
-                            handleFormActive={handleFormActive}
+                            handleFormActive={handleReqFormActive}
                             selectedRequirementSet={selectedRequirementSet}
                         />
                     ) : (
-                        <table className="content-table">
-                            <thead>
-                                <tr>
-                                    <th>RequirementSetId</th>
-                                    <th>RequirementDescription</th>
-                                    <th>RequirementCategory</th>
-                                    <th>ReferenceSOP</th>
-                                    <th>Verification</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {requirements.map((requirement) => (
-                                    <tr key={requirement._id}>
-                                        <td>{requirement.name}</td>
-                                        <td>{requirement.mobile}</td>
-                                        <td>{requirement.email}</td>
-                                        <td>{requirement.status}</td>
-                                        <td>
-                                            <>
-                                                <div className="action-icon">
-                                                    <a
-                                                        onClick={() =>
-                                                            handleEditRequirment
-                                                        }
-                                                    >
-                                                        <Tooltip
-                                                            title="Edit User"
-                                                            placement="top-end"
-                                                        >
-                                                            <EditIcon></EditIcon>
-                                                        </Tooltip>
-                                                    </a>
-                                                    <a
-                                                        onClick={() =>
-                                                            handleDeleteRequirement
-                                                        }
-                                                    >
-                                                        <Tooltip
-                                                            title="Delete User"
-                                                            placement="top-end"
-                                                        >
-                                                            <DeleteOutlineIcon></DeleteOutlineIcon>
-                                                        </Tooltip>
-                                                    </a>
-                                                </div>
-                                            </>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <Requirementsdetails
+                            selectedRequirementSet={selectedRequirementSet}
+                        />
                     )}
                 </div>
             )}

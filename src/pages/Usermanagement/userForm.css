@@ -30,6 +30,7 @@
     justify-content: center;
     align-items: center;
     width: 35vw;
+    margin-right: 4rem;
 }
 .formright {
     display: flex;
@@ -57,6 +58,7 @@
 }
 .form-button {
     color: whitesmoke;
+    width: 120px;
     padding: 10px;
     font-weight: 500;
     border-radius: 7.693px;
@@ -65,6 +67,7 @@
     box-shadow: 0px 0.9615941643714905px 1.923188328742981px 0px
         rgba(16, 24, 40, 0.05);
     /* padding: 2px 2px 2px 2px; */
+
 }
 .userFormButton {
     display: flex;
@@ -83,4 +86,9 @@
     font-style: normal;
     /* font-weight: 600; */
     line-height: normal;
+}
+
+.labelStyle {
+    font-weight: 700;
+    color: #000;
 }

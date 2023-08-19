@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import './RequirementForm.css';
 import axios from 'axios';
+import { react_backend_url } from '../../../config';
 import {
     TextField,
     FormControl,
@@ -10,78 +11,107 @@ import {
     Button,
     FormLabel,
 } from '@mui/material';
-import { react_backend_url } from '../../../config';
-const initialState = {
-    requirementName: '',
-    requirementDescription: ' ',
-    requirementCategory: 'User Requirement',
-    reference: '',
-    verification: 'Testing',
-    requirementSetId: '',
-};
 
+const initialState = {
+    // requirementName: 'venkatesh',
+    requirementDescription: 'initialdescription',
+    requirementCategory: 'User Requirement',
+    verification: 'Testing',
+    reference: '',
+};
+interface Requirement {
+    _id: string;
+    requirementSetId: string;
+    requirementDescription: string;
+    requirementCategory: string;
+    reference: string;
+    verification: string;
+}
 interface ReqFormProps {
     handleFormActive: () => void;
-    selectedRequirementSet: string;
+    selectedRequirementSet: any;
+    selectedRequirement?: Requirement;
 }
+
 const ReqForm: React.FC<ReqFormProps> = ({
-    handleFormActive,
     selectedRequirementSet,
+    selectedRequirement,
+    handleFormActive,
 }) => {
-    const [requirement, setRequirement] = useState(initialState);
+    const [requirement, setRequirement] = useState(
+        selectedRequirement || initialState
+    );
+
+    // const [requirement, setRequirement] = useState({
+    //      ...initialState,
+    //     requirementSetId: selectedRequirementSet,
+    // });
+    React.useEffect(() => {
+        if (selectedRequirement) {
+            setRequirement(selectedRequirement);
+        } else {
+            setRequirement(initialState);
+        }
+    }, [selectedRequirement]);
     const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setRequirement((prevReq) => {
-            return {
-                ...prevReq,
-                [name]: value,
-            };
-        });
+        setRequirement((prevReq) => ({
+            ...prevReq,
+            [name]: value,
+        }));
     };
+
     const handleSelectChange = (event: any) => {
         const { name, value } = event.target;
 
-        setRequirement((prevRequriement) => {
-            return {
-                ...prevRequriement,
-                [name]: value,
-            };
-        });
+        setRequirement((prevRequirement) => ({
+            ...prevRequirement,
+            [name]: value,
+        }));
     };
 
-    const handleReqFormSubmit = async () => {
-        requirement.requirementSetId = selectedRequirementSet;
+    const handleSubmit = async () => {
         try {
-            const res = await axios.post(
-                `${react_backend_url}/v1/requirements`,
-                requirement
-            );
-            if (res.data) {
-                window.alert('Success');
+            const requestData = {
+                ...requirement,
+                requirementSetId: selectedRequirementSet,
+            };
+
+            if (selectedRequirement) {
+                const result = await axios.put(
+                    `${react_backend_url}/v1/requirements/${selectedRequirement._id}`,
+                    requestData
+                );
+                console.log('Requirement updated:', result.data);
             } else {
-                window.alert('Error while creating requirements');
+                const result = await axios.post(
+                    `${react_backend_url}/v1/requirements`,
+                    requestData
+                );
+                console.log('Requirement created:', result.data);
             }
+            handleFormActive();
         } catch (error) {
-            window.alert('An error occurred while creating the user.');
+            console.error('Error submitting requirement:', error);
         }
-        console.log(requirement);
     };
+
     return (
-        <div className="req-form-container">
+        <div className="form-container">
             <div>
                 <div className="heading">
                     <h2>Requirements Form</h2>
                 </div>
-                <div className="req-item">
-                    <TextField
-                        label="RequirementSet Name"
-                        variant="outlined"
-                        fullWidth
-                        onChange={handleTextChange}
-                        value={requirement.requirementName}
-                        name="requirementName"
-                    />
-                </div>
+                {/* <div className="req-item">
+                <TextField
+                    label="RequirementSet Name"
+                    variant="outlined"
+                    fullWidth
+                    onChange={handleTextChange}
+                    value={requirement.requirementName}
+                    name="requirementName"
+                />
+            </div> */}
                 <div className="req-item">
                     <TextField
                         label="Requirement Description"
@@ -98,7 +128,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
                 <div className="req-item">
                     <FormControl variant="outlined" fullWidth>
                         <FormLabel id="reference-category-label">
-                            Reference Category
+                            Requirement Category
                         </FormLabel>
                         <Select
                             labelId="reference-category-label"
@@ -106,7 +136,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
                             label="Reference Category"
                             onChange={handleSelectChange}
                             value={requirement.requirementCategory}
-                            name="referenceCategory"
+                            name="requirementCategory"
                         >
                             <MenuItem value="User Requirement">
                                 User Requirement
@@ -162,16 +192,18 @@ const ReqForm: React.FC<ReqFormProps> = ({
                     </FormControl>
                 </div>
                 <div className="req-submit">
-                    <Button
-                        variant="contained"
-                        color="error"
+                    <button
                         onClick={handleFormActive}
+                        className="requirementFormButtons"
                     >
                         Cancel
-                    </Button>
-                    <Button variant="contained" onClick={handleReqFormSubmit}>
+                    </button>
+                    <button
+                        onClick={handleSubmit}
+                        className="requirementFormButtons"
+                    >
                         Confirm
-                    </Button>
+                    </button>
                 </div>
             </div>
         </div>
