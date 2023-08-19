@@ -22,6 +22,7 @@
     justify-content: center;
     align-items: center;
     width: 35vw;
+    margin-right: 4rem;
 }
 .formright {
     display: flex;
@@ -42,11 +43,21 @@
 .form-button {
     background-color: #0d77d3;
     color: whitesmoke;
+    width: 120px;
     padding: 10px;
     font-weight: 500;
     align-self: center;
+    margin-right: 2rem;
+    border-radius: 0.5rem;
+    font-size: 16px;
+    font-weight: bold;
 }
 .userFormButton {
     display: flex;
     justify-content: center;
+}
+
+.labelStyle {
+    font-weight: 700;
+    color: #000;
 }
