@@ -47,7 +47,7 @@ const Requirements: React.FC<Props> = ({
     }, []);
 
     return (
-        <div>
+        <div className="parent-requirement-set">
             {/* {selectedItem === 1 && RequirementSets.length === 0 && (
                 <div className="message">
                     <div>

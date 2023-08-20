@@ -72,6 +72,13 @@
     padding: 1vh 3vw 0vh 0.9vw;
     overflow-y: scroll;
 }
+.parent-requirement-set {
+    float: left;
+    width: 80vw;
+    overflow-y: auto;
+    height: 100vh;
+}
+
 .edit-pic {
     width: 25px;
     height: 25px;
@@ -100,6 +107,17 @@
     color: #d0d5dd;
 }
 
+.test-set-details-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin-bottom: 20px;
+}
+
+.test-set-details-column {
+    display: flex;
+    flex-direction: column;
+}
 .req-set-header {
     display: flex;
     flex-direction: row;

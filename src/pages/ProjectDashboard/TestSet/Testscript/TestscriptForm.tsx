@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
-import { TestCase } from '@/components/Models/testCasesmodel';
+import TestScript from '../../../../components/Models/testScriptsmodel';
 import axios from 'axios';
-import './TestCaseForm.css';
+import '../../Requirements/RequirementForm.css';
 import {
     TextField,
     FormControl,
@@ -11,11 +11,12 @@ import {
     Button,
     FormLabel,
 } from '@mui/material';
-interface TestCaseFormProps {
-    handleFormActive: () => void;
-    selectedTestSetId: string | null;
-}
+import { react_backend_url } from '../../../../config';
 
+interface TestscriptFormProps {
+    testSetId: string;
+    onClose: () => void;
+}
 const defaultTestCase = {
     testsetId: '',
     Type: 'iQ',
@@ -26,10 +27,11 @@ const defaultTestCase = {
     author: '',
 };
 
-const TestCasesForm: React.FC<TestCaseFormProps> = ({
-    handleFormActive,
-    selectedTestSetId,
+const TestscriptForm: React.FC<TestscriptFormProps> = ({
+    testSetId,
+    onClose,
 }) => {
+    const [formValue, setFormValue] = useState('');
     const [testCase, setTestCase] = useState(defaultTestCase);
 
     const updateTestCase = (field: string, value: any) => {
@@ -47,39 +49,43 @@ const TestCasesForm: React.FC<TestCaseFormProps> = ({
             [name]: value,
         }));
     };
-    const handleSubmit = async (e: any) => {
+    // const handleSubmit = async (e: any) => {
+    //     e.preventDefault();
+    //     console.log(testCase);
+    //     const res = await axios.post('http://localhost:3000/v1/testcases', {
+    //         testCase,
+    //     });
+    //     console.log('res post', res);
+    //     if (!res) {
+    //         window.alert('error');
+    //         return;
+    //     }
+    //     window.alert('success');
+    //     handleFormActive();
+    // };
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(testCase);
-        const res = await axios.post('http://localhost:3000/v1/testcases', {
-            testCase,
-        });
-        console.log('res post', res);
-        if (!res) {
-            window.alert('error');
-            return;
-        }
-        window.alert('success');
-        handleFormActive();
+        testCase.testsetId = testSetId;
+        axios
+            .post(`${react_backend_url}/v1/testscripts`, testCase)
+            .then((response) => {
+                console.log('Test script created:', response.data);
+                onClose();
+            })
+            .catch((error) => {
+                console.error('Error creating test script:', error);
+                alert('Error creating test script. Please try again.'); // Notify the user
+            });
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div className="form-container">
             <div>
                 <div className="heading">
-                    <h2>TestCase Details</h2>
+                    <h2>TestScript Details</h2>
                 </div>
-                <div className="testcase-item">
-                    <TextField
-                        label="Testset Id"
-                        variant="outlined"
-                        fullWidth
-                        name="testsetId"
-                        size="small"
-                        value={testCase.testsetId}
-                        onChange={handleTextChange}
-                    />
-                </div>
-                <div className="testcase-item">
+
+                <div className="req-item">
                     <FormLabel id="demo-row-radio-buttons-group-label">
                         Type
                     </FormLabel>
@@ -106,7 +112,7 @@ const TestCasesForm: React.FC<TestCaseFormProps> = ({
                     </FormControl>
                 </div>
 
-                <div className="testcase-item">
+                <div className="req-item">
                     <TextField
                         label="Purpose"
                         variant="outlined"
@@ -120,7 +126,7 @@ const TestCasesForm: React.FC<TestCaseFormProps> = ({
                     />
                 </div>
 
-                <div className="testcase-item">
+                <div className="req-item">
                     <TextField
                         label="Acceptance Criteria"
                         variant="outlined"
@@ -134,9 +140,9 @@ const TestCasesForm: React.FC<TestCaseFormProps> = ({
                     />
                 </div>
 
-                <div className="testcase-item">
+                <div className="req-item">
                     <TextField
-                        label="Prerequisites"
+                        label="Prerequesites"
                         variant="outlined"
                         fullWidth
                         name="prerequesites"
@@ -146,7 +152,7 @@ const TestCasesForm: React.FC<TestCaseFormProps> = ({
                     />
                 </div>
 
-                <div className="testcase-item">
+                <div className="req-item">
                     <FormControl variant="outlined" fullWidth size="small">
                         <FormLabel id="demo-row-radio-buttons-group-label">
                             Result
@@ -168,7 +174,7 @@ const TestCasesForm: React.FC<TestCaseFormProps> = ({
                     </FormControl>
                 </div>
 
-                <div className="testcase-item">
+                <div className="req-item">
                     <TextField
                         label="Author"
                         variant="outlined"
@@ -179,21 +185,17 @@ const TestCasesForm: React.FC<TestCaseFormProps> = ({
                         onChange={handleTextChange}
                     />
                 </div>
-
-                <div className="testcase-submit">
-                    <Button
-                        type="reset"
-                        variant="contained"
-                        sx={{ backgroundColor: 'red' }}
+                <div className="req-submit">
+                    <button className="requirementFormButtons">Cancel</button>
+                    <button
+                        onClick={handleSubmit}
+                        className="requirementFormButtons"
                     >
-                        Cancel
-                    </Button>
-                    <Button type="submit" variant="contained">
                         Confirm
-                    </Button>
+                    </button>
                 </div>
             </div>
-        </form>
+        </div>
     );
 };
-export default TestCasesForm;
+export default TestscriptForm;

@@ -4,7 +4,7 @@ import Requirements from './Requirements/Requirement';
 import TestSets from './TestSet/TestSetDetails';
 import axios from 'axios';
 import { TestSet } from '@/components/Models/testsetsModel';
-import { TestCase } from '@/components/Models/testCasesmodel';
+import TestScript from '@/components/Models/testScriptsmodel';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 
 interface RequirementSet {
@@ -30,7 +30,7 @@ const ProjectDashboard = () => {
     >([]);
     const [count, setCount] = React.useState<number>(1);
     const [testDetails, setTestDetails] = React.useState<TestSet[]>([]);
-    const [testCases, setTestCases] = React.useState<TestCase[]>([]);
+    const [testCases, setTestCases] = React.useState<TestScript[]>([]);
     const [testCaseVisibility, setTestCaseVisibility] = useState<
         Record<string, boolean>
     >({});
@@ -43,7 +43,7 @@ const ProjectDashboard = () => {
         }));
     };
     const getTestCases = async (testSetId: string) => {
-        const res = await axios.get<TestCase[]>(
+        const res = await axios.get<TestScript[]>(
             `http://localhost:3000/v1/testcases/${testSetId}`
         );
         console.log(res);
