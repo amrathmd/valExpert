@@ -59,14 +59,15 @@ const TestSetForm: React.FC<TestSetFormProps> = ({
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
-        // const requiredReq = requirementSets.find(
-        //     (item) => item._id === testSet.requirementSetId
-        // );
+        const requiredReq = requirementSets.find(
+            (item) => item._id === testSet.requirementSetId
+        );
         testSet.projectId = projectId;
         console.log(testSet);
-        const res = await axios.post(`${react_backend_url}/v1/testsets`, {
-            testSet,
-        });
+        const res = await axios.post(
+            `${react_backend_url}/v1/testsets`,
+            testSet
+        );
         console.log('res post', res);
         if (!res) {
             window.alert('error');
