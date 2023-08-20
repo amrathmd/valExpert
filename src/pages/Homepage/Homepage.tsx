@@ -30,6 +30,7 @@ import configureAppStore, {
     getPreloadedState,
 } from '../../store/configureStore';
 import LaptopIcon from '@mui/icons-material/Laptop';
+import SpecificRequirement from '../ProjectDashboard/Requirements/SpecificRequirement';
 
 const Homepage = () => {
     const { loggedIn, getLoggedIn, userType } = React.useContext(AuthContext);
@@ -116,6 +117,10 @@ const Homepage = () => {
                                         <Route
                                             path="/manageaccounts/user/:id"
                                             element={<UserDetails />}
+                                        ></Route>
+                                        <Route
+                                            path="/dashboard/requirements/:id"
+                                            element={<SpecificRequirement />}
                                         ></Route>
                                     </Routes>
                                 </ReduxProvider>
