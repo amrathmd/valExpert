@@ -54,7 +54,7 @@ const Homepage = () => {
             <DashboardContextProvider>
                 <Router>
                     <div className="homeContainer">
-                        <div className="navbar">
+                        <div className="navbar-home">
                             <Navbar />
                         </div>
                         {isDesktop ? (
