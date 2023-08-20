@@ -8,17 +8,21 @@
 
 .category-title-text {
     background-color: #3575ba;
+    background-color: #3575ba;
     color: white;
-    width: 70vw;
+    width: 72.46vw;
     height: 44px;
     display: flex;
     align-items: center;
+    padding-left: 20px;
     padding-left: 20px;
 }
 
 .content-table1 {
     border-collapse: collapse;
     width: 70vw;
+    height: 44px;
+    width: 72.46vw;
     height: 44px;
     border-radius: 5px 5px 0 0;
 
@@ -27,6 +31,7 @@
     margin-bottom: 20px;
 }
 .content-table1 thead tr {
+    background-color: #eff5fe;
     background-color: #eff5fe;
     color: #27374d;
     text-align: left;
@@ -43,6 +48,16 @@
 }
 .content-table1 tbody tr {
     border-bottom: 1px solid #dddddd;
+}
+
+.content-table1 tbody td.req-leftPart {
+    width: 30%;
+}
+.content-table1 tbody td.req-leftPart {
+    width: 40%;
+}
+.content-table1 tbody td.req-leftPart {
+    width: 30%;
 }
 
 .create-reqSet-button {
@@ -64,10 +79,12 @@
 .requirements-Details {
     margin: 1.75rem;
 }
+
 .edit-pic {
     width: 25px;
     height: 25px;
 }
+
 .icon-border {
     height: 35px;
     width: 35px;
@@ -77,15 +94,21 @@
     border-radius: 7.693px;
     border: 0.962px solid #d0d5dd;
     background: #fff;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
 }
+
 .action-icon {
     display: flex;
     gap: 8px;
+    gap: 8px;
 }
+
 .no-requirements {
     height: 90vh;
     display: flex;
     justify-content: center;
+    align-items: center;
     align-items: center;
     font-size: larger;
     font-weight: 700;

@@ -3,7 +3,7 @@ import './stickyHeader.css';
 
 const StickyHeader = () => {
     return (
-        <div>
+        <div className="fixing">
             <div className="sticky-header">
                 <div className="project-title">
                     <p>VALEXPERTS</p>

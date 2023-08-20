@@ -1,81 +1,65 @@
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
 .Loglogincontainer {
     display:flex;
     height: 100vh; /* Use viewport units to prevent vertical scrollbar */
     width: 100vw;
-    background-color: white;
+    background-color: whitesmoke;
     justify-content: center;
     align-items: center;
-    gap:3rem;
+    
+}
+.login-section {
+    border-radius: 4px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
+    height: 70vh;
 }
 
 
 .loginImage {
-    width: auto;
+    width: 50rem;
     height: auto;
-    overflow: hidden; /* Hide any overflowing content */
-    display: inline-block;
 }
 
 .rectangle {
-    height: 70vh; /* Change to 100% to ensure full image display */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-
+    height: 70vh; 
 }
 
 .Loglogin-form {
     height: auto;
-    display: inline-block;
+    width: 75%;
     display: flex;
-    justify-content: flex-start; /* Vertically center the content */
-    margin-top: -6rem;
+    justify-content: center;
+    align-items: center;
 }
 
 
-@media (max-width: 1300px) {
-    .Loglogincontainer {
-        /*flex-direction: column-reverse;  Reverse the order to keep .Loglogin-form on top */
-        width:100%;
-    }
-    
-    .LogText{
-        width: 400px;
-    }
-}
 
-@media(max-width:1162px ){
+
+@media(max-width:1300px ){
     .Loglogincontainer {
         width:100%;
-    }
-    .loginImage {
-        width: 50%; 
-        display: none;
-    }
-    .Loglogincontainer{
         align-items: center;
         justify-content: center;
     }
-
+    .loginImage {
+        display: none;
+    }
+    .login-section{
+        width: auto;
+        padding-left: 70px;
+        padding-right: 70px;
+    }
+    .Loglogin-form {
+        display:inline-block;
+        overflow: hidden;
+        height:auto;
+        width: auto;
+    }
 }
-
-
-.Logcheck-boxes {
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
-.Logcheck-boxes label {
-    margin-left: 10px;
-}
-.text{
+.login-text{
     margin-bottom: 10px;
     color:rgba(0, 48, 89, 0.80);
     font-family: Inter;
@@ -84,44 +68,17 @@ body {
     font-weight: 500;
     line-height: normal;
 }
-.Loglogincontainer form h2 {
-    text-align: left;
-    font-weight: 600;
-    font-size: large;
-    padding-left: 20px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-}
 
-.Logconditional-message {
-    text-align: center;
-}
 .Loginputform {
     display: flex;
     flex-direction: column;
-    margin-top: 22px;
-    padding-left: 20px;
-    padding-right: 20px;
-    width: auto;
+    width: 30rem;
+    padding : 10px;
 }
-.Loglogin-button {
-    height: 40px;
-    background-color: #003059;
-    width: 540px;
-    flex-shrink: 0;
-    color: white;
-    border-style: solid;
-    border-radius: 4px;
-    padding: 3px;
-    margin-top: 10px;
+.logPass{
+    display: flex;
+    justify-content: flex-start;
 }
-.Logi label {
-    margin-bottom: 6px;
-    font-size: medium;
-    font-weight: 500;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .Logpass a {
     font-size: 13px;
     align-self: flex-end;
@@ -151,37 +108,11 @@ body {
     padding: 8px;
     margin-bottom: 6px;
     height: 50px;
-    width: 520px;
-}
-.buttontext{
-    font-style: normal;
-    font-family: "Roboto",sans-serif;
-    color: #FFF;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: normal;
-    margin-left: 232px;
-}
-
-.Logbutton {
-    background-color: #4caf50;
-    color: white;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 2px;
     width: 100%;
-    padding: 20px;
-    margin-top: 10px;
 }
 
-.Logbutton:hover {
-    background-color: #45a049;
-}
 
-.Logbutton:active {
-    background-color: #3e8e41;
-}
+
 @media (min-width: 768px) {
     .container {
         max-width: 100%;
@@ -246,4 +177,12 @@ body {
     margin-left: 10px;
     width: 60%;
     margin-right: 112px;
+}
+.login-button{
+    background-color: #003059;
+    padding: 10px;
+    color:#ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 4px;
 }

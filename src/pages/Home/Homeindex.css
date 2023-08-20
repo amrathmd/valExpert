@@ -23,14 +23,7 @@
     align-items: self-start;
     justify-content: flex-end;
 }
-.title {
-    margin-bottom: 30px;
-    color: #047481;
-    font-size: 1.5rem;
-    font-weight: 500;
-    line-height: 4rem;
-    height: 20px;
-}
+
 .text {
     margin-top: 10px;
     margin-bottom: 20px;

@@ -27,34 +27,15 @@
     font-size: 1.2rem;
     padding-left: 5rem;
 }
-.project-tagline {
-    padding-left: 2rem;
-    background-color: rgb(53, 118, 186);
-    height: 1.6rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-.createnewimg {
-    height: 40%;
-    width: 35%;
-}
-.imgageplus {
-    height: 30%;
-    width: 30%;
-}
-.project-tagline > p {
-    color: white;
-    font-size: 0.8rem;
-}
 
-.create-project{
-height: 2.6rem;
-width: 170px;
-flex-shrink: 0;
-border-radius: 5px;
-background-color: #3575BA;
-
+.create-project {
+    height: 2.6rem;
+    width: 170px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background-color: #3575ba;
+    color: #fff;
+    font-weight: 700;
 }
 .image-pic {
     width: 9rem;
@@ -89,36 +70,35 @@ background-color: #3575BA;
     cursor: pointer;
     transition: all 0.5s ease;
     width: 15rem;
-    height: 12rem;
+    height: 10rem;
     overflow: hidden;
     margin-right: 130px;
 }
-.projects-card:hover {
-    transform: scale(1.2);
+.iconimg {
+    -webkit-backface-visibility: hidden;
+    -ms-transform: translateZ(0); /* IE 9 */
+    -webkit-transform: translateZ(0); /* Chrome, Safari, Opera */
+    transform: translateZ(0);
 }
-.project-description {
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 10px;
+.projects-card:hover {
+    transform: scale(1.1);
 }
 
-.project-description b {
+.projects-card b {
     color: #000;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Inter;
-    font-size: 22px;
+    font-family: 'Inter';
+    font-size: 18px;
     font-style: normal;
     font-weight: 600;
-    line-height: 14.114px; /* 44.107% */
     letter-spacing: -0.262px;
 }
 .para {
-    margin-top: 10px;
     color: #000;
-    font-family: Poppins;
+    font-family: 'Poppins';
     font-size: 12px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: normal;
 }
 .datein {
@@ -140,4 +120,35 @@ background-color: #3575BA;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
+.userform-label-name b {
+    color: black;
+    font-weight: 600;
+    font-family: Poppins;
+    font-size: small;
+}
+.title {
+    font-size: larger;
+    padding: 10px;
+    font-style: Inter;
+    font-weight: 900;
+}
+.dateDiv {
+    height: 113px;
+}
+.errorMessage {
+    color: #d32f2f;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.66;
+    letter-spacing: 0.03333em;
+    text-align: left;
+    margin-top: 3px;
+    margin-right: 14px;
+    margin-bottom: 0;
+    margin-left: 14px;
+}
+.errorDiv {
+    border: 0.2px solid #d32f2f;
+    border-radius: 4px;
+}
