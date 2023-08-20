@@ -26,11 +26,11 @@
     background: #b8b6b6;
 }
 .project-header-icons {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
-    padding-right: 2.4vw;
+    gap: 1rem;
+    margin-right: 4rem;
 }
 .user-icons {
     display: flex;

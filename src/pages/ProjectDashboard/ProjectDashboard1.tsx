@@ -222,17 +222,19 @@ const Dashboard = () => {
                             )}
                         </div>
                         <div className="requirements-icons">
-                            <TextField
-                                placeholder="Search"
-                                size="small"
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <SearchIcon />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
+                            <div>
+                                <TextField
+                                    placeholder="Search"
+                                    size="small"
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <SearchIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </div>
                             <button>
                                 <div
                                     className="req-add"

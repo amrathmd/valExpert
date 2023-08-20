@@ -1,4 +1,13 @@
-import { Alert, Button, TextField } from '@mui/material';
+import {
+    Alert,
+    Button,
+    FormControl,
+    FormLabel,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+} from '@mui/material';
 import React, { useState } from 'react';
 import './RequirementSetFrom.css';
 import axios from 'axios';
@@ -6,10 +15,12 @@ import { react_backend_url } from '../../../config';
 interface RequirementSet {
     name: string;
     projectId: string;
+    status: string;
 }
 const initialSet: RequirementSet = {
     name: '',
     projectId: '',
+    status: '',
 };
 interface Props {
     handleRequirementSet: () => void;
@@ -51,7 +62,7 @@ const RequirementSetForm: React.FC<Props> = ({
             const timer = setTimeout(() => {
                 setSuccess(false);
                 handleRequirementSet();
-            }, 2000);
+            }, 1500);
             return () => clearTimeout(timer);
         }
     }, [success]);
@@ -65,15 +76,33 @@ const RequirementSetForm: React.FC<Props> = ({
 
             <div className="requirementSetForm">
                 <div className="requirementSetFormContainer">
-                    <div>
+                    <div className="requirementSetDiv">
+                        <FormLabel>RequirementSet Name</FormLabel>
                         <TextField
-                            label="RequirementSet Name"
                             variant="outlined"
                             fullWidth
                             onChange={handleTextChange}
                             value={requirementSet.name}
                             name="name"
                         />
+                    </div>
+                    <div className="requirementSetDiv">
+                        <FormControl fullWidth>
+                            <FormLabel id="demo-simple-select-label">
+                                Status
+                            </FormLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={requirementSet.status}
+                                onChange={handleTextChange}
+                                name="status"
+                            >
+                                <MenuItem value="Draft">Draft</MenuItem>
+                                <MenuItem value="In Review">In Review</MenuItem>
+                                <MenuItem value="Approved">Approved</MenuItem>
+                            </Select>
+                        </FormControl>
                     </div>
                     <div className="buttons-requirementSetForm">
                         <button className="reqCreate" onClick={handleSubmit}>

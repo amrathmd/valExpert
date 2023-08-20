@@ -37,7 +37,7 @@
     justify-content: space-between;
     height: 3rem;
     width: 96.875vw;
-    padding-right: 2.15vw;
+    position: sticky;
 }
 .req-projectName {
     display: inline-block;
@@ -72,6 +72,7 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    margin-right: 4rem;
 }
 .req-add > p {
     font-size: medium;
