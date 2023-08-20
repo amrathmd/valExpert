@@ -30,6 +30,7 @@ import { start } from 'repl';
 import { NoEncryption } from '@mui/icons-material';
 import { Box, style } from '@mui/system';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
+import './Projects.css';
 
 interface Project {
     projectName: string;
@@ -54,7 +55,7 @@ const defaultProject: Project = {
     projectName: '',
     facility: [],
     department: [],
-    status: 'Select',
+    status: '',
     country: [],
     scope: '',
     category: '',
@@ -153,7 +154,7 @@ function getStyles(name: string, group: string[], theme: Theme) {
 
 const ProjectForm = () => {
     const [project, setProject] = useState(defaultProject);
-    const [ValidationError, setvalidationError] = useState<string>('');
+    const [validationError, setvalidationError] = useState<string>('');
     const navigate = useNavigate();
     const [group, setGroup] = React.useState<string[]>([]);
     const [selectedDept, setSelectedDept] = useState([]);
@@ -162,11 +163,17 @@ const ProjectForm = () => {
     const [estimationDate, setEstimationDate] = useState<Date | null>();
     const [activationDate, setActivationDate] = useState<Date | null>();
     const [inActivationDate, setInActivationDate] = useState<Date | null>();
+    const [errorKey, setErrorKey] = useState<string>('');
     const schema = {
-        name: Joi.string().required(),
-        email: Joi.string().email().required(),
-        mobile: Joi.string().required(),
+        projectName: Joi.string().required(),
+        purpose: Joi.string().required(),
         status: Joi.string().required(),
+        activationDate: Joi.date().required(),
+        inactivationDate: Joi.date().required(),
+        facility: Joi.array().min(1).required(),
+        department: Joi.array().min(1).required(),
+        country: Joi.array().min(1).required(),
+        description: Joi.string().required(),
     };
 
     const handleSubmit = async (event: any) => {
@@ -178,6 +185,15 @@ const ProjectForm = () => {
         project.activationDate = activationDate;
         project.inactivationDate = inActivationDate;
         console.log(project);
+        const { error } = Joi.validate(project, schema, { allowUnknown: true });
+        if (error) {
+            console.log(error.details[0].context.key);
+            setErrorKey(error.details[0].context.key);
+            setvalidationError(error.details[0].message);
+            console.log(validationError);
+            return;
+        }
+
         const res = await axios.post(
             `${react_backend_url}/v1/projects`,
             project
@@ -262,10 +278,6 @@ const ProjectForm = () => {
         const updatedProject = { ...project, status: e.target.value };
         setProject(updatedProject);
     };
-    const handleEstimationDate = (newDate: any) => {
-        console.log(newDate.$d);
-    };
-    console.log(estimationDate);
 
     return (
         <>
@@ -295,11 +307,16 @@ const ProjectForm = () => {
                                         required
                                         sx={{
                                             marginBottom: 4,
-                                            border: '1px solid black',
                                             borderRadius: '4px',
                                         }}
                                         value={project.projectName}
                                         onChange={handleTextChange}
+                                        error={errorKey === 'projectName'}
+                                        helperText={
+                                            errorKey === 'projectName'
+                                                ? validationError
+                                                : ''
+                                        }
                                     />
                                 </div>
                                 <div>
@@ -318,86 +335,116 @@ const ProjectForm = () => {
                                         className="formfeild"
                                         value={project.purpose}
                                         onChange={handleTextChange}
-                                        // size="small"
                                         required
                                         sx={{
                                             marginBottom: 4,
-                                            border: '1px solid black',
                                             borderRadius: '4px',
                                         }}
+                                        error={errorKey === 'purpose'}
+                                        helperText={
+                                            errorKey === 'purpose'
+                                                ? validationError
+                                                : ''
+                                        }
                                     />
                                 </div>
-                                <div>
+                                <div className="dateDiv">
                                     <InputLabel className="userform-label-name">
                                         <b>Status</b>
                                     </InputLabel>
                                     <FormControl
                                         className="formfeild"
                                         fullWidth
-                                        // size="small"
                                         sx={{
-                                            marginBottom: 4,
-                                            border: '1px solid black',
                                             borderRadius: '4px',
                                         }}
+                                        placeholder="Select"
                                     >
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             value={project.status}
                                             onChange={handleStatusChange}
+                                            error={errorKey === 'status'}
                                         >
-                                            <MenuItem value="Select">
-                                                Select
-                                            </MenuItem>
                                             <MenuItem value="Active">
                                                 Active
                                             </MenuItem>
                                             <MenuItem value="Inactive">
                                                 Inactive
                                             </MenuItem>
+                                            <div className="errorMessage">
+                                                {errorKey === 'status' &&
+                                                    validationError}
+                                            </div>
                                         </Select>
                                     </FormControl>
+                                    <div className="errorMessage">
+                                        {errorKey === 'status' &&
+                                            validationError}
+                                    </div>
                                 </div>
-                                <div>
+                                <div className="dateDiv">
                                     <InputLabel className="userform-label-name">
                                         <b>Activation Date</b>
                                     </InputLabel>
                                     <LocalizationProvider
                                         dateAdapter={AdapterDateFns}
                                     >
-                                        <DatePicker
-                                            className="formfeild"
-                                            sx={{
-                                                marginBottom: 4,
-                                                border: '1px solid black',
-                                                borderRadius: '4px',
-                                            }}
-                                            onChange={(newValue: Date) => {
-                                                setActivationDate(newValue);
-                                            }}
-                                        />
+                                        <div
+                                            className={`${
+                                                errorKey === 'activationDate'
+                                                    ? 'errorDiv'
+                                                    : ''
+                                            }`}
+                                        >
+                                            <DatePicker
+                                                className={`formfeild`}
+                                                sx={{
+                                                    borderRadius: '4px',
+                                                }}
+                                                onChange={(newValue: Date) => {
+                                                    setActivationDate(newValue);
+                                                }}
+                                            />
+                                        </div>
                                     </LocalizationProvider>
+                                    <div className="errorMessage">
+                                        {errorKey === 'activationDate' &&
+                                            validationError}
+                                    </div>
                                 </div>
-                                <div>
+                                <div className="dateDiv">
                                     <InputLabel className="userform-label-name">
                                         <b>In Activation Date</b>
                                     </InputLabel>
                                     <LocalizationProvider
                                         dateAdapter={AdapterDateFns}
                                     >
-                                        <DatePicker
-                                            className="formfeild"
-                                            sx={{
-                                                marginBottom: 4,
-                                                border: '1px solid black',
-                                                borderRadius: '4px',
-                                            }}
-                                            onChange={(newValue: Date) => {
-                                                setInActivationDate(newValue);
-                                            }}
-                                        />
+                                        <div
+                                            className={`${
+                                                errorKey === 'inactivationDate'
+                                                    ? 'errorDiv'
+                                                    : ''
+                                            }`}
+                                        >
+                                            <DatePicker
+                                                className="formfeild"
+                                                sx={{
+                                                    borderRadius: '4px',
+                                                }}
+                                                onChange={(newValue: Date) => {
+                                                    setInActivationDate(
+                                                        newValue
+                                                    );
+                                                }}
+                                            />
+                                        </div>
                                     </LocalizationProvider>
+                                    <div className="errorMessage">
+                                        {errorKey === 'inactivationDate' &&
+                                            validationError}
+                                    </div>
                                 </div>
                                 <div>
                                     <InputLabel className="userform-label-name">
@@ -412,13 +459,13 @@ const ProjectForm = () => {
                                         onChange={handleTextChange}
                                         sx={{
                                             marginBottom: 4,
-                                            border: '1px solid black',
+
                                             borderRadius: '4px',
                                         }}
                                     />
                                 </div>
 
-                                <div>
+                                <div className="dateDiv">
                                     <InputLabel className="userform-label-name">
                                         <b>Estimated Implememtation Date</b>
                                     </InputLabel>
@@ -428,8 +475,6 @@ const ProjectForm = () => {
                                         <DatePicker
                                             className="formfeild"
                                             sx={{
-                                                marginBottom: 4,
-                                                border: '1px solid black',
                                                 borderRadius: '4px',
                                             }}
                                             onChange={(newValue: Date) => {
@@ -452,14 +497,14 @@ const ProjectForm = () => {
                                         onChange={handleTextChange}
                                         sx={{
                                             marginBottom: 4,
-                                            border: '1px solid black',
+
                                             borderRadius: '4px',
                                         }}
                                     />
                                 </div>
                             </div>
                             <div className="formright">
-                                <div>
+                                <div className="dateDiv">
                                     <InputLabel
                                         required
                                         className="userform-label-name"
@@ -468,8 +513,6 @@ const ProjectForm = () => {
                                     </InputLabel>
                                     <FormControl
                                         sx={{
-                                            marginBottom: 4,
-                                            border: '1px solid black',
                                             borderRadius: '4px',
                                         }}
                                         // className="formfeild"
@@ -484,6 +527,7 @@ const ProjectForm = () => {
                                                     e.target.value
                                                 )
                                             }
+                                            error={errorKey === 'facility'}
                                             input={<OutlinedInput />}
                                             renderValue={(selected) => (
                                                 <Stack
@@ -536,7 +580,6 @@ const ProjectForm = () => {
                                                     sx={{
                                                         justifyContent:
                                                             'space-between',
-                                                        border: '1px solid black',
                                                         borderRadius: '4px',
                                                     }}
                                                 >
@@ -550,8 +593,12 @@ const ProjectForm = () => {
                                             ))}
                                         </Select>
                                     </FormControl>
+                                    <div className="errorMessage">
+                                        {errorKey === 'facility' &&
+                                            validationError}
+                                    </div>
                                 </div>
-                                <div>
+                                <div className="dateDiv">
                                     <InputLabel
                                         className="userform-label-name"
                                         required
@@ -561,8 +608,6 @@ const ProjectForm = () => {
                                     <FormControl
                                         required
                                         sx={{
-                                            marginBottom: 4,
-                                            border: '1px solid black',
                                             borderRadius: '4px',
                                         }}
                                         // className="formfeild"
@@ -574,6 +619,7 @@ const ProjectForm = () => {
                                             onChange={(e: any) =>
                                                 setSelectedDept(e.target.value)
                                             }
+                                            error={errorKey === 'department'}
                                             input={<OutlinedInput />}
                                             renderValue={(selected) => (
                                                 <Stack
@@ -638,8 +684,12 @@ const ProjectForm = () => {
                                             ))}
                                         </Select>
                                     </FormControl>
+                                    <div className="errorMessage">
+                                        {errorKey === 'department' &&
+                                            validationError}
+                                    </div>
                                 </div>
-                                <div>
+                                <div className="dateDiv">
                                     <InputLabel
                                         className="userform-label-name"
                                         required
@@ -648,8 +698,6 @@ const ProjectForm = () => {
                                     </InputLabel>
                                     <FormControl
                                         sx={{
-                                            marginBottom: 4,
-                                            border: '1px solid black',
                                             borderRadius: '4px',
                                         }}
                                         // className="formfeild"
@@ -664,6 +712,7 @@ const ProjectForm = () => {
                                                     e.target.value
                                                 )
                                             }
+                                            error={errorKey === 'country'}
                                             input={<OutlinedInput />}
                                             renderValue={(selected) => (
                                                 <Stack
@@ -728,6 +777,10 @@ const ProjectForm = () => {
                                             ))}
                                         </Select>
                                     </FormControl>
+                                    <div className="errorMessage">
+                                        {errorKey === 'country' &&
+                                            validationError}
+                                    </div>
                                 </div>
                                 <div>
                                     <InputLabel className="userform-label-name">
@@ -744,7 +797,7 @@ const ProjectForm = () => {
 
                                         sx={{
                                             marginBottom: 4,
-                                            border: '1px solid black',
+
                                             borderRadius: '4px',
                                         }}
                                     />
@@ -769,9 +822,14 @@ const ProjectForm = () => {
                                         required
                                         sx={{
                                             marginBottom: 4,
-                                            border: '1px solid black',
+
                                             borderRadius: '4px',
                                         }}
+                                        error={errorKey === 'description'}
+                                        helperText={
+                                            errorKey === 'description' &&
+                                            validationError
+                                        }
                                     />
                                 </div>
                                 <div>
@@ -789,7 +847,7 @@ const ProjectForm = () => {
 
                                         sx={{
                                             marginBottom: 4,
-                                            border: '1px solid black',
+
                                             borderRadius: '4px',
                                         }}
                                     />
@@ -809,7 +867,7 @@ const ProjectForm = () => {
 
                                         sx={{
                                             marginBottom: 4,
-                                            border: '1px solid black',
+
                                             borderRadius: '4px',
                                         }}
                                     />
@@ -825,7 +883,7 @@ const ProjectForm = () => {
                                         className="formfeild"
                                         sx={{
                                             marginBottom: 4,
-                                            border: '1px solid black',
+
                                             borderRadius: '4px',
                                         }}
                                         value={project.scope}

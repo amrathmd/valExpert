@@ -37,6 +37,18 @@ const Projects = () => {
             );
         }
     };
+    const formatDate = (dateString: string) => {
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        } as Intl.DateTimeFormatOptions;
+        const formattedDate = new Date(dateString).toLocaleDateString(
+            undefined,
+            options
+        );
+        return formattedDate;
+    };
 
     useEffect(() => {
         getProjects();
@@ -87,15 +99,14 @@ const Projects = () => {
                                         className="iconimg"
                                     />
                                 </div>
-
-                                <div className="project-description">
-                                    <b>{item.projectName}</b>
-                                    <p className="para">
-                                        Estimated completion date
-                                    </p>
-                                </div>
+                                <b>{item.projectName}</b>
                             </div>
-                            <input type="date" className="datein" />
+                            <div className="project-description">
+                                <p className="para">
+                                    Completion Date{': '}
+                                    {formatDate(item.estimationDate)}
+                                </p>
+                            </div>
                         </div>
                     ))}
             </section>
