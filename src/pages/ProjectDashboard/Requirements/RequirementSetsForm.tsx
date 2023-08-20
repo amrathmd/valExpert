@@ -1,6 +1,6 @@
 import { Alert, Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import './RequirementSetFrom.css';
+import './RequirementSetForm.css';
 import axios from 'axios';
 import { react_backend_url } from '../../../config';
 interface RequirementSet {

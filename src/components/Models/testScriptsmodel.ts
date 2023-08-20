@@ -1,4 +1,4 @@
-export interface TestCase {
+interface TestScript {
     _Id?: string;
     testsetId: string;
     Type: string;
@@ -8,3 +8,4 @@ export interface TestCase {
     result: string;
     author: string;
 }
+export default TestScript;
