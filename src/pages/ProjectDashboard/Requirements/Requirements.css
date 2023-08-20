@@ -45,6 +45,16 @@
     border-bottom: 1px solid #dddddd;
 }
 
+.content-table1 tbody td.req-leftPart {
+    width: 30%;
+}
+.content-table1 tbody td.req-leftPart {
+    width: 40%;
+}
+.content-table1 tbody td.req-leftPart {
+    width: 30%;
+}
+
 .create-reqSet-button {
     border: 1px solid #007bff;
     background-color: #007bff;
@@ -59,7 +69,8 @@
     /* margin-left: 1.75rem;
     margin-top: 0.5rem; */
     width: 76.36vw;
-    padding: 1vh 2.4vw 0vh 1.5vw;
+    padding: 1vh 3vw 0vh 0.9vw;
+    overflow-y: scroll;
 }
 .edit-pic {
     width: 25px;
@@ -95,16 +106,20 @@
     justify-content: space-between;
     align-items: center;
     width: 76.36vw;
-    padding: 1vh;
+    padding: 1vh 0vw 1vh 0vw;
     position: sticky;
 }
-.req-set-header > b {
-}
+
 .req-set-right {
     display: flex;
     gap: 1rem;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-right: 4rem;
+    padding-right: 3vw;
+}
+
+.req-id {
+    text-decoration: underline;
+    color: blue;
 }

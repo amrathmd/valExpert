@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Tooltip,
     Dialog,
@@ -15,6 +15,7 @@ import { react_backend_url } from '../../../config';
 import axios from 'axios';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import ReqForm from './RequirementForm';
+import { NavLink } from 'react-router-dom';
 interface RequirementsdetailsProps {
     selectedRequirementSet: any;
 }
@@ -166,7 +167,7 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
                                         <table className="content-table1">
                                             <thead>
                                                 <tr>
-                                                    <th>RequirementSetId</th>
+                                                    <th>RequirementId</th>
                                                     <th>
                                                         RequirementDescription
                                                     </th>
@@ -178,17 +179,35 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
                                                     category
                                                 ].map((requirement) => (
                                                     <tr key={requirement._id}>
-                                                        <td>
-                                                            {
-                                                                requirement.requirementSetId
-                                                            }
+                                                        <td className="req-leftPart">
+                                                            <NavLink
+                                                                to={`/dashboard/requirements/${requirement._id}`}
+                                                                className="req-id"
+                                                            >
+                                                                {
+                                                                    requirement._id
+                                                                }
+                                                            </NavLink>
                                                         </td>
-                                                        <td>
-                                                            {
-                                                                requirement.requirementDescription
-                                                            }
+                                                        <td className="req-middlePart">
+                                                            <p
+                                                                style={{
+                                                                    textOverflow:
+                                                                        'clip',
+                                                                    width: '27vw',
+                                                                }}
+                                                            >
+                                                                {requirement
+                                                                    .requirementDescription
+                                                                    .length > 50
+                                                                    ? requirement.requirementDescription.substring(
+                                                                          0,
+                                                                          47
+                                                                      ) + '...'
+                                                                    : requirement.requirementDescription}
+                                                            </p>
                                                         </td>
-                                                        <td>
+                                                        <td className="req-rightPart">
                                                             <div className="action-icon">
                                                                 <div className="icon-border">
                                                                     <Tooltip
