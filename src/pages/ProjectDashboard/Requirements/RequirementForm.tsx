@@ -10,6 +10,7 @@ import {
     MenuItem,
     Button,
     FormLabel,
+    Alert,
 } from '@mui/material';
 
 const initialState = {
@@ -41,6 +42,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
     const [requirement, setRequirement] = useState(
         selectedRequirement || initialState
     );
+    const [success, setSuccess] = useState<boolean>(false);
 
     // const [requirement, setRequirement] = useState({
     //      ...initialState,
@@ -88,21 +90,39 @@ const ReqForm: React.FC<ReqFormProps> = ({
                     `${react_backend_url}/v1/requirements`,
                     requestData
                 );
-                console.log('Requirement created:', result.data);
+                if (result) {
+                    setSuccess(true);
+                }
             }
-            handleFormActive();
-        } catch (error) {
-            console.error('Error submitting requirement:', error);
+        } catch (e) {
+            window.alert('some Error occured');
         }
     };
+    React.useEffect(() => {
+        if (success) {
+            const timer = setTimeout(() => {
+                setSuccess(false);
+                handleFormActive();
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [success]);
 
     return (
-        <div className="form-container">
-            <div>
-                <div className="heading">
-                    <h2>Requirements Form</h2>
-                </div>
-                {/* <div className="req-item">
+        <>
+            <div className="alert-container">
+                {success && (
+                    <Alert severity="success">
+                        Requirements created successfully!
+                    </Alert>
+                )}
+            </div>
+            <div className="form-container">
+                <div>
+                    <div className="heading">
+                        <h2>Requirements Form</h2>
+                    </div>
+                    {/* <div className="req-item">
                 <TextField
                     label="RequirementSet Name"
                     variant="outlined"
@@ -112,101 +132,102 @@ const ReqForm: React.FC<ReqFormProps> = ({
                     name="requirementName"
                 />
             </div> */}
-                <div className="req-item">
-                    <TextField
-                        label="Requirement Description"
-                        variant="outlined"
-                        type="textarea"
-                        multiline
-                        rows={4}
-                        fullWidth
-                        onChange={handleTextChange}
-                        value={requirement.requirementDescription}
-                        name="requirementDescription"
-                    />
-                </div>
-                <div className="req-item">
-                    <FormControl variant="outlined" fullWidth>
-                        <FormLabel id="reference-category-label">
-                            Requirement Category
-                        </FormLabel>
-                        <Select
-                            labelId="reference-category-label"
-                            id="req-dropdown"
-                            label="Reference Category"
-                            onChange={handleSelectChange}
-                            value={requirement.requirementCategory}
-                            name="requirementCategory"
+                    <div className="req-item">
+                        <TextField
+                            label="Requirement Description"
+                            variant="outlined"
+                            type="textarea"
+                            multiline
+                            rows={4}
+                            fullWidth
+                            onChange={handleTextChange}
+                            value={requirement.requirementDescription}
+                            name="requirementDescription"
+                        />
+                    </div>
+                    <div className="req-item">
+                        <FormControl variant="outlined" fullWidth>
+                            <FormLabel id="reference-category-label">
+                                Requirement Category
+                            </FormLabel>
+                            <Select
+                                labelId="reference-category-label"
+                                id="req-dropdown"
+                                label="Reference Category"
+                                onChange={handleSelectChange}
+                                value={requirement.requirementCategory}
+                                name="requirementCategory"
+                            >
+                                <MenuItem value="User Requirement">
+                                    User Requirement
+                                </MenuItem>
+                                <MenuItem value="Functional Requirement">
+                                    Functional Requirement
+                                </MenuItem>
+                                <MenuItem value="Technical Requirement">
+                                    Technical Requirement
+                                </MenuItem>
+                                <MenuItem value="Physical Requirement">
+                                    Physical Requirement
+                                </MenuItem>
+                                <MenuItem value="Regulatory Requirement">
+                                    Regulatory Requirement
+                                </MenuItem>
+                                <MenuItem value="Other Requirement">
+                                    Other Requirement
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="req-item">
+                        <TextField
+                            label="Reference SOP"
+                            variant="outlined"
+                            type="text"
+                            fullWidth
+                            onChange={handleTextChange}
+                            value={requirement.reference}
+                            name="reference"
+                        />
+                    </div>
+                    <div className="req-item">
+                        <FormControl variant="outlined" fullWidth>
+                            <FormLabel id="verification-label">
+                                Verification
+                            </FormLabel>
+                            <Select
+                                labelId="verification-label"
+                                id="req-dropdown"
+                                label="Verification"
+                                onChange={handleSelectChange}
+                                value={requirement.verification}
+                                name="verification"
+                            >
+                                <MenuItem value="Testing">Testing</MenuItem>
+                                <MenuItem value="Procedure">Procedure</MenuItem>
+                                <MenuItem value="Testing and Procedure">
+                                    Testing and Procedure
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="req-submit">
+                        <button
+                            onClick={handleFormActive}
+                            className="requirementFormButtons"
                         >
-                            <MenuItem value="User Requirement">
-                                User Requirement
-                            </MenuItem>
-                            <MenuItem value="Functional Requirement">
-                                Functional Requirement
-                            </MenuItem>
-                            <MenuItem value="Technical Requirement">
-                                Technical Requirement
-                            </MenuItem>
-                            <MenuItem value="Physical Requirement">
-                                Physical Requirement
-                            </MenuItem>
-                            <MenuItem value="Regulatory Requirement">
-                                Regulatory Requirement
-                            </MenuItem>
-                            <MenuItem value="Other Requirement">
-                                Other Requirement
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="req-item">
-                    <TextField
-                        label="Reference SOP"
-                        variant="outlined"
-                        type="text"
-                        fullWidth
-                        onChange={handleTextChange}
-                        value={requirement.reference}
-                        name="reference"
-                    />
-                </div>
-                <div className="req-item">
-                    <FormControl variant="outlined" fullWidth>
-                        <FormLabel id="verification-label">
-                            Verification
-                        </FormLabel>
-                        <Select
-                            labelId="verification-label"
-                            id="req-dropdown"
-                            label="Verification"
-                            onChange={handleSelectChange}
-                            value={requirement.verification}
-                            name="verification"
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleSubmit}
+                            className="requirementFormButtons"
                         >
-                            <MenuItem value="Testing">Testing</MenuItem>
-                            <MenuItem value="Procedure">Procedure</MenuItem>
-                            <MenuItem value="Testing and Procedure">
-                                Testing and Procedure
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="req-submit">
-                    <button
-                        onClick={handleFormActive}
-                        className="requirementFormButtons"
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        onClick={handleSubmit}
-                        className="requirementFormButtons"
-                    >
-                        Confirm
-                    </button>
+                            Confirm
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -10,6 +10,7 @@ import {
     MenuItem,
     Button,
     FormLabel,
+    Alert,
 } from '@mui/material';
 import { react_backend_url } from '../../../../config';
 
@@ -33,6 +34,7 @@ const TestscriptForm: React.FC<TestscriptFormProps> = ({
 }) => {
     const [formValue, setFormValue] = useState('');
     const [testCase, setTestCase] = useState(defaultTestCase);
+    const [success, setSuccess] = useState<boolean>(false);
 
     const updateTestCase = (field: string, value: any) => {
         setTestCase((prevTestCase) => {
@@ -69,133 +71,159 @@ const TestscriptForm: React.FC<TestscriptFormProps> = ({
         axios
             .post(`${react_backend_url}/v1/testscripts`, testCase)
             .then((response) => {
-                console.log('Test script created:', response.data);
-                onClose();
+                setSuccess(true);
             })
-            .catch((error) => {
-                console.error('Error creating test script:', error);
-                alert('Error creating test script. Please try again.'); // Notify the user
+            .catch((e) => {
+                window.alert('some Error occured');
             });
     };
+    React.useEffect(() => {
+        if (success) {
+            const timer = setTimeout(() => {
+                setSuccess(false);
+                onClose();
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [success]);
 
     return (
-        <div className="form-container">
-            <div>
-                <div className="heading">
-                    <h2>TestScript Details</h2>
-                </div>
+        <>
+            <div className="alert-container">
+                {success && (
+                    <Alert severity="success">
+                        Testscripts created successfully!
+                    </Alert>
+                )}
+            </div>
+            <div className="form-container">
+                <div>
+                    <div className="heading">
+                        <h2>TestScript Details</h2>
+                    </div>
 
-                <div className="req-item">
-                    <FormLabel id="demo-row-radio-buttons-group-label">
-                        Type
-                    </FormLabel>
-                    <FormControl fullWidth size="small">
-                        <Select
-                            labelId="type-label"
-                            id="req-dropdown"
-                            name="Type"
-                            value={testCase.Type}
-                            onChange={handleTextChange}
-                            label="Type"
-                        >
-                            <MenuItem value="iQ">IQ</MenuItem>
-                            <MenuItem value="oQ">OQ</MenuItem>
-                            <MenuItem value="pQ">PQ</MenuItem>
-                            <MenuItem value="uAT">UAT</MenuItem>
-                            <MenuItem value="fAT">FAT</MenuItem>
-                            <MenuItem value="integration Test">
-                                Integration Test
-                            </MenuItem>
-                            <MenuItem value="unit Tests">Unit Tests</MenuItem>
-                            <MenuItem value="smoke Test">Smoke Test</MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
-
-                <div className="req-item">
-                    <TextField
-                        label="Purpose"
-                        variant="outlined"
-                        fullWidth
-                        multiline
-                        rows={4}
-                        name="purpose"
-                        size="small"
-                        value={testCase.purpose}
-                        onChange={handleTextChange}
-                    />
-                </div>
-
-                <div className="req-item">
-                    <TextField
-                        label="Acceptance Criteria"
-                        variant="outlined"
-                        fullWidth
-                        name="acceptanceCriteria"
-                        size="small"
-                        multiline
-                        rows={4}
-                        value={testCase.acceptanceCriteria}
-                        onChange={handleTextChange}
-                    />
-                </div>
-
-                <div className="req-item">
-                    <TextField
-                        label="Prerequesites"
-                        variant="outlined"
-                        fullWidth
-                        name="prerequesites"
-                        size="small"
-                        value={testCase.prerequesites}
-                        onChange={handleTextChange}
-                    />
-                </div>
-
-                <div className="req-item">
-                    <FormControl variant="outlined" fullWidth size="small">
+                    <div className="req-item">
                         <FormLabel id="demo-row-radio-buttons-group-label">
-                            Result
+                            Type
                         </FormLabel>
-                        <Select
-                            labelId="result-label"
-                            id="req-dropdown"
-                            name="result"
-                            value={testCase.result}
-                            onChange={handleTextChange}
-                            label="Result"
-                        >
-                            <MenuItem value="pass">Pass</MenuItem>
-                            <MenuItem value="fail">Fail</MenuItem>
-                            <MenuItem value="not started">Not Started</MenuItem>
-                            <MenuItem value="in progress">In Progress</MenuItem>
-                            <MenuItem value="cancelled">Cancelled</MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
+                        <FormControl fullWidth size="small">
+                            <Select
+                                labelId="type-label"
+                                id="req-dropdown"
+                                name="Type"
+                                value={testCase.Type}
+                                onChange={handleTextChange}
+                                label="Type"
+                            >
+                                <MenuItem value="iQ">IQ</MenuItem>
+                                <MenuItem value="oQ">OQ</MenuItem>
+                                <MenuItem value="pQ">PQ</MenuItem>
+                                <MenuItem value="uAT">UAT</MenuItem>
+                                <MenuItem value="fAT">FAT</MenuItem>
+                                <MenuItem value="integration Test">
+                                    Integration Test
+                                </MenuItem>
+                                <MenuItem value="unit Tests">
+                                    Unit Tests
+                                </MenuItem>
+                                <MenuItem value="smoke Test">
+                                    Smoke Test
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
 
-                <div className="req-item">
-                    <TextField
-                        label="Author"
-                        variant="outlined"
-                        fullWidth
-                        name="author"
-                        size="small"
-                        value={testCase.author}
-                        onChange={handleTextChange}
-                    />
-                </div>
-                <div className="req-submit">
-                    <button className="requirementFormButtons">Cancel</button>
-                    <button
-                        onClick={handleSubmit}
-                        className="requirementFormButtons"
-                    >
-                        Confirm
-                    </button>
+                    <div className="req-item">
+                        <TextField
+                            label="Purpose"
+                            variant="outlined"
+                            fullWidth
+                            multiline
+                            rows={4}
+                            name="purpose"
+                            size="small"
+                            value={testCase.purpose}
+                            onChange={handleTextChange}
+                        />
+                    </div>
+
+                    <div className="req-item">
+                        <TextField
+                            label="Acceptance Criteria"
+                            variant="outlined"
+                            fullWidth
+                            name="acceptanceCriteria"
+                            size="small"
+                            multiline
+                            rows={4}
+                            value={testCase.acceptanceCriteria}
+                            onChange={handleTextChange}
+                        />
+                    </div>
+
+                    <div className="req-item">
+                        <TextField
+                            label="Prerequesites"
+                            variant="outlined"
+                            fullWidth
+                            name="prerequesites"
+                            size="small"
+                            value={testCase.prerequesites}
+                            onChange={handleTextChange}
+                        />
+                    </div>
+
+                    <div className="req-item">
+                        <FormControl variant="outlined" fullWidth size="small">
+                            <FormLabel id="demo-row-radio-buttons-group-label">
+                                Result
+                            </FormLabel>
+                            <Select
+                                labelId="result-label"
+                                id="req-dropdown"
+                                name="result"
+                                value={testCase.result}
+                                onChange={handleTextChange}
+                                label="Result"
+                            >
+                                <MenuItem value="pass">Pass</MenuItem>
+                                <MenuItem value="fail">Fail</MenuItem>
+                                <MenuItem value="not started">
+                                    Not Started
+                                </MenuItem>
+                                <MenuItem value="in progress">
+                                    In Progress
+                                </MenuItem>
+                                <MenuItem value="cancelled">Cancelled</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+
+                    <div className="req-item">
+                        <TextField
+                            label="Author"
+                            variant="outlined"
+                            fullWidth
+                            name="author"
+                            size="small"
+                            value={testCase.author}
+                            onChange={handleTextChange}
+                        />
+                    </div>
+                    <div className="req-submit">
+                        <button className="requirementFormButtons">
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleSubmit}
+                            className="requirementFormButtons"
+                        >
+                            Confirm
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 export default TestscriptForm;
