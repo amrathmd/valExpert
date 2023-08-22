@@ -60,7 +60,7 @@ const Dashboard = () => {
     const [testSet, setTestSet] = useState([]);
     const [openTestSet, setOpenTestSet] = useState<boolean>(false);
     const [openTestCase, setOpentestCase] = useState<boolean>(false);
-    const [selectedList, setSelectedList] = useState(1);
+    const [selectedList, setSelectedList] = useState(0);
     const [selectedRequirementSet, setSelectedRequirementSet] = useState<
         string | null
     >(null);
@@ -176,9 +176,10 @@ const Dashboard = () => {
                 `${react_backend_url}/v1/requirementset/project/${projectId}`
             );
             setRequirementSets(result.data);
+            console.log(selectedList);
         };
         FetchRequirementSets();
-    }, [requirementSetForm]);
+    }, [requirementSetForm, selectedList]);
     React.useEffect(() => {
         const FetchTestSets = async () => {
             const result = await axios.get(
@@ -305,6 +306,23 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <div className="req-header-underline"></div>
+                </div>
+            )}
+            {selectedList === 1 && (
+                <div>
+                    <div className="requirementSets-header">
+                        <p>Requirement Sets Details</p>
+                        <button>
+                            <div
+                                className="req-add"
+                                onClick={handleRequirementSet}
+                            >
+                                <img src={'../../../public/plus.svg'} alt="" />
+                                <p>Add Requirement Set</p>
+                            </div>
+                        </button>
+                    </div>
+                    <div className="title-underline"></div>
                 </div>
             )}
             <div className="projectdashboard">
@@ -488,9 +506,8 @@ const Dashboard = () => {
                         </Collapse>
                     </List>
                 </div>
-            </div>
-            <div className="content-bar">
-                {project && selectedList === 1 && (
+                <div className="content-bar">
+                    {/* {project && selectedList === 1 && (
                     <div className="project-table-container">
                         <div>
                             <div className="project-table-header">
@@ -510,44 +527,106 @@ const Dashboard = () => {
                             </table>
                         </div>
                     </div>
-                )}
-                {selectedRequirementSet && (
-                    <Requirements
-                        selectedItem={selectedList}
-                        selectedRequirementSet={selectedRequirementSet}
-                        RequirementSets={requirementSets}
-                        projectId={projectId}
-                        handleReqFormActive={handleReqFormActive}
-                        isReqFormActive={isReqFormActive}
-                    />
-                )}
-                {selectedTestSet && (
-                    <TestSetDetails
-                        selectedItem={selectedList}
-                        projectId={projectId}
-                        testSet={selectedTestSet}
-                    />
-                )}
-            </div>
-            {requirementSetForm && (
-                <div className="blur-background">
-                    <div className="requirementsetform">
-                        <RequirementSetForm
-                            handleRequirementSet={handleRequirementSet}
+                )} */}
+                    {selectedRequirementSet && (
+                        <Requirements
+                            selectedItem={selectedList}
+                            selectedRequirementSet={selectedRequirementSet}
+                            RequirementSets={requirementSets}
                             projectId={projectId}
+                            handleReqFormActive={handleReqFormActive}
+                            isReqFormActive={isReqFormActive}
                         />
-                    </div>
+                    )}
+                    {selectedTestSet && (
+                        <TestSetDetails
+                            selectedItem={selectedList}
+                            projectId={projectId}
+                            testSet={selectedTestSet}
+                        />
+                    )}
+                    {selectedList === 1 && (
+                        <div className="requirementSets-Details">
+                            <div className="category-title">
+                                <h2 className="category-title-text">
+                                    Requirement Set Details
+                                </h2>
+                            </div>
+                            <table className="content-table1">
+                                <thead>
+                                    <tr>
+                                        <th>Requirement Set ID</th>
+                                        <th>Requirement Set Name</th>
+                                        <th>Status</th>
+                                        <th>Version</th>
+                                        <th>Created Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {requirementSets.map((requirementSet) => (
+                                        <tr key={requirementSet._id}>
+                                            <td className="req-leftPart">
+                                                {requirementSet._id}
+                                            </td>
+                                            <td className="req-middlePart">
+                                                {requirementSet.name}
+                                            </td>
+                                            <td>{requirementSet.status}</td>
+                                            <td>{requirementSet.version}</td>
+                                            <td>{requirementSet.createdAt}</td>
+                                            <td className="req-rightPart">
+                                                <div className="action-icon">
+                                                    <div className="icon-border">
+                                                        <Tooltip
+                                                            title="Edit Requirement"
+                                                            placement="top-end"
+                                                        >
+                                                            <img
+                                                                className="edit-pic"
+                                                                src={`../../../public/edit.svg`}
+                                                            />
+                                                        </Tooltip>
+                                                    </div>
+                                                    <div className="icon-border">
+                                                        <Tooltip
+                                                            title="Delete Requirement"
+                                                            placement="top-end"
+                                                        >
+                                                            <img
+                                                                className="edit-pic"
+                                                                src={`../../../public/delete-outlined.svg`}
+                                                            />
+                                                        </Tooltip>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                    {requirementSetForm && (
+                        <div className="blur-background">
+                            <div className="requirementsetform">
+                                <RequirementSetForm
+                                    handleRequirementSet={handleRequirementSet}
+                                    projectId={projectId}
+                                />
+                            </div>
+                        </div>
+                    )}
+                    {testSetForm && (
+                        <div>
+                            <TestSetForm
+                                handleTestSetForm={handleTestSetForm}
+                                projectId={projectId}
+                            />
+                        </div>
+                    )}
                 </div>
-            )}
-            {testSetForm && (
-                <div>
-                    <h1>hello world</h1>
-                    <TestSetForm
-                        handleTestSetForm={handleTestSetForm}
-                        projectId={projectId}
-                    />
-                </div>
-            )}
+            </div>
         </div>
     );
 };
