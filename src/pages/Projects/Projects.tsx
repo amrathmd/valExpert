@@ -94,7 +94,7 @@ const Projects = () => {
                             >
                                 <div className="image-pic">
                                     <img
-                                        src={'../../../public/icon.png'}
+                                        src={'../../../public/projectdoc.png'}
                                         alt=""
                                         className="iconimg"
                                     />

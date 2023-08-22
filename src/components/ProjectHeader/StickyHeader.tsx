@@ -6,7 +6,7 @@ const StickyHeader = () => {
         <div className="fixing">
             <div className="sticky-header">
                 <div className="project-title">
-                    <p>VALEXPERTS</p>
+                    <img src="../../public/logo.png" alt="" />
                 </div>
                 <div className="project-header-icons">
                     <div className="user-icons">

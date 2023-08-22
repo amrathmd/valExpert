@@ -6,9 +6,11 @@
     align-items: center;
     background-color: white;
 }
-.project-title {
+.project-title > img {
     display: inline-block;
     padding-left: 3vw;
+    height: 3.5rem;
+    width: 13rem;
 }
 .project-title > p {
     color: #003059;
