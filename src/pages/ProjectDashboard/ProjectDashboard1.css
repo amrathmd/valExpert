@@ -1,14 +1,21 @@
+.projectdashboard {
+    width: 96.875vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+}
 .dashboard-sidebar {
     background-color: #fff;
     padding: 20px;
     border-right: 1px solid rgb(235, 228, 228);
     height: 100vh;
     width: 20vw;
-    position: fixed;
+    /* position: fixed; */
 }
 .content-bar {
-    margin-left: 20vw;
     padding-left: 10px;
+    width: 76.875vw;
+    height: 100vh;
 }
 .blur-background {
     position: fixed;
@@ -145,6 +152,25 @@
 .project-table-button {
     display: flex;
     justify-content: center;
+}
+
+.requirementSets-Details {
+    width: 100%;
+    padding: 1vh 3vw 0vh 0.9vw;
+}
+.requirementSets-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1vh 3vw 1vh 2vw;
+}
+.requirementSets-header > p {
+    color: #000;
+    font-family: 'Poppins';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 }
 
 @media (max-width: 1180px) {
