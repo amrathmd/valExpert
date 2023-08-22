@@ -207,7 +207,7 @@ const Dashboard = () => {
         },
     ];
     return (
-        <div className="projectdashboard">
+        <div>
             <StickyHeader />
             {selectedRequirementSet && (
                 <div>
@@ -307,66 +307,142 @@ const Dashboard = () => {
                     <div className="req-header-underline"></div>
                 </div>
             )}
-            <div className="dashboard-sidebar">
-                <List
-                    sx={{
-                        width: '100%',
-                        maxWidth: 360,
-                        bgcolor: 'background.paper',
-                    }}
-                    component="nav"
-                    aria-labelledby="nested-list-subheader"
-                    subheader={
-                        <ListSubheader
-                            component="div"
-                            id="nested-list-subheader"
-                        >
-                            Project Items
-                        </ListSubheader>
-                    }
-                >
-                    <ListItemButton onClick={handleClick}>
-                        <FolderOutlinedIcon />
-                        <ListItemText
-                            sx={{ marginLeft: 2 }}
-                            primary="Requirement sets"
-                        />
-                        {openRequirementSet ? <ExpandLess /> : <ExpandMore />}
-                    </ListItemButton>
-                    <Collapse
-                        in={openRequirementSet}
-                        timeout="auto"
-                        unmountOnExit
+            <div className="projectdashboard">
+                <div className="dashboard-sidebar">
+                    <List
+                        sx={{
+                            width: '100%',
+                            maxWidth: 360,
+                            bgcolor: 'background.paper',
+                        }}
+                        component="nav"
+                        aria-labelledby="nested-list-subheader"
+                        subheader={
+                            <ListSubheader
+                                component="div"
+                                id="nested-list-subheader"
+                            >
+                                Project Items
+                            </ListSubheader>
+                        }
                     >
-                        <List component="div" disablePadding>
-                            {requirementSets.map((requirements) => (
+                        <ListItemButton onClick={handleClick}>
+                            <FolderOutlinedIcon />
+                            <ListItemText
+                                sx={{ marginLeft: 2 }}
+                                primary="Requirement sets"
+                            />
+                            {openRequirementSet ? (
+                                <ExpandLess />
+                            ) : (
+                                <ExpandMore />
+                            )}
+                        </ListItemButton>
+                        <Collapse
+                            in={openRequirementSet}
+                            timeout="auto"
+                            unmountOnExit
+                        >
+                            <List component="div" disablePadding>
+                                {requirementSets.map((requirements) => (
+                                    <ListItemButton
+                                        key={requirements._id}
+                                        sx={{
+                                            pl: 4,
+                                            backgroundColor:
+                                                selectedRequirementSet ===
+                                                requirements._id
+                                                    ? 'rgba(0, 0, 0, 0.1)'
+                                                    : 'transparent',
+                                        }}
+                                        onClick={() =>
+                                            handleRequirementSetClick(
+                                                requirements._id
+                                            )
+                                        }
+                                    >
+                                        <Typography
+                                            variant="subtitle2"
+                                            gutterBottom
+                                        >
+                                            {requirements.name}
+                                        </Typography>
+                                    </ListItemButton>
+                                ))}
                                 <ListItemButton
-                                    key={requirements._id}
-                                    sx={{
-                                        pl: 4,
-                                        backgroundColor:
-                                            selectedRequirementSet ===
-                                            requirements._id
-                                                ? 'rgba(0, 0, 0, 0.1)'
-                                                : 'transparent',
-                                    }}
-                                    onClick={() =>
-                                        handleRequirementSetClick(
-                                            requirements._id
-                                        )
-                                    }
+                                    sx={{ pl: 3 }}
+                                    onClick={handleRequirementSet}
                                 >
                                     <Typography
-                                        variant="subtitle2"
+                                        variant="caption"
+                                        display="block"
                                         gutterBottom
                                     >
-                                        {requirements.name}
+                                        <Add />
+                                        Create Requirement set
                                     </Typography>
                                 </ListItemButton>
-                            ))}
+                            </List>
+                        </Collapse>
+                        <ListItemButton onClick={handleTestsSetClick}>
+                            <FolderOutlinedIcon />
+                            <ListItemText
+                                sx={{ marginLeft: 2 }}
+                                primary="Test sets"
+                            />
+                            {openTestSets ? <ExpandLess /> : <ExpandMore />}
+                        </ListItemButton>
+                        <Collapse
+                            in={openTestSets}
+                            timeout="auto"
+                            unmountOnExit
+                        >
+                            <List component="div" disablePadding>
+                                {testSets.map((testset) => (
+                                    <>
+                                        <ListItemButton
+                                            key={testset._id}
+                                            sx={{
+                                                pl: 4,
+                                                backgroundColor:
+                                                    selectedTestSet ===
+                                                    testset._id
+                                                        ? 'rgba(0, 0, 0, 0.1)'
+                                                        : 'transparent',
+                                            }}
+                                            onClick={() =>
+                                                handleTestSetSelectedClick(
+                                                    testset._id
+                                                )
+                                            }
+                                        >
+                                            <ListItemButton>
+                                                <ListItemText
+                                                    primary={`${testset.testSetName}`}
+                                                />
+                                                {openTestSet &&
+                                                testset._id ===
+                                                    selectedTestSet ? (
+                                                    <ExpandLess />
+                                                ) : (
+                                                    <ExpandMore />
+                                                )}
+                                            </ListItemButton>
+                                        </ListItemButton>
+                                        <Collapse
+                                            in={
+                                                openTestSet &&
+                                                testset._id === selectedTestSet
+                                            }
+                                            timeout="auto"
+                                            unmountOnExit
+                                        ></Collapse>
+                                    </>
+                                ))}
+                            </List>
                             <ListItemButton
                                 sx={{ pl: 3 }}
-                                onClick={handleRequirementSet}
+                                onClick={handleTestSetForm}
                             >
                                 <Typography
                                     variant="caption"
@@ -374,106 +450,44 @@ const Dashboard = () => {
                                     gutterBottom
                                 >
                                     <Add />
-                                    Create Requirement set
+                                    Create Test set
                                 </Typography>
                             </ListItemButton>
-                        </List>
-                    </Collapse>
-
-                    <ListItemButton onClick={handleTestsSetClick}>
-                        <FolderOutlinedIcon />
-                        <ListItemText
-                            sx={{ marginLeft: 2 }}
-                            primary="Test sets"
-                        />
-                        {openTestSets ? <ExpandLess /> : <ExpandMore />}
-                    </ListItemButton>
-                    <Collapse in={openTestSets} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            {testSets.map((testset) => (
-                                <>
-                                    <ListItemButton
-                                        key={testset._id}
-                                        sx={{
-                                            pl: 4,
-                                            backgroundColor:
-                                                selectedTestSet === testset._id
-                                                    ? 'rgba(0, 0, 0, 0.1)'
-                                                    : 'transparent',
-                                        }}
-                                        onClick={() =>
-                                            handleTestSetSelectedClick(
-                                                testset._id
-                                            )
-                                        }
-                                    >
-                                        <ListItemButton>
-                                            <ListItemText
-                                                primary={`${testset.testSetName}`}
-                                            />
-                                            {openTestSet &&
-                                            testset._id === selectedTestSet ? (
-                                                <ExpandLess />
-                                            ) : (
-                                                <ExpandMore />
-                                            )}
-                                        </ListItemButton>
-                                    </ListItemButton>
-                                    <Collapse
-                                        in={
-                                            openTestSet &&
-                                            testset._id === selectedTestSet
-                                        }
-                                        timeout="auto"
-                                        unmountOnExit
-                                    ></Collapse>
-                                </>
-                            ))}
-                        </List>
-                        <ListItemButton
-                            sx={{ pl: 3 }}
-                            onClick={handleTestSetForm}
-                        >
-                            <Typography
-                                variant="caption"
-                                display="block"
-                                gutterBottom
-                            >
-                                <Add />
-                                Create Test set
-                            </Typography>
+                        </Collapse>
+                        <ListItemButton onClick={handleDefectClick}>
+                            <FolderOutlinedIcon />
+                            <ListItemText
+                                sx={{ marginLeft: 2 }}
+                                primary="Defects"
+                            />
+                            {openDefects ? <ExpandLess /> : <ExpandMore />}
                         </ListItemButton>
-                    </Collapse>
-                    <ListItemButton onClick={handleDefectClick}>
-                        <FolderOutlinedIcon />
-                        <ListItemText
-                            sx={{ marginLeft: 2 }}
-                            primary="Defects"
-                        />
-                        {openDefects ? <ExpandLess /> : <ExpandMore />}
-                    </ListItemButton>
-                    <Collapse in={openDefects} timeout="auto" unmountOnExit>
-                        {Defects.map((defect) => (
-                            <ListItemButton
-                                key={defect._id}
-                                sx={{
-                                    pl: 4,
-                                    backgroundColor:
-                                        selectedDefect === defect._id
-                                            ? 'rgba(0, 0, 0, 0.1)'
-                                            : 'transparent',
-                                }}
-                                onClick={() =>
-                                    handleDefectSelectedClick(defect._id)
-                                }
-                            >
-                                <Typography variant="subtitle2" gutterBottom>
-                                    {defect.defectName}
-                                </Typography>
-                            </ListItemButton>
-                        ))}
-                    </Collapse>
-                </List>
+                        <Collapse in={openDefects} timeout="auto" unmountOnExit>
+                            {Defects.map((defect) => (
+                                <ListItemButton
+                                    key={defect._id}
+                                    sx={{
+                                        pl: 4,
+                                        backgroundColor:
+                                            selectedDefect === defect._id
+                                                ? 'rgba(0, 0, 0, 0.1)'
+                                                : 'transparent',
+                                    }}
+                                    onClick={() =>
+                                        handleDefectSelectedClick(defect._id)
+                                    }
+                                >
+                                    <Typography
+                                        variant="subtitle2"
+                                        gutterBottom
+                                    >
+                                        {defect.defectName}
+                                    </Typography>
+                                </ListItemButton>
+                            ))}
+                        </Collapse>
+                    </List>
+                </div>
             </div>
             <div className="content-bar">
                 {project && selectedList === 1 && (
@@ -507,7 +521,6 @@ const Dashboard = () => {
                         isReqFormActive={isReqFormActive}
                     />
                 )}
-
                 {selectedTestSet && (
                     <TestSetDetails
                         selectedItem={selectedList}
