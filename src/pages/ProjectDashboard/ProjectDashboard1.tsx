@@ -52,6 +52,28 @@ interface TestSet {
     testSetName: string;
     testScripts: TestScript[];
 }
+interface ProjectInterface {
+    projectName: string;
+    purpose: string;
+    status: 'Active' | 'Inactive';
+    activationDate: Date;
+    inactivationDate: Date;
+    facility: string[];
+    department: string[];
+    country: string[];
+    scope?: string[];
+    category?: string;
+    description: string;
+    estimationDate?: Date;
+    applicationName?: string;
+    applicationVersion?: number;
+    changeControlNumber?: string;
+    owner?: string;
+    requirementsets: string[];
+    testsets: string[];
+    createdAt: Date;
+    updatedAt: Date;
+}
 
 const Dashboard = () => {
     const [openRequirementSet, setOpenRequirementSet] =
@@ -81,7 +103,7 @@ const Dashboard = () => {
     const [testSets, setTestSets] = useState<TestSet[]>([]);
     const [testScripts, setTestScripts] = useState<TestScript[]>([]);
 
-    const [project, setProject] = useState(null);
+    const [project, setProject] = useState<ProjectInterface>(null);
     const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
 
     const handleReqFormActive = () => {
@@ -206,6 +228,7 @@ const Dashboard = () => {
             defectName: 'world',
         },
     ];
+    console.log(project);
     return (
         <div>
             <StickyHeader />
@@ -213,9 +236,7 @@ const Dashboard = () => {
                 <div>
                     <div className="req-header">
                         <div className="req-projectName">
-                            {project && (
-                                <p>Project Name: {project.projectName}</p>
-                            )}
+                            {project && <p>Project: {project.projectName}</p>}
                         </div>
                         <div className="requirements-icons">
                             <div>
@@ -322,7 +343,8 @@ const Dashboard = () => {
                                 component="div"
                                 id="nested-list-subheader"
                             >
-                                Project Items
+                                Project:{' '}
+                                {project ? project.projectName : 'Loading...'}
                             </ListSubheader>
                         }
                     >
@@ -348,7 +370,7 @@ const Dashboard = () => {
                                     <ListItemButton
                                         key={requirements._id}
                                         sx={{
-                                            pl: 4,
+                                            pl: 5,
                                             backgroundColor:
                                                 selectedRequirementSet ===
                                                 requirements._id
@@ -370,7 +392,7 @@ const Dashboard = () => {
                                     </ListItemButton>
                                 ))}
                                 <ListItemButton
-                                    sx={{ pl: 3 }}
+                                    sx={{ pl: 5 }}
                                     onClick={handleRequirementSet}
                                 >
                                     <Typography
@@ -403,7 +425,7 @@ const Dashboard = () => {
                                         <ListItemButton
                                             key={testset._id}
                                             sx={{
-                                                pl: 4,
+                                                pl: 5,
                                                 backgroundColor:
                                                     selectedTestSet ===
                                                     testset._id
@@ -441,7 +463,7 @@ const Dashboard = () => {
                                 ))}
                             </List>
                             <ListItemButton
-                                sx={{ pl: 3 }}
+                                sx={{ pl: 5 }}
                                 onClick={handleTestSetForm}
                             >
                                 <Typography
@@ -467,7 +489,7 @@ const Dashboard = () => {
                                 <ListItemButton
                                     key={defect._id}
                                     sx={{
-                                        pl: 4,
+                                        pl: 5,
                                         backgroundColor:
                                             selectedDefect === defect._id
                                                 ? 'rgba(0, 0, 0, 0.1)'
