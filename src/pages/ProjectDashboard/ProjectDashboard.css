@@ -100,6 +100,11 @@
     align-items: center;
     justify-content: center;
 }
+.alert-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Adjust the margin as needed */
+}
 .testArrow {
     height: 15px;
     width: 15px;
