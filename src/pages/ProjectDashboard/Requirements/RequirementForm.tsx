@@ -19,6 +19,7 @@ const initialState = {
     requirementCategory: 'User Requirement',
     verification: 'Testing',
     reference: '',
+    author: 'subho',
 };
 interface Requirement {
     _id: string;
@@ -27,12 +28,23 @@ interface Requirement {
     requirementCategory: string;
     reference: string;
     verification: string;
+    author: string;
 }
 interface ReqFormProps {
     handleFormActive: () => void;
     selectedRequirementSet: any;
     selectedRequirement?: Requirement;
 }
+const authors = [
+    {
+        id: '1',
+        name: 'Subho',
+    },
+    {
+        id: '2',
+        name: 'Valexpert',
+    },
+];
 
 const ReqForm: React.FC<ReqFormProps> = ({
     selectedRequirementSet,
@@ -179,6 +191,27 @@ const ReqForm: React.FC<ReqFormProps> = ({
                             </Select>
                         </FormControl>
                     </div>
+                   <div className="req-item">
+                    <FormControl variant="outlined" fullWidth>
+                        <FormLabel id="reference-category-label">
+                            Author
+                        </FormLabel>
+                        <Select
+                            labelId="reference-category-label"
+                            id="req-dropdown"
+                            label="Author"
+                            onChange={handleSelectChange}
+                            value={requirement.author}
+                            name="author"
+                        >
+                            {authors.map((author) => (
+                                <MenuItem key={author.id} value={author.name}>
+                                    {author.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
                     <div className="req-item">
                         <TextField
                             label="Reference SOP"
@@ -215,7 +248,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
                         <button
                             onClick={handleFormActive}
                             className="requirementFormButtons"
-                        >
+                       >
                             Cancel
                         </button>
                         <button

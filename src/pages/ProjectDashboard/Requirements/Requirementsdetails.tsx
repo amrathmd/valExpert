@@ -27,6 +27,7 @@ interface Requirement {
     requirementCategory: string;
     reference: string;
     verification: string;
+    author: string;
 }
 
 const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
