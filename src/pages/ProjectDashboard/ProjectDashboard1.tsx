@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import './ProjectDashboard1.css';
 import {
     Button,
+    CircularProgress,
     Collapse,
     IconButton,
     ListItemIcon,
@@ -110,6 +111,8 @@ const Dashboard = () => {
 
     const [project, setProject] = useState<ProjectInterface>(null);
     const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
+    const [pdfUrl, setPdfUrl] = useState('');
+    const [loadingPdf, setLoadingPdf] = useState<boolean>(false);
 
     const handleReqFormActive = () => {
         setReqFormActive(!isReqFormActive);
@@ -252,10 +255,47 @@ const Dashboard = () => {
             defectName: 'world',
         },
     ];
+    const handleDownloadPdf = async () => {
+        try {
+            setLoadingPdf(true);
+
+            const response = await axios.get(
+                `${react_backend_url}/v1/projects/${projectId}/generate-pdf`,
+                { responseType: 'arraybuffer' } // Tell Axios to treat the response as binary data
+            );
+
+            const pdfBlob = new Blob([response.data], {
+                type: 'application/pdf',
+            });
+
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = 'project.pdf';
+            link.click();
+
+            URL.revokeObjectURL(pdfUrl);
+            setLoadingPdf(false);
+        } catch (error) {
+            console.error('Error downloading PDF:', error);
+            setLoadingPdf(false);
+        }
+    };
     console.log(project);
     return (
         <div>
             <StickyHeader />
+            {loadingPdf && (
+                <div className="blur-background">
+                    <div className="pdfSection">
+                        <CircularProgress />
+                        <h2 className="loadingMessage">
+                            Downloading please wait...
+                        </h2>
+                    </div>
+                </div>
+            )}
             {selectedRequirementSet && (
                 <div>
                     <div className="req-header">
@@ -305,7 +345,10 @@ const Dashboard = () => {
                                 </div>
                             </Tooltip>
                             <Tooltip title="Pdf Download" placement="top-end">
-                                <div className="req-header-icons">
+                                <div
+                                    className="req-header-icons"
+                                    onClick={handleDownloadPdf}
+                                >
                                     <img
                                         src={'../../../public/pdf.png'}
                                         alt=""
