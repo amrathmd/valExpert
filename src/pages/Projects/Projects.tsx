@@ -11,6 +11,7 @@ import {
     InputAdornment,
     ListItemButton,
     TextField,
+    Tooltip,
     Typography,
 } from '@mui/material';
 import DashboardContext from '../../contexts/dashboardContext';
@@ -62,31 +63,35 @@ const Projects = () => {
     return (
         <div>
             <StickyHeader />
+
             <div className="searchbar">
-                <NavLink to="/createProject">
-                    <button className="create-project">
-                        <p>Create New</p>
-                    </button>
-                </NavLink>
-                <TextField
-                    placeholder="Search"
-                    size="small"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
+                <div className="projects-header">
+                    <p>Home</p>
+                </div>
+                <div className="searchbarright">
+                    <NavLink to="/createProject">
+                        <button className="create-project">
+                            <p>Create New</p>
+                        </button>
+                    </NavLink>
+                    <TextField
+                        placeholder="Search"
+                        size="small"
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </div>
             </div>
-            <div className="projects-header">
-                <p>Projects</p>
-            </div>
+
             <section className={`projects-section`}>
                 {projects.length !== 0 &&
                     projects.map((item) => (
-                        <div key={item._id}>
+                        <div key={item._id} className="project-main">
                             <div
                                 className="projects-card"
                                 key={item._id}
@@ -98,14 +103,38 @@ const Projects = () => {
                                         alt=""
                                         className="iconimg"
                                     />
+                                    <div className="iconimg-small">
+                                        <div className="icon-border1">
+                                            <Tooltip
+                                                title="Edit Project"
+                                                placement="top-end"
+                                            >
+                                                <img
+                                                    className="edit-pic1"
+                                                    src={`../../../public/edit.svg`}
+                                                />
+                                            </Tooltip>
+                                        </div>
+                                        <div className="icon-border1">
+                                            <Tooltip
+                                                title="Delete Project"
+                                                placement="top-end"
+                                            >
+                                                <img
+                                                    className="edit-pic1"
+                                                    src={`../../../public/delete-outlined.svg`}
+                                                />
+                                            </Tooltip>
+                                        </div>
+                                    </div>
                                 </div>
-                                <b>{item.projectName}</b>
-                            </div>
-                            <div className="project-description">
-                                <p className="para">
-                                    Completion Date{': '}
-                                    {formatDate(item.estimationDate)}
-                                </p>
+                                <div className="project-description">
+                                    <b>{item.projectName}</b>
+                                    <p className="para">
+                                        Completion Date{': '}
+                                        {formatDate(item.estimationDate)}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     ))}

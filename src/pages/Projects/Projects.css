@@ -11,10 +11,11 @@
     width: 100vw;
     display: grid;
     grid-template-columns: repeat(auto-fill, 10rem);
-    column-gap: 20px;
-    row-gap: 50px;
+    column-gap: 150px;
+    row-gap: 60px;
     flex-wrap: auto;
     padding: 0rem 5rem 5rem;
+    margin-top: 20px;
 }
 .projects-section.visible {
     width: 80vw;
@@ -23,9 +24,34 @@
     height: 5rem;
     display: flex;
     align-items: center;
-    font-weight: 700;
-    font-size: 1.2rem;
-    padding-left: 5rem;
+    color: black;
+    font-family: Poppins;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-right: 7.5rem;
+}
+/* For screens with a maximum width of 1200px (typical laptop size) */
+@media (max-width: 1500px) {
+    .searchbarright {
+        margin-right: 17rem; /* Adjust the margin as needed */
+        gap: 20px; /* Adjust the gap as needed */
+    }
+    /* .projects-header {
+        margin-right: 30rem; /* Adjust the margin as needed 
+    } */
+}
+
+/* For screens with a maximum width of 992px (smaller laptop size) */
+@media (max-width: 1300px) {
+    .searchbarright {
+        margin-right: 30rem; /* Adjust the margin as needed */
+        gap: 10px; /* Adjust the gap as needed */
+    }
+    /* .projects-header {
+        margin-right: 1rem; /* Adjust the margin as needed 
+    } */
 }
 
 .create-project {
@@ -38,25 +64,58 @@
     font-weight: 700;
 }
 .image-pic {
-    width: 8rem;
-    height: 6rem;
+    width: 12rem;
+    height: 10rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     background-color: #fff;
     border-radius: 10px;
-    padding : 10px;
-    
+    padding: 10px;
+    row-gap: 1rem;
+    column-gap: 2rem;
 }
-.searchbar {
-    margin-top: 10px;
+.iconimg {
+    height: 8rem;
+    width: 8rem;
+}
+.icon-border1 {
+    height: 30px;
+    width: 30px;
     display: flex;
-    height: 45px;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    border-radius: 7.693px;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
 }
-.createProject-btn {
+.edit-pic1 {
+    width: 20px;
+    height: 20px;
+}
+.iconimg-small {
+    align-self: flex-start;
+    display: flex;
+    column-gap: 2px;
+    margin-bottom: 6rem;
+    margin-left: 1rem;
+}
+.searchbar {
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #b8b6b6;
+    padding: 10px;
+    /* margin-left: 67rem; */
+}
+.searchbarright {
+    margin-left: 67rem;
+    display: flex;
+    gap: 30px;
+}
+/* .createProject-btn {
     width: 8rem;
     height: 2.3rem;
     background-color: rgb(53, 118, 186);
@@ -66,22 +125,24 @@
     font-size: 14px;
     color: white;
     margin-top: 10px;
-}
+} */
 .projects-card {
     cursor: pointer;
-    transition: all 0.5s ease;
     width: 15rem;
     height: 10rem;
-    overflow: hidden;
-    margin-right: 130px;
 }
-.iconimg {
-    -webkit-backface-visibility: hidden;
-    -ms-transform: translateZ(0); /* IE 9 */
-    -webkit-transform: translateZ(0); /* Chrome, Safari, Opera */
-    transform: translateZ(0);
+.project-main {
+    border-radius: 7.693px;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
+    width: 17rem;
+    height: 14rem;
+    display: flex;
+    justify-content: center;
+    transition: all 0.5s ease;
 }
-.projects-card:hover {
+
+.project-main:hover {
     transform: scale(1.1);
 }
 
@@ -101,6 +162,9 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
+.project-description {
+    margin-bottom: 2rem;
 }
 .datein {
     width: 9rem;
