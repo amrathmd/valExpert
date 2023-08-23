@@ -3,49 +3,28 @@ import React, { useState } from 'react';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListSubheader from '@mui/material/ListSubheader';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import './ProjectDashboard1.css';
-import {
-    Button,
-    CircularProgress,
-    Collapse,
-    IconButton,
-    ListItemIcon,
-    useTheme,
-} from '@mui/material';
-import { Add, ExpandLess, ExpandMore } from '@mui/icons-material';
+import { Collapse } from '@mui/material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import Requirements from './Requirements/Requirement';
-import TestSets from './TestSet/TestSetDetails';
 import RequirementSetForm from './Requirements/RequirementSetsForm';
 import axios from 'axios';
 import { react_backend_url } from '../../config';
 import TestSetForm from './TestSet/TestSetForm';
-import DashboardContext from '../../contexts/dashboardContext';
 import { useParams } from 'react-router-dom';
-import { project } from 'esri/geometry/projection';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
-import { InputAdornment, TextField } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
-import Tooltip from '@mui/material/Tooltip';
-import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import './ProjectDashboard1.css';
 import TestSetDetails from './TestSet/TestSetDetails';
 import TestScript from '../../components/Models/testScriptsmodel';
-const defaultProject = [
-    { key: 'projectName', label: 'Project Name' },
-    { key: 'facility', label: 'Facility' },
-    { key: 'department', label: 'Department' },
-    { key: 'country', label: 'Country' },
-    { key: 'scope', label: 'Scope' },
-    { key: 'category', label: 'Category' },
-    { key: 'description', label: 'Project Description' },
-    { key: 'estimationDate', label: 'Estimation Date' },
-];
+import LoadingPdf from '../../components/pdfLoader/LoadingPdf';
+import RequirementHeader from './components/RequirementHeader';
+import RequirementSetHeader from './components/RequirementSetHeader';
+import TestSetHeader from './components/TestSetHeader';
+import RequirementSetTable from './components/RequirementSetTable';
+import TestSetTable from './components/TestSetTable';
 
 interface TestSet {
     Type: string;
@@ -80,6 +59,16 @@ interface ProjectInterface {
     createdAt: Date;
     updatedAt: Date;
 }
+interface Requirement {
+    _id?: string;
+    name: string;
+    projectId: string;
+    status: string;
+    testsetId?: string;
+    version: string;
+    requirements: string[];
+    createdAt: string;
+}
 
 const Dashboard = () => {
     const [openRequirementSet, setOpenRequirementSet] =
@@ -97,7 +86,7 @@ const Dashboard = () => {
     );
     const [selectedTestSet, setSelectedTestSet] = useState(null);
 
-    const [requirementSets, setRequirementSets] = useState([]);
+    const [requirementSets, setRequirementSets] = useState<Requirement[]>([]);
     const [requirementSetForm, setRequirementSetForm] =
         useState<boolean>(false);
     const [testSetForm, setTestSetForm] = useState<boolean>(false);
@@ -160,7 +149,6 @@ const Dashboard = () => {
     };
 
     const handleTestSetForm = () => {
-        console.log('handleTestSetForm called');
         setTestSetForm(!testSetForm);
         setSelectedTestSet(null);
         setSelectedList(0);
@@ -199,18 +187,7 @@ const Dashboard = () => {
         );
         setTestScripts(result.data);
     };
-    const formatDate = (dateString: string) => {
-        const options = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        } as Intl.DateTimeFormatOptions;
-        const formattedDate = new Date(dateString).toLocaleDateString(
-            undefined,
-            options
-        );
-        return formattedDate;
-    };
+
     // const findTestSteps = async (testcase: TestCase) => {
     //     const result = await axios.get(
     //         `${react_backend_url}/v1/teststeps/testscripts/${testcase._id}`
@@ -282,152 +259,36 @@ const Dashboard = () => {
             setLoadingPdf(false);
         }
     };
-    console.log(project);
+    const formatDate = (dateString: string) => {
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        } as Intl.DateTimeFormatOptions;
+        const formattedDate = new Date(dateString).toLocaleDateString(
+            undefined,
+            options
+        );
+        return formattedDate;
+    };
     return (
         <div>
             <StickyHeader />
-            {loadingPdf && (
-                <div className="blur-background">
-                    <div className="pdfSection">
-                        <CircularProgress />
-                        <h2 className="loadingMessage">
-                            Downloading please wait...
-                        </h2>
-                    </div>
-                </div>
-            )}
+            {loadingPdf && <LoadingPdf />}
             {selectedRequirementSet && (
-                <div>
-                    <div className="req-header">
-                        <div className="req-projectName">
-                            {project && <p>Project: {project.projectName}</p>}
-                        </div>
-                        <div className="requirements-icons">
-                            <div>
-                                <TextField
-                                    placeholder="Search"
-                                    size="small"
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <SearchIcon />
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                            </div>
-                            <button>
-                                <div
-                                    className="req-add"
-                                    onClick={handleReqFormActive}
-                                >
-                                    <img
-                                        src={'../../../public/plus.svg'}
-                                        alt=""
-                                    />
-                                    <p>Add Requirement</p>
-                                </div>
-                            </button>
-                            <Tooltip title="Route" placement="top-end">
-                                <div className="req-header-icons">
-                                    <img
-                                        src={'../../../public/back.png'}
-                                        alt=""
-                                    />
-                                </div>
-                            </Tooltip>
-                            <Tooltip title="version" placement="top-end">
-                                <div className="req-header-icons">
-                                    <img
-                                        src={'../../../public/time.png'}
-                                        alt=""
-                                    />
-                                </div>
-                            </Tooltip>
-                            <Tooltip title="Pdf Download" placement="top-end">
-                                <div
-                                    className="req-header-icons"
-                                    onClick={handleDownloadPdf}
-                                >
-                                    <img
-                                        src={'../../../public/pdf.png'}
-                                        alt=""
-                                    />
-                                </div>
-                            </Tooltip>
-                            <Tooltip
-                                title="Print this page"
-                                placement="top-end"
-                            >
-                                <div className="req-header-icons">
-                                    <img
-                                        src={'../../../public/scanner.png'}
-                                        alt=""
-                                    />
-                                </div>
-                            </Tooltip>
-                            <Tooltip title="Version" placement="top-end">
-                                <div className="req-header-icons">
-                                    <img
-                                        src={'../../../public/blocks.png'}
-                                        alt=""
-                                    />
-                                </div>
-                            </Tooltip>
-                            <Tooltip title="Delete" placement="top-end">
-                                <div className="req-header-icons">
-                                    <img
-                                        src={'../../../public/del.png'}
-                                        alt=""
-                                    />
-                                </div>
-                            </Tooltip>
-                            <Tooltip title="Edit" placement="top-end">
-                                <div className="req-header-icons">
-                                    <img
-                                        src={'../../../public/ep_edit.png'}
-                                        alt=""
-                                    />
-                                </div>
-                            </Tooltip>
-                        </div>
-                    </div>
-                    <div className="req-header-underline"></div>
-                </div>
+                <RequirementHeader
+                    project={project}
+                    handleReqFormActive={handleReqFormActive}
+                    handleDownloadPdf={handleDownloadPdf}
+                />
             )}
             {selectedList === 1 && (
-                <div>
-                    <div className="requirementSets-header">
-                        <p>Requirement Sets Details</p>
-                        <button>
-                            <div
-                                className="req-add"
-                                onClick={handleRequirementSet}
-                            >
-                                <img src={'../../../public/plus.svg'} alt="" />
-                                <p>Add Requirement Set</p>
-                            </div>
-                        </button>
-                    </div>
-                    <div className="title-underline"></div>
-                </div>
+                <RequirementSetHeader
+                    handleRequirementSet={handleRequirementSet}
+                />
             )}
             {selectedList === 2 && (
-                <div>
-                    <div className="requirementSets-header">
-                        <p>Test Sets Details</p>
-                        <button>
-                            <div
-                                className="req-add"
-                                onClick={handleTestSetForm}
-                            >
-                                <img src={'../../../public/plus.svg'} alt="" />
-                                <p>Add Test Set</p>
-                            </div>
-                        </button>
-                    </div>
-                    <div className="title-underline"></div>
-                </div>
+                <TestSetHeader handleTestSetForm={handleTestSetForm} />
             )}
             <div className="projectdashboard">
                 <div className="dashboard-sidebar">
@@ -492,19 +353,6 @@ const Dashboard = () => {
                                         </Typography>
                                     </ListItemButton>
                                 ))}
-                                <ListItemButton
-                                    sx={{ pl: 5 }}
-                                    onClick={handleRequirementSet}
-                                >
-                                    <Typography
-                                        variant="caption"
-                                        display="block"
-                                        gutterBottom
-                                    >
-                                        <Add />
-                                        Create Requirement set
-                                    </Typography>
-                                </ListItemButton>
                             </List>
                         </Collapse>
                         <ListItemButton onClick={handleTestsSetClick}>
@@ -599,27 +447,7 @@ const Dashboard = () => {
                     </List>
                 </div>
                 <div className="content-bar">
-                    {/* {project && selectedList === 1 && (
-                    <div className="project-table-container">
-                        <div>
-                            <div className="project-table-header">
-                                <h1>Project Details</h1>
-                            </div>
-                            <table className="project-table">
-                                <tbody>
-                                    {defaultProject.map((item) => (
-                                        <tr key={item.key}>
-                                            <td>
-                                                <b>{item.label}</b>
-                                            </td>
-                                            <td>{project[item.key]}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                )} */}
+                    {/*project && <ProjectDetails project={project} />*/}
                     {selectedRequirementSet && (
                         <Requirements
                             selectedItem={selectedList}
@@ -638,139 +466,11 @@ const Dashboard = () => {
                         />
                     )}
                     {selectedList === 1 && (
-                        <div className="requirementSets-Details">
-                            <div className="category-title">
-                                <h2 className="category-title-text">
-                                    Requirement Set Details
-                                </h2>
-                            </div>
-                            <table className="content-table1">
-                                <thead>
-                                    <tr>
-                                        <th>Requirement Set ID</th>
-                                        <th>Requirement Set Name</th>
-                                        <th>Status</th>
-                                        <th>Version</th>
-                                        <th>Created Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {requirementSets.map((requirementSet) => (
-                                        <tr key={requirementSet._id}>
-                                            <td className="req-leftPart">
-                                                {requirementSet._id}
-                                            </td>
-                                            <td className="req-middlePart">
-                                                {requirementSet.name}
-                                            </td>
-                                            <td>{requirementSet.status}</td>
-                                            <td>{requirementSet.version}</td>
-                                            <td>
-                                                {formatDate(
-                                                    requirementSet.createdAt
-                                                )}
-                                            </td>
-                                            <td className="req-rightPart">
-                                                <div className="action-icon">
-                                                    <div className="icon-border">
-                                                        <Tooltip
-                                                            title="Edit Requirement"
-                                                            placement="top-end"
-                                                        >
-                                                            <img
-                                                                className="edit-pic"
-                                                                src={`../../../public/edit.svg`}
-                                                            />
-                                                        </Tooltip>
-                                                    </div>
-                                                    <div className="icon-border">
-                                                        <Tooltip
-                                                            title="Delete Requirement"
-                                                            placement="top-end"
-                                                        >
-                                                            <img
-                                                                className="edit-pic"
-                                                                src={`../../../public/delete-outlined.svg`}
-                                                            />
-                                                        </Tooltip>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                        <RequirementSetTable
+                            requirementSets={requirementSets}
+                        />
                     )}
-                    {selectedList === 2 && (
-                        <div className="requirementSets-Details">
-                            <div className="category-title">
-                                <h2 className="category-title-text">
-                                    Test Sets Details
-                                </h2>
-                            </div>
-                            <table className="content-table1">
-                                <thead>
-                                    <tr>
-                                        <th>Test Set ID</th>
-                                        <th>Test Set Name </th>
-                                        <th>Test Set Description </th>
-                                        <th>Category</th>
-                                        <th>Status</th>
-                                        <th>Version</th>
-                                        <th>Created Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {testSets.map((testSet) => (
-                                        <tr key={testSet._id}>
-                                            <td style={{ width: '10vw' }}>
-                                                {testSet._id}
-                                            </td>
-                                            <td className="req-middlePart">
-                                                {testSet.testSetName}
-                                            </td>
-                                            <td>{testSet.description}</td>
-                                            <td>{testSet.category}</td>
-                                            <td>{testSet.status}</td>
-                                            <td>{testSet.version}</td>
-                                            <td>
-                                                {formatDate(testSet.createdAt)}
-                                            </td>
-                                            <td className="req-rightPart">
-                                                <div className="action-icon">
-                                                    <div className="icon-border">
-                                                        <Tooltip
-                                                            title="Edit Requirement"
-                                                            placement="top-end"
-                                                        >
-                                                            <img
-                                                                className="edit-pic"
-                                                                src={`../../../public/edit.svg`}
-                                                            />
-                                                        </Tooltip>
-                                                    </div>
-                                                    <div className="icon-border">
-                                                        <Tooltip
-                                                            title="Delete Requirement"
-                                                            placement="top-end"
-                                                        >
-                                                            <img
-                                                                className="edit-pic"
-                                                                src={`../../../public/delete-outlined.svg`}
-                                                            />
-                                                        </Tooltip>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    )}
+                    {selectedList === 2 && <TestSetTable testSets={testSets} />}
                     {requirementSetForm && (
                         <div className="blur-background">
                             <div className="requirementsetform">
