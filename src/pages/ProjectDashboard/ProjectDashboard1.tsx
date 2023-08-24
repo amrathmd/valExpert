@@ -100,7 +100,6 @@ const Dashboard = () => {
 
     const [project, setProject] = useState<ProjectInterface>(null);
     const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
-    const [pdfUrl, setPdfUrl] = useState('');
     const [loadingPdf, setLoadingPdf] = useState<boolean>(false);
 
     const handleReqFormActive = () => {
@@ -135,7 +134,7 @@ const Dashboard = () => {
     };
 
     const handleTestSetSelectedClick = (id: string) => {
-        if (selectedTestSet === id && openTestSet === true) {
+        if (selectedTestSet === id && openTestSets === true) {
             setOpenTestSet(false);
             setSelectedList(1); // Update selectedList for collapsing the test set
         } else {
@@ -144,6 +143,7 @@ const Dashboard = () => {
         }
         setSelectedTestSet(id);
         setOpentestCase(false);
+        setSelectedList(0);
         setSelectedRequirementSet(null);
         setTestSetForm(false);
     };

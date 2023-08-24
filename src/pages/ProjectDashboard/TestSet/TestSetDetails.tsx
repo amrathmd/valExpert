@@ -97,7 +97,7 @@ const TestSetDetails: React.FC<Props> = ({
 
     return (
         <div>
-            {selectedItem === 2 && (
+            {selectedItem === 0 && (
                 <div>
                     {isTestScriptFormVisible ? (
                         <div>

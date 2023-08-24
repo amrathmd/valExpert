@@ -211,7 +211,10 @@ const TestscriptForm: React.FC<TestscriptFormProps> = ({
                         />
                     </div>
                     <div className="req-submit">
-                        <button className="requirementFormButtons">
+                        <button
+                            className="requirementFormButtons"
+                            onClick={onClose}
+                        >
                             Cancel
                         </button>
                         <button
