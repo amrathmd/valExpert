@@ -1,5 +1,7 @@
 import { Tooltip } from '@mui/material';
 import React from 'react';
+import Requirements from '../Requirements/Requirement';
+import './RequrementSetTable.css';
 interface Requirement {
     _id?: string;
     name: string;
@@ -27,64 +29,56 @@ const RequirementSetTable: React.FC<props> = ({ requirementSets }) => {
         return formattedDate;
     };
     return (
-        <div className="requirementSets-Details">
-            <div className="category-title">
-                <h2 className="category-title-text">Requirement Set Details</h2>
-            </div>
-            <table className="content-table1">
-                <thead>
-                    <tr>
-                        <th>Requirement Set ID</th>
-                        <th>Requirement Set Name</th>
-                        <th>Status</th>
-                        <th>Version</th>
-                        <th>Created Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {requirementSets.map((requirementSet) => (
-                        <tr key={requirementSet._id}>
-                            <td className="req-leftPart">
-                                {requirementSet._id}
-                            </td>
-                            <td className="req-middlePart">
-                                {requirementSet.name}
-                            </td>
-                            <td>{requirementSet.status}</td>
-                            <td>{requirementSet.version}</td>
-                            <td>{formatDate(requirementSet.createdAt)}</td>
-                            <td className="req-rightPart">
-                                <div className="action-icon">
-                                    <div className="icon-border">
+        <section className={`requirements-section`}>
+            {requirementSets.length !== 0 &&
+                requirementSets.map((item) => (
+                    <div key={item._id} className="requirementSet-main">
+                        <div className="requirementSet-card" key={item._id}>
+                            <div className="requirementSet-image">
+                                <img
+                                    src={'../../../public/projectdoc.png'}
+                                    alt=""
+                                    className="iconimg"
+                                />
+                                <div className="iconimg-small">
+                                    <div className="icon-border1">
                                         <Tooltip
-                                            title="Edit Requirement"
+                                            title="Edit Project"
                                             placement="top-end"
                                         >
                                             <img
-                                                className="edit-pic"
+                                                className="edit-pic1"
                                                 src={`../../../public/edit.svg`}
                                             />
                                         </Tooltip>
                                     </div>
-                                    <div className="icon-border">
+                                    <div className="icon-border1">
                                         <Tooltip
-                                            title="Delete Requirement"
+                                            title="Delete Project"
                                             placement="top-end"
                                         >
                                             <img
-                                                className="edit-pic"
+                                                className="edit-pic1"
                                                 src={`../../../public/delete-outlined.svg`}
                                             />
                                         </Tooltip>
                                     </div>
                                 </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                            </div>
+                            <div className="test-description">
+                                <b>{item.name}</b>
+                                <p className="paragraph">
+                                    Completion Date{': '}
+                                    {formatDate(item.createdAt)}
+                                </p>
+                                <p className="paragraph">
+                                    Status: {item.status}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+        </section>
     );
 };
 export default RequirementSetTable;

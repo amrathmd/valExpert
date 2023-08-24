@@ -1,6 +1,7 @@
 import { Tooltip } from '@mui/material';
 import React from 'react';
 import TestScript from '../../../components/Models/testScriptsmodel';
+import './TestSetTable.css';
 const formatDate = (dateString: string) => {
     const options = {
         year: 'numeric',
@@ -29,66 +30,59 @@ interface props {
 }
 const TestSetTable: React.FC<props> = ({ testSets }) => {
     return (
-        <div className="requirementSets-Details">
-            <div className="category-title">
-                <h2 className="category-title-text">Test Sets Details</h2>
-            </div>
-            <table className="content-table1">
-                <thead>
-                    <tr>
-                        <th>Test Set ID</th>
-                        <th>Test Set Name </th>
-                        <th>Test Set Description </th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Version</th>
-                        <th>Created Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {testSets.map((testSet) => (
-                        <tr key={testSet._id}>
-                            <td style={{ width: '10vw' }}>{testSet._id}</td>
-                            <td className="req-middlePart">
-                                {testSet.testSetName}
-                            </td>
-                            <td>{testSet.description}</td>
-                            <td>{testSet.category}</td>
-                            <td>{testSet.status}</td>
-                            <td>{testSet.version}</td>
-                            <td>{formatDate(testSet.createdAt)}</td>
-                            <td className="req-rightPart">
-                                <div className="action-icon">
-                                    <div className="icon-border">
+        <section className={`testset-section`}>
+            {testSets.length !== 0 &&
+                testSets.map((item) => (
+                    <div key={item._id} className="testSet-main">
+                        <div className="testSet-card" key={item._id}>
+                            <div className="testSet-image">
+                                <img
+                                    src={'../../../public/projectdoc.png'}
+                                    alt=""
+                                    className="iconimg"
+                                />
+                                <div className="iconimg-small">
+                                    <div className="icon-border1">
                                         <Tooltip
-                                            title="Edit Requirement"
+                                            title="Edit Project"
                                             placement="top-end"
                                         >
                                             <img
-                                                className="edit-pic"
+                                                className="edit-pic1"
                                                 src={`../../../public/edit.svg`}
                                             />
                                         </Tooltip>
                                     </div>
-                                    <div className="icon-border">
+                                    <div className="icon-border1">
                                         <Tooltip
-                                            title="Delete Requirement"
+                                            title="Delete Project"
                                             placement="top-end"
                                         >
                                             <img
-                                                className="edit-pic"
+                                                className="edit-pic1"
                                                 src={`../../../public/delete-outlined.svg`}
                                             />
                                         </Tooltip>
                                     </div>
                                 </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                            </div>
+                            <div className="project-description">
+                                <b>{item.testSetName}</b>
+                                <p className="paragraph">
+                                    Category:{item.category}
+                                </p>
+                                <p className="paragraph">
+                                    Completion Date{': '}
+                                    {formatDate(item.createdAt)}
+                                </p>
+                                <p className="paragraph">
+                                    Status: {item.status}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+        </section>
     );
 };
 export default TestSetTable;

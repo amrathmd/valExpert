@@ -147,7 +147,6 @@ const Dashboard = () => {
         setSelectedRequirementSet(null);
         setTestSetForm(false);
     };
-
     const handleTestSetForm = () => {
         setTestSetForm(!testSetForm);
         setSelectedTestSet(null);
@@ -470,7 +469,9 @@ const Dashboard = () => {
                             requirementSets={requirementSets}
                         />
                     )}
-                    {selectedList === 2 && <TestSetTable testSets={testSets} />}
+                    {selectedList === 2 && openTestSets && (
+                        <TestSetTable testSets={testSets} />
+                    )}
                     {requirementSetForm && (
                         <div className="blur-background">
                             <div className="requirementsetform">

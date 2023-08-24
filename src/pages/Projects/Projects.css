@@ -20,6 +20,98 @@
 .projects-section.visible {
     width: 80vw;
 }
+.project-main {
+    border-radius: 7.693px;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
+    width: 17rem;
+    height: 14rem;
+    display: flex;
+    justify-content: center;
+    transition: all 0.5s ease;
+}
+
+.project-main:hover {
+    transform: scale(1.1);
+}
+.projects-card {
+    cursor: pointer;
+    width: 15rem;
+    height: 10rem;
+}
+
+.projects-card b {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: 'Inter';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: -0.262px;
+}
+.para {
+    color: #000;
+    font-family: 'Poppins';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.image-pic {
+    width: 12rem;
+    height: 10rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    row-gap: 1rem;
+    column-gap: 2rem;
+}
+.iconimg {
+    height: 8rem;
+    width: 8rem;
+}
+.icon-border1 {
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7.693px;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
+}
+.edit-pic1 {
+    width: 20px;
+    height: 20px;
+}
+.iconimg-small {
+    align-self: flex-start;
+    display: flex;
+    column-gap: 2px;
+    margin-bottom: 6rem;
+    margin-left: 1rem;
+}
+.project-description {
+    margin-bottom: 2rem;
+}
+.searchbar {
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #b8b6b6;
+    padding: 10px;
+    /* margin-left: 67rem; */
+}
+.searchbarright {
+    margin-left: 67rem;
+    display: flex;
+    gap: 30px;
+}
 .projects-header {
     height: 5rem;
     display: flex;
@@ -63,58 +155,7 @@
     color: #fff;
     font-weight: 700;
 }
-.image-pic {
-    width: 12rem;
-    height: 10rem;
-    display: flex;
-    justify-content: space-between;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    row-gap: 1rem;
-    column-gap: 2rem;
-}
-.iconimg {
-    height: 8rem;
-    width: 8rem;
-}
-.icon-border1 {
-    height: 30px;
-    width: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 7.693px;
-    border: 0.962px solid #d0d5dd;
-    background: #fff;
-    border: 0.962px solid #d0d5dd;
-    background: #fff;
-}
-.edit-pic1 {
-    width: 20px;
-    height: 20px;
-}
-.iconimg-small {
-    align-self: flex-start;
-    display: flex;
-    column-gap: 2px;
-    margin-bottom: 6rem;
-    margin-left: 1rem;
-}
-.searchbar {
-    display: flex;
-    height: 60px;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #b8b6b6;
-    padding: 10px;
-    /* margin-left: 67rem; */
-}
-.searchbarright {
-    margin-left: 67rem;
-    display: flex;
-    gap: 30px;
-}
+
 /* .createProject-btn {
     width: 8rem;
     height: 2.3rem;
@@ -126,46 +167,7 @@
     color: white;
     margin-top: 10px;
 } */
-.projects-card {
-    cursor: pointer;
-    width: 15rem;
-    height: 10rem;
-}
-.project-main {
-    border-radius: 7.693px;
-    border: 0.962px solid #d0d5dd;
-    background: #fff;
-    width: 17rem;
-    height: 14rem;
-    display: flex;
-    justify-content: center;
-    transition: all 0.5s ease;
-}
 
-.project-main:hover {
-    transform: scale(1.1);
-}
-
-.projects-card b {
-    color: #000;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: 'Inter';
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    letter-spacing: -0.262px;
-}
-.para {
-    color: #000;
-    font-family: 'Poppins';
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-.project-description {
-    margin-bottom: 2rem;
-}
 .datein {
     width: 9rem;
     height: 2rem;
