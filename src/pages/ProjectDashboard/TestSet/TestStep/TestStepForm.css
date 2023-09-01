@@ -1,0 +1,52 @@
+.TestStepFormheader {
+    background-color: #3575ba;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+}
+.testStepForm {
+    width: 60vw;
+    padding-left: 8vw;
+}
+.testStepform-icons {
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+    gap: 3px;
+}
+.testStepform-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.TestStepFormheader h3 {
+    width: 30px;
+    height: 20px;
+    color: #fff;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: 20px;
+}
+.TestStepFormInput {
+    display: flex;
+    flex-direction: row;
+}
+.testStep-label-name {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    width: 25vw;
+}
+
+.formfield {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}

@@ -25,6 +25,7 @@ import RequirementSetHeader from './components/RequirementSetHeader';
 import TestSetHeader from './components/TestSetHeader';
 import RequirementSetTable from './components/RequirementSetTable';
 import TestSetTable from './components/TestSetTable';
+import TestStepForm from './TestSet/TestStep/TestStepForm';
 
 interface TestSet {
     Type: string;
