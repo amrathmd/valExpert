@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { react_backend_url } from '../../../config';
 import axios from 'axios';
 import TestscriptForm from './Testscript/TestscriptForm';
+import TestCaseDetailsForm from './TestCaseDetailsForm';
 import { Tooltip } from '@mui/material';
 import '../Requirements/Requirements.css';
 interface Props {
@@ -107,11 +108,12 @@ const TestSetDetails: React.FC<Props> = ({
                             >
                                 Create Test Script
                             </button>
-
-                            <TestscriptForm
-                                testSetId={testSet}
-                                onClose={() => setTestScriptFormVisible(false)}
-                            />
+                            {isTestScriptFormVisible && (
+                                <TestCaseDetailsForm
+                                // testSetId={testSet}
+                                // onClose={() => setTestScriptFormVisible(false)}
+                                />
+                            )}
                         </div>
                     ) : (
                         <div>
