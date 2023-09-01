@@ -1,5 +1,6 @@
 .TesCaseForm-container {
     padding-left: 8vw;
+    margin: 20px;
 }
 .TestCaseFrom-header {
     background-color: #3575ba;
@@ -36,7 +37,7 @@
     gap: 4vw;
 }
 .header-text-testcase {
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 500;
     cursor: pointer;
 }
@@ -44,6 +45,7 @@
     margin-left: 5px;
     font-weight: 600;
     color: #000;
+    font-size: 20px;
 }
 .testStepHeader {
     display: flex;

@@ -1,6 +1,6 @@
 .sticky-header {
     display: flex;
-    height: 4rem;
+    height: 50px;
     width: 96.875vw;
     justify-content: space-between;
     align-items: center;
@@ -9,7 +9,7 @@
 .project-title > img {
     display: inline-block;
     padding-left: 3vw;
-    height: 3.5rem;
+    height: 45px;
     width: 13rem;
 }
 .project-title > p {

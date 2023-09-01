@@ -159,8 +159,8 @@ const TestCaseDetailsForm: React.FC<Props> = ({ handleTestCaseForm }) => {
                                 alt=""
                                 style={{
                                     display: 'inline-block',
-                                    height: '30px',
-                                    width: '30px',
+                                    height: '40px',
+                                    width: '40px',
                                 }}
                             />
                             <span className="header-text-teststep">
