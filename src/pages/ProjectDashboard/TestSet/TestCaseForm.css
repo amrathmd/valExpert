@@ -5,4 +5,50 @@
     background-color: #3575ba;
     color: white;
     margin-bottom: 20px;
+    padding: 10px;
+}
+
+.testcasecancelbutton {
+    background-color: #696969;
+    border-radius: 5px;
+    width: 150px;
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    font-family: Inter;
+    font-size: 16px;
+}
+.testcasesavebutton {
+    background-color: #3575ba;
+    border-radius: 5px;
+    width: 150px;
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    font-family: Inter;
+    font-size: 16px;
+}
+.testCasebuttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4vw;
+}
+.header-text-testcase {
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.header-text-teststep {
+    margin-left: 5px;
+    font-weight: 600;
+    color: #000;
+}
+.testStepHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 10px;
 }

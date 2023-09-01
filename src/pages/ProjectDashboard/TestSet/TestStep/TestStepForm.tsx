@@ -52,7 +52,7 @@ const TestStepForm = () => {
                     <textarea
                         className="formfield"
                         name="description"
-                        rows={4}
+                        rows={5}
                         onChange={handleChange}
                     ></textarea>
                 </div>
@@ -63,7 +63,7 @@ const TestStepForm = () => {
                     <textarea
                         className="formfield"
                         name="expectedResult"
-                        rows={4}
+                        rows={5}
                         onChange={handleChange}
                     ></textarea>
                 </div>

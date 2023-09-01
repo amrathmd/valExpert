@@ -26,6 +26,7 @@ import TestSetHeader from './components/TestSetHeader';
 import RequirementSetTable from './components/RequirementSetTable';
 import TestSetTable from './components/TestSetTable';
 import TestStepForm from './TestSet/TestStep/TestStepForm';
+import TestCaseHeader from './components/TestCaseHeader';
 
 interface TestSet {
     Type: string;
@@ -102,6 +103,8 @@ const Dashboard = () => {
     const [project, setProject] = useState<ProjectInterface>(null);
     const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
     const [loadingPdf, setLoadingPdf] = useState<boolean>(false);
+    const [isTestCaseFormVisible, setTestCaseFormVisible] =
+        React.useState(false);
 
     const handleReqFormActive = () => {
         setReqFormActive(!isReqFormActive);
@@ -271,6 +274,9 @@ const Dashboard = () => {
         );
         return formattedDate;
     };
+    const handleTestCaseForm = () => {
+        setTestCaseFormVisible(!isTestCaseFormVisible);
+    };
     return (
         <div>
             <StickyHeader />
@@ -289,6 +295,13 @@ const Dashboard = () => {
             )}
             {selectedList === 2 && (
                 <TestSetHeader handleTestSetForm={handleTestSetForm} />
+            )}
+            {selectedTestSet && (
+                <TestCaseHeader
+                    project={project}
+                    handleDownloadPdf={handleDownloadPdf}
+                    handleTestCaseForm={handleTestCaseForm}
+                />
             )}
             <div className="projectdashboard">
                 <div className="dashboard-sidebar">
@@ -459,11 +472,15 @@ const Dashboard = () => {
                         />
                     )}
                     {selectedTestSet && (
-                        <TestSetDetails
-                            selectedItem={selectedList}
-                            projectId={projectId}
-                            testSet={selectedTestSet}
-                        />
+                        <div>
+                            <TestSetDetails
+                                selectedItem={selectedList}
+                                projectId={projectId}
+                                testSet={selectedTestSet}
+                                handleTestCaseForm={handleTestCaseForm}
+                                isTestCaseFormVisible={isTestCaseFormVisible}
+                            />
+                        </div>
                     )}
                     {selectedList === 1 && (
                         <RequirementSetTable

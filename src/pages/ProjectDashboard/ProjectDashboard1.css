@@ -16,6 +16,7 @@
     padding-left: 10px;
     width: 76.875vw;
     height: 100vh;
+    overflow-y: scroll;
 }
 .blur-background {
     position: fixed;
@@ -127,7 +128,6 @@
     text-align: left;
 }
 
-
 .project-table-header {
     display: flex;
     justify-content: center;
@@ -184,13 +184,13 @@
         font-size: 14px;
     }
 }
-.pdfSection{
+.pdfSection {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.loadingMessage{
+.loadingMessage {
     font-weight: bold;
-    color :#fff;
+    color: #fff;
 }

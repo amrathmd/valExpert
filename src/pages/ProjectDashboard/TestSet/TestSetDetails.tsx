@@ -11,6 +11,8 @@ interface Props {
     selectedItem: number;
     projectId: string;
     testSet: null | any;
+    handleTestCaseForm: () => void;
+    isTestCaseFormVisible: boolean;
 }
 
 interface TableColumn {
@@ -33,20 +35,17 @@ const TestSetDetails: React.FC<Props> = ({
     selectedItem,
     projectId,
     testSet,
+    handleTestCaseForm,
+    isTestCaseFormVisible,
 }) => {
     console.log(selectedItem);
     console.log(projectId);
     const [isTestActive, setTestActive] = React.useState<boolean>(false);
     const [isTestCasesActive, setTestCasesActive] = React.useState(false);
     const [testScripts, setTestScripts] = useState<TestScript[]>([]);
-    const [isTestScriptFormVisible, setTestScriptFormVisible] =
-        React.useState(false);
+
     const [testSetDetails, setTestSetDetails] = useState<any>(null);
     const [isFormVisible, setFormVisible] = useState(false);
-
-    const handleTestScriptForm = () => {
-        setTestScriptFormVisible(true);
-    };
 
     React.useEffect(() => {
         if (testSet) {
@@ -100,29 +99,16 @@ const TestSetDetails: React.FC<Props> = ({
         <div>
             {selectedItem === 0 && (
                 <div>
-                    {isTestScriptFormVisible ? (
+                    {isTestCaseFormVisible ? (
                         <div>
-                            <button
-                                className="create-reqSet-button"
-                                onClick={handleTestScriptForm}
-                            >
-                                Create Test Script
-                            </button>
-                            {isTestScriptFormVisible && (
+                            {isTestCaseFormVisible && (
                                 <TestCaseDetailsForm
-                                // testSetId={testSet}
-                                // onClose={() => setTestScriptFormVisible(false)}
+                                    handleTestCaseForm={handleTestCaseForm}
                                 />
                             )}
                         </div>
                     ) : (
                         <div>
-                            <button
-                                className="create-reqSet-button"
-                                onClick={handleTestScriptForm}
-                            >
-                                Create Test Script
-                            </button>
                             <div className="test-set-details-container">
                                 <div className="test-set-details-column">
                                     {testSetDetails && (
