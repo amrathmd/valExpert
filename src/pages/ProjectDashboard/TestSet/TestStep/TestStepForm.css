@@ -21,14 +21,9 @@
 }
 
 .TestStepFormheader h3 {
-    width: 30px;
-    height: 20px;
     color: #fff;
-    font-family: Poppins;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    font-size: 11pt;
+    font-weight: 500;
     margin-left: 20px;
 }
 .TestStepFormInput {
@@ -37,8 +32,8 @@
 }
 .testStep-label-name {
     display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
+    font-size: 9pt;
+    margin: 5px;
     width: 30vw;
 }
 

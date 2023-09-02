@@ -323,12 +323,24 @@ const Dashboard = () => {
                             </ListSubheader>
                         }
                     >
-                        <ListItemButton onClick={handleClick}>
+                        <ListItemButton
+                            onClick={handleClick}
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center', // Align items vertically in the center
+                            }}
+                        >
                             <FolderOutlinedIcon />
-                            <ListItemText
-                                sx={{ marginLeft: 2 }}
-                                primary="Requirement sets"
-                            />
+                            <p
+                                style={{
+                                    fontSize: '9pt',
+                                    margin: '2px',
+                                    width: '8rem',
+                                    fontWeight: 600,
+                                }}
+                            >
+                                Requirement specs
+                            </p>
                             {openRequirementSet ? (
                                 <ExpandLess />
                             ) : (
@@ -346,6 +358,9 @@ const Dashboard = () => {
                                         key={requirements._id}
                                         sx={{
                                             pl: 5,
+                                            display: 'flex',
+                                            alignItems: 'center', // Align items vertically in the center
+
                                             backgroundColor:
                                                 selectedRequirementSet ===
                                                 requirements._id
@@ -358,22 +373,37 @@ const Dashboard = () => {
                                             )
                                         }
                                     >
-                                        <Typography
-                                            variant="subtitle2"
-                                            gutterBottom
+                                        <p
+                                            style={{
+                                                fontSize: '9pt',
+                                                margin: '2px',
+                                                width: '8rem',
+                                            }}
                                         >
                                             {requirements.name}
-                                        </Typography>
+                                        </p>
                                     </ListItemButton>
                                 ))}
                             </List>
                         </Collapse>
-                        <ListItemButton onClick={handleTestsSetClick}>
+                        <ListItemButton
+                            onClick={handleTestsSetClick}
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center', // Align items vertically in the center
+                            }}
+                        >
                             <FolderOutlinedIcon />
-                            <ListItemText
-                                sx={{ marginLeft: 2 }}
-                                primary="Test sets"
-                            />
+                            <p
+                                style={{
+                                    fontSize: '9pt',
+                                    margin: '2px',
+                                    width: '8rem',
+                                    fontWeight: 600,
+                                }}
+                            >
+                                Test Set
+                            </p>
                             {openTestSets ? <ExpandLess /> : <ExpandMore />}
                         </ListItemButton>
                         <Collapse
@@ -400,18 +430,16 @@ const Dashboard = () => {
                                                 )
                                             }
                                         >
-                                            <ListItemButton>
-                                                <ListItemText
-                                                    primary={`${testset.testSetName}`}
-                                                />
-                                                {openTestSet &&
-                                                testset._id ===
-                                                    selectedTestSet ? (
-                                                    <ExpandLess />
-                                                ) : (
-                                                    <ExpandMore />
-                                                )}
-                                            </ListItemButton>
+                                            <p
+                                                style={{
+                                                    fontSize: '9pt',
+                                                    margin: '2px',
+                                                    width: '8rem',
+                                                    fontWeight: 500,
+                                                }}
+                                            >
+                                                {testset.testSetName}
+                                            </p>
                                         </ListItemButton>
                                         <Collapse
                                             in={
@@ -427,10 +455,16 @@ const Dashboard = () => {
                         </Collapse>
                         <ListItemButton onClick={handleDefectClick}>
                             <FolderOutlinedIcon />
-                            <ListItemText
-                                sx={{ marginLeft: 2 }}
-                                primary="Defects"
-                            />
+                            <p
+                                style={{
+                                    fontSize: '9pt',
+                                    margin: '2px',
+                                    width: '8rem',
+                                    fontWeight: 600,
+                                }}
+                            >
+                                Defects
+                            </p>
                             {openDefects ? <ExpandLess /> : <ExpandMore />}
                         </ListItemButton>
                         <Collapse in={openDefects} timeout="auto" unmountOnExit>
@@ -448,12 +482,15 @@ const Dashboard = () => {
                                         handleDefectSelectedClick(defect._id)
                                     }
                                 >
-                                    <Typography
-                                        variant="subtitle2"
-                                        gutterBottom
+                                    <p
+                                        style={{
+                                            fontSize: '9pt',
+                                            margin: '2px',
+                                            width: '8rem',
+                                        }}
                                     >
                                         {defect.defectName}
-                                    </Typography>
+                                    </p>
                                 </ListItemButton>
                             ))}
                         </Collapse>

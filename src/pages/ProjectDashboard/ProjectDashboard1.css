@@ -2,21 +2,19 @@
     width: 96.875vw;
     height: 100vh;
     display: flex;
-    justify-content: space-between;
+    overflow-y: scroll;
 }
 .dashboard-sidebar {
     background-color: #fff;
-    padding: 20px;
+    margin: 20px;
     border-right: 1px solid rgb(235, 228, 228);
     height: 100vh;
-    width: 20vw;
+    width: 260px;
     /* position: fixed; */
 }
 .content-bar {
-    padding-left: 10px;
-    width: 76.875vw;
+    width: 83.75vw;
     height: 100vh;
-    overflow-y: scroll;
 }
 .blur-background {
     position: fixed;

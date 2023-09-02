@@ -145,7 +145,7 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
                     <b>Version : 1.3</b>
                 </div>
             </div>
-            <div className="title-underline"></div>
+            <div className="req-title-underline"></div>
             <div className="requirements-Details">
                 {!editDialogOpen &&
                     (Object.keys(categoryRequirementsMap).length === 0 ? (

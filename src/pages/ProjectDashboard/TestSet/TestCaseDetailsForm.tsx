@@ -37,9 +37,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({ handleTestCaseForm }) => {
         setOpenTestStepForm(!openTestStepForm);
     };
 
-    const handleInputFieldChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleInputFieldChange = (event: any) => {
         const { name, value } = event.target;
         setTestCase((prevTestCase) => ({
             ...prevTestCase,
@@ -70,77 +68,46 @@ const TestCaseDetailsForm: React.FC<Props> = ({ handleTestCaseForm }) => {
                         style={{ display: 'inline-block' }}
                     ></ListItemText> */}
                     <span className="header-text-testcase">
-                        TestCase Details
+                        Test case Details
                     </span>
                 </div>
                 <Collapse in={openTestCaseForm} timeout="auto" unmountOnExit>
                     <form>
-                        <InputLabel
-                            sx={{ color: 'black', marginBottom: '4px' }}
-                        >
+                        <label className="testCaseFormLabel">
                             <b>Test Case Number</b>
-                        </InputLabel>
-                        <TextField
-                            size="small"
+                        </label>
+                        <input
                             name="testCaseNumber"
-                            sx={{
-                                marginBottom: 4,
-                                borderRadius: '4px',
-                            }}
+                            className="testCaseFormInput"
                             onChange={handleInputFieldChange}
-                        />
-                        <InputLabel sx={{ color: 'black' }}>
+                        ></input>
+                        <label className="testCaseFormLabel">
                             <b>Purpose</b>
-                        </InputLabel>
-                        <TextField
-                            size="small"
-                            variant="outlined"
+                        </label>
+                        <textarea
                             name="purpose"
-                            multiline
-                            rows={3}
-                            fullWidth
-                            sx={{
-                                marginBottom: 4,
-                                borderRadius: '4px',
-                            }}
+                            rows={4}
+                            className="testCaseFormArea"
                             onChange={handleInputFieldChange}
-                        />
-                        <InputLabel
-                            sx={{ color: 'black', marginBottom: '4px' }}
-                        >
+                        ></textarea>
+                        <label className="testCaseFormLabel">
                             <b>Acceptance Criteria</b>
-                        </InputLabel>
-                        <TextField
-                            size="small"
-                            variant="outlined"
+                        </label>
+                        <textarea
                             name="acceptanceCriteria"
-                            multiline
                             rows={4}
-                            fullWidth
-                            sx={{
-                                marginBottom: 4,
-                                borderRadius: '4px',
-                            }}
+                            className="testCaseFormArea"
                             onChange={handleInputFieldChange}
-                        />
-                        <InputLabel
-                            sx={{ color: 'black', marginBottom: '4px' }}
-                        >
+                        ></textarea>
+                        <label className="testCaseFormLabel">
                             <b>Prerequisites</b>
-                        </InputLabel>
-                        <TextField
-                            size="small"
-                            variant="outlined"
+                        </label>
+                        <textarea
                             name="prerequisites"
-                            multiline
                             rows={4}
-                            fullWidth
-                            sx={{
-                                marginBottom: 4,
-                                borderRadius: '4px',
-                            }}
+                            className="testCaseFormArea"
                             onChange={handleInputFieldChange}
-                        />
+                        ></textarea>
                     </form>
                     <List
                         sx={{

@@ -71,15 +71,12 @@
     border-radius: 5px;
 }
 .requirements-Details {
-    /* margin-left: 1.75rem;
-    margin-top: 0.5rem; */
     width: 100%;
     padding: 1vh 3vw 0vh 0.9vw;
-    overflow-y: scroll;
 }
 .parent-requirement-set {
     float: left;
-    width: 100%;
+    width: 83.75vw;
     overflow-y: auto;
     height: 100vh;
 }
@@ -152,4 +149,9 @@
 .req-id {
     text-decoration: underline;
     color: blue;
+}
+.req-title-underline {
+    width: 100%;
+    height: 0.0625rem;
+    background: #b8b6b6;
 }
