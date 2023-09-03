@@ -38,8 +38,6 @@ const TestSetDetails: React.FC<Props> = ({
     handleTestCaseForm,
     isTestCaseFormVisible,
 }) => {
-    console.log(selectedItem);
-    console.log(projectId);
     const [isTestActive, setTestActive] = React.useState<boolean>(false);
     const [isTestCasesActive, setTestCasesActive] = React.useState(false);
     const [testScripts, setTestScripts] = useState<TestScript[]>([]);
@@ -52,7 +50,6 @@ const TestSetDetails: React.FC<Props> = ({
             axios
                 .get(`${react_backend_url}/v1/testsets/${testSet}`)
                 .then((response) => {
-                    console.log('Test Set Details:', response.data);
                     setTestSetDetails(response.data);
                 })
                 .catch((error) => {
@@ -61,7 +58,6 @@ const TestSetDetails: React.FC<Props> = ({
         }
     }, [testSet]);
     React.useEffect(() => {
-        console.log('Received testSet:', testSet);
         if (testSet) {
             axios
                 .get(`${react_backend_url}/v1/testscripts/testset/${testSet}`)
@@ -104,6 +100,8 @@ const TestSetDetails: React.FC<Props> = ({
                             {isTestCaseFormVisible && (
                                 <TestCaseDetailsForm
                                     handleTestCaseForm={handleTestCaseForm}
+                                    testsetId={testSet}
+                                    projectId={projectId}
                                 />
                             )}
                         </div>
