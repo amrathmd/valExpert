@@ -16,7 +16,6 @@ import TestSetForm from './TestSet/TestSetForm';
 import { useParams } from 'react-router-dom';
 import StickyHeader from '../../components/ProjectHeader/StickyHeader';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
-import './ProjectDashboard1.css';
 import TestSetDetails from './TestSet/TestSetDetails';
 import TestScript from '../../components/Models/testScriptsmodel';
 import LoadingPdf from '../../components/pdfLoader/LoadingPdf';
@@ -27,6 +26,8 @@ import RequirementSetTable from './components/RequirementSetTable';
 import TestSetTable from './components/TestSetTable';
 import TestStepForm from './TestSet/TestStep/TestStepForm';
 import TestCaseHeader from './components/TestCaseHeader';
+import { Icon } from '@iconify/react';
+import filmScript from '@iconify/icons-ph/film-script';
 
 interface TestSet {
     Type: string;
@@ -314,13 +315,22 @@ const Dashboard = () => {
                         component="nav"
                         aria-labelledby="nested-list-subheader"
                         subheader={
-                            <ListSubheader
-                                component="div"
-                                id="nested-list-subheader"
-                            >
-                                Project:{' '}
-                                {project ? project.projectName : 'Loading...'}
-                            </ListSubheader>
+                            <div className="dashboard-sidebar-subheader">
+                                <FolderOutlinedIcon />
+                                <p
+                                    style={{
+                                        fontSize: '9pt',
+                                        margin: '5px',
+                                        width: '8rem',
+                                        fontWeight: 600,
+                                    }}
+                                >
+                                    Project:{' '}
+                                    {project
+                                        ? project.projectName
+                                        : 'Loading...'}
+                                </p>
+                            </div>
                         }
                     >
                         <ListItemButton
@@ -334,7 +344,7 @@ const Dashboard = () => {
                             <p
                                 style={{
                                     fontSize: '9pt',
-                                    margin: '2px',
+                                    margin: '5px',
                                     width: '8rem',
                                     fontWeight: 600,
                                 }}
@@ -397,12 +407,12 @@ const Dashboard = () => {
                             <p
                                 style={{
                                     fontSize: '9pt',
-                                    margin: '2px',
+                                    margin: '5px',
                                     width: '8rem',
                                     fontWeight: 600,
                                 }}
                             >
-                                Test Set
+                                Test Qualification
                             </p>
                             {openTestSets ? <ExpandLess /> : <ExpandMore />}
                         </ListItemButton>
@@ -430,6 +440,7 @@ const Dashboard = () => {
                                                 )
                                             }
                                         >
+                                            <Icon icon={filmScript} />
                                             <p
                                                 style={{
                                                     fontSize: '9pt',
@@ -458,7 +469,7 @@ const Dashboard = () => {
                             <p
                                 style={{
                                     fontSize: '9pt',
-                                    margin: '2px',
+                                    margin: '5px',
                                     width: '8rem',
                                     fontWeight: 600,
                                 }}

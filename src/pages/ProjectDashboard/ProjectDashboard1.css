@@ -155,7 +155,7 @@
 .requirementSets-header > p {
     color: #000;
     font-family: 'Poppins';
-    font-size: 18px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -191,4 +191,7 @@
 .loadingMessage {
     font-weight: bold;
     color: #fff;
+}
+.dashboard-sidebar-subheader {
+    display: flex;
 }
