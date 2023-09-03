@@ -218,6 +218,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                                 width: '30px',
                             }}
                         />
+                        <span className="header-text-teststep">Add Step</span>
                     </div>
                     <TestStepForm
                         count={count}
