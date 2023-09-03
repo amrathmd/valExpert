@@ -170,7 +170,7 @@ const TestStepForm: React.FC<Props> = ({
                 <div className="testStepForm">
                     <div className="TestStepFormheader">
                         <div>
-                            <h3>Step {currPage}</h3>
+                            <b>Step {currPage}</b>
                         </div>
                         <div className="testStepform-icons">
                             {/* <img
@@ -224,20 +224,6 @@ const TestStepForm: React.FC<Props> = ({
                     </div>
                 </div>
             )}
-            <div className="testCasebuttons">
-                <button
-                    onClick={handleTestCaseform}
-                    className="testcasesavebutton"
-                >
-                    Save
-                </button>
-                <button
-                    className="testcasecancelbutton"
-                    onClick={handleTestCaseform}
-                >
-                    Cancel
-                </button>
-            </div>
             <Stack
                 spacing={2}
                 sx={{
@@ -255,7 +241,21 @@ const TestStepForm: React.FC<Props> = ({
                     page={currPage}
                 />
             </Stack>
-            <div className="testStepRuler"></div>
+            <div className="testCasebuttons">
+                <button
+                    onClick={handleTestCaseform}
+                    className="testcasesavebutton"
+                >
+                    Save
+                </button>
+                <button
+                    className="testcasecancelbutton"
+                    onClick={handleTestCaseform}
+                >
+                    Cancel
+                </button>
+            </div>
+            {/* <div className="testStepRuler"></div> */}
         </div>
     );
 };
