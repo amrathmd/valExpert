@@ -84,7 +84,8 @@ const ReqForm: React.FC<ReqFormProps> = ({
         }));
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event: any) => {
+        event.preventDefault();
         try {
             const requestData = {
                 ...requirement,

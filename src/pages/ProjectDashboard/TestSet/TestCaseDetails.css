@@ -1,0 +1,11 @@
+.testcasedetials {
+    margin: 20px;
+}
+.testDetailsLabel {
+    font-size: 12pt;
+    font-weight: bold;
+}
+.testCaseTable {
+    display: flex;
+    justify-content: space-between;
+}

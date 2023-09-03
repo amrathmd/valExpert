@@ -44,3 +44,10 @@
     border-radius: 4px;
     resize: none;
 }
+.testStepRuler {
+    height: 1px;
+    width: 100%;
+    background: #b8b6b6;
+    margin-bottom: 19px;
+    width: 83.75vw;
+}
