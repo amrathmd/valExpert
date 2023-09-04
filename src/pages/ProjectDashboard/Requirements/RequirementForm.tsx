@@ -102,7 +102,6 @@ const ReqForm: React.FC<ReqFormProps> = ({
                 );
                 if (result) {
                     setSuccess(true);
-                    setSelectedList(1);
                 }
             } else {
                 const result = await axios.post(
@@ -111,7 +110,6 @@ const ReqForm: React.FC<ReqFormProps> = ({
                 );
                 if (result) {
                     setSuccess(true);
-                    setSelectedList(1);
                 }
             }
         } catch (e) {

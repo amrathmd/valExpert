@@ -110,11 +110,6 @@ const Dashboard = () => {
     const handleReqFormActive = () => {
         setReqFormActive(!isReqFormActive);
         setTestSetForm(false);
-        window.location.reload();
-
-        setTimeout(() => {
-            setSelectedList(1);
-        }, 100);
     };
     const handleRequirementSet = () => {
         setRequirementSetForm(!requirementSetForm);

@@ -2,7 +2,7 @@
     width: 96.875vw;
     height: 100vh;
     display: flex;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 .dashboard-sidebar {
     background-color: #fff;
@@ -14,10 +14,12 @@
     position: sticky;
 }
 .content-bar {
-    width: 83.75vw;
+    width: 100%;
     height: 100vh;
     padding: 20px;
     padding-right: 2.75vw;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 .blur-background {
     position: fixed;
