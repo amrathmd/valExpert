@@ -1,11 +1,24 @@
+/* .testCaseTable td {
+    margin-right: 100px;
+    border: 1px solid #ddd;
+}
 .testcasedetials {
     margin: 20px;
 }
 .testDetailsLabel {
-    font-size: 12pt;
+    font-size: 1pt;
     font-weight: bold;
+    margin-right: 30px;
 }
 .testCaseTable {
     display: flex;
     justify-content: space-between;
+} */
+.testCaseTable td {
+    padding-right: 50px;
+}
+.testDetailsLabel {
+    font-size: 12pt;
+    font-weight: bold;
+    margin-right: 100px;
 }
