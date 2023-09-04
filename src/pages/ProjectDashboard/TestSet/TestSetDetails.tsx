@@ -13,6 +13,7 @@ interface Props {
     testSet: null | any;
     handleTestCaseForm: () => void;
     isTestCaseFormVisible: boolean;
+    setSelectedList: (selectedList: number) => void;
 }
 
 interface TableColumn {
@@ -37,6 +38,7 @@ const TestSetDetails: React.FC<Props> = ({
     testSet,
     handleTestCaseForm,
     isTestCaseFormVisible,
+    setSelectedList,
 }) => {
     const [isTestActive, setTestActive] = React.useState<boolean>(false);
     const [isTestCasesActive, setTestCasesActive] = React.useState(false);
@@ -102,6 +104,7 @@ const TestSetDetails: React.FC<Props> = ({
                                     handleTestCaseForm={handleTestCaseForm}
                                     testsetId={testSet}
                                     projectId={projectId}
+                                    setSelectedList={setSelectedList}
                                 />
                             )}
                         </div>

@@ -14,8 +14,12 @@ interface Requirement {
 }
 interface props {
     requirementSets: Requirement[];
+    handleRequirementSetClick: (id: string) => void;
 }
-const RequirementSetTable: React.FC<props> = ({ requirementSets }) => {
+const RequirementSetTable: React.FC<props> = ({
+    requirementSets,
+    handleRequirementSetClick,
+}) => {
     const formatDate = (dateString: string) => {
         const options = {
             year: 'numeric',
@@ -34,7 +38,12 @@ const RequirementSetTable: React.FC<props> = ({ requirementSets }) => {
                 requirementSets.map((item) => (
                     <div key={item._id} className="requirementSet-main">
                         <div className="requirementSet-card" key={item._id}>
-                            <div className="requirementSet-image">
+                            <div
+                                className="requirementSet-image"
+                                onClick={() =>
+                                    handleRequirementSetClick(item._id)
+                                }
+                            >
                                 <img
                                     src={'../../../public/projectdoc.png'}
                                     alt=""

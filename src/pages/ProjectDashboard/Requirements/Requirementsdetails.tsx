@@ -21,7 +21,8 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface RequirementsdetailsProps {
-    selectedRequirementSet: any; // Pass the ID of the requirement set
+    selectedRequirementSet: string;
+    setSelectedList: (selectedList: number) => void;
 }
 
 interface Requirement {
@@ -36,6 +37,7 @@ interface Requirement {
 
 const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
     selectedRequirementSet,
+    setSelectedList,
 }) => {
     const [editDialogOpen, setEditDialogOpen] = React.useState<boolean>(false);
     const [deleteDialogOpen, setDeleteDialogOpen] =
@@ -64,7 +66,7 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
         };
 
         fetchRequirementSetName();
-    }, [selectedRequirementSet]);
+    }, [selectedRequirement]);
 
     useEffect(() => {
         const fetchRequirements = async () => {
@@ -87,7 +89,7 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
         };
 
         fetchRequirements();
-    }, [selectedRequirementSet]);
+    }, [selectedRequirementSet, editDialogOpen]);
 
     const handleToggleTable = (requirementId: string) => {
         // Toggle the display state for the clicked requirement
@@ -150,7 +152,8 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
             </div>
             <div className="req-title-underline"></div>
             <div className="requirements-Details">
-                {!editDialogOpen && requirements.length > 0 ? (
+                {requirements.length > 0 ? (
+                    !editDialogOpen &&
                     requirements.map((requirement: Requirement) => (
                         <div key={requirement._id} className="Main23">
                             <div
@@ -299,6 +302,7 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
                         selectedRequirement={selectedRequirement}
                         handleFormActive={() => setEditDialogOpen(false)}
                         selectedRequirementSet={undefined}
+                        setSelectedList={setSelectedList}
                     />
                 )}
             </div>

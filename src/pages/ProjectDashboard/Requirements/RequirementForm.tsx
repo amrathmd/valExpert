@@ -12,10 +12,11 @@ import {
     FormLabel,
     Alert,
 } from '@mui/material';
+import { TryRounded } from '@mui/icons-material';
 
 const initialState = {
     // requirementName: 'venkatesh',
-    requirementDescription: 'initialdescription',
+    requirementDescription: '',
     requirementCategory: 'User Requirement',
     verification: 'Testing',
     reference: '',
@@ -34,6 +35,7 @@ interface ReqFormProps {
     handleFormActive: () => void;
     selectedRequirementSet: any;
     selectedRequirement?: Requirement;
+    setSelectedList: (selectedList: number) => void;
 }
 const authors = [
     {
@@ -50,6 +52,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
     selectedRequirementSet,
     selectedRequirement,
     handleFormActive,
+    setSelectedList,
 }) => {
     const [requirement, setRequirement] = useState(
         selectedRequirement || initialState
@@ -97,7 +100,10 @@ const ReqForm: React.FC<ReqFormProps> = ({
                     `${react_backend_url}/v1/requirements/${selectedRequirement._id}`,
                     requestData
                 );
-                console.log('Requirement updated:', result.data);
+                if (result) {
+                    setSuccess(true);
+                    setSelectedList(1);
+                }
             } else {
                 const result = await axios.post(
                     `${react_backend_url}/v1/requirements`,
@@ -105,6 +111,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
                 );
                 if (result) {
                     setSuccess(true);
+                    setSelectedList(1);
                 }
             }
         } catch (e) {
@@ -116,7 +123,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
             const timer = setTimeout(() => {
                 setSuccess(false);
                 handleFormActive();
-            }, 1500);
+            }, 1000);
             return () => clearTimeout(timer);
         }
     }, [success]);
@@ -124,27 +131,23 @@ const ReqForm: React.FC<ReqFormProps> = ({
     return (
         <>
             <div className="alert-container">
-                {success && (
-                    <Alert severity="success">
-                        Requirements created successfully!
-                    </Alert>
-                )}
+                {success &&
+                    (selectedRequirement ? (
+                        <Alert severity="success">
+                            Requirements Edited successfully!
+                        </Alert>
+                    ) : (
+                        <Alert severity="success">
+                            Requirement created Successfully
+                        </Alert>
+                    ))}
             </div>
             <div className="form-container">
                 <div>
                     <div className="heading">
                         <h2>Requirements Form</h2>
                     </div>
-                    {/* <div className="req-item">
-                <TextField
-                    label="RequirementSet Name"
-                    variant="outlined"
-                    fullWidth
-                    onChange={handleTextChange}
-                    value={requirement.requirementName}
-                    name="requirementName"
-                />
-            </div> */}
+
                     <div className="req-item">
                         <TextField
                             label="Requirement Description"
@@ -255,12 +258,21 @@ const ReqForm: React.FC<ReqFormProps> = ({
                         >
                             Cancel
                         </button>
-                        <button
-                            onClick={handleSubmit}
-                            className="requirementFormButtons"
-                        >
-                            Confirm
-                        </button>
+                        {selectedRequirement ? (
+                            <button
+                                onClick={handleSubmit}
+                                className="requirementFormButtons"
+                            >
+                                Edit
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handleSubmit}
+                                className="requirementFormButtons"
+                            >
+                                Confirm
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

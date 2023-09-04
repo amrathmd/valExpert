@@ -17,6 +17,7 @@ interface Props {
     RequirementSets: any;
     handleReqFormActive: any;
     isReqFormActive: boolean;
+    setSelectedList: (selectedList: number) => void;
 }
 
 const Requirements: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const Requirements: React.FC<Props> = ({
     RequirementSets,
     handleReqFormActive,
     isReqFormActive,
+    setSelectedList,
 }) => {
     const [requirements, setRequirements] = React.useState([]);
     const [requirementSetFrom, setRequirmentSetForm] =
@@ -48,36 +50,6 @@ const Requirements: React.FC<Props> = ({
 
     return (
         <div className="parent-requirement-set">
-            {/* {selectedItem === 1 && RequirementSets.length === 0 && (
-                <div className="message">
-                    <div>
-                        <p className="para">
-                            Welcome to our project Dashboard!
-                        </p>
-                        <ul className="dot-list">
-                            <li>
-                                You have the power to add requirements from your
-                                project enabling
-                                <br /> effective development for Enhanced
-                                Project development.
-                            </li>
-                            <li>
-                                We believe that by adding requirement sets for
-                                your project and
-                                <br />
-                                you'll unlock the full potential of our platform
-                                .
-                            </li>
-                        </ul>
-                        <span
-                            className="create-button"
-                            onClick={handleRequirementSet}
-                        >
-                            Create Requirement sets
-                        </span>
-                    </div>
-                </div>
-            )} */}
             {requirementSetFrom && (
                 <div className="blur-background">
                     <div className="requirementsetform">
@@ -91,20 +63,16 @@ const Requirements: React.FC<Props> = ({
 
             {selectedRequirementSet && (
                 <div>
-                    {/* <button
-                        className="create-reqSet-button"
-                        onClick={handleReqFormActive}
-                    >
-                        Create Requirements
-                    </button> */}
                     {isReqFormActive ? (
                         <ReqForm
                             handleFormActive={handleReqFormActive}
                             selectedRequirementSet={selectedRequirementSet}
+                            setSelectedList={setSelectedList}
                         />
                     ) : (
                         <Requirementsdetails
                             selectedRequirementSet={selectedRequirementSet}
+                            setSelectedList={setSelectedList}
                         />
                     )}
                 </div>
