@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import { ErrorBoundary, Navbar } from '../../components';
 import {
-    Home,
     Login,
     Contact,
     RegistrationPage,

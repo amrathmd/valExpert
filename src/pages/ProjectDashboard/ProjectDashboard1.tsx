@@ -127,6 +127,7 @@ const Dashboard = () => {
         setSelectedList(0);
         setSelectedTestSet(null);
         setTestSetForm(false);
+        setOpenRequirementSet(true);
     };
     const handleTestsSetClick = () => {
         setOpenTestSets(!openTestSets);
@@ -141,10 +142,10 @@ const Dashboard = () => {
     const handleTestSetSelectedClick = (id: string) => {
         if (selectedTestSet === id && openTestSets === true) {
             setOpenTestSet(false);
-            setSelectedList(1); // Update selectedList for collapsing the test set
+            setSelectedList(1);
         } else {
             setOpenTestSet(true);
-            setSelectedList(2); // Update selectedList for expanding the test set
+            setSelectedList(2);
         }
         setSelectedTestSet(id);
         setOpentestCase(false);
@@ -192,13 +193,6 @@ const Dashboard = () => {
         setTestScripts(result.data);
     };
 
-    // const findTestSteps = async (testcase: TestCase) => {
-    //     const result = await axios.get(
-    //         `${react_backend_url}/v1/teststeps/testscripts/${testcase._id}`
-    //     );
-    //     console.log(result.data);
-    //     setTestScripts(result.data);
-    // };
     React.useEffect(() => {
         const FetchRequirementSets = async () => {
             const result = await axios.get(
@@ -369,7 +363,7 @@ const Dashboard = () => {
                                         sx={{
                                             pl: 5,
                                             display: 'flex',
-                                            alignItems: 'center', // Align items vertically in the center
+                                            alignItems: 'center',
 
                                             backgroundColor:
                                                 selectedRequirementSet ===
@@ -400,7 +394,7 @@ const Dashboard = () => {
                             onClick={handleTestsSetClick}
                             sx={{
                                 display: 'flex',
-                                alignItems: 'center', // Align items vertically in the center
+                                alignItems: 'center',
                             }}
                         >
                             <FolderOutlinedIcon />
@@ -517,6 +511,7 @@ const Dashboard = () => {
                             projectId={projectId}
                             handleReqFormActive={handleReqFormActive}
                             isReqFormActive={isReqFormActive}
+                            setSelectedList={setSelectedList}
                         />
                     )}
                     {selectedTestSet && (
@@ -527,12 +522,16 @@ const Dashboard = () => {
                                 testSet={selectedTestSet}
                                 handleTestCaseForm={handleTestCaseForm}
                                 isTestCaseFormVisible={isTestCaseFormVisible}
+                                setSelectedList={setSelectedList}
                             />
                         </div>
                     )}
                     {selectedList === 1 && (
                         <RequirementSetTable
                             requirementSets={requirementSets}
+                            handleRequirementSetClick={
+                                handleRequirementSetClick
+                            }
                         />
                     )}
                     {selectedList === 2 && openTestSets && (

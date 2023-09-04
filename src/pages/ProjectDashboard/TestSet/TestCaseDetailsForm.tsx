@@ -38,6 +38,7 @@ interface Props {
     handleTestCaseForm: () => void;
     testsetId: string;
     projectId: string;
+    setSelectedList: (selectedList: number) => void;
 }
 interface TestStep {
     stepNumber: number;
@@ -56,6 +57,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
     handleTestCaseForm,
     testsetId,
     projectId,
+    setSelectedList,
 }) => {
     const [openTestCaseForm, setOpenTestCaseForm] = useState(true);
     const [testCase, setTestCase] = useState(defaultTestCase);
