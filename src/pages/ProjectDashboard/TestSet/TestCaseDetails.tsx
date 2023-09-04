@@ -1,6 +1,7 @@
 import { react_backend_url } from '../../../config';
 import axios from 'axios';
 import React from 'react';
+import './TestCaseDetails.css';
 
 interface TestCase {
     testsetId: string;

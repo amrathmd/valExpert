@@ -18,6 +18,8 @@
 .testStepform-icon {
     height: 20px;
     width: 20px;
+    cursor: pointer;
+    margin-left: 5px;
 }
 
 .TestStepFormheader h3 {
@@ -50,4 +52,12 @@
     background: #b8b6b6;
     margin-bottom: 19px;
     width: 83.75vw;
+}
+.testStep-mini-header {
+    margin-left: 10px;
+}
+.testStep-mini-header > p {
+    color: white;
+    font-size: 12pt;
+    font-weight: 500;
 }

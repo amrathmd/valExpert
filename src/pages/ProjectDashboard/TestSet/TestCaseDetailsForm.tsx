@@ -1,5 +1,6 @@
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { ExpandLess, ExpandMore, FifteenMp } from '@mui/icons-material';
 import {
+    Button,
     Collapse,
     InputLabel,
     List,
@@ -12,6 +13,7 @@ import TestStepForm from './TestStep/TestStepForm';
 import axios from 'axios';
 import { react_backend_url } from '../../../config';
 import TestCaseDetails from './TestCaseDetails';
+import Joi from 'joi-browser';
 interface TestCase {
     testsetId: string;
     Type: string;
@@ -61,9 +63,19 @@ const TestCaseDetailsForm: React.FC<Props> = ({
     const [testCase, setTestCase] = useState(defaultTestCase);
     const [openTestStepForm, setOpenTestStepForm] = useState(false);
     const [savedTestCase, setSaveTestCase] = useState();
+    const [error, setError] = useState<string>('');
     const [count, setcount] = React.useState<number>(1);
     const [currPage, setCurrentPage] = React.useState<number>(1);
     const [testStep, setTestStep] = React.useState<TestStep>(defaultForm);
+    const [isSaved, setIsSaved] = React.useState(false);
+    const [isEditMode, setIsEditMode] = React.useState(false);
+
+    const schema = {
+        testCaseNumber: Joi.number().required(),
+        purpose: Joi.string().required(),
+        acceptanceCriteria: Joi.string().required(),
+        prerequisites: Joi.string().required(),
+    };
 
     const ToggleOpenTestCaseForm = () => {
         setOpenTestCaseForm(!openTestCaseForm);
@@ -75,6 +87,8 @@ const TestCaseDetailsForm: React.FC<Props> = ({
         });
 
         setTestStep(defaultForm);
+        setIsSaved(false);
+        setIsEditMode(false);
     };
 
     const handleInputFieldChange = (event: any) => {
@@ -87,19 +101,26 @@ const TestCaseDetailsForm: React.FC<Props> = ({
     const handleSubmitTestCaseForm = async (event: any) => {
         event.preventDefault();
         testCase.testsetId = testsetId;
-        console.log(testCase);
-        try {
-            const result = await axios.post(
-                `${react_backend_url}/v1/testscripts`,
-                testCase
-            );
-            if (result) {
-                console.log(result.data);
-                setSaveTestCase(result.data._id);
-                setSelectedList(2);
+        const { error } = Joi.validate(testCase, schema, {
+            allowUnknown: true,
+        });
+        if (error) {
+            console.log(error);
+            setError(error.details[0].message);
+            return;
+        } else {
+            try {
+                const result = await axios.post(
+                    `${react_backend_url}/v1/testscripts`,
+                    testCase
+                );
+                if (result) {
+                    console.log(result.data);
+                    setSaveTestCase(result.data._id);
+                }
+            } catch (e) {
+                console.log(e);
             }
-        } catch (e) {
-            console.log(e);
         }
     };
 
@@ -189,6 +210,11 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                             />
                         </div> */}
                         </List>
+                        {error && (
+                            <div className="error-message">
+                                <p>{error}</p>
+                            </div>
+                        )}
                         <div className="testCasebuttons">
                             <button
                                 onClick={handleSubmitTestCaseForm}
@@ -234,6 +260,10 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                         handleTestCaseform={handleTestCaseForm}
                         projectId={projectId}
                         testsetId={testsetId}
+                        isSaved={isSaved}
+                        setIsSaved={setIsSaved}
+                        isEditMode={isEditMode}
+                        setIsEditMode={setIsEditMode}
                     />
                 </div>
             )}
