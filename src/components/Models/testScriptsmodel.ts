@@ -1,4 +1,4 @@
-export interface TestCase {
+interface TestScript {
     _Id?: string;
     testsetId: string;
     Type: string;
@@ -7,4 +7,6 @@ export interface TestCase {
     prerequesites: string;
     result: string;
     author: string;
+    testCaseNumber: number;
 }
+export default TestScript;

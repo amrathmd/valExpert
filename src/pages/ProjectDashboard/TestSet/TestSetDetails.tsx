@@ -1,55 +1,222 @@
-import React from 'react';
 import TestSetForm from './TestSetForm';
-import TestCasesForm from './TestCases/TestcaseForm';
-import { TestCase } from '@/components/Models/testCasesmodel';
-
+import TestCasesForm from './Testscript/TestscriptForm';
+import React, { useEffect, useState } from 'react';
+import { react_backend_url } from '../../../config';
+import axios from 'axios';
+import TestscriptForm from './Testscript/TestscriptForm';
+import TestCaseDetailsForm from './TestCaseDetailsForm';
+import { Tooltip } from '@mui/material';
+import '../Requirements/Requirements.css';
+import { Icon } from '@iconify/react';
+import pageFacingUp from '@iconify/icons-fluent-emoji-high-contrast/page-facing-up';
 interface Props {
     selectedItem: number;
     projectId: string;
+    testSet: null | any;
+    handleTestCaseForm: () => void;
+    isTestCaseFormVisible: boolean;
+    setSelectedList: (selectedList: number) => void;
 }
 
 interface TableColumn {
     key: string;
     label: string;
 }
+interface TestScript {
+    _id?: string;
+    testsetId: string;
+    Type: string;
+    purpose: string;
+    acceptanceCriteria: string;
+    prerequesites: string;
+    result: string;
+    author: string;
+    createdAt: Date;
+    testCaseNumber: number;
+}
 
-const TestSets: React.FC<Props> = ({ selectedItem, projectId }) => {
+const TestSetDetails: React.FC<Props> = ({
+    selectedItem,
+    projectId,
+    testSet,
+    handleTestCaseForm,
+    isTestCaseFormVisible,
+    setSelectedList,
+}) => {
     const [isTestActive, setTestActive] = React.useState<boolean>(false);
     const [isTestCasesActive, setTestCasesActive] = React.useState(false);
+    const [testScripts, setTestScripts] = useState<TestScript[]>([]);
+
+    const [testSetDetails, setTestSetDetails] = useState<any>(null);
+    const [isFormVisible, setFormVisible] = useState(false);
+
+    React.useEffect(() => {
+        if (testSet) {
+            axios
+                .get(`${react_backend_url}/v1/testsets/${testSet}`)
+                .then((response) => {
+                    setTestSetDetails(response.data);
+                })
+                .catch((error) => {
+                    console.error('Error fetching test set details:', error);
+                });
+        }
+    }, [testSet]);
+    React.useEffect(() => {
+        if (testSet) {
+            axios
+                .get(`${react_backend_url}/v1/testscripts/testset/${testSet}`)
+                .then((response) => {
+                    console.log(response.data);
+                    setTestScripts(response.data);
+                })
+                .catch((error) => {
+                    console.error('Error fetching test scripts:', error);
+                });
+        }
+    }, [testSet]);
 
     const handleTestActive = () => {
         setTestActive(!isTestActive);
     };
     const handleTestCasesActive = () => {
-        setTestCasesActive(!isTestCasesActive); // Toggle the state for TestCasesForm
+        setTestCasesActive(!isTestCasesActive);
     };
-    const testSetHeader: TableColumn[] = [
-        { key: 'projectId', label: 'Project Id' },
-        { key: 'requirementSetId', label: 'RequirementSet Id' },
-        { key: 'testName', label: 'TestSet Name' },
-        { key: '_id', label: 'TestSet Id' },
-        { key: 'requirementSetName', label: 'RequirementSet Name' },
-        { key: 'category', label: 'Category' },
-        { key: 'description', label: 'Description' },
-        { key: 'status', label: 'Status' },
-    ];
 
+    const testScriptHeader: TableColumn[] = [
+        { key: 'acceptanceCriteria', label: 'Acceptance Criteria' },
+        { key: 'result', label: 'Result' },
+        { key: 'type', label: 'Type' },
+        { key: 'purpose', label: 'Purpose' },
+        { key: 'prerequesites', label: 'Prerequesites' },
+        { key: 'author', label: 'Author' },
+        // { key: '_Id', label: 'ScriptNumber' },
+    ];
+    function handleEditIconClick(requirement: any): void {
+        throw new Error('Function not implemented.');
+    }
     return (
         <div>
-            {selectedItem === 2 && (
+            {selectedItem === 0 && (
                 <div>
-                    <button
-                        className="create-reqSet-button"
-                        onClick={handleTestActive}
-                    >
-                        Create Test Set
-                    </button>
+                    {isTestCaseFormVisible ? (
+                        <div>
+                            {isTestCaseFormVisible && (
+                                <TestCaseDetailsForm
+                                    handleTestCaseForm={handleTestCaseForm}
+                                    testsetId={testSet}
+                                    projectId={projectId}
+                                    setSelectedList={setSelectedList}
+                                />
+                            )}
+                        </div>
+                    ) : (
+                        <div>
+                            <div className="test-set-details-container">
+                                <div className="test-set-details-column">
+                                    {testSetDetails && (
+                                        <div className="test-set-detail">
+                                            <p>
+                                                Test Set Name:{' '}
+                                                {testSetDetails.testSetName}
+                                            </p>
+                                            <p>
+                                                Category:
+                                                {testSetDetails.category}
+                                            </p>
+                                            <p>
+                                                Description:
+                                                {testSetDetails.description}
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="test-set-details-column">
+                                    {testSetDetails && (
+                                        <div className="test-set-detail">
+                                            <p>
+                                                Status: {testSetDetails.status}
+                                            </p>
+                                            <p>Version:1.0</p>
+                                            <p>
+                                                Created Date:{' '}
+                                                {new Date(
+                                                    testSetDetails.createdAt
+                                                ).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
 
-                    {isTestActive && (
-                        <TestSetForm
-                            handleTestSetForm={handleTestActive}
-                            projectId={projectId}
-                        />
+                            <hr className="line"></hr>
+                            <div className="testheader">
+                                <p>List of Test Cases:</p>
+                            </div>
+                            <section className={`requirements-section`}>
+                                {testScripts.length > 0 &&
+                                    testScripts.map((script) => (
+                                        <div
+                                            key={script._id}
+                                            className="testscripts-main"
+                                        >
+                                            <div
+                                                className="testscripts-card"
+                                                key={script._id}
+                                            >
+                                                <div className="testscripts-image">
+                                                    <img
+                                                        src={
+                                                            '../../../public/Testscript.svg'
+                                                        }
+                                                        alt=""
+                                                        className="iconimg"
+                                                    />
+                                                    <div className="testscripticonimg-small">
+                                                        <div className="icon-border1">
+                                                            <Tooltip
+                                                                title="Edit Project"
+                                                                placement="top-end"
+                                                            >
+                                                                <img
+                                                                    className="edit-pic1"
+                                                                    src={`../../../public/edit.svg`}
+                                                                />
+                                                            </Tooltip>
+                                                        </div>
+                                                        <div className="icon-border1">
+                                                            <Tooltip
+                                                                title="Delete Project"
+                                                                placement="top-end"
+                                                            >
+                                                                <img
+                                                                    className="edit-pic1"
+                                                                    src={`../../../public/delete-outlined.svg`}
+                                                                />
+                                                            </Tooltip>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="testscripts-description">
+                                                    <b>
+                                                        Test Case Number{' '}
+                                                        {script.testCaseNumber}
+                                                    </b>
+                                                    <p className="paragraph">
+                                                        Author:{script.author}
+                                                    </p>
+                                                    <p className="paragraph">
+                                                        Created on:
+                                                        {new Date(
+                                                            script.createdAt
+                                                        ).toLocaleDateString()}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                            </section>
+                        </div>
                     )}
                 </div>
             )}
@@ -57,4 +224,4 @@ const TestSets: React.FC<Props> = ({ selectedItem, projectId }) => {
     );
 };
 
-export default TestSets;
+export default TestSetDetails;

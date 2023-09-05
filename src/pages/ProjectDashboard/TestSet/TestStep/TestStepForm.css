@@ -1,0 +1,63 @@
+.TestStepFormheader {
+    background-color: #3575ba;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+}
+.testStepForm {
+    width: 60vw;
+}
+.testStepform-icons {
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+    gap: 3px;
+}
+.testStepform-icon {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.TestStepFormheader h3 {
+    color: #fff;
+    font-size: 11pt;
+    font-weight: 500;
+    margin-left: 20px;
+}
+.TestStepFormInput {
+    display: flex;
+    flex-direction: row;
+}
+.testStep-label-name {
+    display: block;
+    font-size: 9pt;
+    margin: 5px;
+    width: 30vw;
+}
+
+.formfield {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+.testStepRuler {
+    height: 1px;
+    width: 100%;
+    background: #b8b6b6;
+    margin-bottom: 19px;
+    width: 83.75vw;
+}
+.testStep-mini-header {
+    margin-left: 10px;
+}
+.testStep-mini-header > p {
+    color: white;
+    font-size: 12pt;
+    font-weight: 500;
+}

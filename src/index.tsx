@@ -7,8 +7,6 @@ import axios from 'axios';
 import { AuthContextProvider } from './contexts/AuthContext';
 import configureAppStore, { getPreloadedState } from './store/configureStore';
 
-import AppContextProvider from './contexts/AppContextProvider';
-
 import { Homepage } from './pages';
 axios.defaults.withCredentials = true;
 

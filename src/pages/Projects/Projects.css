@@ -11,70 +11,130 @@
     width: 100vw;
     display: grid;
     grid-template-columns: repeat(auto-fill, 10rem);
-    column-gap: 20px;
-    row-gap: 50px;
+    column-gap: 150px;
+    row-gap: 60px;
     flex-wrap: auto;
     padding: 0rem 5rem 5rem;
+    margin-top: 20px;
 }
 .projects-section.visible {
     width: 80vw;
+}
+.project-main {
+    border-radius: 7.693px;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
+    width: 17rem;
+    height: 14rem;
+    display: flex;
+    justify-content: center;
+    transition: all 0.5s ease;
+}
+
+.project-main:hover {
+    transform: scale(1.1);
+}
+.projects-card {
+    cursor: pointer;
+    width: 15rem;
+    height: 10rem;
+}
+
+.projects-card b {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: 'Inter';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: -0.262px;
+}
+.para {
+    color: #000;
+    font-family: 'Poppins';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.image-pic {
+    width: 12rem;
+    height: 10rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    row-gap: 1rem;
+    column-gap: 2rem;
+}
+.iconimg {
+    height: 8rem;
+    width: 8rem;
+}
+.icon-border1 {
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7.693px;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
+}
+.edit-pic1 {
+    width: 20px;
+    height: 20px;
+}
+.iconimg-small {
+    align-self: flex-start;
+    display: flex;
+    column-gap: 2px;
+    margin-bottom: 6rem;
+    margin-left: 1rem;
+}
+.project-description {
+    margin-bottom: 2rem;
+}
+.searchbar {
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #b8b6b6;
+    padding-left: 3vw;
+    padding-right: 3vw;
+}
+.searchbarright {
+    display: flex;
+    gap: 30px;
 }
 .projects-header {
     height: 5rem;
     display: flex;
     align-items: center;
+    color: black;
+    font-family: Poppins;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-right: 7.5rem;
+}
+
+.create-project {
+    height: 2.6rem;
+    width: 170px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background-color: #3575ba;
+    color: #fff;
     font-weight: 700;
-    font-size: 1.2rem;
-    padding-left: 5rem;
-}
-.project-tagline {
-    padding-left: 2rem;
-    background-color: rgb(53, 118, 186);
-    height: 1.6rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-.createnewimg {
-    height: 40%;
-    width: 35%;
-}
-.imgageplus {
-    height: 30%;
-    width: 30%;
-}
-.project-tagline > p {
-    color: white;
-    font-size: 0.8rem;
 }
 
-.create-project{
-height: 2.6rem;
-width: 170px;
-flex-shrink: 0;
-border-radius: 5px;
-background-color: #3575BA;
-
-}
-.image-pic {
-    width: 9rem;
-    height: 7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.8);
-}
-.searchbar {
-    margin-top: 10px;
-    display: flex;
-    height: 45px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-.createProject-btn {
+/* .createProject-btn {
     width: 8rem;
     height: 2.3rem;
     background-color: rgb(53, 118, 186);
@@ -84,43 +144,8 @@ background-color: #3575BA;
     font-size: 14px;
     color: white;
     margin-top: 10px;
-}
-.projects-card {
-    cursor: pointer;
-    transition: all 0.5s ease;
-    width: 15rem;
-    height: 12rem;
-    overflow: hidden;
-    margin-right: 130px;
-}
-.projects-card:hover {
-    transform: scale(1.2);
-}
-.project-description {
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
+} */
 
-.project-description b {
-    color: #000;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Inter;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 14.114px; /* 44.107% */
-    letter-spacing: -0.262px;
-}
-.para {
-    margin-top: 10px;
-    color: #000;
-    font-family: Poppins;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
 .datein {
     width: 9rem;
     height: 2rem;
@@ -140,4 +165,35 @@ background-color: #3575BA;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
+.userform-label-name b {
+    color: black;
+    font-weight: 600;
+    font-family: Poppins;
+    font-size: small;
+}
+.title {
+    font-size: larger;
+    padding: 10px;
+    font-style: Inter;
+    font-weight: 900;
+}
+.dateDiv {
+    height: 113px;
+}
+.errorMessage {
+    color: #d32f2f;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.66;
+    letter-spacing: 0.03333em;
+    text-align: left;
+    margin-top: 3px;
+    margin-right: 14px;
+    margin-bottom: 0;
+    margin-left: 14px;
+}
+.errorDiv {
+    border: 0.2px solid #d32f2f;
+    border-radius: 4px;
+}

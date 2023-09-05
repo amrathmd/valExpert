@@ -10,8 +10,6 @@ export const DashboardContextProvider = (props: any) => {
     return (
         <DashboardContext.Provider
             value={{
-                dashboardState,
-                setDashboardState,
                 projectId,
                 setProjectId,
             }}
