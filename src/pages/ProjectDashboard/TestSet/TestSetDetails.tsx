@@ -7,6 +7,8 @@ import TestscriptForm from './Testscript/TestscriptForm';
 import TestCaseDetailsForm from './TestCaseDetailsForm';
 import { Tooltip } from '@mui/material';
 import '../Requirements/Requirements.css';
+import { Icon } from '@iconify/react';
+import pageFacingUp from '@iconify/icons-fluent-emoji-high-contrast/page-facing-up';
 interface Props {
     selectedItem: number;
     projectId: string;
@@ -29,6 +31,7 @@ interface TestScript {
     result: string;
     author: string;
     createdAt: Date;
+    testCaseNumber: number;
 }
 
 const TestSetDetails: React.FC<Props> = ({
@@ -90,7 +93,6 @@ const TestSetDetails: React.FC<Props> = ({
     function handleEditIconClick(requirement: any): void {
         throw new Error('Function not implemented.');
     }
-
     return (
         <div>
             {selectedItem === 0 && (
@@ -144,58 +146,73 @@ const TestSetDetails: React.FC<Props> = ({
                                 </div>
                             </div>
 
-                            <hr className="hr"></hr>
-                            {testScripts.length > 0 && (
-                                <div>
-                                    <div className="category-title">
-                                        <h2 className="category-title-text">
-                                            List of Test Scripts:
-                                        </h2>
-                                        <table className="content-table1">
-                                            <thead>
-                                                <tr>
-                                                    <th>Test Script Number</th>
-                                                    <th>Purpose</th>
-                                                    <th>Author</th>
-                                                    <th>Created Date</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {testScripts.map((script) => (
-                                                    <tr key={script._id}>
-                                                        <td>{script._id}</td>
-                                                        <td>
-                                                            {script.purpose}
-                                                        </td>
-                                                        <td>{script.author}</td>
-                                                        <td>
-                                                            {new Date(
-                                                                script.createdAt
-                                                            ).toLocaleDateString()}
-                                                        </td>
-                                                        <td>
-                                                            <div className="action-icon">
-                                                                <div className="icon-border">
-                                                                    <Tooltip
-                                                                        title="view testscript"
-                                                                        placement="top-end"
-                                                                    >
-                                                                        <img
-                                                                            className="edit-pic"
-                                                                            src={`../../../public/edit.svg`}
-                                                                        />
-                                                                    </Tooltip>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            )}
+                            <hr className="line"></hr>
+                            <div className="testheader">
+                                <p>List of Test Cases:</p>
+                            </div>
+                            <section className={`requirements-section`}>
+                                {testScripts.length > 0 &&
+                                    testScripts.map((script) => (
+                                        <div
+                                            key={script._id}
+                                            className="testscripts-main"
+                                        >
+                                            <div
+                                                className="testscripts-card"
+                                                key={script._id}
+                                            >
+                                                <div className="testscripts-image">
+                                                    <img
+                                                        src={
+                                                            '../../../public/Testscript.svg'
+                                                        }
+                                                        alt=""
+                                                        className="iconimg"
+                                                    />
+                                                    <div className="testscripticonimg-small">
+                                                        <div className="icon-border1">
+                                                            <Tooltip
+                                                                title="Edit Project"
+                                                                placement="top-end"
+                                                            >
+                                                                <img
+                                                                    className="edit-pic1"
+                                                                    src={`../../../public/edit.svg`}
+                                                                />
+                                                            </Tooltip>
+                                                        </div>
+                                                        <div className="icon-border1">
+                                                            <Tooltip
+                                                                title="Delete Project"
+                                                                placement="top-end"
+                                                            >
+                                                                <img
+                                                                    className="edit-pic1"
+                                                                    src={`../../../public/delete-outlined.svg`}
+                                                                />
+                                                            </Tooltip>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="testscripts-description">
+                                                    <b>
+                                                        Test Case Number{' '}
+                                                        {script.testCaseNumber}
+                                                    </b>
+                                                    <p className="paragraph">
+                                                        Author:{script.author}
+                                                    </p>
+                                                    <p className="paragraph">
+                                                        Created on:
+                                                        {new Date(
+                                                            script.createdAt
+                                                        ).toLocaleDateString()}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                            </section>
                         </div>
                     )}
                 </div>

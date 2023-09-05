@@ -7,5 +7,6 @@ interface TestScript {
     prerequesites: string;
     result: string;
     author: string;
+    testCaseNumber: number;
 }
 export default TestScript;
