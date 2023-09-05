@@ -5,10 +5,12 @@ import { react_backend_url } from '../../../config';
 import axios from 'axios';
 import TestscriptForm from './Testscript/TestscriptForm';
 import TestCaseDetailsForm from './TestCaseDetailsForm';
-import { Tooltip } from '@mui/material';
+import { Collapse, List, ListItemButton, Tooltip } from '@mui/material';
 import '../Requirements/Requirements.css';
 import { Icon } from '@iconify/react';
 import pageFacingUp from '@iconify/icons-fluent-emoji-high-contrast/page-facing-up';
+import './TestSetDetails.css';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 interface Props {
     selectedItem: number;
     projectId: string;
@@ -46,6 +48,8 @@ const TestSetDetails: React.FC<Props> = ({
     const [isTestActive, setTestActive] = React.useState<boolean>(false);
     const [isTestCasesActive, setTestCasesActive] = React.useState(false);
     const [testScripts, setTestScripts] = useState<TestScript[]>([]);
+    const [openTestSetDetails, setOpenTestSetDetails] =
+        useState<boolean>(false);
 
     const [testSetDetails, setTestSetDetails] = useState<any>(null);
     const [isFormVisible, setFormVisible] = useState(false);
@@ -95,6 +99,9 @@ const TestSetDetails: React.FC<Props> = ({
     function handleEditIconClick(requirement: any): void {
         throw new Error('Function not implemented.');
     }
+    const handleTestSetOpen = () => {
+        setOpenTestSetDetails(!openTestSetDetails);
+    };
     return (
         <div>
             {selectedItem === 0 && (
@@ -112,101 +119,163 @@ const TestSetDetails: React.FC<Props> = ({
                         </div>
                     ) : (
                         <div>
-                            <div className="test-set-details-container">
-                                <div className="test-set-details-column">
-                                    {testSetDetails && (
-                                        <div className="test-set-detail">
-                                            <p>
-                                                Test Set Name:{' '}
-                                                {testSetDetails.testSetName}
-                                            </p>
-                                            <p>
-                                                Category:
-                                                {testSetDetails.category}
-                                            </p>
-                                            <p>
-                                                Description:
-                                                {testSetDetails.description}
-                                            </p>
-                                        </div>
+                            <List
+                                sx={{
+                                    width: '100%',
+                                    bgcolor: 'background.paper',
+                                    paddingTop: '0px',
+                                    paddingBottom: '0px',
+                                }}
+                                component="nav"
+                                aria-labelledby="nested-list-subheader"
+                            >
+                                <div
+                                    className="TestCaseFrom-header"
+                                    onClick={handleTestSetOpen}
+                                >
+                                    {openTestSetDetails ? (
+                                        <ExpandLess />
+                                    ) : (
+                                        <ExpandMore />
                                     )}
-                                </div>
-                                <div className="test-set-details-column">
-                                    {testSetDetails && (
-                                        <div className="test-set-detail">
-                                            <p>
-                                                Status: {testSetDetails.status}
-                                            </p>
-                                            <p>Version:1.0</p>
-                                            <p>
-                                                Created Date:{' '}
-                                                {new Date(
-                                                    testSetDetails.createdAt
-                                                ).toLocaleDateString()}
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
 
-                            <hr className="line"></hr>
-                            <div className="testheader">
-                                <p>List of Test Cases:</p>
+                                    <span className="header-text-testcase">
+                                        <b>Test set details</b>
+                                    </span>
+                                </div>
+                                <Collapse in={openTestSetDetails}>
+                                    <div className="test-set-details-container">
+                                        <div className="test-set-details-column">
+                                            {testSetDetails && (
+                                                <div className="test-set-detail">
+                                                    <tr>
+                                                        <td>
+                                                            <b>Test Set Name</b>
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                testSetDetails.testSetName
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <b>Category</b>
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                testSetDetails.category
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <b>Description</b>
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                testSetDetails.description
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="test-set-details-column">
+                                            {testSetDetails && (
+                                                <div className="test-set-detail">
+                                                    <tr>
+                                                        <td>
+                                                            <b>Status</b>
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                testSetDetails.status
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <b>Version</b>
+                                                        </td>
+                                                        <td>1.0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <b>Created Date</b>
+                                                        </td>
+                                                        <td>
+                                                            {new Date(
+                                                                testSetDetails.createdAt
+                                                            ).toLocaleDateString()}
+                                                        </td>
+                                                    </tr>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </Collapse>
+                            </List>
+
+                            <div className="line"></div>
+                            <div className="testCaseheader">
+                                <b>List of Test Cases:</b>
                             </div>
-                            <section className={`requirements-section`}>
+                            <section className={`testcase-section`}>
                                 {testScripts.length > 0 &&
                                     testScripts.map((script) => (
                                         <div
                                             key={script._id}
-                                            className="testscripts-main"
+                                            className="testcase-main"
                                         >
                                             <div
-                                                className="testscripts-card"
+                                                className="testcase-card"
                                                 key={script._id}
                                             >
-                                                <div className="testscripts-image">
+                                                <div className="testcase-image">
                                                     <img
                                                         src={
                                                             '../../../public/Testscript.svg'
                                                         }
                                                         alt=""
-                                                        className="iconimg"
+                                                        className="testcaseicon"
                                                     />
-                                                    <div className="testscripticonimg-small">
-                                                        <div className="icon-border1">
+                                                    <div className="testcaseicons-small">
+                                                        <div className="testcase-border1">
                                                             <Tooltip
                                                                 title="Edit Project"
                                                                 placement="top-end"
                                                             >
                                                                 <img
-                                                                    className="edit-pic1"
+                                                                    className="testcase-pic1"
                                                                     src={`../../../public/edit.svg`}
                                                                 />
                                                             </Tooltip>
                                                         </div>
-                                                        <div className="icon-border1">
+                                                        <div className="testcase-border1">
                                                             <Tooltip
                                                                 title="Delete Project"
                                                                 placement="top-end"
                                                             >
                                                                 <img
-                                                                    className="edit-pic1"
+                                                                    className="testcase-pic1"
                                                                     src={`../../../public/delete-outlined.svg`}
                                                                 />
                                                             </Tooltip>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="testscripts-description">
+                                                <div className="testcase-description">
                                                     <b>
                                                         Test Case Number{' '}
                                                         {script.testCaseNumber}
                                                     </b>
-                                                    <p className="paragraph">
-                                                        Author:{script.author}
+                                                    <p>
+                                                        <b>Author:</b>
+                                                        {script.author}
                                                     </p>
-                                                    <p className="paragraph">
-                                                        Created on:
+                                                    <p>
+                                                        <b>Created on:</b>
                                                         {new Date(
                                                             script.createdAt
                                                         ).toLocaleDateString()}
