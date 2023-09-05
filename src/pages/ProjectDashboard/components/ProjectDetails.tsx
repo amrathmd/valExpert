@@ -46,57 +46,142 @@ const ProjectDetails: React.FC<Props> = ({ project }) => {
     const firstRowRightFields = defaultProject.slice(4, 7);
     const secondRowLeftFields = defaultProject.slice(7, 10);
     const secondRowRightFields = defaultProject.slice(10);
+    const total = 12;
+    const fail = 6;
+    const notRun = 3;
+    const pass = 3;
 
+    const failWidth = (fail / total) * 100 + '%';
+    const passWidth = (pass / total) * 100 + '%';
+    const notRunWidth = (notRun / total) * 100 + '%';
     return (
         <div className="project-details-container">
             <div className="projectdetailstop">
                 <table className="table1">
                     <tbody>
                         <tr>
-                            <th>Total Requirements</th>
-                            <th>Total Test Cases</th>
-                            <th>Total Bugs</th>
-                            <th>Uncovered Reuirements</th>
+                            <td className="project-tabledata">
+                                <b>Total Requirements</b>
+                            </td>
+                            <td className="project-tabledata">
+                                <b>Total Test Cases</b>
+                            </td>
+                            <td className="project-tabledata">
+                                <b>Total Bugs</b>
+                            </td>
+                            <td className="project-tabledata">
+                                <b>Uncovered Reuirements</b>
+                            </td>
+                            <td className="project-progress-bar">
+                                <b>Execution Program</b>
+                            </td>
                         </tr>
                         <tr>
-                            <td>{project.requirementsets.length}</td>
-                            <td>{project.testsets.length}</td>
-                            <td>Total Bugs</td>
-                            <td>Uncovered Reuirements</td>
+                            <td className="project-tabledata">
+                                {project.requirementsets.length}
+                            </td>
+                            <td className="project-tabledata">
+                                {project.testsets.length}
+                            </td>
+                            <td className="project-tabledata">Total Bugs</td>
+                            <td className="project-tabledata">
+                                Uncovered Reuirements
+                            </td>
+                            <td className="project-progress-bar">
+                                <div className="progress-bar">
+                                    <div className="status-bar">
+                                        <div className="progress-container">
+                                            <div
+                                                className="not-run"
+                                                style={{ width: notRunWidth }}
+                                            >
+                                                <span>&nbsp;</span>
+                                            </div>
+                                            <div
+                                                className="fail"
+                                                style={{ width: failWidth }}
+                                            >
+                                                <span>&nbsp;</span>
+                                            </div>
+                                            <div
+                                                className="pass"
+                                                style={{ width: passWidth }}
+                                            >
+                                                <span>&nbsp;</span>
+                                            </div>
+                                        </div>
+                                        <div className="total">
+                                            <span>&nbsp;</span>
+                                        </div>
+                                    </div>
+                                    <div className="labels-values-container">
+                                        <div className="label-cell">
+                                            <b className="b-total">
+                                                Total Test Cases:
+                                            </b>
+                                            <span>{total}</span>
+                                        </div>
+                                        <div className="label-cell">
+                                            <b className="b-pass">Pass:</b>
+                                            <span>{pass}</span>
+                                        </div>
+                                        <div className="label-cell">
+                                            <b className="b-fail">Fail:</b>
+                                            <span>{fail}</span>
+                                        </div>
+                                        <div className="label-cell">
+                                            <b className="b-not-run">No Run:</b>
+                                            <span>{notRun}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <hr />
+            <div className="project-detail-line"></div>
             <div className="project-details-row">
                 <div className="project-details-left">
                     {firstRowLeftFields.map((item) => (
                         <div key={item.key} className="project-details-item">
-                            <b>{item.label}:</b> {project[item.key]}
+                            <b>{item.label}:</b>
+                            <span className="project-details-value">
+                                {project[item.key]}
+                            </span>
                         </div>
                     ))}
                 </div>
                 <div className="project-details-right">
                     {firstRowRightFields.map((item) => (
                         <div key={item.key} className="project-details-item">
-                            <b>{item.label}:</b> {project[item.key]}
+                            <b>{item.label}:</b>
+                            <span className="project-details-value">
+                                {project[item.key]}
+                            </span>
                         </div>
                     ))}
                 </div>
             </div>
-            <hr />
+            <div className="project-detail-line"></div>
             <div className="project-details-row">
                 <div className="project-details-left">
                     {secondRowLeftFields.map((item) => (
                         <div key={item.key} className="project-details-item">
-                            <b>{item.label}:</b> {project[item.key]}
+                            <b>{item.label}:</b>
+                            <span className="project-details-value">
+                                {project[item.key]}
+                            </span>
                         </div>
                     ))}
                 </div>
                 <div className="project-details-right">
                     {secondRowRightFields.map((item) => (
                         <div key={item.key} className="project-details-item">
-                            <b>{item.label}:</b> {project[item.key]}
+                            <b>{item.label}:</b>
+                            <span className="project-details-value">
+                                {project[item.key]}
+                            </span>
                         </div>
                     ))}
                 </div>
