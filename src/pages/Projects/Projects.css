@@ -8,14 +8,13 @@
     align-items: center;
 }
 .projects-section {
-    width: 100vw;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, 10rem);
-    column-gap: 150px;
+    column-gap: 130px;
     row-gap: 60px;
     flex-wrap: auto;
-    padding: 0rem 5rem 5rem;
-    margin-top: 20px;
+    padding: 20px;
 }
 .projects-section.visible {
     width: 80vw;
@@ -100,12 +99,12 @@
 }
 .searchbar {
     display: flex;
-    height: 60px;
+    height: 50px;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #b8b6b6;
-    padding-left: 3vw;
-    padding-right: 3vw;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .searchbarright {
     display: flex;

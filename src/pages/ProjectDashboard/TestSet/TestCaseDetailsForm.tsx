@@ -69,6 +69,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
     const [testStep, setTestStep] = React.useState<TestStep>(defaultForm);
     const [isSaved, setIsSaved] = React.useState(false);
     const [isEditMode, setIsEditMode] = React.useState(false);
+    const [maxNumber, setMaxNumber] = React.useState<number>(1);
 
     const schema = {
         testCaseNumber: Joi.number().required(),
@@ -100,6 +101,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
     };
     const handleSubmitTestCaseForm = async (event: any) => {
         event.preventDefault();
+        testCase.testCaseNumber = maxNumber;
         testCase.testsetId = testsetId;
         const { error } = Joi.validate(testCase, schema, {
             allowUnknown: true,
@@ -115,7 +117,6 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                     testCase
                 );
                 if (result) {
-                    console.log(result.data);
                     setSaveTestCase(result.data._id);
                 }
             } catch (e) {
@@ -124,13 +125,30 @@ const TestCaseDetailsForm: React.FC<Props> = ({
         }
     };
 
+    React.useEffect(() => {
+        const FetchTestCases = async () => {
+            const result = await axios.get(
+                `${react_backend_url}/v1/testscripts`
+            );
+            const sortedArray = [...result.data];
+            if (sortedArray.length > 0) {
+                sortedArray.sort((a, b) => a.testCaseNumber - b.testCaseNumber);
+                setMaxNumber(
+                    sortedArray[sortedArray.length - 1].testCaseNumber + 1
+                );
+            }
+        };
+        FetchTestCases();
+    });
+
     return (
         <div className="TesCaseForm-container">
             {!savedTestCase ? (
                 <List
                     sx={{
-                        width: '60vw',
+                        width: '100%',
                         bgcolor: 'background.paper',
+                        padding: '0px',
                     }}
                     component="nav"
                     aria-labelledby="nested-list-subheader"
@@ -151,41 +169,57 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                         unmountOnExit
                     >
                         <form>
-                            <label className="testCaseFormLabel">
-                                <b>Test Case Number</b>
-                            </label>
-                            <input
-                                name="testCaseNumber"
-                                className="testCaseFormInput"
-                                onChange={handleInputFieldChange}
-                            ></input>
-                            <label className="testCaseFormLabel">
-                                <b>Purpose</b>
-                            </label>
-                            <textarea
-                                name="purpose"
-                                rows={4}
-                                className="testCaseFormArea"
-                                onChange={handleInputFieldChange}
-                            ></textarea>
-                            <label className="testCaseFormLabel">
-                                <b>Acceptance Criteria</b>
-                            </label>
-                            <textarea
-                                name="acceptanceCriteria"
-                                rows={4}
-                                className="testCaseFormArea"
-                                onChange={handleInputFieldChange}
-                            ></textarea>
-                            <label className="testCaseFormLabel">
-                                <b>Prerequisites</b>
-                            </label>
-                            <textarea
-                                name="prerequisites"
-                                rows={4}
-                                className="testCaseFormArea"
-                                onChange={handleInputFieldChange}
-                            ></textarea>
+                            <table className="testCase-form">
+                                <tr>
+                                    <td style={{ paddingRight: '5px' }}>
+                                        <label className="testCaseFormLabel">
+                                            <b>Test Case Number</b>
+                                        </label>
+                                        <input
+                                            name="testCaseNumber"
+                                            className="testCaseFormInput"
+                                            value={maxNumber}
+                                        ></input>
+                                    </td>
+
+                                    <td style={{ paddingLeft: '5px' }}>
+                                        <label className="testCaseFormLabel">
+                                            <b>Purpose</b>
+                                        </label>
+                                        <textarea
+                                            name="purpose"
+                                            rows={4}
+                                            className="testCaseFormArea"
+                                            onChange={handleInputFieldChange}
+                                        ></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style={{ paddingRight: '5px' }}>
+                                        <label className="testCaseFormLabel">
+                                            <b>Acceptance Criteria</b>
+                                        </label>
+                                        <textarea
+                                            name="acceptanceCriteria"
+                                            rows={4}
+                                            className="testCaseFormArea"
+                                            onChange={handleInputFieldChange}
+                                        ></textarea>
+                                    </td>
+
+                                    <td style={{ paddingLeft: '5px' }}>
+                                        <label className="testCaseFormLabel">
+                                            <b>Prerequisites</b>
+                                        </label>
+                                        <textarea
+                                            name="prerequisites"
+                                            rows={4}
+                                            className="testCaseFormArea"
+                                            onChange={handleInputFieldChange}
+                                        ></textarea>
+                                    </td>
+                                </tr>
+                            </table>
                         </form>
                         <List
                             sx={{
