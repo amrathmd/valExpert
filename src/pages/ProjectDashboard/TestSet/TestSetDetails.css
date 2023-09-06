@@ -11,15 +11,7 @@
     color: white;
     font-size: 10pt;
 }
-.testcase-section {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
 
-    padding: 20px;
-}
 .test-set-details-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -30,13 +22,25 @@
     display: flex;
     flex-direction: column;
 }
+.testcase-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
 
+    padding: 20px;
+}
 .testcase-card {
     width: 160px;
     height: 170px;
     border-radius: 7.693px;
     border: 0.962px solid #d0d5dd;
     padding: 5px;
+}
+.testcase-card:hover {
+    background-color: #eff5fe;
+    transition: background-color 0.3s;
 }
 .testcase-image {
     display: flex;

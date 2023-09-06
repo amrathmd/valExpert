@@ -77,15 +77,19 @@ const ProjectDetails: React.FC<Props> = ({ project }) => {
                             </td>
                         </tr>
                         <tr>
-                            <td className="project-tabledata">
-                                {project.requirementsets.length}
+                            <td className="project-tabledata1">
+                                <b>{project.requirementsets.length}</b>
                             </td>
-                            <td className="project-tabledata">
-                                {project.testsets.length}
+                            <td className="project-tabledata1">
+                                <b>{project.testsets.length}</b>
                             </td>
-                            <td className="project-tabledata">Total Bugs</td>
-                            <td className="project-tabledata">
-                                Uncovered Reuirements
+
+                            <td className="project-tabledata-bugs">
+                                <b>9</b>
+                            </td>
+
+                            <td className="project-tabledata-bugs">
+                                <b>10</b>
                             </td>
                             <td className="project-progress-bar">
                                 <div className="progress-bar">

@@ -27,18 +27,17 @@
     height: 14rem;
     display: flex;
     justify-content: center;
-    transition: all 0.5s ease;
 }
 
-.project-main:hover {
-    transform: scale(1.1);
-}
 .projects-card {
     cursor: pointer;
     width: 15rem;
     height: 10rem;
 }
-
+.project-main:hover {
+    background-color: #eff5fe;
+    transition: background-color 0.3s;
+}
 .projects-card b {
     color: #000;
     font-feature-settings: 'clig' off, 'liga' off;

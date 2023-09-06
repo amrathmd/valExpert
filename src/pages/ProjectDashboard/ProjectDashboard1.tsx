@@ -324,8 +324,11 @@ const Dashboard = () => {
                                 onClick={handleProjectClick}
                                 sx={{
                                     display: 'flex',
-                                    alignItems: 'center', // Align items vertically in the center
+                                    alignItems: 'center',
+                                    marginLeft: '0px',
+                                    paddingLeft: '0px',
                                 }}
+                                className="first-list-item"
                             >
                                 <div className="dashboard-sidebar-subheader">
                                     <FolderOutlinedIcon />
@@ -333,7 +336,7 @@ const Dashboard = () => {
                                         style={{
                                             fontSize: '9pt',
                                             margin: '5px',
-                                            width: '8rem',
+                                            width: '10rem',
                                             fontWeight: 600,
                                         }}
                                     >
@@ -350,7 +353,7 @@ const Dashboard = () => {
                             onClick={handleClick}
                             sx={{
                                 display: 'flex',
-                                alignItems: 'center', // Align items vertically in the center
+                                alignItems: 'center',
                             }}
                         >
                             <FolderOutlinedIcon />

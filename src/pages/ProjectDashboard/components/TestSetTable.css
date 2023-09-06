@@ -1,91 +1,57 @@
 .testset-section {
-    width: 76.875vw;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 10rem);
-    column-gap: 150px;
-    row-gap: 60px;
-    flex-wrap: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
 
-    margin-top: 20px;
+    padding: 20px;
 }
-.testset-section.visible {
-    width: 80vw;
-}
-.testSet-main {
+
+.testSet-card {
+    width: 200px;
+    height: 190px;
     border-radius: 7.693px;
     border: 0.962px solid #d0d5dd;
-    background: #fff;
-    width: 17rem;
-    height: 16rem;
-    display: flex;
-    justify-content: center;
-    transition: all 0.5s ease;
+    padding: 5px;
 }
-
-.testSet-main:hover {
-    transform: scale(1.1);
-}
-.testSet-card {
-    cursor: pointer;
-    width: 15rem;
-    height: 10rem;
-}
-
-.testSet-card b {
-    color: #000;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: 'Inter';
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    letter-spacing: -0.262px;
-}
-.paragraph {
-    color: #000;
-    font-family: 'Poppins';
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+.testSet-card:hover {
+    background-color: #eff5fe;
+    transition: background-color 0.3s;
 }
 .testSet-image {
-    width: 12rem;
-    height: 10rem;
     display: flex;
     justify-content: space-between;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    row-gap: 1rem;
-    column-gap: 2rem;
-}
-.iconimg {
-    height: 8rem;
-    width: 8rem;
-}
-.icon-border1 {
-    height: 30px;
-    width: 30px;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    border-radius: 7.693px;
-    border: 0.962px solid #d0d5dd;
-    background: #fff;
-    border: 0.962px solid #d0d5dd;
-    background: #fff;
 }
-.edit-pic1 {
+.testseticonimg {
+    width: 80px;
+    height: 80px;
+}
+.testseticon-border1 {
+    border-radius: 5px;
+    border: 0.962px solid #d0d5dd;
+}
+.testsetedit-pic1 {
     width: 20px;
     height: 20px;
 }
-.iconimg-small {
-    align-self: flex-start;
+.testseticonimg-small {
+    height: 80px;
+    width: 80px;
     display: flex;
-    column-gap: 2px;
-    margin-bottom: 6rem;
-    margin-left: 1rem;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 5px;
 }
-.test-description {
-    margin-bottom: 2rem;
+
+.testset-description {
+    padding-left: 10px;
+}
+.testset-description > b {
+    font-size: 10pt;
+}
+.testset-description > p {
+    font-size: 9pt;
 }

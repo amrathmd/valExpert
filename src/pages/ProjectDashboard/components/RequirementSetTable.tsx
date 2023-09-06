@@ -47,10 +47,10 @@ const RequirementSetTable: React.FC<props> = ({
                                 <img
                                     src={'../../../public/projectdoc.png'}
                                     alt=""
-                                    className="iconimg"
+                                    className="requireimg"
                                 />
                                 <div className="iconimg-small">
-                                    <div className="icon-border1">
+                                    <div className="icon-border12">
                                         <Tooltip
                                             title="Edit Project"
                                             placement="top-end"
@@ -61,7 +61,7 @@ const RequirementSetTable: React.FC<props> = ({
                                             />
                                         </Tooltip>
                                     </div>
-                                    <div className="icon-border1">
+                                    <div className="icon-border12">
                                         <Tooltip
                                             title="Delete Project"
                                             placement="top-end"
@@ -74,14 +74,15 @@ const RequirementSetTable: React.FC<props> = ({
                                     </div>
                                 </div>
                             </div>
-                            <div className="test-description">
+                            <div className="reqtest-description">
                                 <b>{item.name}</b>
-                                <p className="paragraph">
-                                    Completion Date{': '}
+                                <p>
+                                    <b>Date:</b>
                                     {formatDate(item.createdAt)}
                                 </p>
-                                <p className="paragraph">
-                                    Status: {item.status}
+                                <p>
+                                    <b>Status: </b>
+                                    {item.status}
                                 </p>
                             </div>
                         </div>

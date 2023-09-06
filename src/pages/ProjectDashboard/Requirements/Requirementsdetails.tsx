@@ -161,9 +161,9 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
                                 style={{
                                     marginBottom: showTables[requirement._id]
                                         ? '0px'
-                                        : '16px', // Adjust the margin as needed
+                                        : '16px',
                                     display: 'flex',
-                                    justifyContent: 'space-between', // Push elements to the left and right
+                                    justifyContent: 'space-between',
                                 }}
                             >
                                 <div className="flex-container">
@@ -178,7 +178,7 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
                                             <IconButton
                                                 size="small"
                                                 aria-label="Collapse"
-                                                className="white-icon"
+                                                className="black-icon"
                                             >
                                                 <ExpandLessIcon />
                                             </IconButton>
@@ -186,12 +186,12 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
                                             <IconButton
                                                 size="small"
                                                 aria-label="Expand"
-                                                className="white-icon"
+                                                className="black-icon"
                                             >
                                                 <ExpandMoreIcon />
                                             </IconButton>
                                         )}
-                                        Requirement ID: {requirement._id}
+                                        <b>Requirement ID: {requirement._id}</b>
                                     </h2>
                                 </div>
                                 <div className="action-icon">

@@ -39,44 +39,45 @@ const TestSetTable: React.FC<props> = ({ testSets }) => {
                                 <img
                                     src={'../../../public/projectdoc.png'}
                                     alt=""
-                                    className="iconimg"
+                                    className="testseticonimg"
                                 />
-                                <div className="iconimg-small">
-                                    <div className="icon-border1">
+                                <div className="testseticonimg-small">
+                                    <div className="testseticon-border1">
                                         <Tooltip
                                             title="Edit Project"
                                             placement="top-end"
                                         >
                                             <img
-                                                className="edit-pic1"
+                                                className="testsetedit-pic1"
                                                 src={`../../../public/edit.svg`}
                                             />
                                         </Tooltip>
                                     </div>
-                                    <div className="icon-border1">
+                                    <div className="testseticon-border1">
                                         <Tooltip
                                             title="Delete Project"
                                             placement="top-end"
                                         >
                                             <img
-                                                className="edit-pic1"
+                                                className="testsetedit-pic1"
                                                 src={`../../../public/delete-outlined.svg`}
                                             />
                                         </Tooltip>
                                     </div>
                                 </div>
                             </div>
-                            <div className="project-description">
+                            <div className="testset-description">
                                 <b>{item.testSetName}</b>
-                                <p className="paragraph">
-                                    Category:{item.category}
+                                <p>
+                                    <b>Category:</b>
+                                    {item.category}
                                 </p>
-                                <p className="paragraph">
-                                    Completion Date{': '}
+                                <p>
+                                    <b>Completion Date{': '}</b>
                                     {formatDate(item.createdAt)}
                                 </p>
-                                <p className="paragraph">
-                                    Status: {item.status}
+                                <p>
+                                    <b>Status:</b> {item.status}
                                 </p>
                             </div>
                         </div>

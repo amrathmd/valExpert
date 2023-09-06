@@ -57,9 +57,10 @@
 }
 .req-projectName > p {
     color: #000;
-    font-size: 1.25rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     line-height: normal;
 }
 .req-header-underline {
@@ -160,8 +161,8 @@
 }
 .requirementSets-header > p {
     color: #000;
-    font-family: 'Poppins';
-    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -200,4 +201,8 @@
 }
 .dashboard-sidebar-subheader {
     display: flex;
+    padding: 0;
+}
+.first-list-item {
+    margin-right: 20px; /* Adjust the margin value as needed */
 }

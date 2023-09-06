@@ -13,9 +13,10 @@
 }
 .category-title-container {
     display: flex;
-    background-color: #3575ba;
+    background-color: #f0f1f5;
     margin: 0px 0px 0px 0px;
     width: 68.46vw;
+    padding-left: 20px;
 }
 .category-title-container::after {
     content: '';
@@ -27,7 +28,7 @@
     right: 0;
 }
 .category-title-text {
-    color: white;
+    color: black;
     height: 44px;
     display: flex;
     align-items: center;
@@ -41,7 +42,7 @@
 
 .content-table1 {
     border-collapse: collapse;
-    width: 67.46vw;
+    width: 68.46vw;
     height: 44px;
     border-radius: 5px 5px 0 0;
 
@@ -136,6 +137,7 @@
     align-items: center;
     width: 76.36vw;
     padding: 1vh 0vw 1vh 0vw;
+    padding-left: 20px;
     position: sticky;
 }
 

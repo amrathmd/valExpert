@@ -74,6 +74,21 @@
 }
 .project-tabledata {
     width: 10%;
+    font-weight: 400;
+    font-family: Poppins;
+}
+.project-tabledata1 {
+    width: 10%;
+    font-weight: 400;
+    font-family: Poppins;
+    font-size: 30px;
+}
+.project-tabledata-bugs {
+    color: red;
+    width: 10%;
+    font-weight: 400;
+    font-family: Poppins;
+    font-size: 30px;
 }
 .project-progress-bar {
     width: 60%;
