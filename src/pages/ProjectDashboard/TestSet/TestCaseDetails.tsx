@@ -42,7 +42,7 @@ const TestCaseDetails: React.FC<Props> = ({ testCaseId }) => {
         { key: 'prerequisites', label: 'Prerequisites' },
     ];
     return (
-        <div className="testcasedetials">
+        <div className="testcasedetails">
             <List
                 sx={{
                     width: '100%',
@@ -60,24 +60,61 @@ const TestCaseDetails: React.FC<Props> = ({ testCaseId }) => {
                     {openTestCaseDetails ? <ExpandLess /> : <ExpandMore />}
 
                     <span className="header-text-testcase">
-                        Test case Details
+                        <b>Test case Details</b>
                     </span>
                 </div>
-                <Collapse in={openTestCaseDetails} timeout="auto" unmountOnExit>
-                    <table className="testCaseTable">
-                        {testCase &&
-                            testCaseDummy.map((item) => (
-                                <tr key={item.key}>
-                                    <td className="testDetailsLabel">
-                                        <b> {item.label}</b>
-                                    </td>
-                                    <td className="testDetailsValue">
-                                        {testCase[item.key]}
-                                    </td>
-                                </tr>
-                            ))}
-                    </table>
-                </Collapse>
+                <div className="testcasedetails1">
+                    <Collapse
+                        in={openTestCaseDetails}
+                        timeout="auto"
+                        unmountOnExit
+                    >
+                        {testCase && (
+                            <div className="testCaseDetailsView">
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td className="testDetailsLabel">
+                                                <b>Test case Number</b>
+                                            </td>
+                                            <td className="testDetailsValue">
+                                                {testCase.testCaseNumber}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="testDetailsLabel">
+                                                <b>Purpose</b>
+                                            </td>
+                                            <td className="testDetailsValue">
+                                                {testCase.purpose}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td className="testDetailsLabel">
+                                                <b>Acceptance Criteria</b>
+                                            </td>
+                                            <td className="testDetailsValue">
+                                                {testCase.acceptanceCriteria}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="testDetailsLabel">
+                                                <b>Prerequisites</b>
+                                            </td>
+                                            <td className="testDetailsValue">
+                                                {testCase.prerequisites}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        )}
+                    </Collapse>
+                </div>
             </List>
             <hr style={{ background: '#B8B6B6', height: '1px' }} />
         </div>

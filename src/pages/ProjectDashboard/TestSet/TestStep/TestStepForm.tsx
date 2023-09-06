@@ -13,6 +13,8 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
+    InputAdornment,
+    Collapse,
 } from '@mui/material';
 import axios from 'axios';
 import { react_backend_url } from '../../../../config';
@@ -25,6 +27,8 @@ interface TestStep {
 }
 import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from 'react-router';
+import SearchIcon from '@mui/icons-material/Search';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 interface Props {
     count: number;
@@ -63,12 +67,16 @@ const TestStepForm: React.FC<Props> = ({
     const [saving, setSaving] = React.useState<boolean>(false);
     const [success, setSuccess] = React.useState<boolean>(false);
     const [SaveDialogOpen, setSaveDialogOpen] = React.useState(false);
+    const [openTestStepForm, setOpenTestStepForm] = React.useState(false);
 
     const handlePageChange = (event: any, page: number) => {
         setCurrentPage(page);
     };
     const handleEditClick = () => {
         setIsEditMode(!isEditMode);
+    };
+    const handleTestStepFormCollpse = () => {
+        setOpenTestStepForm(!openTestStepForm);
     };
     const handleSaveEdited = async () => {
         const testStepId = currStep._id;
@@ -177,71 +185,107 @@ const TestStepForm: React.FC<Props> = ({
                         </Alert>
                     )}
                     <div className="TestStepFormheader">
-                        <div className="testStep-mini-header">
+                        <div
+                            className="testStep-mini-header"
+                            onClick={handleTestStepFormCollpse}
+                        >
+                            {openTestStepForm ? <ExpandLess /> : <ExpandMore />}
                             <p>Step {currPage}</p>
                         </div>
-                        <div className="testStepform-icons">
-                            {isEditMode ? (
-                                <Tooltip title="Edit" placement="top-end">
-                                    <img
-                                        src="../../../../../public/whiteedit.png"
-                                        alt="edit"
-                                        className="testStepform-icon"
-                                        onClick={handleEditClick}
-                                    />
-                                </Tooltip>
-                            ) : (
-                                <Tooltip title="Save" placement="top-end">
-                                    <img
-                                        src="../../../../../public/vector.png"
-                                        alt="file"
-                                        className="testStepform-icon"
-                                        onClick={handleSave}
-                                    />
-                                </Tooltip>
-                            )}
-                            <Tooltip title="Link" placement="top-end">
-                                <img
-                                    src="../../../../../public/link.png"
-                                    alt="link"
-                                    className="testStepform-icon"
-                                />
-                            </Tooltip>
-                            <Tooltip title="Delete" placement="top-end">
-                                <img
-                                    src="../../../../../public/Delete.png"
-                                    alt="delete"
-                                    className="testStepform-icon"
-                                />
-                            </Tooltip>
+                        <div className="searchTestSet">
+                            <TextField
+                                placeholder="Search"
+                                size="small"
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <SearchIcon />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
                         </div>
                     </div>
-                    <div className="TestStepFormInput">
-                        <div className="testStep-textarea">
-                            <label className="testStep-label-name">
-                                <b>Description</b>
-                            </label>
-                            <textarea
-                                className="formfield"
-                                name="description"
-                                rows={5}
-                                onChange={handleChange}
-                                value={testStep.description}
-                            ></textarea>
+                    <Collapse
+                        in={openTestStepForm}
+                        timeout="auto"
+                        unmountOnExit
+                    >
+                        <div>
+                            <div className="testSetHeaderBottom">
+                                <div className="testStepform-icons">
+                                    {isEditMode ? (
+                                        <Tooltip
+                                            title="Edit"
+                                            placement="top-end"
+                                        >
+                                            <img
+                                                src="../../../../../public/Edit1.png"
+                                                alt="edit"
+                                                className="testStepform-icon"
+                                                onClick={handleEditClick}
+                                            />
+                                        </Tooltip>
+                                    ) : (
+                                        <Tooltip
+                                            title="Save"
+                                            placement="top-end"
+                                        >
+                                            <img
+                                                src="../../../../../public/Save.png"
+                                                alt="file"
+                                                className="testStepform-icon"
+                                                onClick={handleSave}
+                                            />
+                                        </Tooltip>
+                                    )}
+                                    <Tooltip title="Delete" placement="top-end">
+                                        <img
+                                            src="../../../../../public/Delete1.png"
+                                            alt="delete"
+                                            className="testStepform-icon"
+                                        />
+                                    </Tooltip>
+                                </div>
+                            </div>
+                            <div className="TestStepFormInput">
+                                <div className="testStep-textarea">
+                                    <label className="testStep-label-name">
+                                        <b>Description</b>
+                                    </label>
+                                    <div className="formfield">
+                                        <textarea
+                                            className="textarea-testset"
+                                            name="description"
+                                            rows={5}
+                                            onChange={handleChange}
+                                            value={testStep.description}
+                                        ></textarea>
+                                    </div>
+                                </div>
+                                <div className="testStep-textarea">
+                                    <label className="testStep-label-name">
+                                        <b>Expected result</b>
+                                    </label>
+                                    <div className="formfield">
+                                        <textarea
+                                            className="textarea-testset"
+                                            name="expectedResult"
+                                            rows={5}
+                                            onChange={handleChange}
+                                            value={testStep.expectedResult}
+                                        ></textarea>
+                                    </div>
+                                </div>
+                                <div className="testStep-textarea">
+                                    <label className="testStep-label-name">
+                                        <b>Link requirements</b>
+                                    </label>
+                                    <div className="formfield"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="testStep-textarea">
-                            <label className="testStep-label-name">
-                                <b>Expected result</b>
-                            </label>
-                            <textarea
-                                className="formfield"
-                                name="expectedResult"
-                                rows={5}
-                                onChange={handleChange}
-                                value={testStep.expectedResult}
-                            ></textarea>
-                        </div>
-                    </div>
+                    </Collapse>
                 </div>
             ) : (
                 <div className="testStepForm">
@@ -251,104 +295,150 @@ const TestStepForm: React.FC<Props> = ({
                         </Alert>
                     )}
                     <div className="TestStepFormheader">
-                        <div className="testStep-mini-header">
+                        <div
+                            className="testStep-mini-header"
+                            onClick={handleTestStepFormCollpse}
+                        >
+                            {openTestStepForm ? <ExpandLess /> : <ExpandMore />}
                             <p>Step {currPage}</p>
                         </div>
-                        <div className="testStepform-icons">
-                            {isEditMode ? (
-                                <Tooltip title="Save" placement="top-end">
-                                    <img
-                                        src="../../../../../public/vector.png"
-                                        alt="file"
-                                        className="testStepform-icon"
-                                        onClick={handleSaveEdited}
-                                    />
-                                </Tooltip>
-                            ) : (
-                                <Tooltip title="Edit" placement="top-end">
-                                    <img
-                                        src="../../../../../public/whiteedit.png"
-                                        alt="edit"
-                                        className="testStepform-icon"
-                                        onClick={handleEditClick}
-                                    />
-                                </Tooltip>
-                            )}
-                            <Tooltip title="Link" placement="top-end">
-                                <img
-                                    src="../../../../../public/link.png"
-                                    alt="link"
-                                    className="testStepform-icon"
-                                />
-                            </Tooltip>
-                            <Tooltip title="Delete" placement="top-end">
-                                <img
-                                    src="../../../../../public/Delete.png"
-                                    alt="delete"
-                                    className="testStepform-icon"
-                                />
-                            </Tooltip>
+
+                        <div className="searchTestSet">
+                            <TextField
+                                placeholder="Search"
+                                size="small"
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <SearchIcon />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
                         </div>
                     </div>
-                    <div className="TestStepFormInput">
-                        <div className="testStep-textarea">
-                            <label className="testStep-label-name">
-                                <b>Description</b>
-                            </label>
-                            <textarea
-                                className="formfield"
-                                name="description"
-                                rows={5}
-                                onChange={handleChangeSaved}
-                                value={currStep ? currStep.description : ''}
-                            ></textarea>
+                    <Collapse
+                        in={openTestStepForm}
+                        timeout="auto"
+                        unmountOnExit
+                    >
+                        <div>
+                            <div className="testSetHeaderBottom">
+                                <div className="testStepform-icons">
+                                    <div className="iconstestset">
+                                        {isEditMode ? (
+                                            <Tooltip
+                                                title="Save"
+                                                placement="top-end"
+                                            >
+                                                <img
+                                                    src="../../../../../public/Save.png"
+                                                    alt="file"
+                                                    className="testStepform-icon"
+                                                    onClick={handleSaveEdited}
+                                                />
+                                            </Tooltip>
+                                        ) : (
+                                            <Tooltip
+                                                title="Edit"
+                                                placement="top-end"
+                                            >
+                                                <img
+                                                    src="../../../../../public/Edit1.png"
+                                                    alt="edit"
+                                                    className="testStepform-icon"
+                                                    onClick={handleEditClick}
+                                                />
+                                            </Tooltip>
+                                        )}
+                                        <Tooltip
+                                            title="Delete"
+                                            placement="top-end"
+                                        >
+                                            <img
+                                                src="../../../../../public/Delete1.png"
+                                                alt="delete"
+                                                className="testStepform-icon"
+                                            />
+                                        </Tooltip>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="TestStepFormInput">
+                                <div className="testStep-textarea">
+                                    <label className="testStep-label-name">
+                                        <b>Description</b>
+                                    </label>
+                                    <div className="formfield">
+                                        <textarea
+                                            className="textarea-testset"
+                                            name="description"
+                                            rows={5}
+                                            onChange={handleChangeSaved}
+                                            value={
+                                                currStep
+                                                    ? currStep.description
+                                                    : ''
+                                            }
+                                        ></textarea>
+                                    </div>
+                                </div>
+                                <div className="testStep-textarea">
+                                    <label className="testStep-label-name">
+                                        <b>Expected result</b>
+                                    </label>
+                                    <div className="formfield">
+                                        <textarea
+                                            className="textarea-testset"
+                                            name="expectedResult"
+                                            rows={5}
+                                            onChange={handleChangeSaved}
+                                            value={
+                                                currStep
+                                                    ? currStep.expectedResult
+                                                    : ''
+                                            }
+                                        ></textarea>
+                                    </div>
+                                </div>
+                                <div className="testStep-textarea">
+                                    <label className="testStep-label-name">
+                                        <b>Link requirements</b>
+                                    </label>
+                                    <div className="formfield"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="testStep-textarea">
-                            <label className="testStep-label-name">
-                                <b>Expected result</b>
-                            </label>
-                            <textarea
-                                className="formfield"
-                                name="expectedResult"
-                                rows={5}
-                                onChange={handleChangeSaved}
-                                value={currStep ? currStep.expectedResult : ''}
-                            ></textarea>
-                        </div>
-                    </div>
+                    </Collapse>
                 </div>
             )}
-            <Stack
-                spacing={2}
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    mt: '20px',
-                    mb: '20px',
-                }}
-            >
-                <Pagination
-                    count={count}
-                    variant="outlined"
-                    shape="rounded"
-                    onChange={handlePageChange}
-                    page={currPage}
-                />
-            </Stack>
-            <div className="testCasebuttons">
-                <button
-                    onClick={handleDialogOpen}
-                    className="testcasesavebutton"
-                >
-                    Save
-                </button>
-                <button
-                    className="testcasecancelbutton"
-                    onClick={handleTestCaseform}
-                >
-                    Cancel
-                </button>
-            </div>
+            <Collapse in={openTestStepForm}>
+                <div className="testsetformbottom">
+                    <div className="testsetpagination">
+                        <Pagination
+                            count={count}
+                            variant="outlined"
+                            shape="rounded"
+                            onChange={handlePageChange}
+                            page={currPage}
+                        />
+                    </div>
+                    <div className="teststepbutton">
+                        <button
+                            onClick={handleDialogOpen}
+                            className="testsetsavebutton"
+                        >
+                            Save
+                        </button>
+                        <button
+                            className="testsetcancelbutton"
+                            onClick={handleTestCaseform}
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </Collapse>
             {/* <div className="testStepRuler"></div> */}
             <Dialog
                 open={SaveDialogOpen && testSteps && testSteps.length == count}

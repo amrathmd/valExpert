@@ -39,6 +39,7 @@ interface Props {
     testsetId: string;
     projectId: string;
     setSelectedList: (selectedList: number) => void;
+    editTestCase: boolean;
 }
 interface TestStep {
     stepNumber: number;
@@ -58,6 +59,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
     testsetId,
     projectId,
     setSelectedList,
+    editTestCase,
 }) => {
     const [openTestCaseForm, setOpenTestCaseForm] = useState(true);
     const [testCase, setTestCase] = useState(defaultTestCase);
@@ -228,22 +230,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                             }}
                             component="nav"
                             aria-labelledby="nested-list-subheader"
-                        >
-                            {/* <div
-                            onClick={ToggleOpenTestStepForm}
-                            className="testStepHeader"
-                        >
-                            <img
-                                src="../../../../public/roundedplus.png"
-                                alt=""
-                                style={{
-                                    display: 'inline-block',
-                                    height: '30px',
-                                    width: '30px',
-                                }}
-                            />
-                        </div> */}
-                        </List>
+                        ></List>
                         {error && (
                             <div className="error-message">
                                 <p>{error}</p>
@@ -266,7 +253,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                     </Collapse>
                 </List>
             ) : (
-                <div>
+                <div className="testcaseandsetdetails">
                     <TestCaseDetails testCaseId={savedTestCase} />
                     <div
                         onClick={handleTestStepForm}

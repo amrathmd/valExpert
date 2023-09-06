@@ -206,3 +206,14 @@
 .first-list-item {
     margin-right: 20px; /* Adjust the margin value as needed */
 }
+.noitemsselected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: Arial;
+    font-weight: 700;
+
+    color: #b8b6b6;
+    width: 100%;
+    height: 100%;
+}

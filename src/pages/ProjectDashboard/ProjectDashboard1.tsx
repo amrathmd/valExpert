@@ -125,10 +125,12 @@ const Dashboard = () => {
     };
     const handleClick = () => {
         setOpenRequirementSet(!openRequirementSet);
+        setOpenTestSets(false);
         setopenProject(false);
         setSelectedList(1);
         setSelectedTestSet(null);
         setSelectedRequirementSet(null);
+        setOpenDefects(false);
     };
     const handleRequirementSetClick = (reqSetId: any) => {
         setSelectedRequirementSet(reqSetId);
@@ -140,6 +142,8 @@ const Dashboard = () => {
     };
     const handleTestsSetClick = () => {
         setOpenTestSets(!openTestSets);
+        setOpenDefects(false);
+        setOpenRequirementSet(false);
         setopenProject(false);
         setOpenTestSet(false);
         setOpentestCase(false);
@@ -175,23 +179,10 @@ const Dashboard = () => {
         setSelectedList(2);
     };
 
-    const handleTestCaseSelectedClick = (id: string) => {
-        if (SelectedTestCase === id && openTestCase === true) {
-            setOpentestCase(false);
-        } else {
-            setOpentestCase(true);
-        }
-        setSelectedTestCase(id);
-    };
-
-    const handleTestCaseClick = (id: string) => {
-        console.log(id);
-    };
-    const handleTestScriptSelectedClick = (id: string) => {
-        setSelectedTestScript(id);
-    };
     const handleDefectClick = () => {
         setOpenDefects(!openDefects);
+        setOpenRequirementSet(false);
+        setOpenTestSets(false);
     };
     const handleDefectSelectedClick = (id: string) => {
         setSelectedDefect(id);
@@ -560,7 +551,12 @@ const Dashboard = () => {
                         />
                     )}
                     {selectedList === 2 && openTestSets && (
-                        <TestSetTable testSets={testSets} />
+                        <TestSetTable
+                            testSets={testSets}
+                            handleTestSetSelectedClick={
+                                handleTestSetSelectedClick
+                            }
+                        />
                     )}
                     {requirementSetForm && (
                         <div className="blur-background">
@@ -579,6 +575,9 @@ const Dashboard = () => {
                                 projectId={projectId}
                             />
                         </div>
+                    )}
+                    {!openRequirementSet && !openTestSets && !openDefects && (
+                        <div className="noitemsselected">No items selected</div>
                     )}
                 </div>
             </div>
