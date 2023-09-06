@@ -217,7 +217,7 @@ const TestStepForm: React.FC<Props> = ({
                         </div>
                     </div>
                     <div className="TestStepFormInput">
-                        <div>
+                        <div className="testStep-textarea">
                             <label className="testStep-label-name">
                                 <b>Description</b>
                             </label>
@@ -229,7 +229,7 @@ const TestStepForm: React.FC<Props> = ({
                                 value={testStep.description}
                             ></textarea>
                         </div>
-                        <div>
+                        <div className="testStep-textarea">
                             <label className="testStep-label-name">
                                 <b>Expected result</b>
                             </label>
@@ -291,7 +291,7 @@ const TestStepForm: React.FC<Props> = ({
                         </div>
                     </div>
                     <div className="TestStepFormInput">
-                        <div>
+                        <div className="testStep-textarea">
                             <label className="testStep-label-name">
                                 <b>Description</b>
                             </label>
@@ -303,7 +303,7 @@ const TestStepForm: React.FC<Props> = ({
                                 value={currStep ? currStep.description : ''}
                             ></textarea>
                         </div>
-                        <div>
+                        <div className="testStep-textarea">
                             <label className="testStep-label-name">
                                 <b>Expected result</b>
                             </label>

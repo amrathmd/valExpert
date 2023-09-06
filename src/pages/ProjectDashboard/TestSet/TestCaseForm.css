@@ -1,8 +1,7 @@
 .TestCaseFrom-header {
     background-color: #3575ba;
     color: white;
-    margin-bottom: 20px;
-    padding: 10px;
+    padding: 5px;
 }
 
 .testcasecancelbutton {
@@ -34,11 +33,8 @@
 }
 .header-text-testcase {
     color: #fff;
-    font-family: Poppins;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    font-size: 10pt;
+    font-weight: 500;
 }
 .header-text-teststep {
     margin-left: 5px;
@@ -53,14 +49,17 @@
     cursor: pointer;
     margin-bottom: 10px;
 }
+
+.testCase-form td {
+    width: 50%;
+}
 .testCaseFormArea {
     display: inline-block;
-    width: 60vw;
+    width: 100%;
     border-radius: 4px;
     border: 1px solid #d9d9d9;
-    padding: 10px;
-    margin-bottom: 10px;
-    resize: none;
+    padding: 5px;
+    resize: vertical;
 }
 .testCaseFormLabel {
     font-size: 9pt;
@@ -73,8 +72,7 @@
     border: 1px solid #d9d9d9;
     width: 423px;
     height: 44px;
-    margin-bottom: 10px;
-    padding: 10px;
+    padding: 5px;
 }
 .error-message {
     display: flex;
@@ -85,4 +83,11 @@
 .error-message > p {
     color: red;
     font-size: 14px;
+}
+.testCase-form {
+    width: 100%;
+    padding: 0px;
+}
+.column-gap {
+    padding-right: 10px;
 }

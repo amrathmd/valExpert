@@ -8,14 +8,6 @@ const StickyHeader = () => {
                 <div className="project-title">
                     <img src="../../public/logo.png" alt="" />
                 </div>
-                <div className="project-header-icons">
-                    <div className="user-icons">
-                        <img src={'../../../public/GroupProf.png'} alt="" />
-                    </div>
-                    <div className="user-icons">
-                        <img src={'../../../public/LogOutImg.png'} alt="" />
-                    </div>
-                </div>
             </div>
             <div className="title-underline"></div>
         </div>

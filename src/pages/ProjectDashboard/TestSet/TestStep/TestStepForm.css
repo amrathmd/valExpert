@@ -7,7 +7,7 @@
     height: 45px;
 }
 .testStepForm {
-    width: 60vw;
+    width: 100%;
 }
 .testStepform-icons {
     display: flex;
@@ -29,14 +29,16 @@
     margin-left: 20px;
 }
 .TestStepFormInput {
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    /* display: flex;
+    flex-direction: row; */
 }
 .testStep-label-name {
     display: block;
     font-size: 9pt;
     margin: 5px;
-    width: 30vw;
+    width: 50%;
 }
 
 .formfield {
@@ -51,7 +53,7 @@
     width: 100%;
     background: #b8b6b6;
     margin-bottom: 19px;
-    width: 83.75vw;
+    width: 100%;
 }
 .testStep-mini-header {
     margin-left: 10px;
@@ -60,4 +62,7 @@
     color: white;
     font-size: 12pt;
     font-weight: 500;
+}
+.testStep-textarea {
+    width: 50%;
 }
