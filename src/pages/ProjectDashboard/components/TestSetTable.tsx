@@ -27,13 +27,21 @@ interface TestSet {
 }
 interface props {
     testSets: TestSet[];
+    handleTestSetSelectedClick: (id: string) => void;
 }
-const TestSetTable: React.FC<props> = ({ testSets }) => {
+const TestSetTable: React.FC<props> = ({
+    testSets,
+    handleTestSetSelectedClick,
+}) => {
     return (
         <section className={`testset-section`}>
             {testSets.length !== 0 &&
                 testSets.map((item) => (
-                    <div key={item._id} className="testSet-main">
+                    <div
+                        key={item._id}
+                        className="testSet-main"
+                        onClick={() => handleTestSetSelectedClick(item._id)}
+                    >
                         <div className="testSet-card" key={item._id}>
                             <div className="testSet-image">
                                 <img

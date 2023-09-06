@@ -114,6 +114,7 @@ const TestSetDetails: React.FC<Props> = ({
                                     testsetId={testSet}
                                     projectId={projectId}
                                     setSelectedList={setSelectedList}
+                                    editTestCase={false}
                                 />
                             )}
                         </div>
