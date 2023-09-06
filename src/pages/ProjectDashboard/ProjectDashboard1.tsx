@@ -28,7 +28,7 @@ import TestStepForm from './TestSet/TestStep/TestStepForm';
 import TestCaseHeader from './components/TestCaseHeader';
 import { Icon } from '@iconify/react';
 import filmScript from '@iconify/icons-ph/film-script';
-
+import ProjectDetails from './components/ProjectDetails';
 interface TestSet {
     Type: string;
     _id: string;
@@ -104,6 +104,7 @@ const Dashboard = () => {
     const [project, setProject] = useState<ProjectInterface>(null);
     const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
     const [loadingPdf, setLoadingPdf] = useState<boolean>(false);
+    const [openProject, setopenProject] = useState<boolean>(false);
     const [isTestCaseFormVisible, setTestCaseFormVisible] =
         React.useState(false);
 
@@ -116,6 +117,11 @@ const Dashboard = () => {
     };
 
     const { id: projectId } = useParams();
+    const handleProjectClick = () => {
+        setopenProject(!openProject);
+        setSelectedTestSet(null);
+        setSelectedRequirementSet(null);
+    };
     const handleClick = () => {
         setOpenRequirementSet(!openRequirementSet);
         setSelectedList(1);
@@ -309,22 +315,30 @@ const Dashboard = () => {
                         component="nav"
                         aria-labelledby="nested-list-subheader"
                         subheader={
-                            <div className="dashboard-sidebar-subheader">
-                                <FolderOutlinedIcon />
-                                <p
-                                    style={{
-                                        fontSize: '9pt',
-                                        margin: '5px',
-                                        width: '8rem',
-                                        fontWeight: 600,
-                                    }}
-                                >
-                                    Project:{' '}
-                                    {project
-                                        ? project.projectName
-                                        : 'Loading...'}
-                                </p>
-                            </div>
+                            <ListItemButton
+                                onClick={handleProjectClick}
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center', // Align items vertically in the center
+                                }}
+                            >
+                                <div className="dashboard-sidebar-subheader">
+                                    <FolderOutlinedIcon />
+                                    <p
+                                        style={{
+                                            fontSize: '9pt',
+                                            margin: '5px',
+                                            width: '8rem',
+                                            fontWeight: 600,
+                                        }}
+                                    >
+                                        Project:{' '}
+                                        {project
+                                            ? project.projectName
+                                            : 'Loading...'}
+                                    </p>
+                                </div>
+                            </ListItemButton>
                         }
                     >
                         <ListItemButton
@@ -502,7 +516,8 @@ const Dashboard = () => {
                     </List>
                 </div>
                 <div className="content-bar">
-                    {/*project && <ProjectDetails project={project} />*/}
+                    {project && <ProjectDetails project={project} />}
+                    {/* {openProject && <ProjectDetails project={projectId} />} */}
                     {selectedRequirementSet && (
                         <Requirements
                             selectedItem={selectedList}
