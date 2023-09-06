@@ -104,7 +104,7 @@ const Dashboard = () => {
     const [project, setProject] = useState<ProjectInterface>(null);
     const [isReqFormActive, setReqFormActive] = React.useState<boolean>(false);
     const [loadingPdf, setLoadingPdf] = useState<boolean>(false);
-    const [openProject, setopenProject] = useState<boolean>(false);
+    const [openProject, setopenProject] = useState<boolean>(true);
     const [isTestCaseFormVisible, setTestCaseFormVisible] =
         React.useState(false);
 
@@ -119,17 +119,20 @@ const Dashboard = () => {
     const { id: projectId } = useParams();
     const handleProjectClick = () => {
         setopenProject(!openProject);
+        setSelectedList(0);
         setSelectedTestSet(null);
         setSelectedRequirementSet(null);
     };
     const handleClick = () => {
         setOpenRequirementSet(!openRequirementSet);
+        setopenProject(false);
         setSelectedList(1);
         setSelectedTestSet(null);
         setSelectedRequirementSet(null);
     };
     const handleRequirementSetClick = (reqSetId: any) => {
         setSelectedRequirementSet(reqSetId);
+        setopenProject(false);
         setSelectedList(0);
         setSelectedTestSet(null);
         setTestSetForm(false);
@@ -137,6 +140,7 @@ const Dashboard = () => {
     };
     const handleTestsSetClick = () => {
         setOpenTestSets(!openTestSets);
+        setopenProject(false);
         setOpenTestSet(false);
         setOpentestCase(false);
         setSelectedList(2);
@@ -158,6 +162,7 @@ const Dashboard = () => {
         setSelectedList(0);
         setSelectedRequirementSet(null);
         setTestSetForm(false);
+        setopenProject(false);
     };
     const handleTestSetForm = () => {
         setTestSetForm(!testSetForm);
@@ -516,8 +521,10 @@ const Dashboard = () => {
                     </List>
                 </div>
                 <div className="content-bar">
-                    {project && <ProjectDetails project={project} />}
-                    {/* {openProject && <ProjectDetails project={projectId} />} */}
+                    {project && openProject && (
+                        <ProjectDetails project={project} />
+                    )}
+                    {}
                     {selectedRequirementSet && (
                         <Requirements
                             selectedItem={selectedList}
