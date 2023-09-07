@@ -129,9 +129,11 @@ const Projects = () => {
                                     </div>
                                 </div>
                                 <div className="project-description">
-                                    <b>{item.projectName}</b>
-                                    <p className="para">
-                                        Completion Date{': '}
+                                    <p className="projectpara">
+                                        <b>{item.projectName}</b>
+                                    </p>
+                                    <p>
+                                        <b>Completion Date{': '}</b>
                                         {formatDate(item.estimationDate)}
                                     </p>
                                 </div>

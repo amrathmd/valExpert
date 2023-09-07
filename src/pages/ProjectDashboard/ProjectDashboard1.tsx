@@ -122,6 +122,7 @@ const Dashboard = () => {
         setSelectedList(0);
         setSelectedTestSet(null);
         setSelectedRequirementSet(null);
+        setTestSetForm(false);
     };
     const handleClick = () => {
         setOpenRequirementSet(!openRequirementSet);
@@ -129,8 +130,13 @@ const Dashboard = () => {
         setopenProject(false);
         setSelectedList(1);
         setSelectedTestSet(null);
-        setSelectedRequirementSet(null);
         setOpenDefects(false);
+        setopenProject(false);
+        setOpenTestSet(false);
+        setOpentestCase(false);
+        setSelectedRequirementSet(null);
+        setSelectedTestSet(null);
+        setTestSetForm(false);
     };
     const handleRequirementSetClick = (reqSetId: any) => {
         setSelectedRequirementSet(reqSetId);
@@ -172,6 +178,9 @@ const Dashboard = () => {
         setTestSetForm(!testSetForm);
         setSelectedTestSet(null);
         setSelectedList(0);
+        setOpentestCase(false);
+        setSelectedRequirementSet(null);
+        setopenProject(false);
     };
     const handleTestSetFormClose = () => {
         setTestSetForm(!testSetForm);
@@ -515,9 +524,16 @@ const Dashboard = () => {
                     </List>
                 </div>
                 <div className="content-bar">
-                    {project && openProject && (
+                    {/* {project && openProject && (
                         <ProjectDetails project={project} />
-                    )}
+                    )} */}
+                    {openProject && project ? (
+                        <ProjectDetails project={project} />
+                    ) : null}
+
+                    {!openProject && selectedList === 0 ? (
+                        <div className="noitemsselected">No Item Selected</div>
+                    ) : null}
                     {}
                     {selectedRequirementSet && (
                         <Requirements
@@ -542,22 +558,26 @@ const Dashboard = () => {
                             />
                         </div>
                     )}
-                    {selectedList === 1 && (
+                    {selectedList === 1 && openRequirementSet ? (
                         <RequirementSetTable
                             requirementSets={requirementSets}
                             handleRequirementSetClick={
                                 handleRequirementSetClick
                             }
                         />
-                    )}
-                    {selectedList === 2 && openTestSets && (
+                    ) : selectedList === 1 ? (
+                        <div className="noitemsselected">No Item Selected</div>
+                    ) : null}
+                    {selectedList === 2 && openTestSets ? (
                         <TestSetTable
                             testSets={testSets}
                             handleTestSetSelectedClick={
                                 handleTestSetSelectedClick
                             }
                         />
-                    )}
+                    ) : selectedList === 2 ? (
+                        <div className="noitemsselected">No Item Selected</div>
+                    ) : null}
                     {requirementSetForm && (
                         <div className="blur-background">
                             <div className="requirementsetform">
@@ -575,9 +595,6 @@ const Dashboard = () => {
                                 projectId={projectId}
                             />
                         </div>
-                    )}
-                    {!openRequirementSet && !openTestSets && !openDefects && (
-                        <div className="noitemsselected">No items selected</div>
                     )}
                 </div>
             </div>
