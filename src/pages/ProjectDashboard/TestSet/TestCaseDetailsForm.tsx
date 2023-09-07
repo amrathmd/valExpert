@@ -2,6 +2,10 @@ import { ExpandLess, ExpandMore, FifteenMp } from '@mui/icons-material';
 import {
     Button,
     Collapse,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
     InputLabel,
     List,
     ListItemText,
@@ -72,6 +76,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
     const [isSaved, setIsSaved] = React.useState(false);
     const [isEditMode, setIsEditMode] = React.useState(false);
     const [maxNumber, setMaxNumber] = React.useState<number>(1);
+    const [cancel, setCancel] = React.useState<boolean>(false);
 
     const schema = {
         testCaseNumber: Joi.number().required(),
@@ -142,6 +147,11 @@ const TestCaseDetailsForm: React.FC<Props> = ({
         };
         FetchTestCases();
     });
+    const capitalizeWholeString = (inputString: string) => {
+        if (inputString) {
+            return inputString.toUpperCase();
+        }
+    };
 
     return (
         <div className="TesCaseForm-container">
@@ -233,7 +243,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                         ></List>
                         {error && (
                             <div className="error-message">
-                                <p>{error}</p>
+                                <p>{capitalizeWholeString(error)}</p>
                             </div>
                         )}
                         <div className="testCasebuttons">
@@ -245,12 +255,28 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                             </button>
                             <button
                                 className="testcasecancelbutton"
-                                onClick={handleTestCaseForm}
+                                onClick={() => setCancel(true)}
                             >
                                 Cancel
                             </button>
                         </div>
                     </Collapse>
+                    <Dialog open={cancel}>
+                        <DialogTitle>Confirm Cancel</DialogTitle>
+                        <DialogContent>
+                            Are you sure, You will lose the changes made in this
+                            testcase!
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button onClick={() => setCancel(false)}>
+                                Cancel
+                            </Button>
+                            <Button onClick={handleTestCaseForm} color="error">
+                                Exit
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </List>
             ) : (
                 <div className="testcaseandsetdetails">

@@ -29,6 +29,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from 'react-router';
 import SearchIcon from '@mui/icons-material/Search';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import Joi from 'joi-browser';
 
 interface Props {
     count: number;
@@ -68,6 +69,8 @@ const TestStepForm: React.FC<Props> = ({
     const [success, setSuccess] = React.useState<boolean>(false);
     const [SaveDialogOpen, setSaveDialogOpen] = React.useState(false);
     const [openTestStepForm, setOpenTestStepForm] = React.useState(false);
+    const [validationError, setValidationError] = React.useState<string>();
+    const [cancel, setCancel] = React.useState<boolean>(false);
 
     const handlePageChange = (event: any, page: number) => {
         setCurrentPage(page);
@@ -87,11 +90,24 @@ const TestStepForm: React.FC<Props> = ({
         setIsEditMode(false);
         setSuccess(true);
     };
+    const schema = {
+        stepNumber: Joi.number().required(),
+        description: Joi.string().required(),
+        expectedResult: Joi.string().required(0),
+    };
 
     const handleSave = async () => {
         if (!isSaved) {
+            setValidationError(null);
             testStep.stepNumber = count;
             testStep.testscriptId = testCaseId;
+            const { error } = Joi.validate(testStep, schema, {
+                allowUnknown: true,
+            });
+            if (error) {
+                setValidationError(error.details[0].message);
+                return;
+            }
             setSaving(true);
             try {
                 const response = await axios.post(
@@ -174,6 +190,20 @@ const TestStepForm: React.FC<Props> = ({
     const History = useNavigate();
     const handleTestStepForm = () => {
         History(`/dashboard/${projectId}`);
+    };
+    function capitalizeWholeString(inputString: string) {
+        if (!inputString) {
+            return inputString;
+        }
+
+        return inputString.toUpperCase();
+    }
+    const handleExitFromForm = async () => {
+        await axios
+            .delete(`${react_backend_url}/v1/testscripts/${testCaseId}`)
+            .then(() => {
+                handleTestCaseform();
+            });
     };
     return (
         <div>
@@ -283,6 +313,14 @@ const TestStepForm: React.FC<Props> = ({
                                     </label>
                                     <div className="formfield"></div>
                                 </div>
+                            </div>
+                            <div className="testseterrormessage">
+                                {validationError && (
+                                    <p>
+                                        {' '}
+                                        {capitalizeWholeString(validationError)}
+                                    </p>
+                                )}
                             </div>
                         </div>
                     </Collapse>
@@ -408,6 +446,14 @@ const TestStepForm: React.FC<Props> = ({
                                     <div className="formfield"></div>
                                 </div>
                             </div>
+                            <div className="testseterrormessage">
+                                {validationError && (
+                                    <p>
+                                        {' '}
+                                        {capitalizeWholeString(validationError)}
+                                    </p>
+                                )}
+                            </div>
                         </div>
                     </Collapse>
                 </div>
@@ -432,14 +478,14 @@ const TestStepForm: React.FC<Props> = ({
                         </button>
                         <button
                             className="testsetcancelbutton"
-                            onClick={handleTestCaseform}
+                            onClick={() => setCancel(!cancel)}
                         >
                             Cancel
                         </button>
                     </div>
                 </div>
             </Collapse>
-            {/* <div className="testStepRuler"></div> */}
+
             <Dialog
                 open={SaveDialogOpen && testSteps && testSteps.length == count}
                 onClose={() => setSaveDialogOpen(false)}
@@ -470,6 +516,18 @@ const TestStepForm: React.FC<Props> = ({
                 <DialogActions>
                     <Button onClick={() => setSaveDialogOpen(false)}>
                         Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog open={cancel}>
+                <DialogTitle>Confirm cancel</DialogTitle>
+                <DialogContent>
+                    You will lose all the changes made!
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setCancel(false)}>Cancel</Button>
+                    <Button onClick={handleExitFromForm} color="error">
+                        Exit
                     </Button>
                 </DialogActions>
             </Dialog>
