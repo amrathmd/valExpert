@@ -8,8 +8,9 @@ import {
     Button,
     TextField,
     IconButton,
+    InputAdornment,
 } from '@mui/material';
-
+import SearchIcon from '@mui/icons-material/Search';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import './Requirements.css';
 import { react_backend_url } from '../../../config';
@@ -142,169 +143,206 @@ const Requirementsdetails: React.FC<RequirementsdetailsProps> = ({
     };
 
     return (
-        <div>
-            <div className="req-set-header">
-                <b>Requirement Set Name : {requirementSetName}</b>
-                <div className="req-set-right">
-                    <b>Status : Draft</b>
-                    <b>Version : 1.3</b>
+        <div className="requirements-page">
+            <div className="req-leftSide">
+                <div className="req-set-header">
+                    <div className="req-ser-header-left">
+                        <b>Requirement Set Name : {requirementSetName}</b>
+                        <div className="req-set-bottom">
+                            <p>
+                                <b>Status :</b>
+                                Draft
+                            </p>
+                            <p>
+                                <b>Version :</b> 1.3
+                            </p>
+                        </div>
+                    </div>
+                    <div className="req-ser-header-right">
+                        <TextField
+                            placeholder="Search"
+                            size="small"
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    </div>
+                </div>
+                <div className="req-title-underline"></div>
+                <div className="requirements-Details">
+                    {requirements.length > 0 ? (
+                        !editDialogOpen &&
+                        requirements.map((requirement: Requirement) => (
+                            <div key={requirement._id} className="Main23">
+                                <div className="category-title-container">
+                                    <div className="flex-container">
+                                        <div
+                                            className="category-title-text"
+                                            onClick={() =>
+                                                handleToggleTable(
+                                                    requirement._id
+                                                )
+                                            }
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            {showTables[requirement._id] ? (
+                                                <IconButton
+                                                    size="small"
+                                                    aria-label="Collapse"
+                                                    className="black-icon"
+                                                >
+                                                    <ExpandLessIcon />
+                                                </IconButton>
+                                            ) : (
+                                                <IconButton
+                                                    size="small"
+                                                    aria-label="Expand"
+                                                    className="black-icon"
+                                                >
+                                                    <ExpandMoreIcon />
+                                                </IconButton>
+                                            )}
+                                            <b>
+                                                Requirement ID:{' '}
+                                                {requirement._id}
+                                            </b>
+                                        </div>
+                                    </div>
+                                    <div className="action-icon">
+                                        <div className="icon-border">
+                                            <Tooltip
+                                                title="Edit Requirement"
+                                                placement="top-end"
+                                            >
+                                                <img
+                                                    className="edit-pic"
+                                                    src={`../../../public/edit.svg`}
+                                                    onClick={() =>
+                                                        handleEditIconClick(
+                                                            requirement
+                                                        )
+                                                    }
+                                                />
+                                            </Tooltip>
+                                        </div>
+                                        <div className="icon-border">
+                                            <Tooltip
+                                                title="Delete Requirement"
+                                                placement="top-end"
+                                            >
+                                                <img
+                                                    className="edit-pic"
+                                                    src={`../../../public/delete-outlined.svg`}
+                                                    onClick={() =>
+                                                        handleDeleteIconClick(
+                                                            requirement
+                                                        )
+                                                    }
+                                                />
+                                            </Tooltip>
+                                        </div>
+                                    </div>
+                                </div>
+                                {showTables[requirement._id] && (
+                                    <table className="content-table1">
+                                        <thead>
+                                            <tr>
+                                                <th>Requirement Description</th>
+                                                <th>Author</th>
+                                                <th>Reference</th>
+                                                <th>Priority</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td className="req-middlePart">
+                                                    <p
+                                                        style={{
+                                                            textOverflow:
+                                                                'clip',
+                                                            width: '27vw',
+                                                        }}
+                                                    >
+                                                        {requirement
+                                                            .requirementDescription
+                                                            .length > 50
+                                                            ? requirement.requirementDescription.substring(
+                                                                  0,
+                                                                  47
+                                                              ) + '...'
+                                                            : requirement.requirementDescription}
+                                                    </p>
+                                                </td>
+                                                <td>{requirement.author}</td>
+                                                <td>{requirement.reference}</td>
+                                                <td className="req-rightPart"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                )}
+                                <Dialog
+                                    open={deleteDialogOpen}
+                                    onClose={() => setDeleteDialogOpen(false)}
+                                >
+                                    <DialogTitle>Confirm Delete</DialogTitle>
+                                    <DialogContent>
+                                        Are you sure you want to delete this
+                                        requirement?
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button
+                                            onClick={() =>
+                                                setDeleteDialogOpen(false)
+                                            }
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Button
+                                            onClick={handleDeleteRequirement}
+                                            color="error"
+                                        >
+                                            Delete
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="no-requirements">
+                            <h3>
+                                No requirements created in this requirement set
+                            </h3>
+                        </div>
+                    )}
+                    {editDialogOpen && (
+                        <ReqForm
+                            selectedRequirement={selectedRequirement}
+                            handleFormActive={() => setEditDialogOpen(false)}
+                            selectedRequirementSet={undefined}
+                            setSelectedList={setSelectedList}
+                        />
+                    )}
                 </div>
             </div>
-            <div className="req-title-underline"></div>
-            <div className="requirements-Details">
-                {requirements.length > 0 ? (
-                    !editDialogOpen &&
-                    requirements.map((requirement: Requirement) => (
-                        <div key={requirement._id} className="Main23">
-                            <div
-                                className="category-title-container"
-                                style={{
-                                    marginBottom: showTables[requirement._id]
-                                        ? '0px'
-                                        : '16px',
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                }}
-                            >
-                                <div className="flex-container">
-                                    <h2
-                                        className="category-title-text"
-                                        onClick={() =>
-                                            handleToggleTable(requirement._id)
-                                        }
-                                        style={{ cursor: 'pointer' }}
-                                    >
-                                        {showTables[requirement._id] ? (
-                                            <IconButton
-                                                size="small"
-                                                aria-label="Collapse"
-                                                className="black-icon"
-                                            >
-                                                <ExpandLessIcon />
-                                            </IconButton>
-                                        ) : (
-                                            <IconButton
-                                                size="small"
-                                                aria-label="Expand"
-                                                className="black-icon"
-                                            >
-                                                <ExpandMoreIcon />
-                                            </IconButton>
-                                        )}
-                                        <b>Requirement ID: {requirement._id}</b>
-                                    </h2>
-                                </div>
-                                <div className="action-icon">
-                                    <div className="icon-border">
-                                        <Tooltip
-                                            title="Edit Requirement"
-                                            placement="top-end"
-                                        >
-                                            <img
-                                                className="edit-pic"
-                                                src={`../../../public/edit.svg`}
-                                                onClick={() =>
-                                                    handleEditIconClick(
-                                                        requirement
-                                                    )
-                                                }
-                                            />
-                                        </Tooltip>
-                                    </div>
-                                    <div className="icon-border">
-                                        <Tooltip
-                                            title="Delete Requirement"
-                                            placement="top-end"
-                                        >
-                                            <img
-                                                className="edit-pic"
-                                                src={`../../../public/delete-outlined.svg`}
-                                                onClick={() =>
-                                                    handleDeleteIconClick(
-                                                        requirement
-                                                    )
-                                                }
-                                            />
-                                        </Tooltip>
-                                    </div>
-                                </div>
-                            </div>
-                            {showTables[requirement._id] && (
-                                <table className="content-table1">
-                                    <thead>
-                                        <tr>
-                                            <th>Requirement Description</th>
-                                            <th>Author</th>
-                                            <th>Reference</th>
-                                            <th>Priority</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td className="req-middlePart">
-                                                <p
-                                                    style={{
-                                                        textOverflow: 'clip',
-                                                        width: '27vw',
-                                                    }}
-                                                >
-                                                    {requirement
-                                                        .requirementDescription
-                                                        .length > 50
-                                                        ? requirement.requirementDescription.substring(
-                                                              0,
-                                                              47
-                                                          ) + '...'
-                                                        : requirement.requirementDescription}
-                                                </p>
-                                            </td>
-                                            <td>{requirement.author}</td>
-                                            <td>{requirement.reference}</td>
-                                            <td className="req-rightPart"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            )}
-                            <Dialog
-                                open={deleteDialogOpen}
-                                onClose={() => setDeleteDialogOpen(false)}
-                            >
-                                <DialogTitle>Confirm Delete</DialogTitle>
-                                <DialogContent>
-                                    Are you sure you want to delete this
-                                    requirement?
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button
-                                        onClick={() =>
-                                            setDeleteDialogOpen(false)
-                                        }
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <Button
-                                        onClick={handleDeleteRequirement}
-                                        color="error"
-                                    >
-                                        Delete
-                                    </Button>
-                                </DialogActions>
-                            </Dialog>
-                        </div>
-                    ))
-                ) : (
-                    <div className="no-requirements">
-                        <h3>No requirements created in this requirement set</h3>
-                    </div>
-                )}
-                {editDialogOpen && (
-                    <ReqForm
-                        selectedRequirement={selectedRequirement}
-                        handleFormActive={() => setEditDialogOpen(false)}
-                        selectedRequirementSet={undefined}
-                        setSelectedList={setSelectedList}
-                    />
-                )}
+            <div className="req-Rightpart">
+                <b> Version History</b>
+                <table className="reqRight-table">
+                    <tr>
+                        <th style={{ width: '20%;' }}>Version</th>
+                        <th style={{ width: '30%;' }}>Status</th>
+                        <th style={{ width: '50%;' }}>Created On</th>
+                    </tr>
+
+                    <tr>
+                        <td style={{ width: '20%;' }}>1.0</td>
+                        <td style={{ width: '30%;' }}>Approved</td>
+                        <td style={{ width: '50%;' }}>16-Aug-2023</td>
+                    </tr>
+                </table>
             </div>
         </div>
     );
