@@ -527,13 +527,10 @@ const Dashboard = () => {
                     {/* {project && openProject && (
                         <ProjectDetails project={project} />
                     )} */}
-                    {openProject && project ? (
+                    {openProject && project && (
                         <ProjectDetails project={project} />
-                    ) : null}
+                    )}
 
-                    {!openProject && selectedList === 0 ? (
-                        <div className="noitemsselected">No Item Selected</div>
-                    ) : null}
                     {}
                     {selectedRequirementSet && (
                         <Requirements
@@ -558,26 +555,22 @@ const Dashboard = () => {
                             />
                         </div>
                     )}
-                    {selectedList === 1 && openRequirementSet ? (
+                    {selectedList === 1 && openRequirementSet && (
                         <RequirementSetTable
                             requirementSets={requirementSets}
                             handleRequirementSetClick={
                                 handleRequirementSetClick
                             }
                         />
-                    ) : selectedList === 1 ? (
-                        <div className="noitemsselected">No Item Selected</div>
-                    ) : null}
-                    {selectedList === 2 && openTestSets ? (
+                    )}
+                    {selectedList === 2 && openTestSets && (
                         <TestSetTable
                             testSets={testSets}
                             handleTestSetSelectedClick={
                                 handleTestSetSelectedClick
                             }
                         />
-                    ) : selectedList === 2 ? (
-                        <div className="noitemsselected">No Item Selected</div>
-                    ) : null}
+                    )}
                     {requirementSetForm && (
                         <div className="blur-background">
                             <div className="requirementsetform">
