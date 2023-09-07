@@ -1,3 +1,6 @@
+.TestSet-page {
+    padding: 20px;
+}
 .testCaseheader {
     width: 100%;
     background: #3575ba;
@@ -93,4 +96,37 @@
 }
 .test-set-details-column {
     margin-top: 15px;
+}
+
+.testSet-main {
+    display: grid;
+    grid-template-columns: auto 260px;
+}
+.testSet-left {
+    padding-right: 10px;
+}
+.testSet-right {
+    width: 260px;
+    height: 100vh;
+    border-left: 1px solid #b8b6b6;
+    padding-top: 40px;
+}
+.testRight-table {
+    width: 100%;
+    margin: 5px;
+}
+.testSet-right > b {
+    font-size: 11pt;
+    margin: 5px;
+}
+.testRight-table tr th {
+    font-size: 10pt;
+    text-align: left;
+    padding: 5px 0px 5px 0px;
+    border-top: 1px solid #dbdada;
+    border-bottom: 1px solid #dbdada;
+}
+.testRight-table tr td {
+    font-size: 10pt;
+    text-align: left;
 }

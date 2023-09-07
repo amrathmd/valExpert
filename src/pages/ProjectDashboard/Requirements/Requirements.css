@@ -6,19 +6,21 @@
     width: 100%;
 }
 .Main23 {
-    width: 68.46vw;
+    width: 100%;
 }
 .category-title {
-    width: 68.46vw;
+    /* width: 68.46vw; */
 }
 .category-title-container {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #f0f1f5;
-    margin: 0px 0px 0px 0px;
-    width: 68.46vw;
-    padding-left: 20px;
+    padding: 0 px 10px 0px 10px;
+    /* margin: 0px 0px 0px 0px;
+    padding-left: 20px; */
 }
-.category-title-container::after {
+/* .category-title-container::after {
     content: '';
     width: 1px;
     height: 100vh;
@@ -26,13 +28,16 @@
     position: absolute;
     top: 0;
     right: 0;
-}
+} */
 .category-title-text {
     color: black;
-    height: 44px;
+    height: 40px;
     display: flex;
     align-items: center;
     padding-left: 0px;
+}
+.category-title-text > b {
+    font-size: 10pt;
 }
 .action-icon {
     display: flex;
@@ -42,7 +47,7 @@
 
 .content-table1 {
     border-collapse: collapse;
-    width: 68.46vw;
+    width: 100%;
     height: 44px;
     border-radius: 5px 5px 0 0;
 
@@ -91,24 +96,25 @@
     border-radius: 5px;
 }
 .requirements-Details {
-    width: 68.46vw;
-    padding: 1vh 3vw 0vh 0.9vw;
+    width: 100%;
+    padding-top: 20px;
 }
 .parent-requirement-set {
     float: left;
-    width: 83.75vw;
+    width: 83.33vw;
     overflow-y: auto;
     height: 100vh;
+    padding: 0px 20px;
 }
 
 .edit-pic {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
 }
 
 .icon-border {
-    height: 35px;
-    width: 35px;
+    height: 30px;
+    width: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -135,28 +141,34 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 76.36vw;
-    padding: 1vh 0vw 1vh 0vw;
-    padding-left: 20px;
-    position: sticky;
+    padding-bottom: 10px;
 }
-
-.req-set-right {
+.req-ser-header-left {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.req-ser-header-left > b {
+    font-size: 10pt;
+}
+.req-set-bottom {
+    width: 100%;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-right: 3vw;
 }
-
+.req-set-bottom > p {
+    font-size: 10pt;
+}
 .req-id {
     text-decoration: underline;
     color: blue;
 }
 .req-title-underline {
     width: 100%;
-    height: 0.0625rem;
+    height: 1px;
     background: #b8b6b6;
 }
 .white-icon {
@@ -225,4 +237,40 @@
     color: #ffff;
     font-family: Arial;
     margin-left: 20px;
+}
+
+.req-leftSide {
+    padding-top: 20px;
+    padding-right: 10px;
+}
+
+.req-Rightpart {
+    border-left: 1px solid #dbdada;
+    width: 260px;
+    height: 100vh;
+    padding-top: 40px;
+}
+.req-Rightpart > b {
+    font-size: 11pt;
+    margin: 5px;
+}
+
+.requirements-page {
+    display: grid;
+    grid-template-columns: auto 260px;
+}
+.reqRight-table {
+    width: 100%;
+    margin: 5px;
+}
+.reqRight-table tr th {
+    font-size: 10pt;
+    text-align: left;
+    padding: 5px 0px 5px 0px;
+    border-top: 1px solid #dbdada;
+    border-bottom: 1px solid #dbdada;
+}
+.reqRight-table tr td {
+    font-size: 10pt;
+    text-align: left;
 }
