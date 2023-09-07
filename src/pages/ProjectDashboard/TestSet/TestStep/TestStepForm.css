@@ -1,0 +1,158 @@
+.TestStepFormheader {
+    background: var(--Light-Gray, #f0f1f5);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+    cursor: pointer;
+}
+.testStepForm {
+    width: 100%;
+}
+.testStepform-icons {
+    display: flex;
+    flex-direction: row;
+    margin-right: 30px;
+    gap: 10px;
+    cursor: pointer;
+}
+.testSetHeaderBottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 45px;
+    align-items: center;
+}
+.iconstestset {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 3px;
+}
+.testStepform-icon {
+    height: 20px;
+    width: 20px;
+}
+.testsetformbottom {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+}
+.teststepbutton {
+    width: 10%;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-right: 20px;
+    right: 20px;
+    gap: 5px;
+}
+.testsetpagination {
+    width: 90%;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.testsetsavebutton {
+    background-color: #3575ba;
+    color: white;
+    font-weight: 600;
+    font-size: 10pt;
+    padding: 5px;
+    border-radius: 3px;
+    width: 100px;
+}
+.testsetcancelbutton {
+    background-color: #696969;
+    color: white;
+    font-weight: 600;
+    font-size: 10pt;
+    padding: 5px;
+    border-radius: 3px;
+    width: 100px;
+}
+.testset .TestStepFormheader h3 {
+    color: #fff;
+    font-size: 11pt;
+    font-weight: 500;
+    margin-left: 20px;
+}
+.TestStepFormInput {
+    width: 100%;
+    display: flex;
+}
+.testStep-label-name {
+    display: block;
+    font-size: 9pt;
+    margin: 5px;
+    width: 50%;
+}
+
+.formfield {
+    width: 100%;
+    padding: 5px;
+    height: 145px;
+    border: 1px solid #b8b6b6;
+}
+.linkrequirements {
+    border: 1px solid #b8b6b6;
+    height: 142px;
+}
+.testsetformfields {
+    display: flex;
+    flex-direction: row;
+}
+.testsetformlabels tr {
+    width: 100%;
+}
+.testsetformlabels {
+    display: flex;
+    flex-direction: row;
+}
+
+.testStepRuler {
+    height: 1px;
+    width: 100%;
+    background: #b8b6b6;
+    margin-bottom: 19px;
+    width: 100%;
+}
+.testStep-mini-header {
+    margin-left: 10px;
+}
+.testStep-mini-header > p {
+    color: black;
+    font-size: 12pt;
+    font-weight: 600;
+    display: inline;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.testStep-mini-header {
+    width: 80%;
+}
+.testStep-textarea {
+    width: 50%;
+}
+.searchTestSet {
+    margin-right: 20px;
+}
+.textarea-testset {
+    width: 100%;
+    border: none;
+    resize: none;
+    outline: none;
+    padding: 0px;
+    margin: 0px;
+}
+.testseterrormessage {
+    color: #ff3333;
+    font-size: 10pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+}

@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios';
-
+import { User } from '@/components/Models/adminUsersModel';
 import Joi from 'joi-browser';
 import './userForm.css';
 import {
@@ -10,6 +11,9 @@ import {
     Typography,
 } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import { Stack, Chip } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckIcon from '@mui/icons-material/Check';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -21,6 +25,9 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
+
 import {
     VisibilityOff,
     Visibility,
@@ -31,28 +38,17 @@ import {
     Email,
     AccountBox,
 } from '@mui/icons-material';
-import { countries } from 'countries-list';
+// import { countries } from 'countries-list';
 import { OnChangeValue } from 'react-select';
-interface User {
-    fullname: string;
-    username: string;
-    email: string;
-    mobile: string;
-    status: string;
-    group: string[];
-    country: string;
-    office: string;
-    department: string;
-    password: string;
-}
+import { react_backend_url } from '../../config';
 
-const defaultUser: User = {
+const defaultUser = {
+    _id: '',
     fullname: '',
     username: '',
     email: '',
     mobile: '',
     status: 'Active',
-    password: '',
     country: '',
     group: [''],
     department: '',
@@ -80,25 +76,68 @@ function getStyles(name: string, group: string[], theme: Theme) {
                 : theme.typography.fontWeightMedium,
     };
 }
+
+const countries = [
+    {
+        id: 1,
+        name: 'India',
+    },
+    {
+        id: 2,
+        name: 'Pakisthan',
+    },
+    {
+        id: 3,
+        name: 'Srilanka',
+    },
+    {
+        id: 4,
+        name: 'USA',
+    },
+    {
+        id: 5,
+        name: 'Canada',
+    },
+];
+
 const initialErrors = {
     fullname: '',
     username: '',
     email: '',
-    password: '',
+
     mobile: '',
 };
-
-const UserForm = () => {
-    const [selectedOption, setSelectedOption] = useState('Active');
+interface UserFormProps {
+    userDetails: User | null;
+    isEditMode: boolean;
+}
+const UserForm = ({ userDetails, isEditMode }: UserFormProps) => {
     const [user, setUser] = useState(defaultUser);
+    const [name, setName] = useState([]);
+
+    const [selectedOption, setSelectedOption] = useState('Active');
     const [ValidationError, setvalidationError] = useState<string>('');
     const theme = useTheme();
     const [group, setGroup] = React.useState<string[]>([]);
-    const [showPassword, setShowPassword] = React.useState(false);
+
     const [selectedStatus, setSelectedStatus] = useState('Active');
     const [selectedCountry, setSelectedCountry] = useState('');
     const [error, setError] = useState(initialErrors);
     const [booleanError, setBooleanError] = useState<boolean>(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showUpdateSuccess, setShowUpdateSuccess] = useState(false);
+
+    useEffect(() => {
+        if (isEditMode && userDetails) {
+            setUser((prevUser) => ({
+                ...prevUser,
+                ...userDetails,
+            }));
+            setSelectedStatus(userDetails.status);
+            setSelectedCountry(userDetails.country);
+            setGroup(userDetails.group);
+        }
+    }, [isEditMode, userDetails]);
 
     const handleCountryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -110,8 +149,9 @@ const UserForm = () => {
             };
         });
     };
-
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleBack = () => {
+        history.back();
+    };
 
     const countryOptions = Object.keys(countries).map((countryCode) => ({
         code: countryCode,
@@ -127,47 +167,59 @@ const UserForm = () => {
         fullname: Joi.string().required().label('Fullname'),
         username: Joi.string().required().label('Username'),
         email: Joi.string().email().required().label('Email'),
-        password: Joi.string()
-
-            .required()
-            .min(8)
-            .max(20)
-            .label('Password'),
         mobile: Joi.string().required().label('Mobile'),
     }).options({ allowUnknown: true });
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
+        user.group = name;
+        console.log(user);
         const { error } = schema.validate(user, { abortEarly: false });
-
-        // If there are errors, update the error state and show the error messages
         if (error) {
             const newErrors: any = {};
-
             error.details.forEach((detail: any) => {
                 newErrors[detail.context.key] = detail.message;
             });
-            console.log(newErrors);
             setError(newErrors);
         } else {
-            console.log(user);
-        }
-        /*const { error } = Joi.validate(user, schema);
-        if (error) {
-            setvalidationError(error.details[0].message);
-            alert(error.details[0].message);
-            return;
-        } else {
-            const res = await axios.post(
-                'http://localhost:3000/v1/adminusers',
-                user
-            );
-            if (!res) {
-                console.log(res);
-                window.alert('error');
-                return;
+            try {
+                let res;
+
+                if (isEditMode) {
+                    res = await axios.put(
+                        `${react_backend_url}/v1/adminusers/${userDetails?._id}`,
+                        user
+                    );
+                } else {
+                    const { _id, ...userWithoutId } = user;
+                    res = await axios.post(
+                        `${react_backend_url}/v1/adminusers`,
+                        userWithoutId
+                    );
+                }
+                if (res.data) {
+                    if (isEditMode) {
+                        setShowUpdateSuccess(true);
+                        setTimeout(() => {
+                            setShowUpdateSuccess(false);
+                            navigate('/manageaccounts');
+                        }, 1500);
+                    } else {
+                        setShowSuccess(true);
+                        setTimeout(() => {
+                            setShowSuccess(false);
+                            navigate('/manageaccounts');
+                        }, 1500);
+                    }
+                } else {
+                    window.alert('User creation failed!');
+                }
+            } catch (error) {
+                console.error('Error creating user:', error);
+                window.alert('An error occurred while creating the user.');
             }
-            window.alert('success');*/
+        }
     };
 
     const handleChange = (event: SelectChangeEvent<typeof group>) => {
@@ -201,259 +253,326 @@ const UserForm = () => {
 
             <form onSubmit={handleSubmit}>
                 <div className="form-container">
-                    <div className="userForm">
+                    <div
+                        className="userForm"
+                        style={{ gap: 30, justifyContent: 'center' }}
+                    >
                         <div className="formleft">
-                            <TextField
-                                label="FullName"
-                                fullWidth
-                                variant="outlined"
-                                name="fullname"
-                                className="formfeild"
-                                size="small"
-                                required
-                                error={!!error.fullname}
-                                helperText={error.fullname}
-                                sx={{ marginBottom: 3 }}
-                                value={user.fullname}
-                                onChange={handleTextChange}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <AccountBox />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            <TextField
-                                label="UserName"
-                                fullWidth
-                                variant="outlined"
-                                name="username"
-                                className="formfeild"
-                                size="small"
-                                error={!!error.username}
-                                helperText={error.username}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <AccountCircle />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                required
-                                value={user.username}
-                                onChange={handleTextChange}
-                                sx={{ marginBottom: 3 }}
-                            />
-                            <TextField
-                                label="Email"
-                                fullWidth
-                                variant="outlined"
-                                name="email"
-                                className="formfeild"
-                                size="small"
-                                required
-                                value={user.email}
-                                onChange={handleTextChange}
-                                error={!!error.email}
-                                helperText={error.email}
-                                sx={{ marginBottom: 3 }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Email />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            <FormControl
-                                sx={{ marginBottom: 3 }}
-                                variant="outlined"
-                                size="small"
-                                className="formfeild"
-                                required
-                            >
-                                <InputLabel htmlFor="outlined-adornment-password">
-                                    Password
+                            <div>
+                                <InputLabel className="labelStyle" required>
+                                    Full Name
                                 </InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    name="password"
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={
-                                                    handleClickShowPassword
-                                                }
-                                                onMouseDown={
-                                                    handleMouseDownPassword
-                                                }
-                                                edge="end"
-                                            >
-                                                {showPassword ? (
-                                                    <VisibilityOff />
-                                                ) : (
-                                                    <Visibility />
-                                                )}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    startAdornment={
-                                        <InputAdornment position="start">
-                                            <Key />
-                                        </InputAdornment>
-                                    }
-                                    label="Password"
-                                    value={user.password}
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    name="fullname"
+                                    className="formfeild"
+                                    required
+                                    error={!!error.fullname}
+                                    helperText={error.fullname}
+                                    sx={{
+                                        marginBottom: 5,
+                                        border: error.username
+                                            ? ''
+                                            : '1px solid #000',
+                                        borderRadius: '4px',
+                                    }}
+                                    value={user.fullname}
                                     onChange={handleTextChange}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountBox
+                                                    sx={{ color: '#003059' }}
+                                                />
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
-                                {error.password && (
-                                    <FormHelperText sx={{ color: '#f44336' }}>
-                                        {error.password}
-                                    </FormHelperText>
-                                )}
-                            </FormControl>
-                            <TextField
-                                select
-                                label="Country"
-                                variant="outlined"
-                                fullWidth
-                                name="country"
-                                value={selectedCountry}
-                                onChange={handleCountryChange}
-                                size="small"
-                                className="formfeild"
-                                sx={{ marginBottom: 3 }}
-                            >
-                                {countryOptions.map((option) => (
-                                    <MenuItem
-                                        key={option.code}
-                                        value={option.code}
-                                    >
-                                        {option.name}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                        </div>
-                        <div className="formright">
-                            <TextField
-                                label="Mobile"
-                                fullWidth
-                                variant="outlined"
-                                name="mobile"
-                                className="formfeild"
-                                size="small"
-                                value={user.mobile}
-                                onChange={handleTextChange}
-                                required
-                                sx={{ marginBottom: 3 }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Phone />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                error={!!error.mobile}
-                                helperText={error.mobile}
-                            />
-                            <TextField
-                                label="Office Phone"
-                                fullWidth
-                                variant="outlined"
-                                name="office"
-                                className="formfeild"
-                                value={user.office}
-                                onChange={handleTextChange}
-                                size="small"
-                                required
-                                sx={{ marginBottom: 3 }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Phone />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            <FormControl
-                                sx={{ marginBottom: 3 }}
-                                className="formfeild"
-                                required
-                            >
-                                <InputLabel
-                                    id="demo-multiple-name-label"
-                                    size="small"
-                                >
-                                    Group
+                            </div>
+                            <div>
+                                <InputLabel className="labelStyle" required>
+                                    User Name
                                 </InputLabel>
-                                <Select
-                                    label="Group"
-                                    labelId="demo-multiple-name-label"
-                                    id="demo-multiple-name"
-                                    name="group"
-                                    multiple
-                                    value={group}
-                                    onChange={handleChange}
-                                    input={<OutlinedInput label="Group" />}
-                                    MenuProps={MenuProps}
-                                    size="small"
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    name="username"
+                                    className="formfeild"
+                                    error={!!error.username}
+                                    helperText={error.username}
+                                    required
+                                    value={user.username}
+                                    onChange={handleTextChange}
+                                    sx={{
+                                        marginBottom: 5,
+                                        border: error.username
+                                            ? ''
+                                            : '1px solid #000',
+                                        borderRadius: '4px',
+                                    }}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle
+                                                    sx={{ color: '#003059' }}
+                                                />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <InputLabel className="labelStyle" required>
+                                    Email
+                                </InputLabel>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    name="email"
+                                    className="formfeild"
+                                    required
+                                    value={user.email}
+                                    onChange={handleTextChange}
+                                    error={!!error.email}
+                                    helperText={error.email}
+                                    sx={{
+                                        marginBottom: 5,
+                                        border: error.email
+                                            ? ''
+                                            : '1px solid #000',
+                                        borderRadius: '4px',
+                                    }}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <Email
+                                                    sx={{ color: '#003059' }}
+                                                />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <InputLabel className="labelStyle" required>
+                                    Country
+                                </InputLabel>
+                                <TextField
+                                    select
+                                    fullWidth
+                                    variant="outlined"
+                                    name="country"
+                                    className="formfeild"
+                                    required
+                                    value={user.country}
+                                    onChange={handleTextChange}
+                                    // error={!!error.country}
+                                    // helperText={error.country}
+                                    sx={{
+                                        marginBottom: 5,
+                                        border: '1px solid #000',
+                                        borderRadius: '4px',
+                                    }}
                                 >
-                                    {names.map((name) => (
+                                    {countries.map((option) => (
                                         <MenuItem
-                                            key={name}
-                                            value={name}
-                                            style={getStyles(
-                                                name,
-                                                group,
-                                                theme
-                                            )}
+                                            key={option.id}
+                                            value={option.name}
                                         >
-                                            {name}
+                                            {option.name}
                                         </MenuItem>
                                     ))}
-                                </Select>
-                            </FormControl>
-                            <TextField
-                                label="Department"
-                                fullWidth
-                                variant="outlined"
-                                name="department"
-                                className="formfeild"
-                                size="small"
-                                value={user.department}
-                                onChange={handleTextChange}
-                                sx={{ marginBottom: 3 }}
-                            />
-                            <div className="select-group">
-                                <div>
-                                    <FormLabel id="demo-row-radio-buttons-group-label">
-                                        Status
+                                </TextField>
+                            </div>
+                            <div>
+                                <InputLabel className="labelStyle" required>
+                                    Mobile
+                                </InputLabel>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    name="mobile"
+                                    className="formfeild"
+                                    value={user.mobile}
+                                    onChange={handleTextChange}
+                                    required
+                                    sx={{
+                                        marginBottom: 5,
+                                        border: error.mobile
+                                            ? ''
+                                            : '1px solid #000',
+                                        borderRadius: '4px',
+                                    }}
+                                    error={!!error.mobile}
+                                    helperText={error.mobile}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <Phone
+                                                    sx={{ color: '#003059' }}
+                                                />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div className="formright">
+                            <div>
+                                <InputLabel className="labelStyle" required>
+                                    Office Phone
+                                </InputLabel>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    name="office"
+                                    className="formfeild"
+                                    value={user.office}
+                                    onChange={handleTextChange}
+                                    required
+                                    sx={{
+                                        marginBottom: 5,
+                                        border: error.mobile
+                                            ? ''
+                                            : '1px solid #000',
+                                        borderRadius: '4px',
+                                    }}
+                                    error={!!error.mobile}
+                                    helperText={error.mobile}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <Phone
+                                                    sx={{ color: '#003059' }}
+                                                />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <FormControl
+                                    // sx={{ marginBottom: 4 }}
+                                    className="formfeild"
+                                    required
+                                >
+                                    <FormLabel className="labelStyle">
+                                        Group
                                     </FormLabel>
-                                </div>
-                                <div>
-                                    <RadioGroup
-                                        sx={{ marginBottom: 3 }}
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        value={selectedStatus}
-                                        onChange={handleStatusChange}
+                                    <Select
+                                        className="formfeild"
+                                        multiple
+                                        value={name}
+                                        sx={{
+                                            marginBottom: 5,
+                                            border: '1px solid #000',
+                                            borderRadius: '4px',
+                                        }}
+                                        onChange={(e: any) =>
+                                            setName(e.target.value)
+                                        }
+                                        input={<OutlinedInput />}
+                                        renderValue={(selected) => (
+                                            <Stack
+                                                gap={1}
+                                                direction="row"
+                                                flexWrap="wrap"
+                                            >
+                                                {selected.map((value) => (
+                                                    <Chip
+                                                        style={{
+                                                            backgroundColor:
+                                                                '#3575BA',
+                                                            color: 'white',
+                                                            borderRadius: 0,
+                                                        }}
+                                                        key={value}
+                                                        label={value}
+                                                        onDelete={() =>
+                                                            setName(
+                                                                name.filter(
+                                                                    (item) =>
+                                                                        item !==
+                                                                        value
+                                                                )
+                                                            )
+                                                        }
+                                                        deleteIcon={
+                                                            <CancelIcon
+                                                                style={{
+                                                                    color: 'white',
+                                                                }}
+                                                                onMouseDown={(
+                                                                    event
+                                                                ) =>
+                                                                    event.stopPropagation()
+                                                                }
+                                                            />
+                                                        }
+                                                    />
+                                                ))}
+                                            </Stack>
+                                        )}
                                     >
-                                        <FormControlLabel
-                                            value="Active"
-                                            control={<Radio />}
-                                            label="Active"
-                                        />
-                                        <FormControlLabel
-                                            value="Inactive"
-                                            control={<Radio />}
-                                            label="inactive"
-                                        />
-                                    </RadioGroup>
-                                </div>
+                                        {names.map((name) => (
+                                            <MenuItem
+                                                key={name}
+                                                value={name}
+                                                sx={{
+                                                    justifyContent:
+                                                        'space-between',
+                                                }}
+                                            >
+                                                {name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </div>
+                            <div>
+                                <InputLabel className="labelStyle" required>
+                                    Department
+                                </InputLabel>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    name="department"
+                                    className="formfeild"
+                                    value={user.department}
+                                    onChange={handleTextChange}
+                                    required
+                                    sx={{
+                                        marginBottom: 5,
+                                        border: '1px solid #000',
+                                        borderRadius: '4px',
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <InputLabel className="labelStyle" required>
+                                    Status
+                                </InputLabel>
+                                <TextField
+                                    select
+                                    fullWidth
+                                    variant="outlined"
+                                    name="email"
+                                    className="formfeild"
+                                    required
+                                    value={selectedStatus}
+                                    onChange={handleStatusChange}
+                                    sx={{
+                                        marginBottom: 5,
+                                        border: '1px solid #000',
+                                        borderRadius: '4px',
+                                    }}
+                                >
+                                    <MenuItem value="Active">Active</MenuItem>
+                                    <MenuItem value="Inactive">
+                                        InActive
+                                    </MenuItem>
+                                </TextField>
                             </div>
                         </div>
                     </div>
@@ -465,10 +584,45 @@ const UserForm = () => {
                         type="submit"
                         onClick={handleSubmit}
                     >
-                        Create User!
+                        {isEditMode ? 'Save' : 'Create User'}
+                    </button>
+                    <button
+                        className="form-button"
+                        type="button"
+                        onClick={handleBack}
+                    >
+                        {isEditMode ? 'Cancel' : 'Back'}
                     </button>
                 </div>
             </form>
+            {showSuccess && (
+                <Alert
+                    severity="success"
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 9999,
+                    }}
+                >
+                    User created successfully!
+                </Alert>
+            )}
+            {showUpdateSuccess && (
+                <Alert
+                    severity="success"
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 9999,
+                    }}
+                >
+                    User updated successfully!
+                </Alert>
+            )}
         </div>
     );
 };

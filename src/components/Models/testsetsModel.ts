@@ -1,6 +1,7 @@
 export interface TestSet {
-    testsetId: string;
-    reqstId?: string;
+    projectId: string;
+    _id: string;
+    requirementSetId: string;
     testName: string;
     requirementSetName: string;
     description: string;

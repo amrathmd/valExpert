@@ -106,7 +106,7 @@ const Navbar = () => {
                                 </Tooltip>
                             </li>
                         )}
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Tooltip title="Dashboard" placement="left">
                                 <NavLink
                                     to="/dashboard"
@@ -122,7 +122,7 @@ const Navbar = () => {
                                     ></img>
                                 </NavLink>
                             </Tooltip>
-                        </li>
+                        </li> */}
                         {loggedIn && userType !== null && (
                             <div>
                                 <UserComponent

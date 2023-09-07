@@ -1,28 +1,73 @@
+.user-table-wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+
 .content-table {
     border-collapse: collapse;
-    margin: 25px 0;
-    width: 100%;
-    border-radius: 5px 5px 0 0;
+    margin: 25px auto;
+    width: 80%;
+    border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     text-align: center;
     margin-bottom: 20px;
 }
+
 .content-table thead tr {
     background-color: #f2f2f2;
     color: #27374d;
-    text-align: left;
     font-weight: bold;
 }
+
 .content-table th {
-    font-weight: 100%;
-}
-.content-table th,
-.content-table td {
+    font-weight: bold;
     padding: 10px 15px;
     text-align: left;
     border-bottom: 1px solid #ccc;
 }
-.content-table tbody tr {
+
+.content-table td {
+    padding: 10px 15px;
+    text-align: left;
     border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+.content-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.content-table button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.content-table button:hover {
+    background-color: #0056b3;
+}
+.table-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.add-users-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.field {
+    margin: 10px;
+}
+.user-link {
+    color: blue;
+    text-decoration: underline;
 }

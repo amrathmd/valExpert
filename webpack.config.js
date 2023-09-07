@@ -7,6 +7,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (env, options) => {
@@ -73,6 +74,9 @@ module.exports = (env, options) => {
         },
         devServer: {
             historyApiFallback: true,
+        },
+        externals: {
+            config: JSON.stringify({ apiUrl: '/v1' }),
         },
         plugins: [
             // need to use ForkTsCheckerWebpackPlugin because Babel loader ignores the compilation errors for Typescript

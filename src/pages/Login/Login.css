@@ -1,86 +1,90 @@
 .Loglogincontainer {
-    display: flex;
+    display:flex;
+    height: 100vh; /* Use viewport units to prevent vertical scrollbar */
     width: 100vw;
-    height: 100vh;
-    background-color: rgb(255, 255, 255);
-    margin: 0;
-    padding: 0;
-}
-
-.Logcheck-boxes {
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
+    background-color: whitesmoke;
+    justify-content: center;
     align-items: center;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    
 }
-.Logcheck-boxes label {
-    margin-left: 10px;
+.login-section {
+    border-radius: 4px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
+    height: 70vh;
 }
 
-.Loglogincontainer form h2 {
-    text-align: left;
-    font-weight: 600;
-    font-size: large;
-    padding-left: 20px;
-    margin-top: 5px;
+
+.loginImage {
+    width: 50rem;
+    height: auto;
+}
+
+.rectangle {
+    height: 70vh; 
+}
+
+.Loglogin-form {
+    height: auto;
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+@media(max-width:1300px ){
+    .Loglogincontainer {
+        width:100%;
+        align-items: center;
+        justify-content: center;
+    }
+    .loginImage {
+        display: none;
+    }
+    .login-section{
+        width: auto;
+        padding-left: 70px;
+        padding-right: 70px;
+    }
+    .Loglogin-form {
+        display:inline-block;
+        overflow: hidden;
+        height:auto;
+        width: auto;
+    }
+}
+.login-text{
     margin-bottom: 10px;
+    color:rgba(0, 48, 89, 0.80);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
-.Logconditional-message {
-    text-align: center;
-}
 .Loginputform {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
-    padding-left: 20px;
-    padding-right: 20px;
+    width: 30rem;
+    padding : 10px;
 }
-.Loglogin-form {
-    border-radius: 12px;
-    width: 25vw;
-    height: 40vh;
-    margin-left: 33vw;
-    margin-top: 28vh;
-    background-color:rgb(247, 247, 247);
-}
-.Loglogin-button {
-    width: max-width;
-    height: max-content;
-    background-color: rgb(64, 64, 237);
-    color: white;
-    border-radius: 4px;
-    padding: 3px;
-    margin-top: 10px;
-}
-.Loglogin-button:hover {
-    background-color: #0a4070;
-}
-.Logi label {
-    margin-bottom: 6px;
-    font-size: medium;
-    font-weight: 500;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.Logpass {
+.logPass{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
 }
 .Logpass a {
-    font-size: medium;
+    font-size: 13px;
     align-self: flex-end;
-    color: rgb(64, 64, 237);
+    color: rgba(0, 48, 89, 0.80);
     text-decoration: none;
     float: right;
-}
-.Logpass label {
-    margin-bottom: 6px;
-    font-size: medium;
-    font-weight: 450;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .Loginputform > input {
@@ -93,34 +97,22 @@
     box-sizing: border-box;
     outline: none;
 }
+
+
 .Loginputform > input:focus {
-    border: 2px solid rgb(64, 64, 237);
-    border-radius: 4px; /* Change the border radius to create a rounded effect */
+    /* border: 2px solid rgb(64, 64, 237); */
+    border: 2px solid #000;
+    border-radius: 4px; /* Change the border radius to   create a rounded effect */
 }
 .Logtext {
     padding: 8px;
-    margin-bottom: 8px;
-}
-
-.Logbutton {
-    background-color: #4caf50;
-    color: white;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 2px;
+    margin-bottom: 6px;
+    height: 50px;
     width: 100%;
-    padding: 20px;
-    margin-top: 10px;
 }
 
-.Logbutton:hover {
-    background-color: #45a049;
-}
 
-.Logbutton:active {
-    background-color: #3e8e41;
-}
+
 @media (min-width: 768px) {
     .container {
         max-width: 100%;
@@ -160,11 +152,12 @@
     flex-direction: row;
     margin-bottom: 10px;
     padding-left: 2px;
+    align-items: center;
 }
 
 .Logaccount input[type='checkbox'] {
-    margin-right: 5px;
-    transform: scale(1.2);
+    transform: scale(1.5);
+    width: 11px;
 }
 .Logaccount span {
     margin-right: 1px;
@@ -179,9 +172,17 @@
 .Logmessage {
     margin-top: 20px;
 }
-.Logaccount.rem {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 13px;
-    color: #777777;
+
+.msg{
+    margin-left: 10px;
+    width: 60%;
+    margin-right: 112px;
+}
+.login-button{
+    background-color: #003059;
+    padding: 10px;
+    color:#ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 4px;
 }

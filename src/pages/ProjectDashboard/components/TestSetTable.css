@@ -1,0 +1,57 @@
+.testset-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 20px;
+}
+
+.testSet-card {
+    width: 200px;
+    height: 190px;
+    border-radius: 7.693px;
+    border: 0.962px solid #d0d5dd;
+    padding: 5px;
+}
+.testSet-card:hover {
+    background-color: #eff5fe;
+    transition: background-color 0.3s;
+}
+.testSet-image {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.testseticonimg {
+    width: 80px;
+    height: 80px;
+}
+.testseticon-border1 {
+    border-radius: 5px;
+    border: 0.962px solid #d0d5dd;
+}
+.testsetedit-pic1 {
+    width: 20px;
+    height: 20px;
+}
+.testseticonimg-small {
+    height: 80px;
+    width: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.testset-description {
+    padding-left: 10px;
+}
+.testset-description > b {
+    font-size: 10pt;
+}
+.testset-description > p {
+    font-size: 9pt;
+}

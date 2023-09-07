@@ -6,13 +6,19 @@ import { Alert, Button, Tooltip } from '@mui/material';
 import './UserTable.css';
 import axios from 'axios';
 import { react_backend_url } from '../..//config';
-
+import { NavLink } from 'react-router-dom';
 interface Users {
     _id: string;
-    name: string;
-    mobile: string;
+    fullname: string;
+    username: string;
     email: string;
+    mobile: string;
     status: string;
+    group: string[];
+    country: string;
+    office: string;
+    department: string;
+    password: string;
 }
 
 interface TableProps {
@@ -20,18 +26,28 @@ interface TableProps {
 }
 
 const UserTable: React.FC<TableProps> = (props) => {
-    const { users } = props;
+    const [users, setUsers] = useState<Users[]>(props.users);
     const { dashboardState, setDashboardState } =
         React.useContext(DashboardContext);
     const [isBlinking, setIsBlinking] = useState(false);
     const [editingUserId, setEditingUserId] = React.useState<string>('');
     const [alert, setalert] = React.useState<boolean>(false);
-
+    const [userDetails, setUserDetails] = useState<Users | null>(null);
+    const [showDetailsModal, setShowDetailsModal] = useState(false);
     const handleEditUser = (userId: string) => {
         setEditingUserId(userId);
     };
-    const refresh = () => {
-        window.location.reload();
+
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get(
+                `${react_backend_url}/v1/adminUsers`
+            );
+            const userData = response.data;
+            setUserDetails(userData.user);
+        } catch (error) {
+            console.log('Error occurred while fetching users:', error);
+        }
     };
     const handleDeleteUser = async (userid: string) => {
         try {
@@ -40,23 +56,35 @@ const UserTable: React.FC<TableProps> = (props) => {
             );
             console.log(result);
             setalert(true);
+            setTimeout(() => {
+                setalert(false);
+            }, 3000);
+            fetchUsers();
+            setUsers((prevUsers) =>
+                prevUsers.filter((user) => user._id !== userid)
+            );
         } catch {
             console.log('error occurred');
         }
     };
+    const handleViewUser = async (userid: string) => {
+        try {
+            const response = await axios.get(
+                `http://${react_backend_url}/v1/adminUsers/${userid}`
+            );
+            const userDetailsData = response.data;
+            setUserDetails(userDetailsData.user);
+            setShowDetailsModal(true);
+        } catch (error) {
+            console.log('Error occurred while fetching user details:', error);
+        }
+    };
 
     return (
-        <div>
+        <div className="user-table-wrapper">
             {alert && (
                 <div>
                     <Alert severity="success">User Deleted Successfully!</Alert>
-                    <Button
-                        variant="contained"
-                        color="success"
-                        onClick={refresh}
-                    >
-                        Refresh
-                    </Button>
                 </div>
             )}
             <table className="content-table">
@@ -72,25 +100,21 @@ const UserTable: React.FC<TableProps> = (props) => {
                 <tbody>
                     {users.map((user) => (
                         <tr key={user._id}>
-                            <td>{user.name}</td>
-                            <td>{user.mobile}</td>
+                            <td>
+                                <NavLink
+                                    to={`/manageaccounts/user/${user._id}`}
+                                    className="user-link"
+                                    title="Click to View User Details"
+                                >
+                                    <a>{user.fullname}</a>
+                                </NavLink>
+                            </td>
+                            <td>{user.office}</td>
                             <td>{user.email}</td>
                             <td>{user.status}</td>
                             <td>
                                 <>
                                     <div className="action-icon">
-                                        <a
-                                            onClick={() =>
-                                                handleEditUser(user._id)
-                                            }
-                                        >
-                                            <Tooltip
-                                                title="Edit User"
-                                                placement="top-end"
-                                            >
-                                                <EditIcon></EditIcon>
-                                            </Tooltip>
-                                        </a>
                                         <a
                                             onClick={() =>
                                                 handleDeleteUser(user._id)
@@ -110,6 +134,11 @@ const UserTable: React.FC<TableProps> = (props) => {
                     ))}
                 </tbody>
             </table>
+            {/* {userDetails && (
+            <NavLink to=`/${userDetails}`>
+                <UserDetails userDetails={userDetails} />
+            </NavLink>
+        )} */}
         </div>
     );
 };

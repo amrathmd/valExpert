@@ -1,0 +1,219 @@
+.projectdashboard {
+    width: 96.875vw;
+    height: 100vh;
+    display: flex;
+    overflow-y: hidden;
+}
+.dashboard-sidebar {
+    background-color: #fff;
+    margin-left: 20px;
+    margin-right: 0;
+    border-right: 1px solid rgb(235, 228, 228);
+    height: 100vh;
+    width: 260px;
+    position: sticky;
+    padding-top: 20px;
+}
+.content-bar {
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.blur-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(242, 238, 238, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.requirementsetform {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.req-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3rem;
+    width: 96.875vw;
+    position: sticky;
+}
+.req-projectName {
+    display: inline-block;
+    height: 1.875rem;
+    margin-left: 3rem;
+}
+.req-projectName > p {
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.req-header-underline {
+    background: #b8b6b6;
+    height: 0.0625rem;
+}
+.req-add {
+    display: inline-flex;
+    height: 2.5rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.48081rem;
+    border: 0.962px solid #3575ba;
+    background: #3575ba;
+    box-shadow: 0px 0.9615941643714905px 1.923188328742981px 0px
+        rgba(16, 24, 40, 0.05);
+    margin-left: 1.3rem;
+    padding: 0.5rem;
+}
+.requirements-icons {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 2.75vw;
+}
+.req-add > p {
+    font-size: medium;
+    color: #ffffff;
+}
+.req-header-icons {
+    display: inline-flex;
+    margin: 0.3rem;
+    width: 2.6875rem;
+    height: 2.5rem;
+    padding: 0.7rem 0.7rem;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.48081rem;
+    border: 0.962px solid #d0d5dd;
+    background: #fff;
+    cursor: pointer;
+}
+
+.project-table-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 5px;
+    height: 100vh;
+}
+
+.project-table-cancel {
+    margin: 1rem;
+    cursor: pointer;
+}
+
+.project-table {
+    border-collapse: collapse;
+    width: 25vw;
+}
+
+.project-table th {
+    padding: 12px 16px;
+    text-align: left;
+    background-color: #f0f0f0;
+}
+
+.project-table td {
+    padding: 12px 16px;
+    text-align: left;
+}
+
+.project-table-header {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.project-table-header > h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}
+
+.project-table-button {
+    display: flex;
+    justify-content: center;
+}
+
+.requirementSets-Details {
+    width: 100%;
+    padding: 1vh 3vw 0vh 0.9vw;
+}
+.requirementSets-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1vh 3vw 1vh 2vw;
+}
+.requirementSets-header > p {
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+@media (max-width: 1180px) {
+    .req-add > p {
+        font-size: smaller;
+        padding: 5px;
+    }
+    .req-header-icons {
+        padding: 0.2rem;
+        width: 2rem;
+        height: 2.3rem;
+    }
+    .req-add {
+        height: 2.5rem;
+        padding: 0.3rem;
+    }
+    .req-projectName > p {
+        font-size: 1.2rem;
+    }
+    html {
+        font-size: 14px;
+    }
+}
+.pdfSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.loadingMessage {
+    font-weight: bold;
+    color: #fff;
+}
+.dashboard-sidebar-subheader {
+    display: flex;
+    padding: 0;
+}
+.first-list-item {
+    margin-right: 20px; /* Adjust the margin value as needed */
+}
+.noitemsselected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: Arial;
+    font-weight: 700;
+
+    color: #b8b6b6;
+
+    height: 100%;
+}

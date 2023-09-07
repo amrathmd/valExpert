@@ -4,6 +4,9 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../contexts/AuthContext';
 import { react_backend_url } from '../../config';
+import StickyHeader from '../../components/ProjectHeader/StickyHeader';
+import { Reactangle } from '../../../public/Rectangle 4.jpg';
+import group from '../../../public/Group 3.png';
 
 const Login = () => {
     const History = useNavigate();
@@ -42,56 +45,63 @@ const Login = () => {
             });
     };
     return (
-        <div className="Loglogincontainer">
-            <div className="Loglogin-form">
-                <form onSubmit={handleSubmit}>
-                    <div className="LogHeader">
-                        <h2 className="Loghead">Login form</h2>
-                        <div className="Logac">
-                            <h3 className="Logmessage">
-                                Welcome Back to valExpert
-                            </h3>
-                        </div>
-                    </div>
-                    <div className="Loginputform">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            type="text"
-                            id="email"
-                            placeholder="Email"
-                            className="Logtext"
-                            onChange={(e) => {
-                                setEmail(e.target.value);
-                            }}
-                        ></input>
-                        <div className="Logpass">
-                            <label htmlFor="password">Password</label>
-                            <a>Forgot Your Password?</a>
-                        </div>
-
-                        <input
-                            type="password"
-                            id="password"
-                            placeholder="Password"
-                            className="Logtext"
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                            }}
+        <>
+            <div className="Loglogincontainer">
+                <div className="login-section">
+                    <div className="loginImage">
+                        <img
+                            src="../../../public/Best.png"
+                            alt=""
+                            className="rectangle"
                         />
-                        <div className="Logaccount">
-                            <input type="checkbox"></input>
-                            <label className="Logrem">Remember me</label>
-                        </div>
-                        <button type="submit" className="Loglogin-button">
-                            Login
-                        </button>
-                        {error.length > 0 && (
-                            <p className="Loglogin-error">{error}</p>
-                        )}
                     </div>
-                </form>
+                    <div className="Loglogin-form">
+                        <form onSubmit={handleSubmit}>
+                            <div className="Loginputform">
+                                <label htmlFor="email" className="login-text">
+                                    Email
+                                </label>
+                                <input
+                                    type="text"
+                                    id="email"
+                                    placeholder="Email"
+                                    className="Logtext"
+                                    onChange={(e) => {
+                                        setEmail(e.target.value);
+                                    }}
+                                ></input>
+                                <div className="Logpass">
+                                    <label
+                                        htmlFor="password"
+                                        className="login-text"
+                                    >
+                                        Password
+                                    </label>
+                                    <a>Forgot Your Password?</a>
+                                </div>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    placeholder="Password"
+                                    className="Logtext"
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                    }}
+                                />
+                                <div className="Logaccount">
+                                    <input type="checkbox"></input>
+                                    <label className="msg">Remember me</label>
+                                </div>
+                                <button className="login-button">Login</button>
+                                {error.length > 0 && (
+                                    <p className="Loglogin-error">{error}</p>
+                                )}
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
