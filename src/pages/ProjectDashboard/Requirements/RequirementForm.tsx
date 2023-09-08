@@ -1,18 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import './RequirementForm.css';
 import axios from 'axios';
 import { react_backend_url } from '../../../config';
-import {
-    TextField,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    Button,
-    FormLabel,
-    Alert,
-} from '@mui/material';
-import { TryRounded } from '@mui/icons-material';
+import { Alert } from '@mui/material';
 
 const initialState = {
     // requirementName: 'venkatesh',
@@ -22,6 +12,15 @@ const initialState = {
     reference: '',
     author: 'subho',
 };
+
+function getDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    return `${month}-${date}-${year}`;
+}
+
 interface Requirement {
     _id: string;
     requirementSetId: string;
@@ -31,12 +30,14 @@ interface Requirement {
     verification: string;
     author: string;
 }
+
 interface ReqFormProps {
     handleFormActive: () => void;
     selectedRequirementSet: any;
     selectedRequirement?: Requirement;
     setSelectedList: (selectedList: number) => void;
 }
+
 const authors = [
     {
         id: '1',
@@ -58,11 +59,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
         selectedRequirement || initialState
     );
     const [success, setSuccess] = useState<boolean>(false);
-
-    // const [requirement, setRequirement] = useState({
-    //      ...initialState,
-    //     requirementSetId: selectedRequirementSet,
-    // });
+    const [currentDate, setCurrentDate] = useState(getDate());
     React.useEffect(() => {
         if (selectedRequirement) {
             setRequirement(selectedRequirement);
@@ -70,7 +67,10 @@ const ReqForm: React.FC<ReqFormProps> = ({
             setRequirement(initialState);
         }
     }, [selectedRequirement]);
-    const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
+
+    const handleInputChange = (
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
         const { name, value } = event.target;
         setRequirement((prevReq) => ({
             ...prevReq,
@@ -78,7 +78,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
         }));
     };
 
-    const handleSelectChange = (event: any) => {
+    const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = event.target;
 
         setRequirement((prevRequirement) => ({
@@ -87,7 +87,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
         }));
     };
 
-    const handleSubmit = async (event: any) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
             const requestData = {
@@ -113,9 +113,10 @@ const ReqForm: React.FC<ReqFormProps> = ({
                 }
             }
         } catch (e) {
-            window.alert('some Error occured');
+            window.alert('some Error occurred');
         }
     };
+
     React.useEffect(() => {
         if (success) {
             const timer = setTimeout(() => {
@@ -127,7 +128,7 @@ const ReqForm: React.FC<ReqFormProps> = ({
     }, [success]);
 
     return (
-        <>
+        <div className="req-mainContainer">
             <div className="alert-container">
                 {success &&
                     (selectedRequirement ? (
@@ -140,141 +141,87 @@ const ReqForm: React.FC<ReqFormProps> = ({
                         </Alert>
                     ))}
             </div>
-            <div className="form-container">
+            <div className="req-form-container">
                 <div>
-                    <div className="heading">
-                        <h2>Requirements Form</h2>
-                    </div>
-
-                    <div className="req-item">
-                        <TextField
-                            label="Requirement Description"
-                            variant="outlined"
-                            type="textarea"
-                            multiline
-                            rows={4}
-                            fullWidth
-                            onChange={handleTextChange}
-                            value={requirement.requirementDescription}
-                            name="requirementDescription"
-                        />
-                    </div>
-                    <div className="req-item">
-                        <FormControl variant="outlined" fullWidth>
-                            <FormLabel id="reference-category-label">
-                                Requirement Category
-                            </FormLabel>
-                            <Select
-                                labelId="reference-category-label"
-                                id="req-dropdown"
-                                label="Reference Category"
-                                onChange={handleSelectChange}
-                                value={requirement.requirementCategory}
-                                name="requirementCategory"
-                            >
-                                <MenuItem value="User Requirement">
-                                    User Requirement
-                                </MenuItem>
-                                <MenuItem value="Functional Requirement">
-                                    Functional Requirement
-                                </MenuItem>
-                                <MenuItem value="Technical Requirement">
-                                    Technical Requirement
-                                </MenuItem>
-                                <MenuItem value="Physical Requirement">
-                                    Physical Requirement
-                                </MenuItem>
-                                <MenuItem value="Regulatory Requirement">
-                                    Regulatory Requirement
-                                </MenuItem>
-                                <MenuItem value="Other Requirement">
-                                    Other Requirement
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div className="req-item">
-                        <FormControl variant="outlined" fullWidth>
-                            <FormLabel id="reference-category-label">
-                                Author
-                            </FormLabel>
-                            <Select
-                                labelId="reference-category-label"
-                                id="req-dropdown"
-                                label="Author"
-                                onChange={handleSelectChange}
-                                value={requirement.author}
-                                name="author"
-                            >
-                                {authors.map((author) => (
-                                    <MenuItem
-                                        key={author.id}
-                                        value={author.name}
-                                    >
-                                        {author.name}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div className="req-item">
-                        <TextField
-                            label="Reference SOP"
-                            variant="outlined"
-                            type="text"
-                            fullWidth
-                            onChange={handleTextChange}
-                            value={requirement.reference}
-                            name="reference"
-                        />
-                    </div>
-                    <div className="req-item">
-                        <FormControl variant="outlined" fullWidth>
-                            <FormLabel id="verification-label">
-                                Verification
-                            </FormLabel>
-                            <Select
-                                labelId="verification-label"
-                                id="req-dropdown"
-                                label="Verification"
+                    <form onSubmit={handleSubmit}>
+                        <div className="req-item">
+                            <label htmlFor="requirementDescription">
+                                Requirement Description
+                            </label>
+                            <textarea
+                                id="requirementDescription"
+                                name="requirementDescription"
+                                rows={4}
+                                onChange={handleInputChange}
+                                value={requirement.requirementDescription}
+                            ></textarea>
+                        </div>
+                        <div className="req-item">
+                            <label htmlFor="reference">Reference SOP</label>
+                            <input
+                                type="text"
+                                id="reference"
+                                name="reference"
+                                onChange={handleInputChange}
+                                value={requirement.reference}
+                            />
+                        </div>
+                        <div className="req-item">
+                            <label htmlFor="priority">Priority</label>
+                            <select id="priority" name="priority">
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                        <div className="req-item">
+                            <label htmlFor="verification">Verification</label>
+                            <select
+                                id="verification"
+                                name="verification"
                                 onChange={handleSelectChange}
                                 value={requirement.verification}
-                                name="verification"
                             >
-                                <MenuItem value="Testing">Testing</MenuItem>
-                                <MenuItem value="Procedure">Procedure</MenuItem>
-                                <MenuItem value="Testing and Procedure">
+                                <option value="Testing">Testing</option>
+                                <option value="Procedure">Procedure</option>
+                                <option value="Testing and Procedure">
                                     Testing and Procedure
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div className="req-submit">
-                        <button
-                            onClick={handleFormActive}
-                            className="requirementFormButtons"
-                        >
-                            Cancel
-                        </button>
-                        {selectedRequirement ? (
+                                </option>
+                            </select>
+                        </div>
+                        <div className="req-item">
+                            <p>Category : User Requirement</p>
+                            <p>Created Date:{currentDate}</p>
+                            <p>Author :vignesh</p>
+                        </div>
+                        <div className="req-submit">
+                            {selectedRequirement ? (
+                                <button
+                                    type="submit"
+                                    className="requirementFormButtonconfirm"
+                                >
+                                    Edit
+                                </button>
+                            ) : (
+                                <button
+                                    type="submit"
+                                    className="requirementFormButtonconfirm"
+                                >
+                                    Save
+                                </button>
+                            )}
                             <button
-                                onClick={handleSubmit}
-                                className="requirementFormButtons"
+                                type="button"
+                                onClick={handleFormActive}
+                                className="requirementFormButtoncancel"
                             >
-                                Edit
+                                Cancel
                             </button>
-                        ) : (
-                            <button
-                                onClick={handleSubmit}
-                                className="requirementFormButtons"
-                            >
-                                Confirm
-                            </button>
-                        )}
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
