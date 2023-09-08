@@ -124,7 +124,14 @@ const TestCaseDetails: React.FC<Props> = ({ testCaseId }) => {
                     >
                         {testCase && (
                             <div className="testCaseDetailsView">
-                                <table style={{ width: '100%' }}>
+                                <table
+                                    className="testCase-table"
+                                    style={{
+                                        width: '100%',
+                                        borderCollapse: 'separate',
+                                        borderSpacing: '1%',
+                                    }}
+                                >
                                     <tr style={{ width: '100%' }}>
                                         <td className="testDetailsLabel">
                                             <b>Test case Number</b>

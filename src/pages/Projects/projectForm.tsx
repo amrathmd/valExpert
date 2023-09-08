@@ -174,7 +174,7 @@ const ProjectForm = () => {
         department: Joi.array().min(1).required(),
         country: Joi.array().min(1).required(),
         description: Joi.string().required(),
-        applicationVersion: Joi.number().required,
+        applicationVersion: Joi.number().required(),
     };
 
     const handleSubmit = async (event: any) => {

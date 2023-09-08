@@ -22,9 +22,14 @@
     font-size: 9pt;
     font-weight: bold;
     width: 12%;
+    vertical-align: top;
+    text-align: right;
 }
-.testDetailsLabel b {
+/* .testDetailsLabel b {
     margin-left: 20px;
+} */
+.testCase-table{
+    /* border-spacing: 10px; */
 }
 .testDetailsValue {
     width: 35%;
@@ -33,14 +38,19 @@
     display: flex;
     flex-direction: row;
     border: 1px solid #c1bfbf;
-    margin: 20px;
-    padding: 20px;
+    margin-top: 20px;
+    
+    width: 100%;
 }
 .testCaseDetailsView div {
     width: 50%;
 }
 .testcaseandsetdetails {
     margin: 20px;
+}
+
+.testDetailsValueInput{
+    width: 35%;
 }
 .editTestCase {
     height: 20px;
