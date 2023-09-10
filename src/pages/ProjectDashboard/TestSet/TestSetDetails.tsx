@@ -12,6 +12,8 @@ import pageFacingUp from '@iconify/icons-fluent-emoji-high-contrast/page-facing-
 import './TestSetDetails.css';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import TestStepForm from './TestStep/TestStepForm';
+import TestCaseDetails from './TestCaseDetails';
+import TestStepForm1 from './TestStep/TestStepForm1';
 interface Props {
     selectedItem: number;
     projectId: string;
@@ -55,6 +57,16 @@ const TestSetDetails: React.FC<Props> = ({
     const [testSetDetails, setTestSetDetails] = useState<any>(null);
     const [isFormVisible, setFormVisible] = useState(false);
     const [selectedTestScript, setSelectedTestScript] = useState<string>(null);
+    const [openTestStepForm, setOpenTestStepForm] = useState<boolean>(false);
+    const [count, setcount] = React.useState<number>(1);
+    const [currPage, setCurrentPage] = React.useState<number>(1);
+
+    const [isSaved, setIsSaved] = React.useState(false);
+    const [isEditMode, setIsEditMode] = React.useState(false);
+    const [testStep, setTestStep] = React.useState(null);
+    const handleTestStepForm = () => {
+        setOpenTestStepForm(!openTestStepForm);
+    };
 
     React.useEffect(() => {
         if (testSet) {
@@ -329,7 +341,49 @@ const TestSetDetails: React.FC<Props> = ({
                             </div>
                         </div>
                     ) : (
-                        <div>SelectedTestScript</div>
+                        <div>
+                            <TestCaseDetails testCaseId={selectedTestScript} />
+                            <div
+                                onClick={handleTestStepForm}
+                                className="testStepHeader"
+                            >
+                                <img
+                                    src="../../../../public/roundedplus.png"
+                                    alt=""
+                                    style={{
+                                        display: 'inline-block',
+                                        height: '30px',
+                                        width: '30px',
+                                    }}
+                                />
+                                <span className="header-text-teststep">
+                                    Add Step
+                                </span>
+                            </div>
+                            {openTestStepForm && (
+                                <div className="dialogOpen">
+                                    <TestStepForm1
+                                        setOpenTestStepForm={
+                                            setOpenTestStepForm
+                                        }
+                                        testScriptId={selectedTestScript}
+                                        handleTestStepForm={handleTestStepForm}
+                                    />
+                                </div>
+                            )}
+                            <TestStepForm
+                                count={count}
+                                setcount={setcount}
+                                currPage={currPage}
+                                setCurrentPage={setCurrentPage}
+                                testCaseId={selectedTestScript}
+                                handleTestCaseform={handleTestCaseForm}
+                                isSaved={isSaved}
+                                setIsSaved={setIsSaved}
+                                isEditMode={isEditMode}
+                                setIsEditMode={setIsEditMode}
+                            />
+                        </div>
                     )}
                 </div>
             )}
