@@ -89,3 +89,16 @@
     border-radius: 3px;
     width: 100px;
 }
+.dialogOpen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(87, 86, 86, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

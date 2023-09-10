@@ -18,6 +18,7 @@ import axios from 'axios';
 import { react_backend_url } from '../../../config';
 import TestCaseDetails from './TestCaseDetails';
 import Joi from 'joi-browser';
+import TestStepForm1 from './TestStep/TestStepForm1';
 interface TestCase {
     testsetId: string;
     Type: string;
@@ -72,7 +73,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
     const [error, setError] = useState<string>('');
     const [count, setcount] = React.useState<number>(1);
     const [currPage, setCurrentPage] = React.useState<number>(1);
-    const [testStep, setTestStep] = React.useState<TestStep>(defaultForm);
+
     const [isSaved, setIsSaved] = React.useState(false);
     const [isEditMode, setIsEditMode] = React.useState(false);
     const [maxNumber, setMaxNumber] = React.useState<number>(1);
@@ -89,12 +90,7 @@ const TestCaseDetailsForm: React.FC<Props> = ({
         setOpenTestCaseForm(!openTestCaseForm);
     };
     const handleTestStepForm = () => {
-        setcount((prevcount) => {
-            setCurrentPage(prevcount + 1);
-            return prevcount + 1;
-        });
-
-        setTestStep(defaultForm);
+        setOpenTestStepForm(!openTestStepForm);
         setIsSaved(false);
         setIsEditMode(false);
     };
@@ -296,22 +292,15 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                         />
                         <span className="header-text-teststep">Add Step</span>
                     </div>
-                    <TestStepForm
-                        count={count}
-                        setcount={setcount}
-                        currPage={currPage}
-                        setCurrentPage={setCurrentPage}
-                        testCaseId={savedTestCase}
-                        testStep={testStep}
-                        setTestStep={setTestStep}
-                        handleTestCaseform={handleTestCaseForm}
-                        projectId={projectId}
-                        testsetId={testsetId}
-                        isSaved={isSaved}
-                        setIsSaved={setIsSaved}
-                        isEditMode={isEditMode}
-                        setIsEditMode={setIsEditMode}
-                    />
+                    {openTestStepForm && (
+                        <div className="dialogOpen">
+                            <TestStepForm1
+                                setOpenTestStepForm={setOpenTestStepForm}
+                                testScriptId={savedTestCase}
+                                handleTestStepForm={handleTestStepForm}
+                            />
+                        </div>
+                    )}
                 </div>
             )}
         </div>

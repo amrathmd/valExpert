@@ -1,0 +1,82 @@
+.TestStepFormDialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
+    height: 50vh;
+}
+.TestStepFormForm {
+    background-color: white;
+    padding: 20px;
+    width: 100%;
+}
+.TestStepFormForm > b {
+    padding: 10px;
+    font-size: 11pt;
+    font-family: Arial;
+}
+.testStepHeader1 {
+    background: var(--Light-Gray, #f0f1f5);
+    height: 45px;
+    width: 100%;
+    display: flex;
+
+    align-items: center;
+}
+.testStepHeader1 b {
+    color: black;
+    padding: 10px;
+    font-size: 10pt;
+    font-family: Arial;
+}
+.testSteptable {
+    width: 100%;
+    display: flex;
+    font-size: 9pt;
+    font-family: Arial;
+}
+
+.testStepArea {
+    width: 100%;
+}
+.TestStepFormField {
+    width: 100%;
+    padding: 5px;
+    height: 145px;
+    border: 1px solid #b8b6b6;
+}
+.testStepFormTextArea {
+    border: none;
+    resize: none;
+    outline: none;
+    padding: 0px;
+    margin: 0px;
+    font-weight: 9pt;
+    font-family: Arial;
+    height: 100%;
+    width: 100%;
+}
+.testStepButtons {
+    display: flex;
+    float: right;
+    margin-top: 5px;
+}
+.testStepBlue {
+    background-color: #3575ba;
+    color: white;
+    font-weight: 600;
+    font-size: 9pt;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 3px;
+    width: 120px;
+}
+.testStepGray {
+    background-color: #696969;
+    color: white;
+    font-weight: 600;
+    font-size: 9pt;
+    padding: 5px;
+    border-radius: 3px;
+    width: 120px;
+}
