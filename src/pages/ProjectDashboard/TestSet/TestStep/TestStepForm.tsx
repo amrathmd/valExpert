@@ -172,7 +172,7 @@ const TestStepForm: React.FC<Props> = ({
         };
 
         fetchTestSteps();
-    }, [currPage]);
+    }, [currPage, count]);
     React.useEffect(() => {
         if (success) {
             const timer = setTimeout(() => {

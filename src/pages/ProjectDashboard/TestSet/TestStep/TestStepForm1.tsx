@@ -24,11 +24,15 @@ interface Props {
 
     handleTestStepForm: () => void;
     setOpenTestStepForm: (open: boolean) => void;
+    count: number;
+    setcount: (count: number) => void;
 }
 const TestStepForm1: React.FC<Props> = ({
     testScriptId,
     handleTestStepForm,
     setOpenTestStepForm,
+    count,
+    setcount,
 }) => {
     const [testStep, setTestStep] = React.useState<TestStep>(defaultForm);
     const [stepNumber, setTestStepNumber] = React.useState<number>(0);
@@ -79,6 +83,7 @@ const TestStepForm1: React.FC<Props> = ({
                 .then((response) => {
                     setTestStep(defaultForm);
                     setSaveandCreateSuccess(true);
+                    setcount(count + 1);
                 });
         } catch (e) {
             console.log(e);
@@ -100,6 +105,7 @@ const TestStepForm1: React.FC<Props> = ({
                 .post(`${react_backend_url}/v1/teststeps`, testStep)
                 .then((response) => {
                     setSaveandExitSuccess(true);
+                    setcount(count + 1);
                 });
         } catch (e) {
             console.log(e);

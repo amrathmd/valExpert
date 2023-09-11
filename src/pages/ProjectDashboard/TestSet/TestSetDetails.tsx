@@ -368,6 +368,8 @@ const TestSetDetails: React.FC<Props> = ({
                                         }
                                         testScriptId={selectedTestScript}
                                         handleTestStepForm={handleTestStepForm}
+                                        count={count}
+                                        setcount={setcount}
                                     />
                                 </div>
                             )}

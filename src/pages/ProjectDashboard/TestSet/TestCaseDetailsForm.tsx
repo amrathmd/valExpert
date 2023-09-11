@@ -298,9 +298,23 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                                 setOpenTestStepForm={setOpenTestStepForm}
                                 testScriptId={savedTestCase}
                                 handleTestStepForm={handleTestStepForm}
+                                count={count}
+                                setcount={setcount}
                             />
                         </div>
                     )}
+                    <TestStepForm
+                        count={count}
+                        setcount={setcount}
+                        currPage={currPage}
+                        setCurrentPage={setCurrentPage}
+                        testCaseId={savedTestCase}
+                        handleTestCaseform={handleTestCaseForm}
+                        isSaved={isSaved}
+                        setIsSaved={setIsSaved}
+                        isEditMode={isEditMode}
+                        setIsEditMode={setIsEditMode}
+                    />
                 </div>
             )}
         </div>
