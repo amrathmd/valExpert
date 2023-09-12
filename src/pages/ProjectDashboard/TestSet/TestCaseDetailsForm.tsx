@@ -286,8 +286,8 @@ const TestCaseDetailsForm: React.FC<Props> = ({
                             alt=""
                             style={{
                                 display: 'inline-block',
-                                height: '30px',
-                                width: '30px',
+                                height: '20px',
+                                width: '20px',
                             }}
                         />
                         <span className="header-text-teststep">Add Step</span>

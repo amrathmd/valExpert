@@ -55,7 +55,6 @@
 .TestCaseFrom-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
@@ -65,6 +64,12 @@
 }
 .header-text-testcase {
     width: 95%;
+}
+.header-text-testcase > p {
+    font-size: 11pt;
+    color: #fff;
+    display: inline-block;
+    font-weight: 550;
 }
 .editTestDetailsValue {
     width: 100%;

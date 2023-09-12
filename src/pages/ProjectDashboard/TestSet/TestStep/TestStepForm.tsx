@@ -60,7 +60,7 @@ const TestStepForm: React.FC<Props> = ({
     const [saving, setSaving] = React.useState<boolean>(false);
     const [success, setSuccess] = React.useState<boolean>(false);
     const [SaveDialogOpen, setSaveDialogOpen] = React.useState(false);
-    const [openTestStepForm, setOpenTestStepForm] = React.useState(false);
+    const [openTestStepForm, setOpenTestStepForm] = React.useState(true);
     const [validationError, setValidationError] = React.useState<string>();
     const [cancel, setCancel] = React.useState<boolean>(false);
     const [testStep, setTestStep] = React.useState<TestStep>();
@@ -202,7 +202,9 @@ const TestStepForm: React.FC<Props> = ({
     return (
         <div>
             {testSteps && testSteps.length === 0 ? (
-                <h1>No testSteps </h1>
+                <div className="No-testSteps">
+                    <h1>No testSteps </h1>
+                </div>
             ) : (
                 <div>
                     <div className="testStepForm">
@@ -221,7 +223,7 @@ const TestStepForm: React.FC<Props> = ({
                                 ) : (
                                     <ExpandMore />
                                 )}
-                                <p>Step {currPage}</p>
+                                <b>Step {currPage}</b>
                             </div>
 
                             <div className="searchTestSet">
@@ -357,7 +359,7 @@ const TestStepForm: React.FC<Props> = ({
                                     page={currPage}
                                 />
                             </div>
-                            <div className="teststepbutton">
+                            {/* <div className="teststepbutton">
                                 <button
                                     onClick={handleDialogOpen}
                                     className="testsetsavebutton"
@@ -370,7 +372,7 @@ const TestStepForm: React.FC<Props> = ({
                                 >
                                     Cancel
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </Collapse>
                     <Dialog

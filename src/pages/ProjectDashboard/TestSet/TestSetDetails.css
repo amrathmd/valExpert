@@ -28,7 +28,7 @@
 .testcase-section {
     width: 100%;
     display: flex;
-    flex-direction: row;       
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 10px;
 
@@ -129,4 +129,8 @@
 .testRight-table tr td {
     font-size: 10pt;
     text-align: left;
+}
+
+.header-text-teststep > p {
+    font-size: 11pt;
 }

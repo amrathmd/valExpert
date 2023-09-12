@@ -123,13 +123,13 @@
 .testStep-mini-header {
     margin-left: 10px;
 }
-.testStep-mini-header > p {
+.testStep-mini-header > b {
     color: black;
     font-size: 12pt;
     font-weight: 600;
     display: inline;
-    margin-left: 5px;
     cursor: pointer;
+    font-size: 11pt;
 }
 .testStep-mini-header {
     width: 80%;
@@ -147,6 +147,8 @@
     outline: none;
     padding: 0px;
     margin: 0px;
+    font-size: 9pt;
+    font-family: Arial;
 }
 .testseterrormessage {
     color: #ff3333;
@@ -155,4 +157,12 @@
     align-items: center;
     justify-content: center;
     height: 20px;
+}
+
+.No-testSteps {
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
