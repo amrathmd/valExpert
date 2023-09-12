@@ -14,6 +14,11 @@
     display: flex;
     justify-content: space-between;
 } */
+
+.testCaseDetailsView > table {
+    border-collapse: separate;
+    border-spacing: 15px;
+}
 .testCaseTable td {
     padding-right: 50px;
     width: 200px;
@@ -21,26 +26,27 @@
 .testDetailsLabel {
     font-size: 9pt;
     font-weight: bold;
-    width: 12%;
-}
-.testDetailsLabel b {
-    margin-left: 20px;
+    width: 10%;
+    vertical-align: top;
+    text-align: right;
+    white-space: nowrap;
 }
 .testDetailsValue {
-    width: 35%;
+    vertical-align: top;
+    width: 40%;
+    font-size: 9pt;
 }
 .testCaseDetailsView {
     display: flex;
     flex-direction: row;
     border: 1px solid #c1bfbf;
-    margin: 20px;
-    padding: 20px;
+    margin-top: 10px;
+    padding: 5px 5px;
 }
 .testCaseDetailsView div {
     width: 50%;
 }
 .testcaseandsetdetails {
-    margin: 20px;
 }
 .editTestCase {
     height: 20px;
@@ -49,7 +55,6 @@
 .TestCaseFrom-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
@@ -60,15 +65,22 @@
 .header-text-testcase {
     width: 95%;
 }
+.header-text-testcase > p {
+    font-size: 11pt;
+    color: #fff;
+    display: inline-block;
+    font-weight: 550;
+}
 .editTestDetailsValue {
     width: 100%;
     border: 1px solid #c1bfbf;
+    font-size: 9pt;
 }
 .testCaseDetailsButtons {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20px;
+    margin-top: 10px;
     gap: 10px;
 }
 .testCaseDetailsButtonEdit {
@@ -88,4 +100,17 @@
     padding: 5px;
     border-radius: 3px;
     width: 100px;
+}
+.dialogOpen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(87, 86, 86, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

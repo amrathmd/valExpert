@@ -1,6 +1,6 @@
 .TestCaseFrom-header {
     background-color: #3575ba;
-    color: white;
+    color: #fff;
     padding: 5px;
 }
 
@@ -60,6 +60,7 @@
     border: 1px solid #d9d9d9;
     padding: 5px;
     resize: vertical;
+    font-size: 9pt;
 }
 .testCaseFormLabel {
     font-size: 9pt;
@@ -73,6 +74,7 @@
     width: 423px;
     height: 44px;
     padding: 5px;
+    font-size: 9pt;
 }
 .error-message {
     display: flex;

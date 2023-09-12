@@ -11,6 +11,9 @@ import { Icon } from '@iconify/react';
 import pageFacingUp from '@iconify/icons-fluent-emoji-high-contrast/page-facing-up';
 import './TestSetDetails.css';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import TestStepForm from './TestStep/TestStepForm';
+import TestCaseDetails from './TestCaseDetails';
+import TestStepForm1 from './TestStep/TestStepForm1';
 interface Props {
     selectedItem: number;
     projectId: string;
@@ -53,6 +56,17 @@ const TestSetDetails: React.FC<Props> = ({
 
     const [testSetDetails, setTestSetDetails] = useState<any>(null);
     const [isFormVisible, setFormVisible] = useState(false);
+    const [selectedTestScript, setSelectedTestScript] = useState<string>(null);
+    const [openTestStepForm, setOpenTestStepForm] = useState<boolean>(false);
+    const [count, setcount] = React.useState<number>(1);
+    const [currPage, setCurrentPage] = React.useState<number>(1);
+
+    const [isSaved, setIsSaved] = React.useState(false);
+    const [isEditMode, setIsEditMode] = React.useState(false);
+    const [testStep, setTestStep] = React.useState(null);
+    const handleTestStepForm = () => {
+        setOpenTestStepForm(!openTestStepForm);
+    };
 
     React.useEffect(() => {
         if (testSet) {
@@ -96,9 +110,9 @@ const TestSetDetails: React.FC<Props> = ({
         { key: 'author', label: 'Author' },
         // { key: '_Id', label: 'ScriptNumber' },
     ];
-    function handleEditIconClick(requirement: any): void {
-        throw new Error('Function not implemented.');
-    }
+    const handleSelectedTestScript = (id: string) => {
+        setSelectedTestScript(id);
+    };
     const handleTestSetOpen = () => {
         setOpenTestSetDetails(!openTestSetDetails);
     };
@@ -118,7 +132,7 @@ const TestSetDetails: React.FC<Props> = ({
                                 />
                             )}
                         </div>
-                    ) : (
+                    ) : !selectedTestScript ? (
                         <div className="testSet-main">
                             <div className="testSet-left">
                                 <List
@@ -237,6 +251,11 @@ const TestSetDetails: React.FC<Props> = ({
                                                 <div
                                                     className="testcase-card"
                                                     key={script._id}
+                                                    onClick={() =>
+                                                        handleSelectedTestScript(
+                                                            script._id
+                                                        )
+                                                    }
                                                 >
                                                     <div className="testcase-image">
                                                         <img
@@ -320,6 +339,52 @@ const TestSetDetails: React.FC<Props> = ({
                                     </tr>
                                 </table>
                             </div>
+                        </div>
+                    ) : (
+                        <div>
+                            <TestCaseDetails testCaseId={selectedTestScript} />
+                            <div
+                                onClick={handleTestStepForm}
+                                className="testStepHeader"
+                            >
+                                <img
+                                    src="../../../../public/roundedplus.png"
+                                    alt=""
+                                    style={{
+                                        display: 'inline-block',
+                                        height: '20px',
+                                        width: '20px',
+                                    }}
+                                />
+                                <span className="header-text-teststep">
+                                    <p>Add Step</p>
+                                </span>
+                            </div>
+                            {openTestStepForm && (
+                                <div className="dialogOpen">
+                                    <TestStepForm1
+                                        setOpenTestStepForm={
+                                            setOpenTestStepForm
+                                        }
+                                        testScriptId={selectedTestScript}
+                                        handleTestStepForm={handleTestStepForm}
+                                        count={count}
+                                        setcount={setcount}
+                                    />
+                                </div>
+                            )}
+                            <TestStepForm
+                                count={count}
+                                setcount={setcount}
+                                currPage={currPage}
+                                setCurrentPage={setCurrentPage}
+                                testCaseId={selectedTestScript}
+                                handleTestCaseform={handleTestCaseForm}
+                                isSaved={isSaved}
+                                setIsSaved={setIsSaved}
+                                isEditMode={isEditMode}
+                                setIsEditMode={setIsEditMode}
+                            />
                         </div>
                     )}
                 </div>

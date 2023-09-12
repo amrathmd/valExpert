@@ -30,7 +30,7 @@ interface Props {
 const TestCaseDetails: React.FC<Props> = ({ testCaseId }) => {
     const [testCase, setTestCase] = React.useState<TestCase>();
     const [openTestCaseDetails, setOpenTestCaseDetails] =
-        React.useState<boolean>();
+        React.useState<boolean>(true);
 
     const handleOpenTestCaseDetails = () => {
         setOpenTestCaseDetails(!openTestCaseDetails);
@@ -99,9 +99,8 @@ const TestCaseDetails: React.FC<Props> = ({ testCaseId }) => {
                         onClick={handleOpenTestCaseDetails}
                     >
                         {openTestCaseDetails ? <ExpandLess /> : <ExpandMore />}
-                        <span>
-                            <b>Test case Details</b>
-                        </span>
+
+                        <p>Test case Details</p>
                     </div>
                     {!editMode && (
                         <div
