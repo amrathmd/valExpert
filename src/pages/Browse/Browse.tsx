@@ -205,7 +205,7 @@ const Browse: React.FC = () => {
                                                 <br /> effective collaboration
                                                 Enhanced Project
                                                 Management,Customized User
-                                                Permissions.
+                                                Permissions dear .
                                             </li>
                                             <li>
                                                 We believe that by adding users
