@@ -1,0 +1,27 @@
+.specificReq-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.specific-req-details {
+    width: 50%;
+}
+.req-details-table {
+    border-collapse: collapse;
+}
+.req-details-table th {
+    text-align: left;
+    width: 50%;
+    padding-bottom: 2%;
+}
+.req-details-table td {
+    text-align: left;
+    width: 50%;
+    padding-bottom: 2%;
+}
+
+.req-details-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

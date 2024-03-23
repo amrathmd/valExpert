@@ -1,0 +1,16 @@
+.testcase-item {
+    margin: 10px;
+}
+.testcase-submit {
+    display: flex;
+    justify-content: space-around;
+}
+.heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.heading > h2 {
+    font-weight: bold;
+    font-size: 18px;
+}

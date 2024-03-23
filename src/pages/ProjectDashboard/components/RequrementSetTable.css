@@ -1,0 +1,70 @@
+.requirements-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 20px;
+}
+.requirementSet-main {
+    width: 180px;
+    height: 170px;
+}
+.requirementSet-card {
+    width: 180px;
+    height: 170px;
+    border-radius: 7.693px;
+    border: 0.962px solid #d0d5dd;
+    margin-right: 30px;
+}
+.requirementSet-card:hover {
+    background-color: #eff5fe;
+    transition: background-color 0.3s;
+}
+.requirementSet-image {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 170px;
+    height: 80px;
+    padding-right: 0;
+}
+
+.requireimg {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+}
+
+.icon-border12 {
+    border-radius: 5px;
+    border: 0.962px solid #d0d5dd;
+    width: 22px;
+    height: 22px;
+}
+.edit-pic1 {
+    width: 20px;
+    height: 20px;
+}
+.iconimg-small {
+    height: 80px;
+    width: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 5px;
+    padding-top: 5px;
+}
+.reqtest-description {
+    padding-left: 10px;
+    width: 148px;
+    height: 80px;
+}
+.reqtest-description > b {
+    font-size: 10pt;
+}
+.reqtest-description > p {
+    font-size: 9pt;
+}

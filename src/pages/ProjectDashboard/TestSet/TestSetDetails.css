@@ -1,0 +1,136 @@
+.TestSet-page {
+    padding: 20px;
+}
+.testCaseheader {
+    width: 100%;
+    background: #3575ba;
+
+    height: 35px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+.testCaseheader > b {
+    color: white;
+    font-size: 10pt;
+}
+
+.test-set-details-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin-bottom: 20px;
+}
+.test-set-details-column {
+    display: flex;
+    flex-direction: column;
+}
+.testcase-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 20px;
+}
+.testcase-card {
+    width: 160px;
+    height: 170px;
+    border-radius: 7.693px;
+    border: 0.962px solid #d0d5dd;
+    padding: 5px;
+}
+.testcase-card:hover {
+    background-color: #eff5fe;
+    transition: background-color 0.3s;
+}
+.testcase-image {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.testcaseicon {
+    width: 80px;
+    height: 80px;
+}
+.testcaseicons-small {
+    height: 80px;
+    width: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 5px;
+}
+.testcase-pic1 {
+    height: 20px;
+    width: 20px;
+}
+.testcase-border1 {
+    border-radius: 5px;
+    border: 0.962px solid #d0d5dd;
+}
+.testcase-description {
+    padding-left: 10px;
+}
+.testcase-description > b {
+    font-size: 10pt;
+}
+.testcase-description > p {
+    font-size: 9pt;
+}
+.test-set-detail > tr > td {
+    padding-right: 20px;
+    font-family: 'Arial';
+    font-size: 10pt;
+}
+.TestCaseFrom-header:hover {
+    cursor: pointer;
+}
+.line {
+    height: 0.0625rem;
+    background: #b8b6b6;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.test-set-details-column {
+    margin-top: 15px;
+}
+
+.testSet-main {
+    display: grid;
+    grid-template-columns: auto 260px;
+}
+.testSet-left {
+    padding-right: 10px;
+}
+.testSet-right {
+    width: 260px;
+    height: 100vh;
+    border-left: 1px solid #b8b6b6;
+    padding-top: 40px;
+}
+.testRight-table {
+    width: 100%;
+    margin: 5px;
+}
+.testSet-right > b {
+    font-size: 11pt;
+    margin: 5px;
+}
+.testRight-table tr th {
+    font-size: 10pt;
+    text-align: left;
+    padding: 5px 0px 5px 0px;
+    border-top: 1px solid #dbdada;
+    border-bottom: 1px solid #dbdada;
+}
+.testRight-table tr td {
+    font-size: 10pt;
+    text-align: left;
+}
+
+.header-text-teststep > p {
+    font-size: 11pt;
+}

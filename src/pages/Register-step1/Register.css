@@ -1,0 +1,60 @@
+.register2-container {
+    display: flex;
+    /* align-items: center;
+    justify-content: center; */
+    width: 100vw;
+    /* height: 100vh; */
+    background-color: rgb(255, 255, 255);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+}
+.head2{
+    color: #063762;
+    font-weight:bolder;
+    font-size: 25px;
+}
+.register-form2{
+    padding-top: 20px;
+    padding-left: 35px;
+    border-radius: 10px;
+    margin-left: 680px;
+    margin-top: 120px;
+    width: 20vw;
+    height: 65vh;
+    background-color:rgb(247, 247, 247);
+}
+.input-elements {
+    display: flex;
+    flex-direction: column;
+}
+.input-elements > label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 450;
+}
+.input-elements > input {
+    border-radius: 10px;
+}
+
+.register-form{
+    width: 420px;
+}
+.company-name,
+.company-state,
+.company-city,
+.company-postalcode,
+.company-country,
+.company-phone,
+.company-email {
+    padding: 4px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .register-form {
+        margin-top: 80px;
+    }
+}
